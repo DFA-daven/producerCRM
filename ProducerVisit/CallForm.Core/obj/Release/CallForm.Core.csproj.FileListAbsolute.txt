@@ -1,0 +1,34 @@
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.CrossCore.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.MvvmCross.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.MvvmCross.Localization.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.File.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Json.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Location.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Messenger.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.PictureChooser.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Sqlite.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Newtonsoft.Json.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Network.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Visibility.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\obj\Release\CallForm.Core.csprojResolveAssemblyReference.cache
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\FieldPersonCallForm.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Release\FieldPersonCallForm.pdb
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\obj\Release\FieldPersonCallForm.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\obj\Release\FieldPersonCallForm.pdb
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\FieldPersonCallForm.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\FieldPersonCallForm.pdb
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.CrossCore.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.MvvmCross.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.MvvmCross.Localization.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.File.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Json.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Location.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Messenger.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Network.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.PictureChooser.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Sqlite.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Cirrious.MvvmCross.Plugins.Visibility.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\bin\Release\Newtonsoft.Json.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\obj\Release\CallForm.Core.csprojResolveAssemblyReference.cache
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\obj\Release\FieldPersonCallForm.dll
+C:\temp\dairyleasource 2013-12-06\CallForm.Core\obj\Release\FieldPersonCallForm.pdb

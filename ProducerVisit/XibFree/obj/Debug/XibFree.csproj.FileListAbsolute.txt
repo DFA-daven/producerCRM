@@ -1,0 +1,10 @@
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\bin\Debug\XibFree.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\bin\Debug\XibFree.pdb
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\obj\Debug\XibFree.csprojResolveAssemblyReference.cache
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\obj\Debug\XibFree.dll
+E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\obj\Debug\XibFree.pdb
+C:\temp\dairyleasource 2013-12-06\XibFree\bin\Debug\XibFree.dll
+C:\temp\dairyleasource 2013-12-06\XibFree\bin\Debug\XibFree.pdb
+C:\temp\dairyleasource 2013-12-06\XibFree\obj\Debug\XibFree.csprojResolveAssemblyReference.cache
+C:\temp\dairyleasource 2013-12-06\XibFree\obj\Debug\XibFree.dll
+C:\temp\dairyleasource 2013-12-06\XibFree\obj\Debug\XibFree.pdb
