@@ -14,7 +14,7 @@ namespace CallForm.iOS.ViewElements
             _textField = new UITextField
             {
                 ShouldChangeCharacters = shouldChange,
-                Text = text ?? "",
+                Text = text ?? string.Empty,
                 TextAlignment = UITextAlignment.Right,
                 BackgroundColor = BackgroundColor,
                 TextColor = UIColor.Black,
@@ -35,7 +35,7 @@ namespace CallForm.iOS.ViewElements
 
         public void SetText(string text)
         {
-            _textField.Text = text ?? "";
+            _textField.Text = text ?? string.Empty;
         }
 
         public override void LayoutSubviews()

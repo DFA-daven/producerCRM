@@ -80,7 +80,7 @@ namespace CallForm.Core.ViewModels
 
         protected void DoNewVisitCommand()
         {
-            ShowViewModel<NewVisitViewModel>(new NewVisitInit {FarmNumber = ""});
+            ShowViewModel<NewVisitViewModel>(new NewVisitInit {FarmNumber = string.Empty});
         }
 
         private string _filter;

@@ -1,17 +1,15 @@
+using CallForm.Core.Models;
+using CallForm.Core.Services;
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using Cirrious.MvvmCross.Plugins.PictureChooser;
+using Cirrious.MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
-using System.Xml.Serialization;
-using CallForm.Core.Models;
-using CallForm.Core.Services;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.Plugins.File;
-using Cirrious.MvvmCross.Plugins.Messenger;
-using Cirrious.MvvmCross.Plugins.PictureChooser;
-using Cirrious.MvvmCross.ViewModels;
 
 namespace CallForm.Core.ViewModels
 {
@@ -75,7 +73,7 @@ namespace CallForm.Core.ViewModels
             Duration = report.Duration;
             DurationString = report.Duration.ToString("F2");
             ActualTime = report.EntryDateTime;
-            CallType = CallType;
+            CallType = report.CallType;
             ReasonCodes = report.ReasonCodes.ToList();
             Notes = report.Notes;
             if (report.EmailRecipients == null)
@@ -271,15 +269,15 @@ namespace CallForm.Core.ViewModels
             }
             else if (ReasonCodes.Count <= 0)
             {
-                Error(this, new ErrorEventArgs {Message = "You must select a reason for the contact"});
+                Error(this, new ErrorEventArgs {Message = "You must select at least one reason for the contact."});
             }
             else if (!decimal.TryParse(DurationString, out _duration))
             {
-                Error(this, new ErrorEventArgs { Message = "Invalid Duration" });
+                Error(this, new ErrorEventArgs { Message = "Invalid Duration " });
             }
             else if (Duration <= 0)
             {
-                Error(this, new ErrorEventArgs { Message = "You must enter a call duration" });
+                Error(this, new ErrorEventArgs { Message = "You must enter a call duration." });
             }
             else if (Editing)
             {

@@ -1,8 +1,11 @@
-﻿.DS_Store
-assemblies\CallFormiOS.exe.mdb
+﻿assemblies\CallFormiOS.exe.mdb
 assemblies\CallFormiOS.pdb
+assemblies\Cirrious.FluentLayouts.Touch.dll
 assemblies\Cirrious.FluentLayouts.Touch.dll.mdb
 assemblies\Cirrious.FluentLayouts.Touch.pdb
+assemblies\Cirrious.MvvmCross.Dialog.Touch.dll
+assemblies\CrossUI.Core.dll
+assemblies\CrossUI.Touch.dll
 assemblies\Field Person Call Form.dll.mdb
 assemblies\XibFree.dll.mdb
 assemblies\XibFree.pdb
@@ -18,3 +21,18 @@ bundle\CallFormiOS.app\Resources\DFA Logo.jpg
 bundle\CallFormiOS.app\Resources\DMS Logo.jpg
 bundle\CallFormiOS.app\Resources\Dairylea Logo.jpg
 bundle\CallFormiOS.app\Resources\Dairylea-Logo.jpg
+bundle\CallFormiOS.app\ToDo-MvvmCross\_ Touch UI.txt
+source\Resources\Dairylea Logo.jpg
+source\ToDo-MvvmCross\_ Touch UI.txt
+source\Views\Copy of StringPickerDialogViewController.cs
+source\Views\Copy of TimeTableViewCell.cs
+source\Views\DateTimePickerDialogViewController.cs
+source\Views\EmailRecipientSelectDialogViewController.cs
+source\Views\FirstView.cs
+source\Views\ImageTableViewCell.cs
+source\Views\MainMenuView.cs
+source\Views\PickerDialogViewController.cs
+source\Views\StringPickerDialogViewController.cs
+source\Views\TextFieldTableViewCell.cs
+source\Views\TextViewTableViewCell.cs
+source\Views\TimeTableViewCell.cs

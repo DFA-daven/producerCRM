@@ -85,7 +85,7 @@ namespace CallForm.iOS.Views
 
             tableView.Source = source;
 
-            Title = "Producer Contact Mobile App";
+            Title = "Producer Contact 1.4.038.2";
         }
 
         private void OnError(object sender, ErrorEventArgs errorEventArgs)

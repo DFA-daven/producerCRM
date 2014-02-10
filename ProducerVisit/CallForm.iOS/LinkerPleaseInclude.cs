@@ -18,24 +18,24 @@ namespace CallForm.iOS
         public void Include(UIBarButtonItem barButton)
         {
             barButton.Clicked += (s, e) =>
-                                 barButton.Title = barButton.Title + "";
+                                 barButton.Title = barButton.Title + string.Empty;
         }
 
         public void Include(UITextField textField)
         {
-            textField.Text = textField.Text + "";
-            textField.EditingChanged += (sender, args) => { textField.Text = ""; };
+            textField.Text = textField.Text + string.Empty;
+            textField.EditingChanged += (sender, args) => { textField.Text = string.Empty; };
         }
 
         public void Include(UITextView textView)
         {
-            textView.Text = textView.Text + "";
-            textView.Changed += (sender, args) => { textView.Text = ""; };
+            textView.Text = textView.Text + string.Empty;
+            textView.Changed += (sender, args) => { textView.Text = string.Empty; };
         }
 
         public void Include(UILabel label)
         {
-            label.Text = label.Text + "";
+            label.Text = label.Text + string.Empty;
         }
 
         public void Include(UIImageView imageView)

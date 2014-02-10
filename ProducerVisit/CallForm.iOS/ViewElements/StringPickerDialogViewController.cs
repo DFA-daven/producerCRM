@@ -43,7 +43,7 @@ namespace CallForm.iOS.ViewElements
             _setValue(_model.SelectedItem);
         }
 
-        public override SizeF ContentSizeForViewInPopover
+        public override SizeF PreferredContentSize
         {
             get
             {
@@ -51,7 +51,8 @@ namespace CallForm.iOS.ViewElements
                 size.Height += 50;
                 return size;
             }
-            set { base.ContentSizeForViewInPopover = value; }
+            // set { base.ContentSizeForViewInPopover = value; }
+            set { base.PreferredContentSize = value; }
         }
     }
 
@@ -90,7 +91,7 @@ namespace CallForm.iOS.ViewElements
         public override string GetTitle(UIPickerView picker, int row, int component)
         {
             if (NoItem(row))
-                return "";
+                return string.Empty;
             var item = Items[row];
             return GetTitleForItem(item);
         }

@@ -76,7 +76,7 @@ namespace CallForm.Core.ViewModels
                 {
                     DeviceID = DeviceID,
                     UserEmail = UserEmail,
-                    AssetTag = AssetTag ?? ""
+                    AssetTag = AssetTag ?? string.Empty
                 };
 
                 _userIdentityService.SaveIdentity(id);

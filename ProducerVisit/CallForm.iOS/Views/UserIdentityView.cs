@@ -54,7 +54,7 @@ namespace CallForm.iOS.Views
                         View = email,
                         LayoutParameters = new LayoutParameters
                         {
-                            Width = 400
+                            Width = View.Bounds.Width
                         }
                     },
                     new NativeView
@@ -62,7 +62,7 @@ namespace CallForm.iOS.Views
                         View = assetTag,
                         LayoutParameters = new LayoutParameters
                         {
-                            Width = 400
+                            Width = View.Bounds.Width
                         }
                     },
                     new NativeView
@@ -70,7 +70,7 @@ namespace CallForm.iOS.Views
                         View = button,
                         LayoutParameters = new LayoutParameters
                         {
-                            Width = 400
+                            Width = View.Bounds.Width * 0.8f
                         }
                     },
                     new NativeView

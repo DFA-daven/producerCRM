@@ -30,10 +30,10 @@ namespace CallForm.iOS.ViewElements
             _viewModel.RaisePropertyChanged("ReasonCodes");
         }
 
-        public override SizeF ContentSizeForViewInPopover
+        public override SizeF PreferredContentSize
         {
             get { return _table.Frame.Size; }
-            set { base.ContentSizeForViewInPopover = value; }
+            set { base.PreferredContentSize = value; }
         }
     }
 
@@ -59,7 +59,7 @@ namespace CallForm.iOS.ViewElements
         {
             var doneButton = new UIButton(UIButtonType.System);
             doneButton.SetTitle("Done", UIControlState.Normal);
-            doneButton.TouchUpInside += (sender, args) => _source.DismissPopover();
+            doneButton.TouchUpInside += (sender, args) => InvokeOnMainThread(_source.DismissPopover);
             doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
             return doneButton;
         }

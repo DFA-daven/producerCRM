@@ -1,9 +1,8 @@
-﻿using System.Drawing;
-using CallForm.Core.ViewModels;
+﻿using CallForm.Core.ViewModels;
 using CallForm.iOS.ViewElements;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using XibFree;
+using System.Drawing;
 
 namespace CallForm.iOS.Views
 {
@@ -56,7 +55,7 @@ namespace CallForm.iOS.Views
                         break;
                     case "EmailRecipients":
                         _emailRecipientsCell.DetailTextLabel.Text = _viewModel.EmailRecipients == null
-                            ? ""
+                            ? string.Empty
                             : string.Join(", ", _viewModel.EmailRecipients);
                         tableView.ReloadData();
                         break;
@@ -75,8 +74,17 @@ namespace CallForm.iOS.Views
             _farmNoCell.TextLabel.Text = "Farm Number";
             if (!_viewModel.Editing)
             {
-                _farmNoCell.DetailTextLabel.Text = _viewModel.FarmNumber ?? "";
-                _farmNoCell.DetailTextLabel.TextColor = UIColor.Black;
+                _farmNoCell.DetailTextLabel.Text = _viewModel.FarmNumber ?? string.Empty;
+
+                // TODO: validate data (business logic - check for 8 digits now?, or wait until save is pressed?)
+                if (_farmNoCell.DetailTextLabel.Text.Length != 8)
+                {
+                    _farmNoCell.DetailTextLabel.TextColor = UIColor.Red;
+                }
+                else
+                {
+                    _farmNoCell.DetailTextLabel.TextColor = UIColor.Black;
+                }
             }
 
             _durationCell = new TextFieldTableViewCell("duration", _viewModel.Editing, _viewModel.DurationString,
@@ -106,7 +114,8 @@ namespace CallForm.iOS.Views
             _durationCell.TextLabel.Text = "Length of Call (hours)";
             if (!_viewModel.Editing)
             {
-                _durationCell.DetailTextLabel.Text = _viewModel.Duration.ToString("#0.##");
+                // TODO: validate data (make sure it's a number before attempting ToString) orig: ("#0.##")
+                _durationCell.DetailTextLabel.Text = _viewModel.Duration.ToString("00.00");
                 _durationCell.DetailTextLabel.TextColor = UIColor.Black;
             }
 
@@ -138,7 +147,7 @@ namespace CallForm.iOS.Views
             _emailRecipientsCell = new UITableViewCell(UITableViewCellStyle.Value1, "emailRecipients");
             _emailRecipientsCell.TextLabel.Text = "Email Recipients";
             _emailRecipientsCell.DetailTextLabel.Text = _viewModel.EmailRecipients == null
-                ? ""
+                ? string.Empty
                 : string.Join(", ", _viewModel.EmailRecipients);
             _emailRecipientsCell.DetailTextLabel.TextColor = UIColor.Black;
 
@@ -163,13 +172,15 @@ namespace CallForm.iOS.Views
                         break;
                     case 1:
                         _popover = new UIPopoverController(CallTypePickerPopover);
-                        _popover.PopoverContentSize = CallTypePickerPopover.ContentSizeForViewInPopover;
+                        // _popover.PopoverContentSize = CallTypePickerPopover.ContentSizeForViewInPopover;
+                        _popover.PopoverContentSize = CallTypePickerPopover.PreferredContentSize;
                         _popover.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath), tableView.Superview,
                             UIPopoverArrowDirection.Any, true);
                         break;
                     case 2:
                         _popover = new UIPopoverController(DatePickerPopover);
-                        _popover.PopoverContentSize = DatePickerPopover.ContentSizeForViewInPopover;
+                        // _popover.PopoverContentSize = DatePickerPopover.ContentSizeForViewInPopover;
+                        _popover.PopoverContentSize = DatePickerPopover.PreferredContentSize;
                         _popover.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath), tableView.Superview,
                             UIPopoverArrowDirection.Any, true);
                         break;
@@ -178,7 +189,8 @@ namespace CallForm.iOS.Views
                         break;
                     case 4:
                         _popover = new UIPopoverController(ReasonPickerPopover);
-                        _popover.PopoverContentSize = ReasonPickerPopover.ContentSizeForViewInPopover;
+                        // _popover.PopoverContentSize = ReasonPickerPopover.ContentSizeForViewInPopover;
+                        _popover.PopoverContentSize = ReasonPickerPopover.PreferredContentSize;
                         _popover.PresentFromRect(RectangleF.Empty, tableView.Superview,
                             UIPopoverArrowDirection.Any, true);
                         break;
@@ -190,7 +202,8 @@ namespace CallForm.iOS.Views
                         break;
                     case 7:
                         _popover = new UIPopoverController(EmailPickerPopover);
-                        _popover.PopoverContentSize = EmailPickerPopover.ContentSizeForViewInPopover;
+                        // _popover.PopoverContentSize = EmailPickerPopover.ContentSizeForViewInPopover;
+                        _popover.PopoverContentSize = EmailPickerPopover.PreferredContentSize;
                         var rect = tableView.RectForRowAtIndexPath(indexPath);
                         rect.Width = 0;
                         _popover.PresentFromRect(rect, tableView.Superview,
@@ -235,7 +248,7 @@ namespace CallForm.iOS.Views
                 case 7:
                     return _emailRecipientsCell;
             }
-            var rVal = new UITableViewCell(UITableViewCellStyle.Value1, "");
+            var rVal = new UITableViewCell(UITableViewCellStyle.Value1, string.Empty);
             rVal.TextLabel.Text = indexPath.Row.ToString();
             return rVal;
         }

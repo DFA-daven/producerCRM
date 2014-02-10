@@ -7,13 +7,15 @@
 		<integer>2</integer>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
-	<array/>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
 	<string>3.2</string>
@@ -34,17 +36,10 @@
 		<string>Icon-72@2x.png</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string>Producer Contact Mobile App</string>
+	<string>Field Person Call Form</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.actionxl.dairylea.producervisit</string>
+	<string>com.actionxl.dairylea.callform</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyle-1</string>
-	<key>UIStatusBarTintParameters</key>
-	<dict>
-		<key>UINavigationBar</key>
-		<dict/>
-	</dict>
 </dict>
 </plist>
