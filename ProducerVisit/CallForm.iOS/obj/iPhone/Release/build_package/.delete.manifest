@@ -1,7 +1,7 @@
-﻿assemblies\CallFormiOS.exe.mdb
+﻿.DS_Store
+assemblies\CallFormiOS.exe.mdb
 assemblies\CallFormiOS.pdb
 assemblies\Cirrious.FluentLayouts.Touch.dll.mdb
 assemblies\Cirrious.FluentLayouts.Touch.pdb
-assemblies\Field Person Call Form.dll.mdb
 assemblies\XibFree.dll.mdb
 assemblies\XibFree.pdb

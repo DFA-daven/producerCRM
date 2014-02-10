@@ -1,4 +1,5 @@
-﻿using CallForm.Core.ViewModels;
+﻿using System.Drawing;
+using CallForm.Core.ViewModels;
 using CallForm.iOS.ViewElements;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -43,8 +44,8 @@ namespace CallForm.iOS.Views
                             ? string.Join(", ", _viewModel.ReasonCodes)
                             : "Tap to Select";
                         break;
-                    case "Duration":
-                        _durationCell.SetText(_viewModel.Duration.ToString("F2"));
+                    case "DurationString":
+                        _durationCell.SetText(_viewModel.DurationString);
                         break;
                     case "Notes":
                         _notesCell.SetText(_viewModel.Notes);
@@ -78,35 +79,34 @@ namespace CallForm.iOS.Views
                 _farmNoCell.DetailTextLabel.TextColor = UIColor.Black;
             }
 
-            _durationCell = new TextFieldTableViewCell("duration", _viewModel.Editing, _viewModel.Duration.ToString("F2"),
-                UIKeyboardType.NumberPad, (field, range, replacementString) =>
+            _durationCell = new TextFieldTableViewCell("duration", _viewModel.Editing, _viewModel.DurationString,
+                UIKeyboardType.DecimalPad, (field, range, replacementString) =>
                 {
-                    int i;
-                    if (replacementString.Length > 0 && !int.TryParse(replacementString, out i))
-                        return false;
-                    decimal d = decimal.Parse(field.Text) * 100;
-                    if (replacementString.Length <= 0)
+                    string newString = new NSString(field.Text).Replace(range, new NSString(replacementString));
+                    decimal d;
+                    if (decimal.TryParse(newString, out d))
                     {
-                        d -= d % 10;
-                        d /= 10;
-                    }
-                    else
-                    {
-                        foreach (char c in replacementString)
+                        if (d > 100)
                         {
-                            d *= 10;
-                            d += int.Parse("" + c);
+                            return false;
                         }
+                        if (newString.Contains(".") && newString.Length - newString.IndexOf('.') > 3)
+                        {
+                            return false;
+                        }
+                        return true;
                     }
-                    d /= 100;
-                    _viewModel.Duration = d;
-                    return false;
-                }, (sender, args) => { }
+                    return newString.Length <= 0;
+                }, 
+                (sender, args) =>
+                {
+                    _viewModel.DurationString = (sender as UITextField).Text;
+                }
                 );
             _durationCell.TextLabel.Text = "Length of Call (hours)";
             if (!_viewModel.Editing)
             {
-                _durationCell.DetailTextLabel.Text = _viewModel.Duration.ToString("F2");
+                _durationCell.DetailTextLabel.Text = _viewModel.Duration.ToString("#0.##");
                 _durationCell.DetailTextLabel.TextColor = UIColor.Black;
             }
 
@@ -179,7 +179,7 @@ namespace CallForm.iOS.Views
                     case 4:
                         _popover = new UIPopoverController(ReasonPickerPopover);
                         _popover.PopoverContentSize = ReasonPickerPopover.ContentSizeForViewInPopover;
-                        _popover.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath), tableView.Superview,
+                        _popover.PresentFromRect(RectangleF.Empty, tableView.Superview,
                             UIPopoverArrowDirection.Any, true);
                         break;
                     case 5:

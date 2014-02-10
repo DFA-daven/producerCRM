@@ -42,8 +42,9 @@ namespace CallForm.Core.ViewModels
         {
             foreach (var producerVisitReport in _dataService.ToUpload().ToList())
             {
+                // TODO: update this to the current backend target
                 var request =
-                    new MvxJsonRestRequest<ProducerVisitReport>("http://dairyleademo.azurewebsites.net/Visit/Log/")
+                    new MvxJsonRestRequest<ProducerVisitReport>("http://dl-backend-02.azurewebsites.net/Visit/Log/")
                     {
                         Body = producerVisitReport,
                         Tag = producerVisitReport.ID.ToString()
@@ -131,7 +132,8 @@ namespace CallForm.Core.ViewModels
             else
             {
                 Loading = true;
-                var request = new MvxRestRequest("http://dairyleademo.azurewebsites.net/Visit/Recent/" + Filter);
+                // TODO: update this to the current backend target
+                var request = new MvxRestRequest("http://dl-backend-02.azurewebsites.net/Visit/Recent/" + Filter);
                 _jsonRestClient.MakeRequestFor<List<ReportListItem>>(request,
                     response =>
                     {
@@ -192,7 +194,8 @@ namespace CallForm.Core.ViewModels
                 else
                 {
                     Loading = true;
-                    var request = new MvxRestRequest("http://dairyleademo.azurewebsites.net/Visit/Report/" + SelectedReport.ID);
+                    // TODO: update this to the current backend target
+                    var request = new MvxRestRequest("http://dl-backend-02.azurewebsites.net/Visit/Report/" + SelectedReport.ID);
                     _jsonRestClient.MakeRequestFor<ProducerVisitReport>(request,
                         response =>
                         {

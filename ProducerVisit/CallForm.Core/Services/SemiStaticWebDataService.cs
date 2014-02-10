@@ -78,11 +78,13 @@ namespace CallForm.Core.Services
 
         public void Update()
         {
-            var request = new MvxRestRequest("http://dairyleademo.azurewebsites.net/Visit/Reasons/");
+            // TODO: update this to the current backend target
+            var request = new MvxRestRequest("http://dl-backend-02.azurewebsites.net/Visit/Reasons/");
             _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
                 response => _dataService.UpdateReasons(response.Result),
                 exception => { });
-            request = new MvxRestRequest("http://dairyleademo.azurewebsites.net/Visit/CallTypes/");
+            // TODO: update this to the current backend target
+            request = new MvxRestRequest("http://dl-backend-02.azurewebsites.net/Visit/CallTypes/");
             _jsonRestClient.MakeRequestFor<List<string>>(request,
                 response =>
                 {
@@ -91,7 +93,8 @@ namespace CallForm.Core.Services
                     _fileStore.WriteFile(filename, Serialize(response.Result));
                 },
                 exception => { });
-            request = new MvxRestRequest("http://dairyleademo.azurewebsites.net/Visit/EmailRecipients/");
+            // TODO: update this to the current backend target
+            request = new MvxRestRequest("http://dl-backend-02.azurewebsites.net/Visit/EmailRecipients/");
             _jsonRestClient.MakeRequestFor<List<string>>(request,
                 response =>
                 {

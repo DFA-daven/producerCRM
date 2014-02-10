@@ -1,4 +1,7 @@
-﻿assemblies\Field Person Call Form.dll.mdb
+﻿.DS_Store
+assemblies\Field Person Call Form.dll
+assemblies\Field Person Call Form.dll.mdb
+assemblies\Field Person Call Form.pdb
 bundle\CallFormiOS.app\Resources\100x100.png
 bundle\CallFormiOS.app\Resources\114x114.png
 bundle\CallFormiOS.app\Resources\144x144.png
@@ -9,4 +12,5 @@ bundle\CallFormiOS.app\Resources\58x58.png
 bundle\CallFormiOS.app\Resources\72x72.png
 bundle\CallFormiOS.app\Resources\DFA Logo.jpg
 bundle\CallFormiOS.app\Resources\DMS Logo.jpg
+bundle\CallFormiOS.app\Resources\Dairylea Logo.jpg
 bundle\CallFormiOS.app\Resources\Dairylea-Logo.jpg

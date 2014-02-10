@@ -73,6 +73,7 @@ namespace CallForm.Core.ViewModels
             Lng = report.Lng;
             Date = report.VisitDate;
             Duration = report.Duration;
+            DurationString = report.Duration.ToString("F2");
             ActualTime = report.EntryDateTime;
             CallType = CallType;
             ReasonCodes = report.ReasonCodes.ToList();
@@ -189,6 +190,18 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        private string _durationString;
+
+        public string DurationString
+        {
+            get { return _durationString; }
+            set
+            {
+                _durationString = value;
+                RaisePropertyChanged(() => DurationString);
+            }
+        }
+
         private DateTime _actualTime;
 
         public DateTime ActualTime
@@ -259,6 +272,10 @@ namespace CallForm.Core.ViewModels
             else if (ReasonCodes.Count <= 0)
             {
                 Error(this, new ErrorEventArgs {Message = "You must select a reason for the contact"});
+            }
+            else if (!decimal.TryParse(DurationString, out _duration))
+            {
+                Error(this, new ErrorEventArgs { Message = "Invalid Duration" });
             }
             else if (Duration <= 0)
             {
