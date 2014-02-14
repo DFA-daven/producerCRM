@@ -39,3 +39,5 @@ E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.iOS\bin\iPhone\Debug\X
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.iOS\bin\iPhone\Debug\FieldPersonCallForm.dll.mdb
 C:\temp\dairyleasource 2014-02-05\CallForm.iOS\obj\iPhone\Debug\CallFormiOS.exe
 C:\temp\dairyleasource 2014-02-05\CallForm.iOS\obj\iPhone\Debug\CallFormiOS.pdb
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.iOS\obj\iPhone\Debug\CallFormiOS.exe
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.iOS\obj\iPhone\Debug\CallFormiOS.pdb
