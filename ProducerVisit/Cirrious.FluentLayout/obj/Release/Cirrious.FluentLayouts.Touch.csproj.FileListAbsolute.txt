@@ -3,3 +3,6 @@ E:\bkalb\Desktop\Dairylea\Field Person Call Form\Cirrious.FluentLayout\obj\Relea
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\Cirrious.FluentLayout\obj\Release\Cirrious.FluentLayouts.Touch.dll
 C:\temp\dairyleasource 2014-02-05\Cirrious.FluentLayout\bin\iPhoneSimulator\Release\Cirrious.FluentLayouts.Touch.dll
 C:\temp\dairyleasource 2014-02-05\Cirrious.FluentLayout\obj\Release\Cirrious.FluentLayouts.Touch.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\Cirrious.FluentLayout\bin\iPhoneSimulator\Release\Cirrious.FluentLayouts.Touch.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\Cirrious.FluentLayout\obj\Release\Cirrious.FluentLayouts.Touch.csprojResolveAssemblyReference.cache
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\Cirrious.FluentLayout\obj\Release\Cirrious.FluentLayouts.Touch.dll

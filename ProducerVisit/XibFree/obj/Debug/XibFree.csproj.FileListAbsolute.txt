@@ -3,3 +3,8 @@ E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\bin\Debug\XibFree.pdb
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\obj\Debug\XibFree.csprojResolveAssemblyReference.cache
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\obj\Debug\XibFree.dll
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\obj\Debug\XibFree.pdb
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\XibFree\bin\Debug\XibFree.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\XibFree\bin\Debug\XibFree.pdb
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\XibFree\obj\Debug\XibFree.csprojResolveAssemblyReference.cache
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\XibFree\obj\Debug\XibFree.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\XibFree\obj\Debug\XibFree.pdb

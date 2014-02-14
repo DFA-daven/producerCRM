@@ -3,3 +3,8 @@ E:\bkalb\Desktop\Dairylea\Field Person Call Form\Cirrious.FluentLayout\bin\iPhon
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\Cirrious.FluentLayout\obj\Debug\Cirrious.FluentLayouts.Touch.dll
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\Cirrious.FluentLayout\obj\Debug\Cirrious.FluentLayouts.Touch.pdb
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\Cirrious.FluentLayout\obj\Debug\Cirrious.FluentLayouts.Touch.csprojResolveAssemblyReference.cache
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\Cirrious.FluentLayout\bin\iPhoneSimulator\Debug\Cirrious.FluentLayouts.Touch.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\Cirrious.FluentLayout\bin\iPhoneSimulator\Debug\Cirrious.FluentLayouts.Touch.pdb
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\Cirrious.FluentLayout\obj\Debug\Cirrious.FluentLayouts.Touch.csprojResolveAssemblyReference.cache
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\Cirrious.FluentLayout\obj\Debug\Cirrious.FluentLayouts.Touch.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\Cirrious.FluentLayout\obj\Debug\Cirrious.FluentLayouts.Touch.pdb

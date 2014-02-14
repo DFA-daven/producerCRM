@@ -15,3 +15,20 @@ E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\bin\Debug\Newtons
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\obj\Debug\CallForm.Core.csprojResolveAssemblyReference.cache
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\obj\Debug\FieldPersonCallForm.dll
 E:\bkalb\Desktop\Dairylea\Field Person Call Form\CallForm.Core\obj\Debug\FieldPersonCallForm.pdb
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\FieldPersonCallForm.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\FieldPersonCallForm.pdb
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.CrossCore.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Localization.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Plugins.File.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Plugins.Json.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Plugins.Location.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Plugins.Messenger.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Plugins.Network.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Plugins.PictureChooser.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Plugins.Sqlite.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Plugins.Visibility.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Newtonsoft.Json.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\obj\Debug\CallForm.Core.csprojResolveAssemblyReference.cache
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\obj\Debug\FieldPersonCallForm.dll
+C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\obj\Debug\FieldPersonCallForm.pdb

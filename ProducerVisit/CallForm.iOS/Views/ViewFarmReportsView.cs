@@ -18,9 +18,9 @@ namespace CallForm.iOS.Views
         private UITableView _table;
 
         // hard-coded values
-        private static float topMarginPixels = 70;
+        private static float topMarginPixels = 65;
         private static double bannerHeightPercent = 12.5;
-        private static double controlHeightPercent = 5;
+        private static double controlHeightPercent = 6.25;
         private static double controlWidthPercent = 31;
 
         private static double leftControlOriginPercent = 1;
@@ -33,13 +33,26 @@ namespace CallForm.iOS.Views
             UIColor controlBackgroundColor = UIColor.FromRGB(230, 230, 255);
             UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
 
+            float topMargin = 0;
+
+            if (isOS7())
+            {
+                topMargin += topMarginPixels;
+            }
+
             View.Add(_logos = new UIImageView
             {
                 Image = UIImage.FromBundle("Dairylea-Banner.png"),
                 //Frame = new RectangleF(0, 70, 768, 128),
-                Frame = new RectangleF(0, topMarginPixels, screenWidth(), bannerHeight()),
+
+
+                Frame = new RectangleF(0, topMargin, screenWidth(), bannerHeight()),
             });
 
+            // todo: place the 3 controls in a horizontal view with something like
+            // var layout = new LinearLayout(Orientation.Horizontal)
+            // SubViews = new View[]
+            
             var filterField = _filter = new UITextField
             {
                 TextAlignment = UITextAlignment.Center,
@@ -65,7 +78,11 @@ namespace CallForm.iOS.Views
             var newButton = _new = new UIButton(UIButtonType.Custom);
             newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             newButton.SetTitle("New", UIControlState.Normal);
+            // todo: scale the image so it fits in the control
+            var plusSign = UIImage.FromBundle("Add.png");
+            //plusSign.Scale();
             newButton.SetImage(UIImage.FromBundle("Add.png"), UIControlState.Normal);
+
             newButton.BackgroundColor = viewBackgroundColor;
 
             var tableView = _table = new UITableView(new RectangleF(percentWidth(leftControlOriginPercent), tableTop(), percentWidth(98), screenHeight() - tableTop()));
@@ -102,7 +119,34 @@ namespace CallForm.iOS.Views
             tableView.Source = source;
 
             // fixme: update version number
-            Title = "Producer Contact 1.4.044.1";
+            Title = "Producer Contact 1.4.045.1";
+        }
+
+        // todo: manipulate base image? 
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
+            {
+                float displacement_y = this.TopLayoutGuide.Length;
+
+                //load subviews with displacement
+            }
+        }
+
+        private bool isOS7()
+        {
+            bool thisIsOS7 = false;
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
+            {
+                float displacement_y = this.TopLayoutGuide.Length;
+
+                thisIsOS7 = true;
+            }
+
+            return thisIsOS7;
         }
 
         private float screenHeight()
@@ -119,7 +163,13 @@ namespace CallForm.iOS.Views
 
         private float availableHeight()
         {
-            float availableHeight = screenHeight() - topMarginPixels;
+            float availableHeight = screenHeight();
+
+            if (isOS7())
+            {
+                availableHeight -= topMarginPixels;
+            }
+            
             return availableHeight;
         }
 
@@ -131,7 +181,13 @@ namespace CallForm.iOS.Views
 
         private float bannerBottom()
         {
-            float bannerBottom = topMarginPixels + bannerHeight();
+            float bannerBottom = bannerHeight();
+
+            if (isOS7())
+            {
+                bannerBottom += topMarginPixels;
+            }
+            
             return bannerBottom;
         }
 

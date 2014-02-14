@@ -38,4 +38,4 @@ using System.Runtime.InteropServices;
 
 // fixme: update version number
 [assembly: AssemblyVersion("1.4.*")]
-[assembly: AssemblyFileVersion("1.4.044.1")]
+[assembly: AssemblyFileVersion("1.4.045.1")]
