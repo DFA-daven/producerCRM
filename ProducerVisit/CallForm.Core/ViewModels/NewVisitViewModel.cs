@@ -73,6 +73,7 @@ namespace CallForm.Core.ViewModels
             Duration = report.Duration;
             DurationString = report.Duration.ToString("F2");
             ActualTime = report.EntryDateTime;
+            // Review: was this a fix by Ben?
             CallType = report.CallType;
             ReasonCodes = report.ReasonCodes.ToList();
             Notes = report.Notes;

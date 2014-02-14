@@ -2,84 +2,135 @@
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Touch.Views;
 using MonoTouch.UIKit;
+using System;
+using System.Drawing;
 using XibFree;
 
 namespace CallForm.iOS.Views
 {
     public class UserIdentityView : MvxViewController, IMvxModalTouchView
     {
+        // hard-coded values
+        private static float topMarginPixels = 70;
+        private static double bannerHeightPercent = 12.5;
+        private static double controlHeightPercent = 5;
+        private static double controlWidthPercent = 31;
+
+        private static double leftControlOriginPercent = 1;
+
         public override void ViewDidLoad()
         {
+            UIColor controlBackgroundColor = UIColor.FromRGB(230, 230, 255);
+            UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
+
+            var instructions = new UILabel
+            {
+                //Font = UIFont.SystemFontOfSize(UIFont.LabelFontSize * 1.1f),
+                Text = "Please Enter Your Email Address and Asset Tag (if any)",
+                TextColor = UIColor.White,
+                BackgroundColor = viewBackgroundColor,
+            };
+
             var email = new UITextField
             {
-                Placeholder = "Email Address",
-                BackgroundColor = UIColor.FromRGB(230, 230, 255),
+                Placeholder = "type email address here...",
+                BackgroundColor = controlBackgroundColor,
                 KeyboardType = UIKeyboardType.EmailAddress,
+                
             };
+
             var assetTag = new UITextField
             {
-                Placeholder = "Asset Tag",
-                BackgroundColor = UIColor.FromRGB(230, 230, 255),
+                Placeholder = "enter asset tag information here...",
+                BackgroundColor = controlBackgroundColor,
             };
-            var button = new UIButton(UIButtonType.System);
-            button.SetTitle("OK", UIControlState.Normal);
 
+            var button = new UIButton(UIButtonType.System);
+                button.SetTitle("OK", UIControlState.Normal);
+                button.SetTitle("OK", UIControlState.Disabled);
+                button.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+                //button.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleBottomMargin;
+                button.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
+
+            // this view has an array of subviews
             var layout = new LinearLayout(Orientation.Vertical)
             {
-                Gravity = Gravity.CenterHorizontal,
-                Spacing = 30,
+                Gravity = Gravity.TopCenter,
+                Spacing = 20,
                 SubViews = new View[]
                 {
                     new NativeView
                     {
+                        // this "view" pushes the others down to the bottom of the page
                         View = new UIView(),
                         LayoutParameters = new LayoutParameters
                         {
                             Weight = 1,
-                            Height = AutoSize.FillParent
+                            Height = percentHeight(10),
+                            Gravity = Gravity.TopCenter,
                         }
                     },
                     new NativeView
                     {
-                        View = new UILabel
+                        View = instructions,
+                        LayoutParameters = new LayoutParameters()
                         {
-                            Font = UIFont.SystemFontOfSize(24),
-                            Text = "Please Enter Your Email Address and Asset Tag (if any)",
-                            TextColor = UIColor.White,
-                            BackgroundColor = UIColor.FromRGB(200, 200, 255),
-                        }
+                            //Width = AutoSize.WrapContent,  
+                            //Height = AutoSize.WrapContent,
+                            //MaxWidth = View.Frame.Width * 0.9f, 
+                            //MarginLeft = View.Frame.Width * 0.05f,
+                            //MarginTop = View.Frame.Height * 0.05f,
+                            Gravity = Gravity.TopCenter,
+                        },
                     },
+
                     new NativeView
                     {
                         View = email,
-                        LayoutParameters = new LayoutParameters
+                        LayoutParameters = new LayoutParameters()
                         {
-                            Width = View.Bounds.Width
-                        }
+                            Width = percentWidth(90), 
+                            //MaxWidth = View.Frame.Width * 0.9f, 
+                            //MarginLeft = screenWidth() * 0.05f,
+                            //MarginTop = View.Frame.Height * 0.05f,
+                            Gravity = Gravity.TopCenter,
+                        },
                     },
+
                     new NativeView
                     {
                         View = assetTag,
-                        LayoutParameters = new LayoutParameters
+                        LayoutParameters = new LayoutParameters()
                         {
-                            Width = View.Bounds.Width
-                        }
+                            Width = percentWidth(90), 
+                            //MaxWidth = View.Frame.Width * 0.9f, 
+                            //MarginLeft = percentWidth(5),
+                            //MarginTop = View.Frame.Height * 0.05f,
+                            Gravity = Gravity.TopCenter,
+                        },
                     },
                     new NativeView
                     {
                         View = button,
-                        LayoutParameters = new LayoutParameters
+                        LayoutParameters = new LayoutParameters()
                         {
-                            Width = View.Bounds.Width * 0.8f
-                        }
+                            Width = percentWidth(90), 
+                            //MaxWidth = View.Frame.Width * 0.9f, 
+                            //MarginLeft = View.Frame.Width * 0.05f,
+                            //MarginTop = View.Frame.Height * 0.05f,
+                            Gravity = Gravity.TopCenter,
+                        },
+                        
                     },
                     new NativeView
                     {
+                        // this "view" pushes the others up to the top of the page
                         View = new UIView(),
                         LayoutParameters = new LayoutParameters
                         {
                             Weight = 1,
-                            Height = AutoSize.FillParent
+                            Height = percentHeight(5),
+                            Gravity = Gravity.TopCenter,
                         }
                     },
                 }
@@ -87,7 +138,7 @@ namespace CallForm.iOS.Views
 
             View = new UILayoutHost(layout)
             {
-                BackgroundColor = UIColor.FromRGB(200, 200, 255),
+                BackgroundColor = viewBackgroundColor,
             };
 
             base.ViewDidLoad();
@@ -100,6 +151,32 @@ namespace CallForm.iOS.Views
             set.Bind(assetTag).To(vm => vm.AssetTag);
             set.Bind(button).To(vm => vm.SaveCommand);
             set.Apply();
+        }
+
+        private float screenWidth()
+        {
+            float screenWidth = UIScreen.MainScreen.Bounds.Width;
+            return screenWidth;
+        }
+
+        private float percentHeight(double percent)
+        {
+            return calculatePercent(UIScreen.MainScreen.Bounds.Height, percent);
+        }
+
+
+        private float percentWidth(double percent)
+        {
+            float width = calculatePercent(screenWidth(), percent);
+            return width;
+        }
+
+        private float calculatePercent(float dimension, double percent)
+        {
+            percent = percent / 100;
+            double value = dimension * percent;
+            value = Math.Abs(Math.Round(value));
+            return (float)value;
         }
 
         private void OnError(object sender, ErrorEventArgs errorEventArgs)

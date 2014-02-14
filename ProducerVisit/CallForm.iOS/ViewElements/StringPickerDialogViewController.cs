@@ -43,6 +43,7 @@ namespace CallForm.iOS.ViewElements
             _setValue(_model.SelectedItem);
         }
 
+        // replace ContentSizeForViewInPopover with PreferredContentSize
         public override SizeF PreferredContentSize
         {
             get
@@ -51,7 +52,7 @@ namespace CallForm.iOS.ViewElements
                 size.Height += 50;
                 return size;
             }
-            // set { base.ContentSizeForViewInPopover = value; }
+            // replace ContentSizeForViewInPopover with PreferredContentSize
             set { base.PreferredContentSize = value; }
         }
     }

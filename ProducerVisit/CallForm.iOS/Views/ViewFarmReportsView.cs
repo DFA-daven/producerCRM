@@ -1,13 +1,11 @@
-﻿using System;
-using System.Drawing;
-using System.Xml;
-using CallForm.Core.Models;
+﻿using CallForm.Core.Models;
 using CallForm.Core.ViewModels;
-using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Touch.Views;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using System;
+using System.Drawing;
 using XibFree;
 
 namespace CallForm.iOS.Views
@@ -19,43 +17,61 @@ namespace CallForm.iOS.Views
         private UIButton _find, _new;
         private UITableView _table;
 
+        // hard-coded values
+        private static float topMarginPixels = 70;
+        private static double bannerHeightPercent = 12.5;
+        private static double controlHeightPercent = 5;
+        private static double controlWidthPercent = 31;
+
+        private static double leftControlOriginPercent = 1;
+        private static double middleControlOriginPercent = 34;
+        private static double rightControlOriginPercent = 66;
+
+
         public override void ViewDidLoad()
         {
+            UIColor controlBackgroundColor = UIColor.FromRGB(230, 230, 255);
+            UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
+
             View.Add(_logos = new UIImageView
             {
                 Image = UIImage.FromBundle("Dairylea-Banner.png"),
-                Frame = new RectangleF(0, 70, 768, 128),
+                //Frame = new RectangleF(0, 70, 768, 128),
+                Frame = new RectangleF(0, topMarginPixels, screenWidth(), bannerHeight()),
             });
 
             var filterField = _filter = new UITextField
             {
                 TextAlignment = UITextAlignment.Center,
                 KeyboardType = UIKeyboardType.NumberPad,
-                Placeholder = "Farm Number",
+                Placeholder = "Farm #",
                 ShouldChangeCharacters = (field, range, replacementString) =>
                 {
                     int i;
                     return replacementString.Length <= 0 || int.TryParse(replacementString, out i);
                 },
-                Font = UIFont.SystemFontOfSize(20),
-                Frame = new RectangleF(0, 203, UIScreen.MainScreen.Bounds.Width - 430, 50),
-                BackgroundColor = UIColor.FromRGB(230, 230, 255),
+                //Font = UIFont.SystemFontOfSize(20),
+                Frame = new RectangleF(percentWidth(leftControlOriginPercent), bannerBottom(), controlWidth(), controlHeight()),
+                BackgroundColor = controlBackgroundColor,
             };
             filterField.VerticalAlignment = UIControlContentVerticalAlignment.Center;
 
             var findButton = _find = new UIButton(UIButtonType.Custom);
-            findButton.Frame = new RectangleF(UIScreen.MainScreen.Bounds.Width - 420, 203, 200, 50);
-            findButton.SetTitle("Find Reports", UIControlState.Normal);
+            // use 98% of width: origins 1, 34, 65
+            findButton.Frame = new RectangleF(percentWidth(middleControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
+            findButton.SetTitle("Refresh", UIControlState.Normal);
+            findButton.BackgroundColor = viewBackgroundColor;
 
             var newButton = _new = new UIButton(UIButtonType.Custom);
-            newButton.Frame = new RectangleF(UIScreen.MainScreen.Bounds.Width - 210, 203, 200, 50);
-            newButton.SetTitle("New Report", UIControlState.Normal);
+            newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
+            newButton.SetTitle("New", UIControlState.Normal);
             newButton.SetImage(UIImage.FromBundle("Add.png"), UIControlState.Normal);
+            newButton.BackgroundColor = viewBackgroundColor;
 
-            var tableView = _table = new UITableView(new RectangleF(0, 266, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height - 266));
+            var tableView = _table = new UITableView(new RectangleF(percentWidth(leftControlOriginPercent), tableTop(), percentWidth(98), screenHeight() - tableTop()));
             tableView.BackgroundView = null;
-            tableView.BackgroundColor = UIColor.FromRGB(200, 200, 255);
-            View.BackgroundColor = UIColor.FromRGB(200, 200, 255);
+            tableView.BackgroundColor = viewBackgroundColor;
+            View.BackgroundColor = viewBackgroundColor;
 
             View.Add(tableView);
             View.Add(findButton);
@@ -85,7 +101,75 @@ namespace CallForm.iOS.Views
 
             tableView.Source = source;
 
-            Title = "Producer Contact 1.4.038.2";
+            // fixme: update version number
+            Title = "Producer Contact 1.4.044.1";
+        }
+
+        private float screenHeight()
+        {
+            float screenHeight = UIScreen.MainScreen.Bounds.Height;
+            return screenHeight;
+        }
+
+        private float screenWidth()
+        {
+            float screenWidth = UIScreen.MainScreen.Bounds.Width;
+            return screenWidth;
+        }
+
+        private float availableHeight()
+        {
+            float availableHeight = screenHeight() - topMarginPixels;
+            return availableHeight;
+        }
+
+        private float bannerHeight()
+        {
+            float bannerHeight = calculatePercent(availableHeight(), bannerHeightPercent);
+            return bannerHeight;
+        }
+
+        private float bannerBottom()
+        {
+            float bannerBottom = topMarginPixels + bannerHeight();
+            return bannerBottom;
+        }
+
+        private float controlHeight()
+        {
+            float controlHeight = calculatePercent(availableHeight(), controlHeightPercent);
+            return controlHeight;
+        }
+
+        private float controlWidth()
+        {
+            float controlWidth = percentWidth(controlWidthPercent);
+            return controlWidth;
+        }
+
+        private float tableTop()
+        {
+            float tableTop = bannerBottom() + controlHeight();
+            return tableTop;
+        }
+        
+        private float percentHeight(double percent)
+        {
+            return calculatePercent(UIScreen.MainScreen.Bounds.Height, percent);
+        }
+
+        private float percentWidth(double percent)
+        {
+            float width = calculatePercent(UIScreen.MainScreen.Bounds.Width, percent);
+            return width;
+        }
+
+        private float calculatePercent(float dimension, double percent)
+        {
+            percent = percent / 100;
+            double value = dimension * percent;
+            value = Math.Abs(Math.Round(value));
+            return (float)value;
         }
 
         private void OnError(object sender, ErrorEventArgs errorEventArgs)
@@ -120,21 +204,20 @@ namespace CallForm.iOS.Views
                 case UIInterfaceOrientation.Portrait:
                 case UIInterfaceOrientation.PortraitUpsideDown:
                     SetFrameX(_logos, 0);
-                    SetFrameX(_filter, 0);
-                    SetFrameX(_find, UIScreen.MainScreen.Bounds.Width - 420);
-                    SetFrameX(_new, UIScreen.MainScreen.Bounds.Width - 210);
-                    _table.Frame = new RectangleF(0, 266, UIScreen.MainScreen.Bounds.Width,
-                        UIScreen.MainScreen.Bounds.Height - 266);
+                    SetFrameX(_filter, percentWidth(leftControlOriginPercent));
+                    SetFrameX(_find, percentWidth(middleControlOriginPercent));
+                    SetFrameX(_new, percentWidth(rightControlOriginPercent));
+                    _table.Frame = new RectangleF(percentWidth(1), tableTop(), percentWidth(98), screenHeight() - tableTop());
                     break;
                 case UIInterfaceOrientation.LandscapeLeft:
                 case UIInterfaceOrientation.LandscapeRight:
-                    float offset = UIScreen.MainScreen.Bounds.Height - UIScreen.MainScreen.Bounds.Width;
-                    SetFrameX(_logos, offset / 2);
-                    SetFrameX(_filter, offset / 2);
-                    SetFrameX(_find, UIScreen.MainScreen.Bounds.Width - 420 + offset / 2);
-                    SetFrameX(_new, UIScreen.MainScreen.Bounds.Width - 210 + offset / 2);
-                    _table.Frame = new RectangleF(offset / 2, 266, UIScreen.MainScreen.Bounds.Width,
-                        UIScreen.MainScreen.Bounds.Width - 266);
+                    float difference = Math.Abs(screenHeight() - screenWidth());
+                    float offset = difference / 2;
+                    SetFrameX(_logos, offset);
+                    SetFrameX(_filter, percentWidth(leftControlOriginPercent) + offset);
+                    SetFrameX(_find, percentWidth(middleControlOriginPercent) + offset);
+                    SetFrameX(_new, percentWidth(rightControlOriginPercent) + offset);
+                    _table.Frame = new RectangleF(offset, tableTop(), percentWidth(98), screenHeight() - tableTop());
 
                     break;
                 default:

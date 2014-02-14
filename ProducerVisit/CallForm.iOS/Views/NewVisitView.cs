@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using CallForm.Core.ViewModels;
 using CallForm.iOS.ViewElements;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Touch.Views;
+using MonoTouch.Foundation;
 using MonoTouch.MessageUI;
 using MonoTouch.UIKit;
-using MonoTouch.Foundation;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace CallForm.iOS.Views
 {
@@ -19,7 +19,8 @@ namespace CallForm.iOS.Views
 
         public override void ViewDidLoad()
         {
-            View = new UIView {BackgroundColor = UIColor.FromRGB(200, 200, 255)};
+            UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
+            View = new UIView { BackgroundColor = viewBackgroundColor };
             base.ViewDidLoad();
 
             _table = new UITableView(UIScreen.MainScreen.Bounds)
@@ -127,7 +128,8 @@ namespace CallForm.iOS.Views
             {
                 case UIInterfaceOrientation.Portrait:
                 case UIInterfaceOrientation.PortraitUpsideDown:
-                    _table.Frame = UIScreen.MainScreen.Bounds;
+                    // _table.Frame = UIScreen.MainScreen.Bounds;
+                    _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
                     break;
                 case UIInterfaceOrientation.LandscapeLeft:
                 case UIInterfaceOrientation.LandscapeRight:

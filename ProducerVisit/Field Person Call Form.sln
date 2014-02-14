@@ -14,10 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEnd", "BackEnd\BackEnd.csproj", "{26369B4A-5717-44A3-B7FB-EF8F23639C44}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
 		Ad-Hoc|iPhone = Ad-Hoc|iPhone
@@ -91,6 +87,7 @@ Global
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|iPhone.Build.0 = Debug|iPhone
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|iPhoneSimulator.Deploy.0 = Debug|iPhoneSimulator
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|Mixed Platforms.ActiveCfg = Release|iPhone
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|Mixed Platforms.Build.0 = Release|iPhone
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Release|Any CPU.ActiveCfg = Release|iPhone
