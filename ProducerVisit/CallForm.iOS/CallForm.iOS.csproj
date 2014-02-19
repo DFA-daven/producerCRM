@@ -128,6 +128,9 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\AutoVersionNumber\GlobalAssemblyVersion.cs">
+      <Link>GlobalAssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
     <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
@@ -153,7 +156,7 @@
     <Compile Include="Views\NewVisitView.cs" />
     <Compile Include="ViewElements\TimeTableViewCell.cs" />
     <Compile Include="Views\ViewFarmReportsView.cs" />
-    <None Include="Info.plist">
+    <None Include="original-Info.plist">
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -296,6 +299,9 @@
     <BundleResource Include="Resources\Add.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\AutoVersionNumber\info.plist">
+      <Link>info.plist</Link>
+    </Content>
     <Content Include="AppDelegate.cs.txt" />
     <BundleResource Include="Resources\Camera_icon.gif" />
     <Content Include="ToDo-MvvmCross\_ Touch UI.txt" />

@@ -37,6 +37,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AutoVersionNumber\GlobalAssemblyVersion.cs">
+      <Link>GlobalAssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="App.cs" />
     <Compile Include="Converters\ObjectToStringValueConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeStringValueConverter.cs" />

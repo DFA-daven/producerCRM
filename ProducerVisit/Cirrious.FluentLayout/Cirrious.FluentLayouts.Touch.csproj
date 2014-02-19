@@ -34,6 +34,9 @@
     <MtouchLink>None</MtouchLink>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\AutoVersionNumber\GlobalAssemblyVersion.cs">
+      <Link>GlobalAssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="AdvancedFluentLayoutExtensions.cs" />
     <Compile Include="FluentLayout.cs" />
     <Compile Include="FluentLayoutExtensions.cs" />

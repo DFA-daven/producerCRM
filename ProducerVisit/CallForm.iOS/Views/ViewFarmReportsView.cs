@@ -6,6 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System;
 using System.Drawing;
+using System.Math;
 using XibFree;
 
 namespace CallForm.iOS.Views
@@ -37,7 +38,7 @@ namespace CallForm.iOS.Views
 
             if (isOS7())
             {
-                topMargin += topMarginPixels;
+                topMargin += topMarginPixels;  
             }
 
             View.Add(_logos = new UIImageView
@@ -70,7 +71,6 @@ namespace CallForm.iOS.Views
             filterField.VerticalAlignment = UIControlContentVerticalAlignment.Center;
 
             var findButton = _find = new UIButton(UIButtonType.Custom);
-            // use 98% of width: origins 1, 34, 65
             findButton.Frame = new RectangleF(percentWidth(middleControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             findButton.SetTitle("Refresh", UIControlState.Normal);
             findButton.BackgroundColor = viewBackgroundColor;
@@ -119,7 +119,8 @@ namespace CallForm.iOS.Views
             tableView.Source = source;
 
             // fixme: update version number
-            Title = "Producer Contact 1.4.045.1";
+            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Title = "Producer Contact " + version; double nn = 0; nn = Math.Floor(nn);
         }
 
         // todo: manipulate base image? 

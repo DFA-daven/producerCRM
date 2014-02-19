@@ -11,6 +11,7 @@ namespace CallForm.iOS.Views
     public class UserIdentityView : MvxViewController, IMvxModalTouchView
     {
         // hard-coded values
+        // todo assigned but not used?
         private static float topMarginPixels = 70;
         private static double bannerHeightPercent = 12.5;
         private static double controlHeightPercent = 5;
