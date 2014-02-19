@@ -161,9 +161,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Info.tt</DependentUpon>
     </Content>
-    <Content Include="Info.plist.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Info.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
