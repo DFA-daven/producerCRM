@@ -23,7 +23,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>1.4.038.%2a</ApplicationVersion>
+    <ApplicationVersion>1.4.051.1510</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -156,9 +156,7 @@
     <Compile Include="Views\NewVisitView.cs" />
     <Compile Include="ViewElements\TimeTableViewCell.cs" />
     <Compile Include="Views\ViewFarmReportsView.cs" />
-    <None Include="Info.plist">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>
