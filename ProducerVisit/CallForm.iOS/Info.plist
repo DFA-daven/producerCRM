@@ -34,7 +34,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.actionxl.dairylea.producervisit</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.044.1</string>
+	<string>1.4.14051.1</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
