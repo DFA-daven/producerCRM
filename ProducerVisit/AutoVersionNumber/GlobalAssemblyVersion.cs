@@ -20,8 +20,8 @@ using System.Runtime.InteropServices;
 // Build number is: [two-digit year][three-digit day-of-year]
 // Revision is: the number of seconds since midnight (divided by 2)
 
-[assembly: AssemblyVersion("1.4.14051.30254")]
-[assembly: AssemblyFileVersion("1.4.14051.30254")]
+[assembly: AssemblyVersion("1.4.14051.31708")]
+[assembly: AssemblyFileVersion("1.4.14051.31708")]
 
 [assembly: AssemblyProduct("Producer Contact")]
 [assembly: AssemblyCompany("Dairylea Cooperative, Inc.")]

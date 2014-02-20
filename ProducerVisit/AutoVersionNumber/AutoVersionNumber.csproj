@@ -51,6 +51,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalAssemblyVersion.tt</DependentUpon>
     </Compile>
+    <Compile Include="Main.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -70,4 +71,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <!-- process *.tt templates on each build  -->
+  <PropertyGroup>
+    <TransformOnBuild>true</TransformOnBuild>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\TextTemplating\Microsoft.TextTemplating.targets" Condition="false" />
 </Project>
