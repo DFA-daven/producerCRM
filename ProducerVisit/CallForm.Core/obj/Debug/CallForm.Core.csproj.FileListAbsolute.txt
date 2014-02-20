@@ -29,6 +29,5 @@ C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug
 C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Plugins.Sqlite.dll
 C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Cirrious.MvvmCross.Plugins.Visibility.dll
 C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\bin\Debug\Newtonsoft.Json.dll
-C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\obj\Debug\CallForm.Core.csprojResolveAssemblyReference.cache
 C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\obj\Debug\FieldPersonCallForm.dll
 C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\CallForm.Core\obj\Debug\FieldPersonCallForm.pdb
