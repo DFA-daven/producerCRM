@@ -156,16 +156,10 @@
     <Compile Include="Views\NewVisitView.cs" />
     <Compile Include="ViewElements\TimeTableViewCell.cs" />
     <Compile Include="Views\ViewFarmReportsView.cs" />
-    <Content Include="Info.plist">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Info.tt</DependentUpon>
-    </Content>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Info.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Info.plist</LastGenOutput>
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
     </None>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
