@@ -33,6 +33,22 @@
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
+    <OutputPath>bin\Alpha\</OutputPath>
+    <DefineConstants>__IOS__;__MOBILE__;</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
+    <OutputPath>bin\Beta\</OutputPath>
+    <DefineConstants>__IOS__;__MOBILE__;</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AutoVersionNumber\GlobalAssemblyVersion.cs">
       <Link>GlobalAssemblyVersion.cs</Link>
