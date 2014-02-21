@@ -1,9 +1,0 @@
-E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\bin\Release\XibFree.dll
-E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\obj\Release\XibFree.csprojResolveAssemblyReference.cache
-E:\bkalb\Desktop\Dairylea\Field Person Call Form\XibFree\obj\Release\XibFree.dll
-C:\temp\dairyleasource 2014-02-05\XibFree\bin\Release\XibFree.dll
-C:\temp\dairyleasource 2014-02-05\XibFree\obj\Release\XibFree.csprojResolveAssemblyReference.cache
-C:\temp\dairyleasource 2014-02-05\XibFree\obj\Release\XibFree.dll
-C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\XibFree\bin\Release\XibFree.dll
-C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\XibFree\obj\Release\XibFree.csprojResolveAssemblyReference.cache
-C:\Users\dave.nouza\Dairylea Source\Mobile\ProducerVisit\XibFree\obj\Release\XibFree.dll
