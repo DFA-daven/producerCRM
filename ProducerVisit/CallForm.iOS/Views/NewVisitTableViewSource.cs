@@ -60,7 +60,8 @@ namespace CallForm.iOS.Views
                         tableView.ReloadData();
                         break;
                 }
-            }; //*/
+            }; 
+
             _farmNoCell = new TextFieldTableViewCell("farmNo", _viewModel.Editing, _viewModel.FarmNumber,
                 UIKeyboardType.NumberPad, (field, range, replacementString) =>
                 {

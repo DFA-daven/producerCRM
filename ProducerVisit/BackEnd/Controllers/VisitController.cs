@@ -100,6 +100,10 @@ namespace BackEnd.Controllers
             return Content("Success");
         }
 
+        /// <summary>Gets the list of Reason Codes. Creates a new list if needed.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List<ReasonCode></returns>
         public ActionResult Reasons(string id)
         {
             if (!_db.ReasonCodes.Any())
@@ -130,12 +134,19 @@ namespace BackEnd.Controllers
             return Json(_db.ReasonCodes.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>Gets the list of Producer Visit Reports.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Report(string id)
         {
             return Json(Hydrated(_db.ProducerVisitReports.Find(int.Parse(id))), JsonRequestBehavior.AllowGet);
-
         }
 
+        /// <summary>Gets the list of Call Types. Creates a new list if needed.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List<string></returns>
         public ActionResult CallTypes(string id)
         {
             return Json(new List<string>(new[]
@@ -148,6 +159,10 @@ namespace BackEnd.Controllers
                 }), JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>Gets the list of Email Recipients. Creates a new list if needed.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List<string></returns>
         public ActionResult EmailRecipients(string id)
         {
             return Json(new List<string>(new[]

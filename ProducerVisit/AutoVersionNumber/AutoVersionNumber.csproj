@@ -126,7 +126,8 @@
   <!-- process *.tt templates on each build  -->
   <PropertyGroup>
     <TransformOnBuild>true</TransformOnBuild>
+	<OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" Condition="'$(VSToolsPath)' != ''" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\TextTemplating\Microsoft.TextTemplating.targets" Condition="false" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v12.0\TextTemplating\Microsoft.TextTemplating.targets" Condition="false" />
 </Project>
