@@ -1,9 +1,9 @@
-﻿using System.Data.Entity;
+﻿using BackEnd.Models;
+using System.Data.Entity;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using BackEnd.Models;
 
 namespace BackEnd
 {
@@ -16,6 +16,10 @@ namespace BackEnd
         {
             AreaRegistration.RegisterAllAreas();
 
+            // FIXME: can this be automated?
+            // TODO: this line must be commented out on the initial Publish/Deploy. 
+            // Doing so enables the tables (schema) to be established in the database.
+            // After the first run, the uncommented line allows everything to work.
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VisitContext>());
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
