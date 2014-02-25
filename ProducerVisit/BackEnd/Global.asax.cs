@@ -20,7 +20,7 @@ namespace BackEnd
             // TODO: this line must be commented out on the initial Publish/Deploy. 
             // Doing so enables the tables (schema) to be established in the database.
             // After the first run, the uncommented line allows everything to work.
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VisitContext>());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VisitContext>());
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

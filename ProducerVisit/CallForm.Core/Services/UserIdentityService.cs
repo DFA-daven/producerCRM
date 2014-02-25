@@ -31,7 +31,7 @@ namespace CallForm.Core.Services
         {
             // TODO: update this to the current backend target
             var request =
-                new MvxJsonRestRequest<UserIdentity>("http://dl-backend-02.azurewebsites.net/Visit/Identity/")
+                new MvxJsonRestRequest<UserIdentity>("http://dl-webserver-te.dairydata.local:480/Visit/Identity/")
                 {
                     Body = identity
                 };
