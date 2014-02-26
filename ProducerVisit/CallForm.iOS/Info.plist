@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -34,7 +34,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.actionxl.dairylea.producervisit</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.14051.1</string>
+	<string>1.4.14057.30871</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -47,3 +47,4 @@
 	</dict>
 </dict>
 </plist>
+

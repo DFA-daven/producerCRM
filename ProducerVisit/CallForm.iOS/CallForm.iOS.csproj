@@ -178,7 +178,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhoneSimulator\Beta</OutputPath>
-	<DefineConstants>BETA</DefineConstants>
+    <DefineConstants>BETA</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -409,4 +409,17 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\TextTemplating\Microsoft.TextTemplating.targets" Condition="false" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>del "$(ProjectDir)..\AutoVersionNumber\GlobalAssemblyVersion.cs" 
+"C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\GlobalAssemblyVersion.tt"
+
+del "$(ProjectDir)info.plist"
+del "$(ProjectDir)..\AutoVersionNumber\info.plist" 
+"C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\info.tt"
+copy /Y "$(ProjectDir)..\AutoVersionNumber\Info.plist" "$(ProjectDir)Info.plist"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

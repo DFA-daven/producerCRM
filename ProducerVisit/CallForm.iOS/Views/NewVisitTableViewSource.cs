@@ -172,6 +172,7 @@ namespace CallForm.iOS.Views
                         _farmNoCell.Edit();
                         break;
                     case 1:
+                        // todo: seeing an unhandled exception here if debug on iPhoneSimulator
                         _popover = new UIPopoverController(CallTypePickerPopover);
                         // _popover.PopoverContentSize = CallTypePickerPopover.ContentSizeForViewInPopover;
                         _popover.PopoverContentSize = CallTypePickerPopover.PreferredContentSize;
