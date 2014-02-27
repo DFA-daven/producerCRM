@@ -15,21 +15,17 @@ using System.Runtime.InteropServices;
 //      Minor Version 
 //      Build Number
 //      Revision
-
+// 
 // Major and minor version are hard-coded.
 // Build number is: [two-digit year][three-digit day-of-year]
 // Revision is: the number of seconds since midnight (divided by 2)
-
-[assembly: AssemblyVersion("1.4.14057.30871")]
-[assembly: AssemblyFileVersion("1.4.14057.30871")]
+[assembly: AssemblyVersion("1.4.14058.22873")]
+[assembly: AssemblyFileVersion("1.4.14058.22873")]
 
 [assembly: AssemblyProduct("Producer Contact")]
 [assembly: AssemblyCompany("Dairylea Cooperative, Inc.")]
 [assembly: AssemblyCopyright("Copyright © 2013-2014 Dairylea Cooperative, Inc. All Rights Reserved.")]
 
-#if DEBUG
+// got debug
 [assembly: AssemblyConfiguration("Debug")]
-#else
-[assembly: AssemblyConfiguration("Release")]
-#endif
-
+	

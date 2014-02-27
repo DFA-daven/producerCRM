@@ -1,5 +1,7 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -36,9 +38,44 @@
 		<string>Icon-72@2x.png</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string>Field Contact</string>
+	<string>Field Contact<#
+
+    // this grabs the current Configuration
+    var serviceProvider = Host as IServiceProvider;
+    var dte = serviceProvider.GetService(typeof(DTE)) as DTE;
+    string configName = dte.Solution.SolutionBuild.ActiveConfiguration.Name;
+	
+    if (configName == "Debug") 
+	{ #>
+ (Debug)<# } 
+	else if (configName == "Alpha") 
+	{ #>
+ (Alpha)<# } 
+	else if (configName == "Beta") 
+	{ #>
+ (Beta)<# } 
+	else 
+	{ #>
+ 
+	<# } 
+#></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.actionxl.dairylea.producervisit</string>
+	<string>com.dairylea.<#
+
+    if (configName == "Debug") 
+	{ #>
+debug<# } 
+	else if (configName == "Alpha") 
+	{ #>
+alpha<# } 
+	else if (configName == "Beta") 
+	{ #>
+beta<# } 
+	else 
+	{ #>
+ 
+	<# } 
+#>.producervisit</string>
 	<key>CFBundleVersion</key>
 	<string><#= this.majorVersion #>.<#= this.minorVersion #>.<#= this.buildYear #><#= this.buildDay #>.<#= this.revisionNumber #></string>
 	<key>UIStatusBarTintParameters</key>

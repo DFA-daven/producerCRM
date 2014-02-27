@@ -1,5 +1,7 @@
 ﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -21,11 +23,10 @@ using System.Runtime.InteropServices;
 //      Minor Version 
 //      Build Number
 //      Revision
-
+// 
 // Major and minor version are hard-coded.
 // Build number is: [two-digit year][three-digit day-of-year]
 // Revision is: the number of seconds since midnight (divided by 2)
-
 [assembly: AssemblyVersion("<#= this.majorVersion #>.<#= this.minorVersion #>.<#= this.buildYear #><#= this.buildDay #>.<#= this.revisionNumber #>")]
 [assembly: AssemblyFileVersion("<#= this.majorVersion #>.<#= this.minorVersion #>.<#= this.buildYear #><#= this.buildDay #>.<#= this.revisionNumber #>")]
 
@@ -33,11 +34,33 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("<#= company #>")]
 [assembly: AssemblyCopyright("<#= this.copyright #>")]
 
-#if DEBUG
+<#
+    // this grabs the current Configuration
+    var serviceProvider = Host as IServiceProvider;
+    var dte = serviceProvider.GetService(typeof(DTE)) as DTE;
+    string configName = dte.Solution.SolutionBuild.ActiveConfiguration.Name;
+
+    if (configName == "Debug") 
+	{ #>
+// got debug
 [assembly: AssemblyConfiguration("Debug")]
-#else
+	<# } 
+	else if (configName == "Alpha") 
+	{ #>
+// got alpha
+[assembly: AssemblyConfiguration("Alpha")]
+	<# } 
+	else if (configName == "Beta") 
+	{ #>
+// got beta
+[assembly: AssemblyConfiguration("Beta")]
+	<# } 
+	else 
+	{ #>
+// not debug, alpha or beta
 [assembly: AssemblyConfiguration("Release")]
-#endif
+	<# } 
+#>
 
 <#+
 // Assembly Identity Attributes
@@ -70,9 +93,9 @@ using System.Runtime.InteropServices;
 	string copyright = "Copyright © 2013-" + currentYear + " " + company + " All Rights Reserved.";
 	string buildYear = DateTime.Now.ToString("yy");
 
-
 	int majorVersion = 1;
 	int minorVersion = 4;
 	string buildDay = DateTime.Now.DayOfYear.ToString().PadLeft(3, '0');
 	int revisionNumber = (int)Math.Floor((DateTime.Now - DateTime.Today).TotalSeconds / 2);
+
 #>

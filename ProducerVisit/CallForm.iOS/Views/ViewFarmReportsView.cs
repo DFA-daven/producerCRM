@@ -20,11 +20,25 @@ namespace CallForm.iOS.Views
         // hard-coded values
         private static float topMarginPixels = 65;
         private static double bannerHeightPercent = 12.5;
+
+        /// <summary>The height of controls as a percentage of screen height.
+        /// </summary>
         private static double controlHeightPercent = 6.25;
+
+        /// <summary>The width of controls as a percentage of screen width.
+        /// </summary>
         private static double controlWidthPercent = 31;
 
+        /// <summary>The percentage of the horizontal width to indent this control's origin.
+        /// </summary>
         private static double leftControlOriginPercent = 1;
+
+        /// <summary>The percentage of the horizontal width to indent this control's origin.
+        /// </summary>
         private static double middleControlOriginPercent = 34;
+
+        /// <summary>The percentage of the horizontal width to indent this control's origin.
+        /// </summary>
         private static double rightControlOriginPercent = 66;
 
 
@@ -117,9 +131,23 @@ namespace CallForm.iOS.Views
 
             tableView.Source = source;
 
-            // fixme: update version number
-            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            Title = "Producer Contact " + version; double nn = 0; nn = Math.Floor(nn);
+            // fixme: find way to get the app's title
+            // get current values from the assembly
+            var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName();
+            string appName = assemblyName.Name;                     // the name of this project -- CallForm.iOS
+            appName = "Field Contact";
+            string appVersion = assemblyName.Version.ToString();    // the version number
+            ////var up = System.Reflection.Ass
+
+            #if DEBUG
+                appName += " (DEBUG)";
+            #elif ALPHA
+                appName += " (ALPHA)";
+            #elif BETA
+                appName += " (BETA)";
+            #endif
+
+            Title = appName + "; " + appVersion;
         }
 
         // todo: manipulate base image? 
@@ -191,12 +219,18 @@ namespace CallForm.iOS.Views
             return bannerBottom;
         }
 
+        /// <summary>Calculates the pixel-height of controls based on the current screen height.
+        /// </summary>
+        /// <returns>The pixel-heighth of controls.</returns>
         private float controlHeight()
         {
             float controlHeight = calculatePercent(availableHeight(), controlHeightPercent);
             return controlHeight;
         }
 
+        /// <summary>Calculates the pixel-width of controls based on the current screen width.
+        /// </summary>
+        /// <returns>The pixel-width of controls.</returns>
         private float controlWidth()
         {
             float controlWidth = percentWidth(controlWidthPercent);
@@ -208,18 +242,31 @@ namespace CallForm.iOS.Views
             float tableTop = bannerBottom() + controlHeight();
             return tableTop;
         }
-        
+
+        /// <summary>Calculates the product of the current screen height and a percent.
+        /// </summary>
+        /// <param name="percent">A percent in the range 0 - 100.</param>
+        /// <returns>A value representing a percent of the current screen height.</returns>
         private float percentHeight(double percent)
         {
             return calculatePercent(UIScreen.MainScreen.Bounds.Height, percent);
         }
 
+        /// <summary>Calculates the product of the current screen width and a percent.
+        /// </summary>
+        /// <param name="percent">A percent in the range 0 - 100.</param>
+        /// <returns>A value representing a percent of the current screen width.</returns>
         private float percentWidth(double percent)
         {
             float width = calculatePercent(UIScreen.MainScreen.Bounds.Width, percent);
             return width;
         }
 
+        /// <summary>Calculates the product of a dimension and a percent.
+        /// </summary>
+        /// <param name="dimension">A dimension, such as screen width or height.</param>
+        /// <param name="percent">A percent in the range 0 - 100.</param>
+        /// <returns>The product of a given dimension and percent.</returns>
         private float calculatePercent(float dimension, double percent)
         {
             percent = percent / 100;
