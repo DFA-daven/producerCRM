@@ -7,6 +7,13 @@
 // < # @ import namespace="EnvDTE" # >
 // (again, without the spaces at the begining and end)
 
+	// fixme: find a way to get these values from the resx file
+	private static string majorVersion = "1";
+	private static string minorVersion = "4";
+	private static string projectTitle = "Field Contact"; 
+	private static string company = "Dairylea Cooperative, Inc.";
+
+
 // Assembly Identity Attributes
 // Three attributes, together with a strong name (if applicable), determine the
 // identity of an assembly: name, version, and culture. These attributes form 
@@ -32,17 +39,27 @@
     // Assembly values can be referenced in code:
     // string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-	public static string majorVersion = "1";
-	public static string minorVersion = "4";
+	public int GetDTE()
+	{
+		// FIXME: this may allow access to the resx file
+		IServiceProvider serviceProvider = (IServiceProvider)this.Host;
+		EnvDTE.DTE dte = (EnvDTE.DTE) serviceProvider.GetService(typeof(EnvDTE.DTE));
+		return dte.Solution.Projects.Count;
+	}
 
 	public string GetVersion()
 	{
 		return majorVersion + "." + minorVersion;
 	}
 
+	public string GetProjectTitle()
+	{
+		return projectTitle;
+	}
+
 	public string GetCompany() 
 	{
-		return "Dairylea Cooperative, Inc.";
+		return company;
 	}
 
 	public string GetCurrentYear()

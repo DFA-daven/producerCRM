@@ -38,7 +38,7 @@
 		<string>Icon-72@2x.png</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string>Field Contact<#
+	<string><#= projectTitle #><#
 
 // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
 #if DEBUG

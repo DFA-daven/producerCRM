@@ -30,7 +30,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("<#= GetVersion() #>.<#= GetBuildNumber() #>.<#= GetRevisionNumber() #>")]
 [assembly: AssemblyFileVersion("<#= GetVersion() #>.<#= GetBuildNumber() #>.<#= GetRevisionNumber() #>")]
 
-[assembly: AssemblyProduct("Producer Contact")]
+[assembly: AssemblyProduct("<#= GetProjectTitle() #>")]
 [assembly: AssemblyCompany("<#= GetCompany() #>")]
 [assembly: AssemblyCopyright("<#= GetCopyright() #>")]
 
