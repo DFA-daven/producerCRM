@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="EnvDTE" #>
 <#@ import namespace="EnvDTE" #>
@@ -20,7 +20,7 @@
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array/>
 	<key>MinimumOSVersion</key>
-	<string>3.2</string>
+	<string>6.0</string>
 	<key>NSMainNibFile</key>
 	<string></string>
 	<key>NSMainNibFile~ipad</key>
@@ -40,44 +40,31 @@
 	<key>CFBundleDisplayName</key>
 	<string>Field Contact<#
 
-    // this grabs the current Configuration
-    var serviceProvider = Host as IServiceProvider;
-    var dte = serviceProvider.GetService(typeof(DTE)) as DTE;
-    string configName = dte.Solution.SolutionBuild.ActiveConfiguration.Name;
-	
-    if (configName == "Debug") 
-	{ #>
- (Debug)<# } 
-	else if (configName == "Alpha") 
-	{ #>
- (Alpha)<# } 
-	else if (configName == "Beta") 
-	{ #>
- (Beta)<# } 
-	else 
-	{ #>
- 
-	<# } 
+// fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
+#if DEBUG
+	Write(" (Testing)");
+#elif ALPHA
+	Write(" (Alpha)");
+#elif BETA
+	Write(" (Beta)");
+#endif
+
 #></string>
 	<key>CFBundleIdentifier</key>
 	<string>com.dairylea.<#
 
-    if (configName == "Debug") 
-	{ #>
-debug<# } 
-	else if (configName == "Alpha") 
-	{ #>
-alpha<# } 
-	else if (configName == "Beta") 
-	{ #>
-beta<# } 
-	else 
-	{ #>
- 
-	<# } 
-#>.producervisit</string>
+// fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
+#if DEBUG
+	Write("testing.");
+#elif ALPHA
+	Write("alpha.");
+#elif BETA
+	Write("beta.");
+#endif
+
+#>producervisit</string>
 	<key>CFBundleVersion</key>
-	<string><#= this.majorVersion #>.<#= this.minorVersion #>.<#= this.buildYear #><#= this.buildDay #>.<#= this.revisionNumber #></string>
+	<string><#= GetVersion() #>.<#= GetBuildNumber() #>.<#= GetRevisionNumber() #></string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -91,14 +78,5 @@ beta<# }
 </dict>
 </plist>
 
-<#+
-	// todo: round revision number so it matches in both of the .tt
-	string buildYear = DateTime.Now.ToString("yy");
-	int currentYear = DateTime.Now.Year;
 
-	int majorVersion = 1;
-	int minorVersion = 4;
-	string buildDay = DateTime.Now.DayOfYear.ToString().PadLeft(3, '0');
-	int revisionNumber = (int)Math.Floor((DateTime.Now - DateTime.Today).TotalSeconds / 2);
-
-#>
+<#@ include file="Custom Code\CommonT4.t4" #>

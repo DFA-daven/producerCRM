@@ -1,0 +1,79 @@
+﻿<#+
+// This is a class to be included for use in other T4 templates. Use the following:
+// < # @ include file="Custom Code\CommonT4.t4" # >
+// (without the spaces at the begining and end)
+// Any assemblies used in this class need to include in the calling template. For example:
+// < # @ assembly name="EnvDTE" # >
+// < # @ import namespace="EnvDTE" # >
+// (again, without the spaces at the begining and end)
+
+// Assembly Identity Attributes
+// Three attributes, together with a strong name (if applicable), determine the
+// identity of an assembly: name, version, and culture. These attributes form 
+// the full name of the assembly and are required when referencing the assembly
+// in code. You can use attributes to set an assembly's version and culture. 
+// The compiler or the Assembly Linker (Al.exe) sets the name value when the 
+// assembly is created, based on the file containing the assembly manifest.
+
+    // Version information for an assembly consists of the following four values:
+    //
+    //      Major Version
+    //      Minor Version 
+    //      Build Number
+    //      Revision
+    //
+    // You can specify all the values or you can default the Build and Revision Numbers by using 
+    // the '*' as shown below:
+    // [assembly: AssemblyVersion("1.0.*")]
+    //
+    // If "*" is used for Build number, the number of days since the year 2000. If "*" is used for 
+    // Revision, the number of seconds since midnight (divided by 2) [IT IS NOT RANDOM].
+    // 
+    // Assembly values can be referenced in code:
+    // string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+	public static string majorVersion = "1";
+	public static string minorVersion = "4";
+
+	public string GetVersion()
+	{
+		return majorVersion + "." + minorVersion;
+	}
+
+	public string GetCompany() 
+	{
+		return "Dairylea Cooperative, Inc.";
+	}
+
+	public string GetCurrentYear()
+	{
+		return DateTime.Now.Year.ToString();
+	}
+
+	public string GetCopyright()
+	{
+		return "Copyright © 2013-" + GetCurrentYear() + " " + GetCompany() + " All Rights Reserved.";
+	}
+
+	public string GetBuildNumber()
+	{
+		return GetBuildYear() + GetBuildDay();
+	}
+
+	public string GetBuildYear()
+	{
+		return DateTime.Now.ToString("yy");
+	}
+
+	public string GetBuildDay()
+	{
+		return DateTime.Now.DayOfYear.ToString().PadLeft(3, '0');
+	}
+
+	public string GetRevisionNumber()
+	{
+		int revisionNumber = (int)Math.Floor((DateTime.Now - DateTime.Today).TotalSeconds / 2);
+		return revisionNumber.ToString();
+	}
+
+#>

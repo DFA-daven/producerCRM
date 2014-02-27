@@ -12,7 +12,7 @@
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array/>
 	<key>MinimumOSVersion</key>
-	<string>3.2</string>
+	<string>6.0</string>
 	<key>NSMainNibFile</key>
 	<string></string>
 	<key>NSMainNibFile~ipad</key>
@@ -30,11 +30,11 @@
 		<string>Icon-72@2x.png</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string>Field Contact (Debug)</string>
+	<string>Field Contact (Testing)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.dairylea.debug.producervisit</string>
+	<string>com.dairylea.testing.producervisit</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.14058.23331</string>
+	<string>1.4.14058.28951</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -47,4 +47,5 @@
 	</dict>
 </dict>
 </plist>
+
 

@@ -138,7 +138,7 @@ namespace CallForm.iOS.Views
             appName = "Field Contact";
             string appVersion = assemblyName.Version.ToString();    // the version number
             ////var up = System.Reflection.Ass
-
+            
             #if DEBUG
                 appName += " (DEBUG)";
             #elif ALPHA
