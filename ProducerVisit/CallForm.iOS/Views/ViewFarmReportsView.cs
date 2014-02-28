@@ -12,24 +12,26 @@
 
     class ViewFarmReportsView : MvxViewController
     {
-        private UIImageView _logos;
+        private UIView _logos;
+        private UIButton _logoButton;
         private UITextField _filter;
         private UIButton _find, _new;
         private UITableView _table;
+        private LinearLayout _logoLayout;
 
         // hard-coded values
         private static float topMarginPixels = 65;
         // fixme: until we get a new banner, just hiding the old one
-        // private static double bannerHeightPercent = 12.5;
-        private static double bannerHeightPercent = 0.5;
+        private static double bannerHeightPercent = 10;
+        //private static double bannerHeightPercent = 0.5;
 
         /// <summary>The height of controls as a percentage of screen height.
         /// </summary>
-        private static double controlHeightPercent = 6.25;
+        private static double controlHeightPercent = 8;
 
         /// <summary>The width of controls as a percentage of screen width.
         /// </summary>
-        private static double controlWidthPercent = 31;
+        private static double controlWidthPercent = 33;
 
         /// <summary>The percentage of the horizontal width to indent this control's origin.
         /// </summary>
@@ -37,7 +39,7 @@
 
         /// <summary>The percentage of the horizontal width to indent this control's origin.
         /// </summary>
-        private static double middleControlOriginPercent = 34;
+        private static double middleControlOriginPercent = 33;
 
         /// <summary>The percentage of the horizontal width to indent this control's origin.
         /// </summary>
@@ -47,7 +49,7 @@
         public override void ViewDidLoad()
         {
             UIColor controlBackgroundColor = UIColor.FromRGB(230, 230, 255);
-            UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
+            UIColor mainBackgroundColor = UIColor.FromRGB(200, 200, 255);
 
             float topMargin = 0;
 
@@ -56,13 +58,50 @@
                 topMargin += topMarginPixels;  
             }
 
-            View.Add(_logos = new UIImageView
-            {
-                Image = UIImage.FromBundle("DFA-DMS-Banner.png"),
+            var logoButton = _logoButton = new UIButton(UIButtonType.Custom);
+            logoButton.Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, bannerWidth(), bannerHeight());
+            logoButton.SetTitle("DFA & DMS", UIControlState.Normal);
+            logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
+            logoButton.BackgroundColor = UIColor.White;
+
+            var logoView = _logos = new UIView();
+            //var logoView = _logos = new UIImageView
+            //{
+            //    //Image = UIImage.FromBundle("DFA-DMS-Banner.png"),
                 
-                //Frame = new RectangleF(0, 70, 768, 128),
-                Frame = new RectangleF(0, topMargin, bannerWidth(), bannerHeight()),
-            });
+            //    ////Frame = new RectangleF(0, 70, 768, 128),
+            //    Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, bannerWidth(), bannerHeight())
+                
+
+            //};
+
+            //logoView.Add(logoButton);
+            //logoView.BackgroundColor = UIColor.White;
+
+            var logoLayout = _logoLayout = new LinearLayout(Orientation.Vertical)
+            {
+                Gravity = Gravity.TopCenter,
+                SubViews = new View[]
+                {
+                    new NativeView
+                    {
+                        View = logoButton,
+                        LayoutParameters = new LayoutParameters()
+                        {
+                            Gravity = Gravity.TopCenter,
+                        }
+                    }
+                }
+            };
+
+            
+
+            logoView = new UILayoutHost(logoLayout)
+            {
+                BackgroundColor = UIColor.White,
+            };
+
+            logoView.SizeToFit();
 
             // todo: place the 3 controls in a horizontal view with something like
             // var layout = new LinearLayout(Orientation.Horizontal)
@@ -87,7 +126,7 @@
             var findButton = _find = new UIButton(UIButtonType.Custom);
             findButton.Frame = new RectangleF(percentWidth(middleControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             findButton.SetTitle("Refresh", UIControlState.Normal);
-            findButton.BackgroundColor = viewBackgroundColor;
+            findButton.BackgroundColor = mainBackgroundColor;
 
             var newButton = _new = new UIButton(UIButtonType.Custom);
             newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
@@ -96,14 +135,17 @@
             var plusSign = UIImage.FromBundle("Add.png");
             //plusSign.Scale();
             newButton.SetImage(UIImage.FromBundle("Add.png"), UIControlState.Normal);
+            newButton.BackgroundColor = mainBackgroundColor;
 
-            newButton.BackgroundColor = viewBackgroundColor;
-
-            var tableView = _table = new UITableView(new RectangleF(percentWidth(leftControlOriginPercent), tableTop(), percentWidth(98), screenHeight() - tableTop()));
+            //var tableView = _table = new UITableView(new RectangleF(percentWidth(leftControlOriginPercent), tableTop(), percentWidth(98), screenHeight() - tableTop()));
+            var tableView = _table = new UITableView(new RectangleF(0, tableTop(), screenWidth(), screenHeight() - tableTop()));
             tableView.BackgroundView = null;
-            tableView.BackgroundColor = viewBackgroundColor;
-            View.BackgroundColor = viewBackgroundColor;
+            tableView.BackgroundColor = mainBackgroundColor;
 
+            View.BackgroundColor = UIColor.White;
+            View.Add(logoButton);
+            //View.Add(logoView);
+            //View.Add(logoLayout);
             View.Add(tableView);
             View.Add(findButton);
             View.Add(filterField);
@@ -139,15 +181,16 @@
             appName = "Field Contact";
             string appVersion = assemblyName.Version.ToString();    // the version number
             ////var up = System.Reflection.Ass
-            
-            // need something like if this.config != release then appName = appName + this.config
-            #if DEBUG
-                appName += " (TESTING)";
-            #elif ALPHA
-                appName += " (ALPHA)";
-            #elif BETA
-                appName += " (BETA)";
-            #endif
+
+            //// fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
+            //// need something like if this.config != release then appName = appName + this.config
+            //#if DEBUG
+            //    appName += " (TESTING)";
+            //#elif ALPHA
+            //    appName += " (ALPHA)";
+            //#elif BETA
+            //    appName += " (BETA)";
+            //#endif
 
             // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
             Title = appName + " (BETA); " + appVersion;
@@ -230,6 +273,18 @@
             }
 
             return desiredBannerWidth;
+        }
+
+        private float bannerHorizontalOrigin()
+        {
+            float bannerHorizontalOrigin = 0;
+
+            if (bannerWidth() < screenWidth())
+            {
+                bannerHorizontalOrigin = (screenWidth() - bannerWidth()) / 2;
+            }
+
+            return bannerHorizontalOrigin;
         }
 
         private float bannerBottom()
