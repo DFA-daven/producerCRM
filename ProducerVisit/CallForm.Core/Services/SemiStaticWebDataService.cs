@@ -36,7 +36,7 @@
             }
             else
             {
-                // fixme: 
+                // review: is this here for in case the web is not available? how does this list stay in sync with the web version?
                 return new List<string>(new[]
                 {
                     "Farm Visit",

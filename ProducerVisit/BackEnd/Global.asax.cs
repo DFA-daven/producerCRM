@@ -16,8 +16,7 @@ namespace BackEnd
         {
             AreaRegistration.RegisterAllAreas();
 
-            // FIXME: can this be automated?
-            // TODO: this line must be commented out on the initial Publish/Deploy. 
+            // broken: this line must be commented out on the initial Publish/Deploy. can this be automated?
             // Doing so enables the tables (schema) to be established in the database.
             // After the first run, the uncommented line allows everything to work.
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VisitContext>());
