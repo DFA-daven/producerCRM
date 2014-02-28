@@ -12,6 +12,8 @@
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
+        // fixme: change userID to DeviceID
+
         /// <summary>The user ID associated with this visit. Used by this database.
         /// </summary>
         public string UserID { get; set; }

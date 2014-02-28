@@ -105,8 +105,10 @@ namespace CallForm.Core.ViewModels
             Lng = locationMessage.Lng;
         }
 
+        // fixme: change userID to DeviceID
         private string _userID;
 
+        // fixme: change userID to DeviceID
         public string UserID
         {
             get { return _userID; }
