@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Xml.Serialization;
-using CallForm.Core.Models;
-using Cirrious.MvvmCross.Plugins.File;
-using Cirrious.MvvmCross.Plugins.Network.Rest;
-
-namespace CallForm.Core.Services
+﻿namespace CallForm.Core.Services
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Xml.Serialization;
+    using CallForm.Core.Models;
+    using Cirrious.MvvmCross.Plugins.File;
+    using Cirrious.MvvmCross.Plugins.Network.Rest;
+
     public class SemiStaticWebDataService : ISemiStaticWebDataService
     {
         private readonly IMvxFileStore _fileStore;
@@ -28,7 +28,7 @@ namespace CallForm.Core.Services
         public List<string> GetCallTypes()
         {
             _fileStore.EnsureFolderExists("Data");
-            string xml;
+            string xml = string.Empty;
             var callTypesFilename = _fileStore.PathCombine("Data", "CallTypes.xml");
             if (_fileStore.Exists(callTypesFilename) && _fileStore.TryReadTextFile(callTypesFilename, out xml))
             {
@@ -36,6 +36,7 @@ namespace CallForm.Core.Services
             }
             else
             {
+                // fixme: 
                 return new List<string>(new[]
                 {
                     "Farm Visit",
@@ -50,7 +51,7 @@ namespace CallForm.Core.Services
         public List<string> GetEmailRecipients()
         {
             _fileStore.EnsureFolderExists("Data");
-            string xml;
+            string xml = string.Empty;
             var emailsFilename = _fileStore.PathCombine("Data", "Emails.xml");
             if (_fileStore.Exists(emailsFilename) && _fileStore.TryReadTextFile(emailsFilename, out xml))
             {
@@ -79,12 +80,13 @@ namespace CallForm.Core.Services
         public void Update()
         {
             // TODO: update this to the current backend target
-            var request = new MvxRestRequest("http://dl-webserver-te.dairydata.local:480/Visit/Reasons/");
+            var request = new MvxRestRequest("http://dl-backend.azurewebsites.net/Visit/Reasons/");
             _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
                 response => _dataService.UpdateReasons(response.Result),
                 exception => { });
             // TODO: update this to the current backend target
-            request = new MvxRestRequest("http://dl-webserver-te.dairydata.local:480/Visit/CallTypes/");
+            //request = new MvxRestRequest("http://dl-webserver-te.dairydata.local:480/Visit/CallTypes/");
+            request = new MvxRestRequest("http://dl-backend.azurewebsites.net/Visit/CallTypes/");
             _jsonRestClient.MakeRequestFor<List<string>>(request,
                 response =>
                 {
@@ -94,7 +96,7 @@ namespace CallForm.Core.Services
                 },
                 exception => { });
             // TODO: update this to the current backend target
-            request = new MvxRestRequest("http://dl-webserver-te.dairydata.local:480/Visit/EmailRecipients/");
+            request = new MvxRestRequest("http://dl-backend.azurewebsites.net/Visit/EmailRecipients/");
             _jsonRestClient.MakeRequestFor<List<string>>(request,
                 response =>
                 {

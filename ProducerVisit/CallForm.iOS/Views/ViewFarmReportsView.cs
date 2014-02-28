@@ -1,15 +1,15 @@
-﻿using CallForm.Core.Models;
-using CallForm.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Touch.Views;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using System;
-using System.Drawing;
-using XibFree;
-
-namespace CallForm.iOS.Views
+﻿namespace CallForm.iOS.Views
 {
+    using CallForm.Core.Models;
+    using CallForm.Core.ViewModels;
+    using Cirrious.MvvmCross.Binding.BindingContext;
+    using Cirrious.MvvmCross.Touch.Views;
+    using MonoTouch.Foundation;
+    using MonoTouch.UIKit;
+    using System;
+    using System.Drawing;
+    using XibFree;
+
     class ViewFarmReportsView : MvxViewController
     {
         private UIImageView _logos;
@@ -19,7 +19,9 @@ namespace CallForm.iOS.Views
 
         // hard-coded values
         private static float topMarginPixels = 65;
-        private static double bannerHeightPercent = 12.5;
+        // fixme: until we get a new banner, just hiding the old one
+        // private static double bannerHeightPercent = 12.5;
+        private static double bannerHeightPercent = 0.5;
 
         /// <summary>The height of controls as a percentage of screen height.
         /// </summary>
@@ -56,11 +58,12 @@ namespace CallForm.iOS.Views
 
             View.Add(_logos = new UIImageView
             {
-                Image = UIImage.FromBundle("Dairylea-Banner.png"),
-                //Frame = new RectangleF(0, 70, 768, 128),
+                // fixme: just commenting this out until we get a new banner
+                //Image = UIImage.FromBundle("Dairylea-Banner.png"),
+                ////Frame = new RectangleF(0, 70, 768, 128),
 
 
-                Frame = new RectangleF(0, topMargin, screenWidth(), bannerHeight()),
+                //Frame = new RectangleF(0, topMargin, screenWidth(), bannerHeight()),
             });
 
             // todo: place the 3 controls in a horizontal view with something like
@@ -139,15 +142,17 @@ namespace CallForm.iOS.Views
             string appVersion = assemblyName.Version.ToString();    // the version number
             ////var up = System.Reflection.Ass
             
+            // need something like if this.config != release then appName = appName + this.config
             #if DEBUG
-                appName += " (DEBUG)";
+                appName += " (TESTING)";
             #elif ALPHA
                 appName += " (ALPHA)";
             #elif BETA
                 appName += " (BETA)";
             #endif
 
-            Title = appName + "; " + appVersion;
+            // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
+            Title = appName + " (BETA); " + appVersion;
         }
 
         // todo: manipulate base image? 
@@ -155,6 +160,7 @@ namespace CallForm.iOS.Views
         {
             base.ViewDidLayoutSubviews();
 
+            // todo: use bool method here
             if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
             {
                 float displacement_y = this.TopLayoutGuide.Length;
@@ -357,11 +363,13 @@ namespace CallForm.iOS.Views
 
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
+            // fixme: is this one of ben's hard-coded values?
             return 50;
         }
 
         public override int RowsInSection(UITableView tableview, int section)
         {
+            // fixme: why aren't the parameters being used here?
             return _viewModel.Reports == null ? 0 : _viewModel.Reports.Count;
         }
 
@@ -395,6 +403,7 @@ namespace CallForm.iOS.Views
         public UILabel Date, FarmNo, Source, Reasons;
         public UILayoutHost Host;
 
+        // fixme: plenty of hard-coded values in this one
         public TableViewCell() : base(UITableViewCellStyle.Default, "tableViewCell")
         {
             var layout = new LinearLayout(Orientation.Horizontal)

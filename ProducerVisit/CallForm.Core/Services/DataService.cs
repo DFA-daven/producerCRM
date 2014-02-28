@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CallForm.Core.Models;
-using Cirrious.MvvmCross.Plugins.Sqlite;
-
-namespace CallForm.Core.Services
+﻿namespace CallForm.Core.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using CallForm.Core.Models;
+    using Cirrious.MvvmCross.Plugins.Sqlite;
+
     public class DataService : IDataService
     {
         private readonly IUserIdentityService _userIdentityService;
@@ -45,19 +45,23 @@ namespace CallForm.Core.Services
             return spvrs.Select(spvr =>
                 {
                     var pvr = Hydrated(spvr);
+                    // review: would a reason code ever not be found? is "other" the right thing to show?
                     return new ReportListItem
                     {
                         ID = spvr.ID,
                         UserEmail = _userIdentityService.IdentityRecorded ? _userIdentityService.GetSavedIdentity().UserEmail : "You",
                         FarmNumber = pvr.FarmNumber,
                         Local = true,
-                        PrimaryReasonCode = pvr.ReasonCodes != null && pvr.ReasonCodes.Length > 0 ? pvr.ReasonCodes[0] : new ReasonCode {Name = "No Reason"},
+                        PrimaryReasonCode = pvr.ReasonCodes != null && pvr.ReasonCodes.Length > 0 ? pvr.ReasonCodes[0] : new ReasonCode { Name = "Other", Code = -1 },
                         VisitDate = pvr.VisitDate,
                         Uploaded = spvr.Uploaded
                     };
                 }).ToList();
         }
 
+        /// <summary>Gets the list of Reason Codes.
+        /// </summary>
+        /// <returns></returns>
         public List<ReasonCode> GetReasonsForCall()
         {
             return _connection.Table<ReasonCode>().ToList();
@@ -69,6 +73,7 @@ namespace CallForm.Core.Services
             _connection.CreateTable<ReasonCode>();
             _connection.InsertAll(reasonCodes);
         }
+
 
         public void Insert(ProducerVisitReport report)
         {

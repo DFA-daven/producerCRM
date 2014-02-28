@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using BackEnd.Models;
-using CallForm.Core.Models;
-
-namespace BackEnd.Controllers
+﻿namespace BackEnd.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+    using BackEnd.Models;
+    using CallForm.Core.Models;
+
     public class VisitController : Controller
     {
         private readonly VisitContext _db = new VisitContext();
@@ -103,9 +103,11 @@ namespace BackEnd.Controllers
         /// <summary>Gets the list of Reason Codes. Creates a new list if needed.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>List<ReasonCode></returns>
+        /// <returns>List<ReasonCode> of the Reason Codes.</returns>
         public ActionResult Reasons(string id)
         {
+            // review: this seems like a better approach to retreiving the data. Use this for the other lists below?
+            // todo: these should probably be in an .resx
             if (!_db.ReasonCodes.Any())
             {
                 var list = new List<ReasonCode>(new[]
@@ -143,12 +145,13 @@ namespace BackEnd.Controllers
             return Json(Hydrated(_db.ProducerVisitReports.Find(int.Parse(id))), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>Gets the list of Call Types. Creates a new list if needed.
+        /// <summary>Creates the list of Call Types.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>List<string></returns>
+        /// <returns>List<string> of Call Types.</returns>
         public ActionResult CallTypes(string id)
         {
+            // undone: can't this be pulled from the XML file?
             return Json(new List<string>(new[]
                 {
                     "Farm Visit",
@@ -159,12 +162,13 @@ namespace BackEnd.Controllers
                 }), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>Gets the list of Email Recipients. Creates a new list if needed.
+        /// <summary>Creates the list of Email Recipients.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>List<string></returns>
+        /// <returns>List<string> of email recipients.</returns>
         public ActionResult EmailRecipients(string id)
         {
+            // undone: can't this be pulled from the XML file?
             return Json(new List<string>(new[]
             {
                 "info@agri-maxfinancial.com",

@@ -216,6 +216,7 @@ namespace CallForm.iOS.Views
             tableView.DeselectRow(indexPath, true);
         }
 
+        // todo: is this ever used?
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
             if (indexPath.Row == 5)
