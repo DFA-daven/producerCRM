@@ -139,7 +139,7 @@
             return Json(_db.ReasonCodes.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>Gets the list of Producer Visit Reports.
+        /// <summary>Gets the list of Visit Reports.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

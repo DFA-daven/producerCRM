@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Producer Contact BackEnd")]
-[assembly: AssemblyDescription("Provides backend services to the Producer Contact app.")]
+[assembly: AssemblyTitle("Field Contact BackEnd")]
+[assembly: AssemblyDescription("Provides backend services to the Field Contact app.")]
 // [assembly: AssemblyCulture("The culture - if not neutral")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

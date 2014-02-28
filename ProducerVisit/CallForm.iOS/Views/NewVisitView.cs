@@ -87,6 +87,8 @@ namespace CallForm.iOS.Views
                 {
                     mailView.AddAttachmentData(NSData.FromArray(viewModel.PictureBytes), "image/jpeg", "Picture.jpg");
                 }
+
+                // todo: add a message to the body to indicate if a picture was attached
                 mailView.SetMessageBody(
                     "Farm Number: " + viewModel.FarmNumber + "\n" +
                     "Contact Type: " + viewModel.CallType + "\n" +
@@ -156,6 +158,8 @@ namespace CallForm.iOS.Views
                 {
                     mailView.AddAttachmentData(NSData.FromArray(viewModel.PictureBytes), "image/jpeg", "Picture.jpg");
                 }
+                // todo: add a message to the body to indicate if a picture was attached
+
                 mailView.SetMessageBody(
                     "Farm Number: " + viewModel.FarmNumber + "\n" +
                     "Contact Type: " + viewModel.CallType + "\n" +

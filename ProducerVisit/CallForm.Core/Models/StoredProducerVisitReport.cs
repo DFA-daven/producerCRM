@@ -38,7 +38,7 @@
         /// </summary>
         public decimal Duration { get; set; }
 
-        /// <summary>The timestamp of this Producer Visit Report.
+        /// <summary>The timestamp of this Visit Report.
         /// </summary>
         public DateTime EntryDateTime { get; set; }
 
@@ -69,21 +69,21 @@
 
         /// <summary>Creates a <seealso cref="StoredProducerVisitReport"/> based on a <seealso cref="ProducerVisitReport"/>.
         /// </summary>
-        /// <param name="pvr">The producer visit report.</param>
-        public StoredProducerVisitReport(ProducerVisitReport pvr)
+        /// <param name="visitReport">The visit report.</param>
+        public StoredProducerVisitReport(ProducerVisitReport visitReport)
         {
-            ID = pvr.ID;
-            UserID = pvr.UserID;
-            FarmNumber = pvr.FarmNumber;
-            Lat = pvr.Lat;
-            Lng = pvr.Lng;
-            VisitDate = pvr.VisitDate;
-            Duration = pvr.Duration;
-            EntryDateTime = pvr.EntryDateTime;
-            CallType = pvr.CallType;
-            Notes = pvr.Notes;
-            EmailRecipients = pvr.EmailRecipients;
-            PictureBytes = pvr.PictureBytes;
+            ID = visitReport.ID;
+            UserID = visitReport.UserID;
+            FarmNumber = visitReport.FarmNumber;
+            Lat = visitReport.Lat;
+            Lng = visitReport.Lng;
+            VisitDate = visitReport.VisitDate;
+            Duration = visitReport.Duration;
+            EntryDateTime = visitReport.EntryDateTime;
+            CallType = visitReport.CallType;
+            Notes = visitReport.Notes;
+            EmailRecipients = visitReport.EmailRecipients;
+            PictureBytes = visitReport.PictureBytes;
             Uploaded = false;
         }
 

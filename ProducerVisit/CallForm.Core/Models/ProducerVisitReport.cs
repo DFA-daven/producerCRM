@@ -36,7 +36,7 @@
         /// </summary>
         public decimal Duration { get; set; }
 
-        /// <summary>The timestamp of this Producer Visit Report.
+        /// <summary>The timestamp of this Visit Report.
         /// </summary>
         public DateTime EntryDateTime { get; set; }
 
