@@ -14,7 +14,10 @@
 
         public ActionResult Index()
         {
-            ViewBag.Count = _db.ProducerVisitReports.Count();
+            ViewBag.VRCount = _db.ProducerVisitReports.Count();
+            ViewBag.UserCount = _db.UserIdentities.Count();
+            ViewBag.UniqueUsers = _db.UserIdentities.Distinct().Count();
+
             return View();
         }
 
