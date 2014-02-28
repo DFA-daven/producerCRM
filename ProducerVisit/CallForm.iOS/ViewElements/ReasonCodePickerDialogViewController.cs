@@ -1,20 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using CallForm.Core.Models;
-using CallForm.Core.ViewModels;
-using CallForm.iOS.Views;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-
 namespace CallForm.iOS.ViewElements
 {
+    using CallForm.Core.Models;
+    using CallForm.Core.ViewModels;
+    using CallForm.iOS.Views;
+    using MonoTouch.Foundation;
+    using MonoTouch.UIKit;
+    using System.Drawing;
+
     public class ReasonCodePickerDialogViewController : UIViewController
     {
         private readonly UITableView _table;
         private readonly NewVisitViewModel _viewModel;
 
+        // todo: replace fixed values
         public ReasonCodePickerDialogViewController(NewVisitViewModel viewModel, NewVisitTableViewSource source)
         {
             View.BackgroundColor = UIColor.White;
@@ -30,11 +28,9 @@ namespace CallForm.iOS.ViewElements
             _viewModel.RaisePropertyChanged("ReasonCodes");
         }
 
-        // replace ContentSizeForViewInPopover with PreferredContentSize
         public override SizeF PreferredContentSize
         {
             get { return _table.Frame.Size; }
-            // replace ContentSizeForViewInPopover with PreferredContentSize
             set { base.PreferredContentSize = value; }
         }
     }

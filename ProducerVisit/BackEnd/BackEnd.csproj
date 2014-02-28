@@ -23,7 +23,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-	<DebugType>full</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
@@ -52,7 +52,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-	<PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Release\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -223,6 +223,9 @@
     <None Include="Properties\PublishProfiles\dairyleademo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\dl-backend - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dl-backend - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\dl-backend-02 %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\dl-backend-02.pubxml" />
+    <None Include="Properties\PublishProfiles\dl-backend.pubxml" />
     <None Include="Properties\PublishProfiles\Test Package.pubxml" />
     <None Include="Properties\PublishProfiles\zip.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />

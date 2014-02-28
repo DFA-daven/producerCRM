@@ -363,7 +363,7 @@
 
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            // fixme: is this one of ben's hard-coded values?
+            // fixme: remove hard-coded values
             return 50;
         }
 
