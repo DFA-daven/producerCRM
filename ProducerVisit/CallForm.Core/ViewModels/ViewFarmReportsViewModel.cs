@@ -44,7 +44,7 @@ namespace CallForm.Core.ViewModels
             {
                 // TODO: update this to the current backend target
                 var request =
-                    new MvxJsonRestRequest<ProducerVisitReport>("http://dl-backend.azurewebsites.net/Visit/Log/")
+                    new MvxJsonRestRequest<ProducerVisitReport>("http://dl-backend-02.azurewebsites.net/Visit/Log/")
                     {
                         Body = producerVisitReport,
                         Tag = producerVisitReport.ID.ToString()
@@ -133,7 +133,7 @@ namespace CallForm.Core.ViewModels
             {
                 Loading = true;
                 // TODO: update this to the current backend target
-                var request = new MvxRestRequest("http://dl-backend.azurewebsites.net/Visit/Recent/" + Filter);
+                var request = new MvxRestRequest("http://dl-backend-02.azurewebsites.net/Visit/Recent/" + Filter);
                 _jsonRestClient.MakeRequestFor<List<ReportListItem>>(request,
                     response =>
                     {
@@ -195,7 +195,7 @@ namespace CallForm.Core.ViewModels
                 {
                     Loading = true;
                     // TODO: update this to the current backend target
-                    var request = new MvxRestRequest("http://dl-backend.azurewebsites.net/Visit/Report/" + SelectedReport.ID);
+                    var request = new MvxRestRequest("http://dl-backend-02.azurewebsites.net/Visit/Report/" + SelectedReport.ID);
                     _jsonRestClient.MakeRequestFor<ProducerVisitReport>(request,
                         response =>
                         {

@@ -58,12 +58,10 @@
 
             View.Add(_logos = new UIImageView
             {
-                // fixme: just commenting this out until we get a new banner
-                //Image = UIImage.FromBundle("Dairylea-Banner.png"),
-                ////Frame = new RectangleF(0, 70, 768, 128),
-
-
-                //Frame = new RectangleF(0, topMargin, screenWidth(), bannerHeight()),
+                Image = UIImage.FromBundle("DFA-DMS-Banner.png"),
+                
+                //Frame = new RectangleF(0, 70, 768, 128),
+                Frame = new RectangleF(0, topMargin, bannerWidth(), bannerHeight()),
             });
 
             // todo: place the 3 controls in a horizontal view with something like
@@ -209,8 +207,29 @@
 
         private float bannerHeight()
         {
-            float bannerHeight = calculatePercent(availableHeight(), bannerHeightPercent);
-            return bannerHeight;
+            float maxAllowedBannerHeight = calculatePercent(availableHeight(), bannerHeightPercent);
+
+            return maxAllowedBannerHeight;
+        }
+
+        private float bannerWidth()
+        {
+            float actualBannerWidth = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Width;
+            float actualBannerHeight = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Height;
+
+            float maxAllowedBannerWidth = screenWidth();
+            float maxAllowedBannerHeight = bannerHeight();
+
+            float heightRatio = maxAllowedBannerHeight / actualBannerHeight;
+            
+            float desiredBannerWidth = actualBannerWidth * heightRatio;
+
+            if (desiredBannerWidth >= maxAllowedBannerWidth) 
+            {
+                desiredBannerWidth = maxAllowedBannerWidth;
+            }
+
+            return desiredBannerWidth;
         }
 
         private float bannerBottom()
