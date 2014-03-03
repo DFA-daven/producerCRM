@@ -8,8 +8,7 @@
     public class DataService : IDataService
     {
         private readonly IUserIdentityService _userIdentityService;
-
-
+        
         private readonly ISQLiteConnection _connection;
 
         public DataService(ISQLiteConnectionFactory factory, IUserIdentityService userIdentityService)

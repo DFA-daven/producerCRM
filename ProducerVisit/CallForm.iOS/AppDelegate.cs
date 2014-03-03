@@ -11,13 +11,15 @@ namespace CallForm.iOS
     public partial class AppDelegate : MvxApplicationDelegate
     {
         UIWindow _window;
-
+        
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             _window = new UIWindow(UIScreen.MainScreen.Bounds);
+            bool started = true;
 
             // initialize the app for single single screen display
             var presenter = new MvxModalSupportTouchViewPresenter(this, _window);
+            // fixme: use this after fixing UserIdentityView.cs
             //var setup = new Setup(this, presenter);
             var setup = new Setup(this, _window);
             setup.Initialize();
@@ -29,7 +31,16 @@ namespace CallForm.iOS
 
             _window.MakeKeyAndVisible();
 
-            return true;
+            if (!Reachability.IsHostReachable("dl-backend-02.azurewebsites.net"))
+            {
+                started = false;
+            }
+            else
+            {
+                started = true;
+            }
+
+            return started;
         }
     }
 }

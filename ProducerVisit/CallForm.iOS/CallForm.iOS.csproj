@@ -209,6 +209,8 @@
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Reachability.cs" />
+    <Compile Include="Screens\ConnectionScreen.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="ViewElements\ImageTableViewCell.cs" />
     <Compile Include="ViewElements\EmailRecipientSelectDialogViewController.cs" />
