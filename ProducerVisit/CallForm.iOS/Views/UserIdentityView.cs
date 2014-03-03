@@ -1,13 +1,18 @@
-﻿using CallForm.Core.ViewModels;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Touch.Views;
-using MonoTouch.UIKit;
-using System;
-using System.Drawing;
-using XibFree;
-
-namespace CallForm.iOS.Views
+﻿namespace CallForm.iOS.Views
 {
+    using CallForm.Core.ViewModels;
+    using Cirrious.MvvmCross.Binding.BindingContext;
+    using Cirrious.MvvmCross.Touch.Views;
+    using MonoTouch.UIKit;
+    using System;
+    using XibFree;
+
+
+
+    // notes: see _Touch UI.txt for design details.
+    // fixme: the UserIdentity view does not implement modal correctly. It looks like the foundation is here, but it was never implemented.
+    //public class UserIdentityView : MvxBindingTouchViewController<MyViewModel>, IMvxModalTouchView
+    // visit http://stackoverflow.com/questions/14518876/integrating-google-mobile-analytics-with-mvvmcross for examples of getting this to work.
     public class UserIdentityView : MvxViewController, IMvxModalTouchView
     {
         // hard-coded values

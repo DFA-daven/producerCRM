@@ -10,6 +10,7 @@
     using System.Drawing;
     using XibFree;
 
+    // notes: see _Touch UI.txt for design details.
     class ViewFarmReportsView : MvxViewController
     {
         private UIView _logos;

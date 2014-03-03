@@ -12,6 +12,7 @@ namespace BackEnd.Models
         public VisitContext()
             : base("DefaultConnection")
         {
+            // review: initializes database (backend) when called from .pubxml
         }
 
         public DbSet<StoredProducerVisitReport> ProducerVisitReports { get; set; }

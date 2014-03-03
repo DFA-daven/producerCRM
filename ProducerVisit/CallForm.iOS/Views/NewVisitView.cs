@@ -1,17 +1,18 @@
-using CallForm.Core.ViewModels;
-using CallForm.iOS.ViewElements;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Touch.Views;
-using MonoTouch.Foundation;
-using MonoTouch.MessageUI;
-using MonoTouch.UIKit;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-
 namespace CallForm.iOS.Views
 {
+    using CallForm.Core.ViewModels;
+    using CallForm.iOS.ViewElements;
+    using Cirrious.MvvmCross.Binding.BindingContext;
+    using Cirrious.MvvmCross.Touch.Views;
+    using MonoTouch.Foundation;
+    using MonoTouch.MessageUI;
+    using MonoTouch.UIKit;
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+
+    // notes: see _Touch UI.txt for design details.
     [Register("NewVisitView")]
     public class NewVisitView : MvxViewController
     {

@@ -8,10 +8,11 @@
     public class DataService : IDataService
     {
         private readonly IUserIdentityService _userIdentityService;
+
+
         private readonly ISQLiteConnection _connection;
 
-        public DataService(ISQLiteConnectionFactory factory,
-            IUserIdentityService userIdentityService)
+        public DataService(ISQLiteConnectionFactory factory, IUserIdentityService userIdentityService)
         {
             _userIdentityService = userIdentityService;
             _connection = factory.Create("one.sql");
@@ -36,6 +37,9 @@
             return spvr.Hydrate(reasonCodes);
         }
 
+        /// <summary>Get the 20 most recent <seealso cref="StoredProducerVisitReport"/>s.
+        /// </summary>
+        /// <returns>A <seealso cref="List<>"/> of <seealso cref="ReportListItem"/>s.</returns>
         public List<ReportListItem> Recent()
         {
             var spvrs = _connection.Table<StoredProducerVisitReport>()
@@ -67,11 +71,15 @@
             return _connection.Table<ReasonCode>().ToList();
         }
 
+        /// <summary>Drop the "ReasonCodes" table and replace with <paramref name="reasonCodes"/>.
+        /// </summary>
+        /// <param name="reasonCodes"></param>
         public void UpdateReasons(List<ReasonCode> reasonCodes)
         {
+            // review: is this method ever called?
             _connection.DropTable<ReasonCode>();
             _connection.CreateTable<ReasonCode>();
-            _connection.InsertAll(reasonCodes);
+            _connection.InsertAll(reasonCodes); // fixme: is this method missing? 
         }
 
 

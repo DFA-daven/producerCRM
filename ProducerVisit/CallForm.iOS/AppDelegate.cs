@@ -16,9 +16,14 @@ namespace CallForm.iOS
         {
             _window = new UIWindow(UIScreen.MainScreen.Bounds);
 
+            // initialize the app for single single screen display
+            var presenter = new MvxModalSupportTouchViewPresenter(this, _window);
+            //var setup = new Setup(this, presenter);
             var setup = new Setup(this, _window);
             setup.Initialize();
 
+            // start the app
+            //var start = this.GetService<ImvxStartNavigation>();
             var startup = Mvx.Resolve<IMvxAppStart>();
             startup.Start();
 
