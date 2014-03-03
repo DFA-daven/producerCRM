@@ -1,11 +1,11 @@
-﻿using CallForm.Core.ViewModels;
-using CallForm.iOS.ViewElements;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using System.Drawing;
-
-namespace CallForm.iOS.Views
+﻿namespace CallForm.iOS.Views
 {
+    using CallForm.Core.ViewModels;
+    using CallForm.iOS.ViewElements;
+    using MonoTouch.Foundation;
+    using MonoTouch.UIKit;
+    using System.Drawing;
+
     public class NewVisitTableViewSource : UITableViewSource
     {
         private readonly NewVisitViewModel _viewModel;
