@@ -4,6 +4,7 @@ using CallForm.Core.Models;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Network.Rest;
 
+
 namespace CallForm.Core.Services
 {
     public class UserIdentityService : IUserIdentityService
@@ -16,14 +17,20 @@ namespace CallForm.Core.Services
         /// </summary>
         private readonly IMvxRestClient _restClient;
 
-        /// <summary>Provides access to the <paramref name="IMvxFileStore"/> and <paramref name="IMvxRestClient"/>.
+        private readonly string _targetURL;
+
+        /// <summary>Provides access to the <paramref name="fileStore"/> and <paramref name="restClient"/>.
         /// </summary>
         /// <param name="fileStore">The target <see cref="IMvxFileStore"/></param>
         /// <param name="restClient">The target <see cref="IMvxRestClient"/></param>
         public UserIdentityService(IMvxFileStore fileStore, IMvxRestClient restClient)
         {
+            // fixme: this seems to be the first method that requires a data connection
             _fileStore = fileStore;
             _restClient = restClient;
+
+            // Hack: update this to the current backend target
+            _targetURL = "http://dl-backend-02.azurewebsites.net";
         }
 
         /// <summary>Indicates if the "Identity.xml" file exists in the "Data" folder of the <see cref="IMvxFileStore"/>.
@@ -43,9 +50,8 @@ namespace CallForm.Core.Services
         /// <param name="identity">A <seealso cref="UserIdentity"/>.</param>
         public void SaveIdentity(UserIdentity identity)
         {
-            // TODO: update this to the current backend target
             var request =
-                new MvxJsonRestRequest<UserIdentity>("http://dl-backend-02.azurewebsites.net/Visit/Identity/")
+                new MvxJsonRestRequest<UserIdentity>(_targetURL + "/Visit/Identity/")
                 {
                     Body = identity
                 };

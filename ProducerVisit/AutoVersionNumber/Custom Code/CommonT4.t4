@@ -89,7 +89,7 @@
 
 	public string GetRevisionNumber()
 	{
-		int revisionNumber = (int)Math.Floor((DateTime.Now - DateTime.Today).TotalSeconds / 2);
+		int revisionNumber = (int)Math.Floor((DateTime.Now - DateTime.Today).TotalSeconds / 5);
 		return revisionNumber.ToString();
 	}
 

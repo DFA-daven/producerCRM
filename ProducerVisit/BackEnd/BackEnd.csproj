@@ -56,6 +56,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\BackEnd.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Elmah">
@@ -266,6 +267,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AutoVersionNumber\AutoVersionNumber.csproj">
+      <Project>{4ef91104-404e-451d-8e7c-b28b8dc6705b}</Project>
+      <Name>AutoVersionNumber</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CallForm.Core\CallForm.Core.csproj">
       <Project>{4b641af9-5bbe-4eee-a0e6-df2dd7b0e526}</Project>
       <Name>CallForm.Core</Name>
@@ -292,6 +297,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Beta\BackEnd.XML</DocumentationFile>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

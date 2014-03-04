@@ -6,18 +6,25 @@
     using CallForm.Core.Models;
     using Cirrious.MvvmCross.Plugins.File;
     using Cirrious.MvvmCross.Plugins.Network.Rest;
+    using CallForm.Core;
 
     public class SemiStaticWebDataService : ISemiStaticWebDataService
     {
         private readonly IMvxFileStore _fileStore;
         private readonly IMvxJsonRestClient _jsonRestClient;
         private readonly IDataService _dataService;
+        private readonly string _targetURL;
 
         public SemiStaticWebDataService(IMvxFileStore fileStore, IMvxJsonRestClient jsonRestClient, IDataService dataService)
         {
             _fileStore = fileStore;
             _jsonRestClient = jsonRestClient;
             _dataService = dataService;
+
+            // Hack: update this to the current backend target
+            // _targetURL = "http://dl-webserver-te.dairydata.local:480");
+            // _targetURL = "http://dl-backend.azurewebsites.net");
+            _targetURL = "http://dl-backend-02.azurewebsites.net";
         }
 
         public List<ReasonCode> GetReasonsForCall()
@@ -79,15 +86,12 @@
 
         public void Update()
         {
-            // TODO: update this to the current backend target
-            var request = new MvxRestRequest("http://dl-backend-02.azurewebsites.net/Visit/Reasons/");
+            var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
             _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
                 response => _dataService.UpdateReasons(response.Result),
                 exception => { });
-            // TODO: update this to the current backend target
-            //request = new MvxRestRequest("http://dl-webserver-te.dairydata.local:480/Visit/CallTypes/");
-            //request = new MvxRestRequest("http://dl-backend.azurewebsites.net/Visit/CallTypes/");
-            request = new MvxRestRequest("http://dl-backend-02.azurewebsites.net/Visit/CallTypes/");
+
+            request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
             _jsonRestClient.MakeRequestFor<List<string>>(request,
                 response =>
                 {
@@ -96,8 +100,7 @@
                     _fileStore.WriteFile(filename, Serialize(response.Result));
                 },
                 exception => { });
-            // TODO: update this to the current backend target
-            request = new MvxRestRequest("http://dl-backend-02.azurewebsites.net/Visit/EmailRecipients/");
+            request = new MvxRestRequest(_targetURL + "/Visit/EmailRecipients/");
             _jsonRestClient.MakeRequestFor<List<string>>(request,
                 response =>
                 {

@@ -1,12 +1,12 @@
-using System;
-using System.Drawing;
-
-using MonoTouch.CoreFoundation;
-using MonoTouch.UIKit;
-using MonoTouch.Foundation;
-
 namespace CallForm.iOS.Screens
 {
+    using System;
+    using System.Drawing;
+
+    using MonoTouch.CoreFoundation;
+    using MonoTouch.UIKit;
+    using MonoTouch.Foundation;
+
     [Register("UniversalView")]
     public class UniversalView : UIView
     {
@@ -15,8 +15,7 @@ namespace CallForm.iOS.Screens
             Initialize();
         }
 
-        public UniversalView(RectangleF bounds)
-            : base(bounds)
+        public UniversalView(RectangleF bounds) : base(bounds)
         {
             Initialize();
         }

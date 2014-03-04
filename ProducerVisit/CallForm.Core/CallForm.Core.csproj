@@ -43,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Beta\FieldPersonCallForm.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -52,6 +53,7 @@
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\FieldPersonCallForm.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
@@ -62,6 +64,7 @@
       <Link>GlobalAssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="App.cs" />
+    <Compile Include="Common.cs" />
     <Compile Include="Converters\ObjectToStringValueConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeStringValueConverter.cs" />
     <Compile Include="Converters\DateTimeToShortDateValueConverter.cs" />

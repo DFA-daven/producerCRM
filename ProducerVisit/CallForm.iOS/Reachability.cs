@@ -14,8 +14,8 @@ namespace CallForm.iOS
 
     public static class Reachability
     {
-        // TODO: update this to the current backend target
-        public static string HostName = "http://dl-backend-02.azurewebsites.net";
+        // Hack: update this to the current backend target
+        public static string _targetURL = "http://dl-backend-02.azurewebsites.net";
 
         public static bool IsReachableWithoutRequiringConnection(NetworkReachabilityFlags flags)
         {
@@ -108,7 +108,7 @@ namespace CallForm.iOS
 
             if (remoteHostReachability == null)
             {
-                remoteHostReachability = new NetworkReachability(HostName);
+                remoteHostReachability = new NetworkReachability(_targetURL);
 
                 // Need to probe before we queue, or we wont get any meaningful values
                 // this only happens when you create NetworkReachability from a hostname

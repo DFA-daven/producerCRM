@@ -111,6 +111,7 @@
         {
             // review: this seems like a better approach to retreiving the data. Use this for the other lists below?
             // todo: these should probably be in an .resx
+            // note: reason code list
             if (!_db.ReasonCodes.Any())
             {
                 var list = new List<ReasonCode>(new[]
@@ -122,6 +123,7 @@
                     new ReasonCode {Name = "Membership - Relationship Call", Code = 55},
                     new ReasonCode {Name = "Membership - Solicitation", Code = 56},
                     new ReasonCode {Name = "Membership - Cancellation", Code = 50},
+                    new ReasonCode {Name = "Gold Standard III", Code = 40},
                     new ReasonCode {Name = "Farm Services - Agri-Max", Code = 31},
                     new ReasonCode {Name = "Farm Services - ASA - Insurance", Code = 32},
                     new ReasonCode {Name = "Farm Services - Dairy One", Code = 33},

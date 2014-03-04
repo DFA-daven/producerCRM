@@ -24,6 +24,8 @@ namespace CallForm.iOS.Views
             View = new UIView { BackgroundColor = viewBackgroundColor };
             base.ViewDidLoad();
 
+            // Perform any additional setup after loading the view
+
             _table = new UITableView(UIScreen.MainScreen.Bounds)
             {
                 BackgroundView = null

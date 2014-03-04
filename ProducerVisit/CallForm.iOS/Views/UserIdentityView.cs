@@ -7,50 +7,40 @@
     using System;
     using XibFree;
 
-
-
     // notes: see _Touch UI.txt for design details.
     // fixme: the UserIdentity view does not implement modal correctly. It looks like the foundation is here, but it was never implemented.
     //public class UserIdentityView : MvxBindingTouchViewController<MyViewModel>, IMvxModalTouchView
     // visit http://stackoverflow.com/questions/14518876/integrating-google-mobile-analytics-with-mvvmcross for examples of getting this to work.
     public class UserIdentityView : MvxViewController, IMvxModalTouchView
     {
-        // hard-coded values
-        // todo assigned but not used?
-        private static float topMarginPixels = 70;
-        private static double bannerHeightPercent = 12.5;
-        private static double controlHeightPercent = 5;
-        private static double controlWidthPercent = 31;
-
-        private static double leftControlOriginPercent = 1;
-
         public override void ViewDidLoad()
         {
-            UIColor controlBackgroundColor = UIColor.FromRGB(230, 230, 255);
-            UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
-
+            // instructions for the inputs
             var instructions = new UILabel
             {
                 //Font = UIFont.SystemFontOfSize(UIFont.LabelFontSize * 1.1f),
                 Text = "Please Enter Your Email Address and Asset Tag (if any)",
                 TextColor = UIColor.White,
-                BackgroundColor = viewBackgroundColor,
+                BackgroundColor = Common.viewBackgroundColor,
             };
 
+            // the email address field
             var email = new UITextField
             {
                 Placeholder = "type email address here...",
-                BackgroundColor = controlBackgroundColor,
+                BackgroundColor = Common.controlBackgroundColor,
                 KeyboardType = UIKeyboardType.EmailAddress,
                 
             };
 
+            // asset tag field
             var assetTag = new UITextField
             {
                 Placeholder = "enter asset tag information here...",
-                BackgroundColor = controlBackgroundColor,
+                BackgroundColor = Common.controlBackgroundColor,
             };
 
+            // ok button
             var button = new UIButton(UIButtonType.System);
                 button.SetTitle("OK", UIControlState.Normal);
                 button.SetTitle("OK", UIControlState.Disabled);
@@ -65,9 +55,9 @@
                 Spacing = 20,
                 SubViews = new View[]
                 {
+                    // this "view" pushes the others down the page
                     new NativeView
                     {
-                        // this "view" pushes the others down to the bottom of the page
                         View = new UIView(),
                         LayoutParameters = new LayoutParameters
                         {
@@ -95,7 +85,7 @@
                         View = email,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = percentWidth(90), 
+                            //Width = percentWidth(90), 
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = screenWidth() * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
@@ -108,7 +98,7 @@
                         View = assetTag,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = percentWidth(90), 
+                            //Width = percentWidth(90), 
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = percentWidth(5),
                             //MarginTop = View.Frame.Height * 0.05f,
@@ -120,7 +110,7 @@
                         View = button,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = percentWidth(90), 
+                            //Width = percentWidth(90), 
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = View.Frame.Width * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
@@ -128,9 +118,10 @@
                         },
                         
                     },
+
+                    // this "view" pushes the others up to the top of the page
                     new NativeView
                     {
-                        // this "view" pushes the others up to the top of the page
                         View = new UIView(),
                         LayoutParameters = new LayoutParameters
                         {
@@ -144,7 +135,7 @@
 
             View = new UILayoutHost(layout)
             {
-                BackgroundColor = viewBackgroundColor,
+                BackgroundColor = Common.viewBackgroundColor,
             };
 
             base.ViewDidLoad();

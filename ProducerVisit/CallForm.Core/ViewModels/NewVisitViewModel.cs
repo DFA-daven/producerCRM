@@ -1,20 +1,19 @@
-using CallForm.Core.Models;
-using CallForm.Core.Services;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.Plugins.Messenger;
-using Cirrious.MvvmCross.Plugins.PictureChooser;
-using Cirrious.MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows.Input;
-
 namespace CallForm.Core.ViewModels
 {
-    public class NewVisitViewModel 
-		: MvxViewModel
+    using CallForm.Core.Models;
+    using CallForm.Core.Services;
+    using Cirrious.CrossCore;
+    using Cirrious.CrossCore.Platform;
+    using Cirrious.MvvmCross.Plugins.Messenger;
+    using Cirrious.MvvmCross.Plugins.PictureChooser;
+    using Cirrious.MvvmCross.ViewModels;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Windows.Input;
+
+    public class NewVisitViewModel : MvxViewModel
     {
         private readonly ILocationService _locationService;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
