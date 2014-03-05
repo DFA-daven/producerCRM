@@ -2,21 +2,23 @@
 {
     using System;
 
-    /// <summary>Creates an instance of a <seealso cref="ProducerVisitReport"/>.
+    /// <summary>Creates an object representing a report of a visit to a member.
     /// </summary>
     public class ProducerVisitReport
     {
-        /// <summary>The ID associated with this visit. Used by this database.
+        /// <summary>The ID associated with this visit.
         /// </summary>
         public int ID { get; set; }
 
         // fixme: change userID to DeviceID
 
-        /// <summary>The user ID associated with this visit. Used by this database.
+        /// <summary>The device ID associated with this visit.
         /// </summary>
         public string UserID { get; set; }
 
-        /// <summary>The 8 digit farm number.
+        // fixme: change FarmNumber to MemberNumber
+
+        /// <summary>The 8 digit member number.
         /// </summary>
         public string FarmNumber { get; set; }
 
@@ -40,7 +42,7 @@
         /// </summary>
         public DateTime EntryDateTime { get; set; }
 
-        /// <summary>The Call Type for this visit.
+        /// <summary>The <seealso cref="CallType"/> for this visit.
         /// </summary>
         public string CallType { get; set; }
 

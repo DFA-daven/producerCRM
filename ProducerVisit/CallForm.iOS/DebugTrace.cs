@@ -4,6 +4,7 @@ using Cirrious.CrossCore.Platform;
 
 namespace CallForm.iOS
 {
+    // broken: this causes all sorts of problems.
     public class DebugTrace : IMvxTrace
     {
         public void Trace(MvxTraceLevel level, string tag, Func<string> message)

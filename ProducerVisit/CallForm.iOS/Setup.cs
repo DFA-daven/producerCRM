@@ -27,6 +27,7 @@ namespace CallForm.iOS
 			return new Core.App();
 		}
 		
+        // broken: using this seems to cause the app to crash
         protected override IMvxTrace CreateDebugTrace()
         {
             return new DebugTrace();

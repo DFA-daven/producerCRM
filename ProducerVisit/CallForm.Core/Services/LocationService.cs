@@ -6,17 +6,16 @@ namespace CallForm.Core.Services
 {
     public class LocationService : ILocationService
     {
-        // replace deprecated IMvxGeoLocationWatcher with IMvxLocationWatcher
+        // note: replaced deprecated IMvxGeoLocationWatcher with IMvxLocationWatcher
+
         private readonly IMvxLocationWatcher _watcher;
         private readonly IMvxMessenger _messenger;
 
-        // replace deprecated IMvxGeoLocationWatcher with IMvxLocationWatcher
         public LocationService(IMvxLocationWatcher watcher, IMvxMessenger messenger)
         {
             _messenger = messenger;
 
             _watcher = watcher;
-            // replace deprecated MvxGeoLocationOptions() with MvxLocationOptions()
             _watcher.Start(new MvxLocationOptions(), OnSuccess, OnError);
         }
 

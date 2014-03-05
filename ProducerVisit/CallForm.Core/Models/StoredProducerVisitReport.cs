@@ -18,7 +18,7 @@
         /// </summary>
         public string UserID { get; set; }
 
-        /// <summary>The 8 digit farm number.
+        /// <summary>The 8 digit member number.
         /// </summary>
         public string FarmNumber { get; set; }
 

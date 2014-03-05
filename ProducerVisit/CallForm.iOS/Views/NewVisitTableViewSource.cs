@@ -72,7 +72,7 @@
                 {
                     _viewModel.FarmNumber = (sender as UITextField).Text;
                 });
-            _farmNoCell.TextLabel.Text = "Farm Number";
+            _farmNoCell.TextLabel.Text = "Member Number";
             if (!_viewModel.Editing)
             {
                 _farmNoCell.DetailTextLabel.Text = _viewModel.FarmNumber ?? string.Empty;
