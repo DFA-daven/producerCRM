@@ -8,10 +8,10 @@ using CallForm.Core.Models;
 
 namespace BackEnd.Controllers
 {
-
-
     public class VisitController : Controller
     {
+        /// <summary>A connection to the BackEnd database.
+        /// </summary>
         private readonly VisitContext _db = new VisitContext();
 
         public ActionResult Index()
@@ -22,7 +22,6 @@ namespace BackEnd.Controllers
 
             return View();
         }
-
 
         /// <summary>Get the 100 most recent <seealso cref=""/> for a given member number.
         /// </summary>
@@ -81,6 +80,14 @@ namespace BackEnd.Controllers
             return Json(rlis, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>Opens the <seealso cref="_db"/>, adds a <seealso cref="ReasonCode"/>[], and 
+        /// returns a <seealso cref="ProducerVisitReport"/>.
+        /// </summary>
+        /// <param name="spvr">A <seealso cref="StoredProducerVisitReport"/>.</param>
+        /// <returns>A <seealso cref="ProducerVisitReport"/> based on a <seealso cref="StoredProducerVisitReport"/>.</returns>
+        /// <remarks>Opens the <seealso cref="BackEnd.Models.VisitContext"/> connection, queries the <seealso cref="VisitXReason"/> table for the given
+        /// <seealso cref="StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <seealso cref="ReasonCode"/> table
+        /// to get a <seealso cref="ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <seealso cref="ProducerVisitReport"/>.</remarks>
         private ProducerVisitReport Hydrated(StoredProducerVisitReport spvr)
         {
             var vxrs = _db.VisitXReason.Where(vxr => vxr.VisitID == spvr.ID).ToList();
@@ -118,12 +125,13 @@ namespace BackEnd.Controllers
         /// <summary>Gets the list of Reason Codes. Creates a new list if needed.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>List<ReasonCode> of the Reason Codes.</returns>
+        /// <returns>A <seealso cref="List<ReasonCode>"/> of the Reason Codes.</returns>
+        /// <remarks>Checks to see if the web service has a ReasonCodes table. If not, creates one.</remarks>
         public ActionResult Reasons(string id)
         {
             // review: this seems like a better approach to retreiving the data. Use this for the other lists below?
             // todo: these should probably be in an .resx
-            // note: reason code list
+            // note: establishes the reason code list
             if (!_db.ReasonCodes.Any())
             {
                 var list = new List<ReasonCode>(new[]
@@ -153,7 +161,7 @@ namespace BackEnd.Controllers
             return Json(_db.ReasonCodes.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>Gets the list of Visit Reports.
+        /// <summary>Gets a <seealso cref="ProducerVisitReport"/> based on the 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

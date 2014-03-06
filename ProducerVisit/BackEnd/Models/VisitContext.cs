@@ -9,6 +9,8 @@ namespace BackEnd.Models
 {
     public class VisitContext : DbContext
     {
+        /// <summary>Opens a connection to the database defined in Web.Config.
+        /// </summary>
         public VisitContext()
             : base("DefaultConnection")
         {

@@ -40,26 +40,37 @@
 	<key>CFBundleDisplayName</key>
 	<string><#= projectTitle #><#
 
+// this impacts the app's title on the iPad, not title bar inside the app
+// note: if debug is true in the t4 header, this will always evaluate to DEBUG
 // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
-#if DEBUG
-	Write(" (Testing)");
-#elif ALPHA
+#if ALPHA
 	Write(" (Alpha)");
 #elif BETA
 	Write(" (Beta)");
+#elif RELEASE
+	// release - do nothing
+#elif DEBUG
+	Write(" (Testing)");
+#else
+	// do nothing
 #endif
 
 #></string>
 	<key>CFBundleIdentifier</key>
 	<string>com.dairylea.<#
 
+// this impacts the bundle's internal name -- not the name of the .ipa
 // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
-#if DEBUG
-	Write("testing.");
-#elif ALPHA
+#if ALPHA
 	Write("alpha.");
 #elif BETA
 	Write("beta.");
+#elif RELEASE
+	// release - do nothing
+#elif DEBUG
+	Write("testing.");
+#else
+	// do nothing
 #endif
 
 #>producervisit</string>

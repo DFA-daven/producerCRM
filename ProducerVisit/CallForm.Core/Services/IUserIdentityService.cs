@@ -8,6 +8,7 @@ namespace CallForm.Core.Services
     {
         bool IdentityRecorded { get; }
         void SaveIdentity(UserIdentity identity);
+
         UserIdentity GetSavedIdentity();
     }
 }

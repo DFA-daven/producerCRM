@@ -28,7 +28,7 @@
             _targetURL = "http://dl-backend-02.azurewebsites.net";
         }
 
-        /// <summary>The <seealso cref="ReasonCodes"/> from the _dataservice.
+        /// <summary>Gets the <seealso cref="ReasonCodes"/> from the _dataservice.
         /// </summary>
         /// <returns>A <seealso cref="List<>"/> of type <seealso cref="ReasonCodes"/>.</returns>
         public List<ReasonCode> GetReasonsForCall()
@@ -135,17 +135,27 @@
 
         public event EventHandler<ErrorEventArgs> Error;
 
-        public static T Deserialize<T>(string s)
+        /// <summary>Convert XML to an object of type <paramref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The type to apply to the XML.</typeparam>
+        /// <param name="xml">An XML ("serialized") string.</param>
+        /// <returns>The <paramref name="xml"/> deserialized to an object of type <paramref name="T"/>.</returns>
+        public static T Deserialize<T>(string xml)
         {
             var serializer = new XmlSerializer(typeof(T));
             T container;
-            using (TextReader stream = new StringReader(s))
+            using (TextReader stream = new StringReader(xml))
             {
                 container = (T)serializer.Deserialize(stream);
             }
             return container;
         }
 
+        /// <summary>Convert an object of type <paramref name="T"/> to XML.
+        /// </summary>
+        /// <typeparam name="T">The type to apply to <paramref name="obj"/>.</typeparam>
+        /// <param name="obj">An object that needs to be serialized.</param>
+        /// <returns>An object "serialized" to XML.</returns>
         public static string Serialize<T>(T obj)
         {
             var serializer = new XmlSerializer(typeof(T));

@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\Debug</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;__IOS__;__MOBILE__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -157,7 +157,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
-    <DefineConstants>__IOS__;__MOBILE__</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -168,7 +168,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator\Alpha</OutputPath>
-    <DefineConstants>ALPHA</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;ALPHA;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -179,7 +179,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhoneSimulator\Beta</OutputPath>
-    <DefineConstants>BETA</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -396,7 +396,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Alpha|iPhone'">
     <OutputPath>bin\iPhone\Alpha\</OutputPath>
-    <DefineConstants>__IOS__;__MOBILE__;</DefineConstants>
+    <DefineConstants>TRACE;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -404,7 +404,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta|iPhone'">
     <OutputPath>bin\iPhone\Beta\</OutputPath>
-    <DefineConstants>__IOS__;__MOBILE__;</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>

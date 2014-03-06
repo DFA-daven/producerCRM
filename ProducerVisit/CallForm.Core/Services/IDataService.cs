@@ -5,26 +5,30 @@ namespace CallForm.Core.Services
 {
     public interface IDataService
     {
-        /// <summary>
-        /// </summary>
-        /// <returns>A <seealso cref="List<>"/> of type <seealso cref="ProducerVisitReport"/>.</returns>
+        /// <summary />
+        /// <returns>A <seealso cref="List<ProducerVisitReport>"/>.</returns>
         List<ProducerVisitReport> ToUpload();
         
-        /// <summary>
-        /// </summary>
-        /// <returns>A <seealso cref="List<>"/> of type <seealso cref="ReportListItem"/>.</returns>
+        /// <summary />
+        /// <returns>A <seealso cref="List<ReportListItem>"/>.</returns>
         List<ReportListItem> Recent();
 
-        /// <summary>
+        /// <summary>Replace the "ReasonCodes" table in the database.
         /// </summary>
-        /// <returns>A <seealso cref="List<>"/> of type <seealso cref="ReasonCodes"/>.</returns>
+        /// <returns>A <seealso cref="List<ReasonCode>"/>.</returns>
         List<ReasonCode> GetReasonsForCall();
 
+        /// <summary>Replace the "ReasonCodes" table in the database.
+        /// </summary>
+        /// <param name="reasonCodes"></param>
         void UpdateReasons(List<ReasonCode> reasonCodes);
+
+        /// <summary>Adds a <seealso cref="ProducerVisitReport"/> to the database.
+        /// </summary>
+        /// <param name="report">A <seealso cref="ProducerVisitReport"/>.</param>
         void Insert(ProducerVisitReport report);
 
-        /// <summary>
-        /// </summary>
+        /// <summary />
         /// <param name="id"></param>
         /// <returns>A <seealso cref="ProducerVisitReport"/>.</returns>
         ProducerVisitReport GetReport(int id);

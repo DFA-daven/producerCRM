@@ -253,7 +253,8 @@ namespace CallForm.Core.ViewModels
         public readonly List<ReasonCode> BuiltInReasonCodes;
 
         #region Save
-        // review: is this the "Save" buton?
+        /// <summary>The action for Save button.
+        /// </summary>
         public ICommand SaveCommand
         {
             get

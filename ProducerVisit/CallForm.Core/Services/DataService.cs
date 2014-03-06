@@ -9,16 +9,20 @@
     {
         private readonly IUserIdentityService _userIdentityService;
         
-        /// <summary>Creates a connection to an SQLite database.
+        /// <summary>The connection to the SQLite database.
         /// </summary>
         private readonly ISQLiteConnection _connection;
 
+        /// <summary>Create an instance of an SQLite database.
+        /// </summary>
+        /// <param name="factory"></param>
+        /// <param name="userIdentityService"></param>
         public DataService(ISQLiteConnectionFactory factory, IUserIdentityService userIdentityService)
         {
             _userIdentityService = userIdentityService;
 
-
-            _connection = factory.Create("one.sql");
+            string address = "one.sql";
+            _connection = factory.Create(address);
 
             // create a table of type StoredProducerVisitReport
             _connection.CreateTable<StoredProducerVisitReport>();
@@ -45,8 +49,8 @@
         /// <summary>Opens the <seealso cref="_connection"/>, adds a <seealso cref="ReasonCode"/>[], and 
         /// returns a <seealso cref="ProducerVisitReport"/>.
         /// </summary>
-        /// <param name="spvr">A <seealso cref="StoredProducerVisitReport"/> that needs <seealso cref="ReasonCode"/>(s).</param>
-        /// <returns>A <seealso cref="ProducerVisitReport"/>.</returns>
+        /// <param name="spvr">A <seealso cref="StoredProducerVisitReport"/>.</param>
+        /// <returns>A <seealso cref="ProducerVisitReport"/> based on a <seealso cref="StoredProducerVisitReport"/>.</returns>
         /// <remarks>Opens the <seealso cref="DataService._connection"/>, queries the <seealso cref="VisitXReason"/> table for the given
         /// <seealso cref="StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <seealso cref="ReasonCode"/> table
         /// to get a <seealso cref="ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <seealso cref="ProducerVisitReport"/>.</remarks>
@@ -60,7 +64,7 @@
 
         /// <summary>Get the 100 most recent <seealso cref="StoredProducerVisitReport"/>s.
         /// </summary>
-        /// <returns>A <seealso cref="List<>"/> of <seealso cref="ReportListItem"/>s.</returns>
+        /// <returns>A <seealso cref="List<ReportListItem>"/> sorted in descending order by VisitDate.</returns>
         /// <remarks>See <seealso cref="VisitController.Recent()"/>.</remarks>
         public List<ReportListItem> Recent()
         {
@@ -68,7 +72,7 @@
             int quantity = 100;
 
             var spvrs = _connection.Table<StoredProducerVisitReport>()
-                .OrderByDescending(pvr => pvr.ID)
+                .OrderByDescending(pvr => pvr.VisitDate)
                 .Take(quantity)
                 .ToList();
 
@@ -89,7 +93,7 @@
                 }).ToList();
         }
 
-        /// <summary>Gets the list of Reason Codes.
+        /// <summary>Gets the <seealso cref="ReasonCodes"/> from the _connection.
         /// </summary>
         /// <returns>A <seealso cref="List<>"/> of type <seealso cref="ReasonCodes"/>.</returns>
         public List<ReasonCode> GetReasonsForCall()

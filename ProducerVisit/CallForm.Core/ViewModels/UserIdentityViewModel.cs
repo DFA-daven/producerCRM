@@ -55,6 +55,8 @@ namespace CallForm.Core.ViewModels
 
         private MvxCommand _saveCommand;
 
+        /// <summary>The action for the "OK" / Save button.
+        /// </summary>
         public ICommand SaveCommand
         {
             get
@@ -84,14 +86,13 @@ namespace CallForm.Core.ViewModels
                     };
 
                     _userIdentityService.SaveIdentity(id);
+
+                    Close(this);
                 }
                 catch (Exception exc)
                 {                    
-                    Error(this, new ErrorEventArgs { Message = exc.Message });
-                }
-                finally
-                {
-                    Close(this);
+                    Error(this, new ErrorEventArgs { Message = exc.Message + exc.InnerException});
+                    
                 }
             }
         }

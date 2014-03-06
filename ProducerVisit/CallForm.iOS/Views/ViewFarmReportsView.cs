@@ -183,18 +183,22 @@
             string appVersion = assemblyName.Version.ToString();    // the version number
             ////var up = System.Reflection.Ass
 
-            //// fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
-            //// need something like if this.config != release then appName = appName + this.config
-            //#if DEBUG
-            //    appName += " (TESTING)";
-            //#elif ALPHA
-            //    appName += " (ALPHA)";
-            //#elif BETA
-            //    appName += " (BETA)";
-            //#endif
+            // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
+            // need something like if this.config != release then appName = appName + this.config
+#if ALPHA
+    appName += " (ALPHA)";
+#elif BETA
+    appName += " (BETA)";
+#elif RELEASE
+	appName = appName;
+#elif DEBUG
+	appName += " (DEBUG)";
+
+#endif
 
             // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
-            Title = appName + " (BETA); " + appVersion;
+            Title = appName + " " + appVersion;
+            //Title = appName + " (VFRVBETA); " + appVersion;
         }
 
         // todo: manipulate base image? 
