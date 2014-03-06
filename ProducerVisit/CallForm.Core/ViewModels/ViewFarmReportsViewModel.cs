@@ -64,6 +64,7 @@
         {
             foreach (var producerVisitReport in _dataService.ToUpload().ToList())
             {
+                // error: break this code.
                 var request =
                     new MvxJsonRestRequest<ProducerVisitReport>(_targetURL + "/Visit/Log/")
                     {

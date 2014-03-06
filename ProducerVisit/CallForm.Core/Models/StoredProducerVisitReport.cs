@@ -3,20 +3,29 @@
     using System;
     using Cirrious.MvvmCross.Plugins.Sqlite;
 
-    /// <summary>Creates an instance of a <seealso cref="StoredProducerVisitReport"/>.
+    /// <summary>Creates an object representing a "StoredProducerVisitReport" record.
     /// </summary>
+    /// <remarks>The database stores each visit as a record in the "StoredProducerVisitReport" table, and the 
+    /// possible reason for a visit in the "ReasonCode" table. For any given visit the reasons are stored in a cross reference table 
+    /// "VisitXReason".
+    /// 
+    /// A <seealso cref="StoredProducerVisitReport"/> object represents a single records from the "StoredProducerVisitReport" table. 
+    /// A <seealso cref="ProducerVisitReport"/> is that same record with a <seealso cref="ReasonCode[]"/> holding the 
+    /// reason codes for the specific visit.</remarks>
     public class StoredProducerVisitReport
     {
-        /// <summary>The ID associated with this visit. Used by this database.
+        /// <summary>The internal ID for this object.
         /// </summary>
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
         // fixme: change userID to DeviceID
 
-        /// <summary>The user ID associated with this visit. Used by this database.
+        /// <summary>The device ID associated with this visit.
         /// </summary>
         public string UserID { get; set; }
+
+        // fixme: refactor FarmNumber to MemberNumber
 
         /// <summary>The 8 digit member number.
         /// </summary>
@@ -69,6 +78,8 @@
 
         /// <summary>Creates a <seealso cref="StoredProducerVisitReport"/> based on a <seealso cref="ProducerVisitReport"/>.
         /// </summary>
+        /// <remarks>Creates a <seealso cref="StoredProducerVisitReport"/> by dropping the <seealso cref="ReasonCode[]"/>, and
+        /// marking the Uploaded properties as false.</remarks>
         /// <param name="visitReport">The visit report.</param>
         public StoredProducerVisitReport(ProducerVisitReport visitReport)
         {
@@ -87,10 +98,11 @@
             Uploaded = false;
         }
 
-        /// <summary>Appends <seealso cref="ReasonCode"/>(s) to a <seealso cref="ProducerVisitReport"/>.
+        /// <summary>Creates a <seealso cref="ProducerVisitReport"/> by appending a <seealso cref="ReasonCode[]"/> to this 
+        /// <seealso cref="StoredProducerVisitReport"/>.
         /// </summary>
-        /// <param name="reasonCodes"></param>
-        /// <returns></returns>
+        /// <param name="reasonCodes">An array of <seealso cref="ReasonCode"/> to be added.</param>
+        /// <returns>A <seealso cref="ProducerVisitReport"/>.</returns>
         public ProducerVisitReport Hydrate(ReasonCode[] reasonCodes)
         {
             return new ProducerVisitReport

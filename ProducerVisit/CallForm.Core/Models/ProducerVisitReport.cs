@@ -4,9 +4,11 @@
 
     /// <summary>Creates an object representing a report of a visit to a member.
     /// </summary>
+    /// <remarks>A ProducerVisitReport object is equivalent to a <seealso cref="StoredProducerVisitReport"/> with the associated
+    /// <seealso cref="ReasonCode[]"/>. It may represent a visit that exists on the web service, or a new visit.</remarks>
     public class ProducerVisitReport
     {
-        /// <summary>The ID associated with this visit.
+        /// <summary>The internal ID for this object.
         /// </summary>
         public int ID { get; set; }
 

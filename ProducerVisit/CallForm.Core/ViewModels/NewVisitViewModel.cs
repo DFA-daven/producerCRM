@@ -21,6 +21,7 @@ namespace CallForm.Core.ViewModels
         private readonly IDataService _dataService;
         private readonly IMvxJsonConverter _jsonConverter;
 
+        // backing fields
         private double _lat;
         private double _lng;
         private string _callType;
@@ -33,6 +34,13 @@ namespace CallForm.Core.ViewModels
         private List<ReasonCode> _reasonCodes;
         private MvxCommand _saveCommand;
 
+        // fixme: refactor userID to DeviceID
+        private string _userID;
+        private List<string> _callTypes;
+        private bool _editing;
+        private byte[] _pictureBytes;
+        private MvxCommand _takePictureCommand;
+        private List<string> _emailRecipients;
 
         public NewVisitViewModel(
             ILocationService locationService,
@@ -42,6 +50,7 @@ namespace CallForm.Core.ViewModels
             IMvxJsonConverter jsonConverter,
             ISemiStaticWebDataService webDataService)
         {
+            // fixme: refactor "BuiltInReasonCodes" to indicate the source is webDataService.GetReasonsForCall()
             BuiltInReasonCodes = webDataService.GetReasonsForCall();
             ReasonCodes = new List<ReasonCode>();
 
@@ -119,10 +128,7 @@ namespace CallForm.Core.ViewModels
             Lng = locationMessage.Lng;
         }
 
-        // fixme: change userID to DeviceID
-        private string _userID;
-
-        // fixme: change userID to DeviceID
+        // fixme: refactor userID to DeviceID
         public string UserID
         {
             get { return _userID; }
@@ -162,8 +168,6 @@ namespace CallForm.Core.ViewModels
                 RaisePropertyChanged(() => CallType);
             }
         }
-
-        private List<string> _callTypes;
 
         public List<string> CallTypes
         {
@@ -248,6 +252,7 @@ namespace CallForm.Core.ViewModels
         // review: what do BuiltInReasonCodes do?
         public readonly List<ReasonCode> BuiltInReasonCodes;
 
+        #region Save
         // review: is this the "Save" buton?
         public ICommand SaveCommand
         {
@@ -260,22 +265,24 @@ namespace CallForm.Core.ViewModels
 
         private void DoSaveCommand()
         {
+            // 
             if (FarmNumber == null || FarmNumber.Length != 8)
             {
-                Error(this, new ErrorEventArgs {Message = "The member number must be eight characters long"});
+                Error(this, new ErrorEventArgs {Message = "The Member Number must be eight characters long"});
             }
             else if (ReasonCodes.Count <= 0)
             {
-                Error(this, new ErrorEventArgs {Message = "You must select at least one reason for the contact."});
-            }
-            else if (!decimal.TryParse(DurationString, out _duration))
-            {
-                Error(this, new ErrorEventArgs { Message = "Invalid Duration " });
+                Error(this, new ErrorEventArgs {Message = "You must select at least one Reason for Call."});
             }
             else if (Duration <= 0)
             {
-                Error(this, new ErrorEventArgs { Message = "You must enter a call duration." });
+                Error(this, new ErrorEventArgs { Message = "You must enter a value for Length of Call." });
             }
+            else if (!decimal.TryParse(DurationString, out _duration))
+            {
+                Error(this, new ErrorEventArgs { Message = "Invalid Length of Call." });
+            }
+            
             else if (Editing)
             {
                 _dataService.Insert(ToProducerVisitReport());
@@ -313,33 +320,9 @@ namespace CallForm.Core.ViewModels
                 PictureBytes = (byte[]) (PictureBytes ?? new byte[0]).Clone(),
             };
         }
+        #endregion Save
 
-        private bool _editing;
-
-        public bool Editing
-        {
-            get { return _editing; }
-            set
-            {
-                _editing = value;
-                RaisePropertyChanged(() => Editing);
-                RaisePropertyChanged(() => SaveButtonText);
-                RaisePropertyChanged(() => Title);
-            }
-        }
-
-        public string SaveButtonText
-        {
-            get { return Editing ? "Save" : "New Report for Producer"; }
-        }
-
-        public string Title
-        {
-            get { return Editing ? "New Contact Report" : "Contact Report"; }
-        }
-
-        private byte[] _pictureBytes;
-
+        #region Handle Picture
         public byte[] PictureBytes
         {
             get { return _pictureBytes; }
@@ -349,8 +332,6 @@ namespace CallForm.Core.ViewModels
                 RaisePropertyChanged(() => PictureBytes);
             }
         }
-
-        private MvxCommand _takePictureCommand;
 
         public ICommand TakePictureCommand
         {
@@ -372,9 +353,9 @@ namespace CallForm.Core.ViewModels
             stream.CopyTo(memoryStream);
             PictureBytes = memoryStream.ToArray();
         }
+        #endregion
 
-        private List<string> _emailRecipients;
-
+        #region Email
         public List<string> EmailRecipients
         {
             get { return _emailRecipients; }
@@ -387,9 +368,34 @@ namespace CallForm.Core.ViewModels
 
         public List<string> BuiltinEmailRecipients;
 
-        public event EventHandler<ErrorEventArgs> Error;
-
         public event EventHandler SendEmail;
+        #endregion
+
+        #region Page Admin
+        public bool Editing
+        {
+            get { return _editing; }
+            set
+            {
+                _editing = value;
+                RaisePropertyChanged(() => Editing);
+                RaisePropertyChanged(() => SaveButtonText);
+                RaisePropertyChanged(() => Title);
+            }
+        }
+
+        public string SaveButtonText
+        {
+            get { return Editing ? "Save" : "New Report for Member"; }
+        }
+
+        public string Title
+        {
+            get { return Editing ? "New Contact Report" : "Contact Report"; }
+        }
+
+        public event EventHandler<ErrorEventArgs> Error;
+        #endregion
     }
 
     public class NewVisitInit

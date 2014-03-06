@@ -5,8 +5,6 @@
     using CallForm.Core.Models;
     using Cirrious.MvvmCross.Plugins.Sqlite;
 
-    /// <summary>Creates an object representing 
-    /// </summary>
     public class DataService : IDataService
     {
         private readonly IUserIdentityService _userIdentityService;
@@ -18,12 +16,24 @@
         public DataService(ISQLiteConnectionFactory factory, IUserIdentityService userIdentityService)
         {
             _userIdentityService = userIdentityService;
+
+
             _connection = factory.Create("one.sql");
+
+            // create a table of type StoredProducerVisitReport
             _connection.CreateTable<StoredProducerVisitReport>();
+
+            // create a table of type VisitXReason
             _connection.CreateTable<VisitXReason>();
+
+            // create a table of type ReasonCode
             _connection.CreateTable<ReasonCode>();
         }
 
+        /// <summary>Opens the <seealso cref="_connection"/>, gets rows from "StoredProducerVisitReport"
+        /// where "Uploaded" is false, and returns them as <seealso cref="List<ProducerVisitReport>"/>.
+        /// </summary>
+        /// <returns>A <seealso cref="List<ProducerVisitReport>"/> where "Uploaded" is false.
         public List<ProducerVisitReport> ToUpload()
         {
             var stored = _connection.Table<StoredProducerVisitReport>()
@@ -32,6 +42,14 @@
             return stored.Select(Hydrated).ToList();
         }
 
+        /// <summary>Opens the <seealso cref="_connection"/>, adds a <seealso cref="ReasonCode"/>[], and 
+        /// returns a <seealso cref="ProducerVisitReport"/>.
+        /// </summary>
+        /// <param name="spvr">A <seealso cref="StoredProducerVisitReport"/> that needs <seealso cref="ReasonCode"/>(s).</param>
+        /// <returns>A <seealso cref="ProducerVisitReport"/>.</returns>
+        /// <remarks>Opens the <seealso cref="DataService._connection"/>, queries the <seealso cref="VisitXReason"/> table for the given
+        /// <seealso cref="StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <seealso cref="ReasonCode"/> table
+        /// to get a <seealso cref="ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <seealso cref="ProducerVisitReport"/>.</remarks>
         private ProducerVisitReport Hydrated(StoredProducerVisitReport spvr)
         {
             List<VisitXReason> vxrs = _connection.Table<VisitXReason>().Where(vxr => vxr.VisitID == spvr.ID).ToList();
@@ -73,7 +91,7 @@
 
         /// <summary>Gets the list of Reason Codes.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <seealso cref="List<>"/> of type <seealso cref="ReasonCodes"/>.</returns>
         public List<ReasonCode> GetReasonsForCall()
         {
             return _connection.Table<ReasonCode>().ToList();
@@ -109,10 +127,10 @@
             }
         }
 
-        /// <summary>Given a 
+        /// <summary>Creates a <seealso cref="ProducerVisitReport"/> for a given <seealso cref="StoredProducerVisitReport"/> ID.
         /// </summary>
-        /// <param name="id">An 8-digit member number.</param>
-        /// <returns></returns>
+        /// <param name="id">The internal ID number of a <seealso cref="StoredProducerVisitReport"/>.</param>
+        /// <returns>A <seealso cref="ProducerVisitReport"/>.</returns>
         public ProducerVisitReport GetReport(int id)
         {
             var spvr = _connection.Get<StoredProducerVisitReport>(id);
@@ -131,7 +149,7 @@
 
         /// <summary>Marks the "uploaded" flag for a given <seealso cref="StoredProducerVisitReport"/>.
         /// </summary>
-        /// <param name="id">The ID number of <seealso cref="StoredProducerVisitReport"/>.</param>
+        /// <param name="id">The internal ID number of <seealso cref="StoredProducerVisitReport"/>.</param>
         public void ReportUploaded(int id)
         {
             var report = _connection.Get<StoredProducerVisitReport>(id);

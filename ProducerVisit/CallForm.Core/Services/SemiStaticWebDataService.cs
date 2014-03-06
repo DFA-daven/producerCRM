@@ -28,6 +28,9 @@
             _targetURL = "http://dl-backend-02.azurewebsites.net";
         }
 
+        /// <summary>The <seealso cref="ReasonCodes"/> from the _dataservice.
+        /// </summary>
+        /// <returns>A <seealso cref="List<>"/> of type <seealso cref="ReasonCodes"/>.</returns>
         public List<ReasonCode> GetReasonsForCall()
         {
             return _dataService.GetReasonsForCall();
