@@ -259,6 +259,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Visit\Index.cshtml" />
+    <None Include="Web.Alpha.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Beta.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -267,10 +273,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutoVersionNumber\AutoVersionNumber.csproj">
-      <Project>{4ef91104-404e-451d-8e7c-b28b8dc6705b}</Project>
-      <Name>AutoVersionNumber</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CallForm.Core\CallForm.Core.csproj">
       <Project>{4b641af9-5bbe-4eee-a0e6-df2dd7b0e526}</Project>
       <Name>CallForm.Core</Name>

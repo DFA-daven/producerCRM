@@ -1,24 +1,38 @@
+using CallForm.Core.Models;
+using CallForm.Core.Services;
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using Cirrious.MvvmCross.Plugins.PictureChooser;
+using Cirrious.MvvmCross.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Input;
+
 namespace CallForm.Core.ViewModels
 {
-    using CallForm.Core.Models;
-    using CallForm.Core.Services;
-    using Cirrious.CrossCore;
-    using Cirrious.CrossCore.Platform;
-    using Cirrious.MvvmCross.Plugins.Messenger;
-    using Cirrious.MvvmCross.Plugins.PictureChooser;
-    using Cirrious.MvvmCross.ViewModels;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Windows.Input;
-
-    public class NewVisitViewModel : MvxViewModel
+    public class NewVisitViewModel 
+		: MvxViewModel
     {
         private readonly ILocationService _locationService;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDataService _dataService;
         private readonly IMvxJsonConverter _jsonConverter;
+
+        private double _lat;
+        private double _lng;
+        private string _callType;
+        private DateTime _date;
+        private decimal _duration;
+        private string _durationString;
+        private DateTime _actualTime;
+        private string _farmNumber;
+        private string _notes;
+        private List<ReasonCode> _reasonCodes;
+        private MvxCommand _saveCommand;
+
 
         public NewVisitViewModel(
             ILocationService locationService,
@@ -54,6 +68,7 @@ namespace CallForm.Core.ViewModels
 
         public void Init(NewVisitInit data)
         {
+            // broken: not sure if this is working correctly -- seems to crash app
             Mvx.Trace(MvxTraceLevel.Diagnostic, "Init: Report Data", data.ReportData);
             if (string.IsNullOrEmpty(data.ReportData))
             {
@@ -72,7 +87,6 @@ namespace CallForm.Core.ViewModels
             Duration = report.Duration;
             DurationString = report.Duration.ToString("F2");
             ActualTime = report.EntryDateTime;
-            // Review: was this a fix by Ben?
             CallType = report.CallType;
             ReasonCodes = report.ReasonCodes.ToList();
             Notes = report.Notes;
@@ -90,6 +104,7 @@ namespace CallForm.Core.ViewModels
 
         private void GetInitialLocation()
         {
+            //System.Console.WriteLine("Attempting to GetInitialLocation");
             double lat, lng;
             if (_locationService.TryGetLatestLocation(out lat, out lng))
             {
@@ -118,8 +133,6 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        private double _lat;
-
         public double Lat
         {
             get { return _lat; }
@@ -130,8 +143,6 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        private double _lng;
-
         public double Lng
         {
             get { return _lng; }
@@ -141,8 +152,6 @@ namespace CallForm.Core.ViewModels
                 RaisePropertyChanged(() => Lng);
             }
         }
-
-        private string _callType;
 
         public string CallType
         {
@@ -166,8 +175,6 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        private DateTime _date;
-
         public DateTime Date
         {
             get { return _date; }
@@ -177,8 +184,6 @@ namespace CallForm.Core.ViewModels
                 RaisePropertyChanged(() => Date);
             }
         }
-
-        private decimal _duration;
 
         public decimal Duration
         {
@@ -190,8 +195,6 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        private string _durationString;
-
         public string DurationString
         {
             get { return _durationString; }
@@ -201,8 +204,6 @@ namespace CallForm.Core.ViewModels
                 RaisePropertyChanged(() => DurationString);
             }
         }
-
-        private DateTime _actualTime;
 
         public DateTime ActualTime
         {
@@ -214,8 +215,6 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        private string _farmNumber;
-
         public string FarmNumber
         {
             get { return _farmNumber; }
@@ -225,8 +224,6 @@ namespace CallForm.Core.ViewModels
                 RaisePropertyChanged(() => FarmNumber);
             }
         }
-
-        private string _notes;
 
         public string Notes
         {
@@ -238,8 +235,6 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        private List<ReasonCode> _reasonCodes;
-
         public List<ReasonCode> ReasonCodes
         {
             get { return _reasonCodes; }
@@ -250,10 +245,10 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        // review: what do BuiltInReasonCodes do?
         public readonly List<ReasonCode> BuiltInReasonCodes;
 
-        private MvxCommand _saveCommand;
-
+        // review: is this the "Save" buton?
         public ICommand SaveCommand
         {
             get
@@ -267,7 +262,7 @@ namespace CallForm.Core.ViewModels
         {
             if (FarmNumber == null || FarmNumber.Length != 8)
             {
-                Error(this, new ErrorEventArgs {Message = "The farm number must be eight characters long"});
+                Error(this, new ErrorEventArgs {Message = "The member number must be eight characters long"});
             }
             else if (ReasonCodes.Count <= 0)
             {

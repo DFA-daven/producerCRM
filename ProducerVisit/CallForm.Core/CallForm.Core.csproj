@@ -64,7 +64,6 @@
       <Link>GlobalAssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="App.cs" />
-    <Compile Include="Common.cs" />
     <Compile Include="Converters\ObjectToStringValueConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeStringValueConverter.cs" />
     <Compile Include="Converters\DateTimeToShortDateValueConverter.cs" />

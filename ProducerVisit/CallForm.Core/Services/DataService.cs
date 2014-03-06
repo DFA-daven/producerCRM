@@ -5,10 +5,14 @@
     using CallForm.Core.Models;
     using Cirrious.MvvmCross.Plugins.Sqlite;
 
+    /// <summary>Creates an object representing 
+    /// </summary>
     public class DataService : IDataService
     {
         private readonly IUserIdentityService _userIdentityService;
         
+        /// <summary>Creates a connection to an SQLite database.
+        /// </summary>
         private readonly ISQLiteConnection _connection;
 
         public DataService(ISQLiteConnectionFactory factory, IUserIdentityService userIdentityService)
@@ -36,15 +40,20 @@
             return spvr.Hydrate(reasonCodes);
         }
 
-        /// <summary>Get the 20 most recent <seealso cref="StoredProducerVisitReport"/>s.
+        /// <summary>Get the 100 most recent <seealso cref="StoredProducerVisitReport"/>s.
         /// </summary>
         /// <returns>A <seealso cref="List<>"/> of <seealso cref="ReportListItem"/>s.</returns>
+        /// <remarks>See <seealso cref="VisitController.Recent()"/>.</remarks>
         public List<ReportListItem> Recent()
         {
+            // fixme: change this to a .resx value
+            int quantity = 100;
+
             var spvrs = _connection.Table<StoredProducerVisitReport>()
                 .OrderByDescending(pvr => pvr.ID)
-                .Take(20)
+                .Take(quantity)
                 .ToList();
+
             return spvrs.Select(spvr =>
                 {
                     var pvr = Hydrated(spvr);
@@ -78,10 +87,13 @@
             // review: is this method ever called?
             _connection.DropTable<ReasonCode>();
             _connection.CreateTable<ReasonCode>();
-            _connection.InsertAll(reasonCodes); // fixme: is this method missing? 
+            _connection.InsertAll(reasonCodes); 
         }
 
-
+        /// <summary>Given a <seealso cref="ProducerVisitReport"/> (and <seealso cref="ReasonCodes"/>), adds a 
+        /// <seealso cref="StoredProducerVisitReport"/> (and <seealso cref="VisitXReason"/>(s)) to the <seealso cref="ISQLiteConnection"/>.
+        /// </summary>
+        /// <param name="report">A new <seealso cref="ProducerVisitReport"/>.</param>
         public void Insert(ProducerVisitReport report)
         {
             var spvr = new StoredProducerVisitReport(report);
@@ -97,12 +109,18 @@
             }
         }
 
+        /// <summary>Given a 
+        /// </summary>
+        /// <param name="id">An 8-digit member number.</param>
+        /// <returns></returns>
         public ProducerVisitReport GetReport(int id)
         {
             var spvr = _connection.Get<StoredProducerVisitReport>(id);
             return Hydrated(spvr);
         }
 
+        /// <summary>The number of records in the <seealso cref="StoredProducerVisitReport"/> table.
+        /// </summary>
         public int Count
         {
             get
@@ -111,6 +129,9 @@
             }
         }
 
+        /// <summary>Marks the "uploaded" flag for a given <seealso cref="StoredProducerVisitReport"/>.
+        /// </summary>
+        /// <param name="id">The ID number of <seealso cref="StoredProducerVisitReport"/>.</param>
         public void ReportUploaded(int id)
         {
             var report = _connection.Get<StoredProducerVisitReport>(id);

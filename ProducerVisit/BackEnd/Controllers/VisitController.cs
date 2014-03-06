@@ -1,12 +1,14 @@
-﻿namespace BackEnd.Controllers
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using BackEnd.Models;
+using CallForm.Core.Models;
+
+namespace BackEnd.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
-    using BackEnd.Models;
-    using CallForm.Core.Models;
+
 
     public class VisitController : Controller
     {
@@ -21,11 +23,21 @@
             return View();
         }
 
+
+        /// <summary>Get the 100 most recent <seealso cref=""/> for a given member number.
+        /// </summary>
+        /// <param name="id">The 8 digit Member Number.</param>
+        /// <returns>An <seealso cref="ActionResult"/> object representing the set of records.</returns>
+        /// <remarks>See <seealso cref="DataService.Recent()"/>.</remarks>
         public ActionResult Recent(string id)
         {
+            // fixme: change this to a .resx value
+            int quantity = 100;
+
             var spvrs = _db.ProducerVisitReports.Where(vr => vr.FarmNumber == id)
                 .OrderByDescending(vr => vr.VisitDate)
-                .Take(10).ToList();
+                .Take(quantity)
+                .ToList();
 
             var rlis = spvrs.Select(spvr =>
             {
@@ -34,7 +46,7 @@
                 return new ReportListItem
                 {
                     ID = spvr.ID,
-                    UserEmail = (userID ?? new UserIdentity{UserEmail = "Unkown"}).UserEmail,
+                    UserEmail = (userID ?? new UserIdentity { UserEmail = "Unknown" }).UserEmail,
                     FarmNumber = pvr.FarmNumber,
                     Local = false,
                     PrimaryReasonCode = pvr.ReasonCodes[0],
@@ -156,7 +168,7 @@
         /// <returns>List<string> of Call Types.</returns>
         public ActionResult CallTypes(string id)
         {
-            // undone: can't this be pulled from the XML file?
+            // review: when is this list used? can't this be pulled from the XML file?
             return Json(new List<string>(new[]
                 {
                     "Farm Visit",

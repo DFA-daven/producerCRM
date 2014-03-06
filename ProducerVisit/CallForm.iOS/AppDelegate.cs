@@ -4,7 +4,9 @@ using Cirrious.MvvmCross.Touch.Views.Presenters;
 using Cirrious.MvvmCross.ViewModels;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-//using System;
+using System;
+//using CallForm.Core.ViewModels;
+
 
 namespace CallForm.iOS
 {
@@ -15,12 +17,12 @@ namespace CallForm.iOS
         
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            System.Console.WriteLine("App entered FinishedLaunching.");
+            // System.Console.WriteLine("App entered FinishedLaunching.");
             _window = new UIWindow(UIScreen.MainScreen.Bounds);
             bool started = true;
 
             // initialize the app for single single screen display
-            // var presenter = new MvxModalSupportTouchViewPresenter(this, _window);
+            var presenter = new MvxModalSupportTouchViewPresenter(this, _window);
             // fixme: use this after fixing UserIdentityView.cs
             //var setup = new Setup(this, presenter);
             var setup = new Setup(this, _window);
@@ -30,17 +32,21 @@ namespace CallForm.iOS
             //var start = this.GetService<ImvxStartNavigation>();
             var startup = Mvx.Resolve<IMvxAppStart>();
             startup.Start();
+            
 
             _window.MakeKeyAndVisible();
 
-            if (!Reachability.IsHostReachable("dl-backend-02.azurewebsites.net"))
-            {
-                started = false;
-            }
-            else
-            {
-                started = true;
-            }
+            //if (!Reachability.IsHostReachable("dl-backend-02.azurewebsites.net"))
+            //{
+            //    started = false;
+            //    Mvx.Error("Host not reachable.");
+            //    //Error(this, new ErrorEventArgs { Message = "Host not reachable." });
+            //}
+            //else
+            //{
+            //    started = true;
+            //    Mvx.Error("Host is reachable.");
+            //}
 
             return started;
         }
@@ -74,6 +80,8 @@ namespace CallForm.iOS
         {
             System.Console.WriteLine("App is terminating.");
         }
+
+        //public event EventHandler<ErrorEventArgs> Error;
     }
 }
 

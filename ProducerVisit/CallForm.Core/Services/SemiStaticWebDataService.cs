@@ -1,12 +1,13 @@
 ﻿namespace CallForm.Core.Services
 {
+    using CallForm.Core.Models;
+    using CallForm.Core.ViewModels;
+    using Cirrious.MvvmCross.Plugins.File;
+    using Cirrious.MvvmCross.Plugins.Network.Rest;
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Xml.Serialization;
-    using CallForm.Core.Models;
-    using Cirrious.MvvmCross.Plugins.File;
-    using Cirrious.MvvmCross.Plugins.Network.Rest;
-    using CallForm.Core;
 
     public class SemiStaticWebDataService : ISemiStaticWebDataService
     {
@@ -43,7 +44,7 @@
             }
             else
             {
-                // review: is this here for in case the web is not available? how does this list stay in sync with the web version?
+                // review: when is this list used? can't this be pulled from the XML file?
                 return new List<string>(new[]
                 {
                     "Farm Visit",
@@ -86,30 +87,50 @@
 
         public void Update()
         {
-            var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
-            _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
-                response => _dataService.UpdateReasons(response.Result),
-                exception => { });
+            try
+            {
+                // fixme: errors down at this level are not presented to the UI. add an error log?
+                var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
+                _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
+                    response => 
+                    {
+                        // review: why is _dataservice used for Reasons, and _filestore used for CallTypes and Email?
+                        _dataService.UpdateReasons(response.Result);
+                        //_fileStore.EnsureFolderExists("Data");
+                        //var filename = _fileStore.PathCombine("Data", "Reasons.xml");
+                        //_fileStore.WriteFile(filename, Serialize(response.Result));
+                    },
+                    exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
 
-            request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
-            _jsonRestClient.MakeRequestFor<List<string>>(request,
-                response =>
-                {
-                    _fileStore.EnsureFolderExists("Data");
-                    var filename = _fileStore.PathCombine("Data", "CallTypes.xml");
-                    _fileStore.WriteFile(filename, Serialize(response.Result));
-                },
-                exception => { });
-            request = new MvxRestRequest(_targetURL + "/Visit/EmailRecipients/");
-            _jsonRestClient.MakeRequestFor<List<string>>(request,
-                response =>
-                {
-                    _fileStore.EnsureFolderExists("Data");
-                    var filename = _fileStore.PathCombine("Data", "Emails.xml");
-                    _fileStore.WriteFile(filename, Serialize(response.Result));
-                },
-                exception => { });
+                // request Call Types from the web service, and save them on-device
+                request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
+                _jsonRestClient.MakeRequestFor<List<string>>(request,
+                    response =>
+                    {
+                        _fileStore.EnsureFolderExists("Data");
+                        var filename = _fileStore.PathCombine("Data", "CallTypes.xml");
+                        _fileStore.WriteFile(filename, Serialize(response.Result));
+                    },
+                    exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
+
+                // request Email Recipients from the web service, and save them on-device
+                request = new MvxRestRequest(_targetURL + "/Visit/EmailRecipients/");
+                _jsonRestClient.MakeRequestFor<List<string>>(request,
+                    response =>
+                    {
+                        _fileStore.EnsureFolderExists("Data");
+                        var filename = _fileStore.PathCombine("Data", "Emails.xml");
+                        _fileStore.WriteFile(filename, Serialize(response.Result));
+                    },
+                    exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
+            }
+            catch (Exception exc)
+            {
+                Error(this, new ErrorEventArgs { Message = exc.Message });
+            }
         }
+
+        public event EventHandler<ErrorEventArgs> Error;
 
         public static T Deserialize<T>(string s)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CallForm.Core.Models;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Network.Rest;
-
+//using CallForm.Core.ViewModels;
 
 namespace CallForm.Core.Services
 {
@@ -45,7 +45,7 @@ namespace CallForm.Core.Services
             }
         }
 
-        /// <summary>Saves <paramref name="identity"/> if the "Identity.xml" file exists in the "Data" folder of the <see cref="IMvxFileStore"/>.
+        /// <summary>Saves <paramref name="identity"/> in the web service, and in the "Identity.xml" file on device.
         /// </summary>
         /// <param name="identity">A <seealso cref="UserIdentity"/>.</param>
         public void SaveIdentity(UserIdentity identity)
@@ -55,6 +55,8 @@ namespace CallForm.Core.Services
                 {
                     Body = identity
                 };
+
+            // review: add error handling here
             _restClient.MakeRequest(request, (Action<MvxRestResponse>) ParseResponse, exception => { });
 
             _fileStore.EnsureFolderExists("Data");
@@ -76,5 +78,8 @@ namespace CallForm.Core.Services
         private void ParseResponse(MvxRestResponse obj)
         {
         }
+
+        //public event EventHandler<ErrorEventArgs> Error;
+
     }
 }
