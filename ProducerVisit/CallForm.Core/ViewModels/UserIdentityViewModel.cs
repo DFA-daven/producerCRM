@@ -64,6 +64,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>This is the action of the "OK" button at the bottom of the UserIdentityView page.
+        /// </summary>
         private void DoSaveCommand()
         {
             if (string.IsNullOrEmpty(UserEmail))
@@ -72,16 +74,25 @@ namespace CallForm.Core.ViewModels
             }
             else
             {
-                UserIdentity id = new UserIdentity
+                try
                 {
-                    DeviceID = DeviceID,
-                    UserEmail = UserEmail,
-                    AssetTag = AssetTag ?? string.Empty
-                };
+                    UserIdentity id = new UserIdentity
+                    {
+                        DeviceID = DeviceID,
+                        UserEmail = UserEmail,
+                        AssetTag = AssetTag ?? string.Empty
+                    };
 
-                _userIdentityService.SaveIdentity(id);
-
-                Close(this);
+                    _userIdentityService.SaveIdentity(id);
+                }
+                catch (Exception exc)
+                {                    
+                    Error(this, new ErrorEventArgs { Message = exc.Message });
+                }
+                finally
+                {
+                    Close(this);
+                }
             }
         }
     }

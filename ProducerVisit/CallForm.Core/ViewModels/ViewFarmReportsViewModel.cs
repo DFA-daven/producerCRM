@@ -36,17 +36,26 @@
             ISemiStaticWebDataService webDataService,
             IUserIdentityService userIdentityService)
         {
-            _jsonRestClient = jsonRestClient;
-            _jsonConverter = jsonConverter;
-            _dataService = dataService;
-            _restClient = restClient;
-            _userIdentityService = userIdentityService;
-            Reports = _dataService.Recent();
-            Loading = false;
-            webDataService.Update();
+            try
+            {
+                _jsonRestClient = jsonRestClient;
+                _jsonConverter = jsonConverter;
+                _dataService = dataService;
+                _restClient = restClient;
+                _userIdentityService = userIdentityService;
+                Reports = _dataService.Recent();
+                Loading = false;
 
-            // Hack: update this to the current backend target
-            _targetURL = "http://dl-backend-02.azurewebsites.net";
+                // Hack: update this to the current backend target
+                _targetURL = "http://dl-backend-02.azurewebsites.net";
+
+                // Hack: commenting out the Update() seems to prevent the Airplane Mode error
+                webDataService.Update();
+            }
+            catch (Exception exc)
+            {
+                Error(this, new ErrorEventArgs { Message = exc.Message });
+            }
         }
 
         public event EventHandler<ErrorEventArgs> Error;
@@ -63,7 +72,8 @@
                     };
                 // note: example of handling the response/error with a call to a method.
                 // make the request: if OK, pass the response to ParseResponse; else it's an error
-                _restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
+                //_restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
+                _restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, exception => {  });
             }
         }
 

@@ -387,7 +387,8 @@
             {
                 case UIInterfaceOrientation.Portrait:
                 case UIInterfaceOrientation.PortraitUpsideDown:
-                    SetFrameX(_logos, 0);
+                    //SetFrameX(_logos, 0);
+                    SetFrameX(_logoButton, 0);
                     SetFrameX(_filter, percentWidth(leftControlOriginPercent));
                     SetFrameX(_find, percentWidth(middleControlOriginPercent));
                     SetFrameX(_new, percentWidth(rightControlOriginPercent));
@@ -396,12 +397,14 @@
                 case UIInterfaceOrientation.LandscapeLeft:
                 case UIInterfaceOrientation.LandscapeRight:
                     float difference = Math.Abs(screenHeight() - screenWidth());
-                    float offset = difference / 2;
-                    SetFrameX(_logos, offset);
+                    float offset = (difference / 2) + percentHeight(1);
+                    //SetFrameX(_logos, percentWidth(leftControlOriginPercent) + offset);
+                    SetFrameX(_logoButton, percentWidth(leftControlOriginPercent) + offset);
                     SetFrameX(_filter, percentWidth(leftControlOriginPercent) + offset);
                     SetFrameX(_find, percentWidth(middleControlOriginPercent) + offset);
                     SetFrameX(_new, percentWidth(rightControlOriginPercent) + offset);
-                    _table.Frame = new RectangleF(offset, tableTop(), percentWidth(98), screenHeight() - tableTop());
+                    _table.Frame = new RectangleF(percentHeight(1), tableTop(), percentHeight(98), screenWidth() - tableTop());
+
 
                     break;
                 default:
