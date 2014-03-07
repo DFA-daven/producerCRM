@@ -222,9 +222,6 @@
     <Content Include="Content\Site.css" />
     <None Include="Properties\PublishProfiles\dairyleademo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dairyleademo - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\dl-backend - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\dl-backend - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\dl-backend-02 %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\dl-backend-02.pubxml" />
     <None Include="Properties\PublishProfiles\dl-backend.pubxml" />
     <None Include="Properties\PublishProfiles\Test Package.pubxml" />
@@ -245,6 +242,7 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="SQL\drop tables.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

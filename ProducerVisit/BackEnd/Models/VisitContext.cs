@@ -9,10 +9,17 @@ namespace BackEnd.Models
 {
     public class VisitContext : DbContext
     {
+        // review: switching the configuration is handled by Web.Release.config -- probably don't need these compiler directives
+#if RELEASE
+        private static string buildConfiguration = "DefaultConnection";
+#else
+        private static string buildConfiguration = "DefaultConnection";
+#endif
+
         /// <summary>Opens a connection to the database defined in Web.Config.
         /// </summary>
         public VisitContext()
-            : base("DefaultConnection")
+            : base(buildConfiguration)
         {
             // review: initializes database (backend) when called from .pubxml
         }

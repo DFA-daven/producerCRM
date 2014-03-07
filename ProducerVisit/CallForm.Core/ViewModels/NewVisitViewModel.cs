@@ -275,15 +275,16 @@ namespace CallForm.Core.ViewModels
             {
                 Error(this, new ErrorEventArgs {Message = "You must select at least one Reason for Call."});
             }
-            else if (Duration <= 0)
-            {
-                Error(this, new ErrorEventArgs { Message = "You must enter a value for Length of Call." });
-            }
+            // FIRST, check if the string can be converted to a decimal
             else if (!decimal.TryParse(DurationString, out _duration))
             {
                 Error(this, new ErrorEventArgs { Message = "Invalid Length of Call." });
             }
-            
+            // then, if it's <= 0
+            else if (Duration <= 0)
+            {
+                Error(this, new ErrorEventArgs { Message = "You must enter a value for Length of Call." });
+            }
             else if (Editing)
             {
                 _dataService.Insert(ToProducerVisitReport());

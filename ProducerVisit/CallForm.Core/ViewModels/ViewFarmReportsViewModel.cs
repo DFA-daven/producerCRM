@@ -47,7 +47,7 @@
                 Loading = false;
 
                 // Hack: update this to the current backend target
-                _targetURL = "http://dl-backend-02.azurewebsites.net";
+                _targetURL = "http://dl-backend.azurewebsites.net";
 
                 // Hack: commenting out the Update() seems to prevent the Airplane Mode error
                 webDataService.Update();

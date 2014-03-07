@@ -30,7 +30,7 @@ namespace CallForm.Core.Services
             _restClient = restClient;
 
             // Hack: update this to the current backend target
-            _targetURL = "http://dl-backend-02.azurewebsites.net";
+            _targetURL = "http://dl-backend.azurewebsites.net";
         }
 
         /// <summary>Indicates if the "Identity.xml" file exists in the "Data" folder of the <see cref="IMvxFileStore"/>.

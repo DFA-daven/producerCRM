@@ -141,6 +141,21 @@
             base.ViewDidLoad();
 
             (ViewModel as UserIdentityViewModel).Error += OnError;
+
+            // note: regarding UIDevice.CurrentDevice.IdentifierForVendor
+            // The value of this property is the same for apps that come from the same vendor running on the same
+            // device. A different value is returned for apps on the same device that come from different vendors, and 
+            // for apps on different devices regardless of vendor.
+
+            // The value of this property may be nil if the app is running in the background, before the user has 
+            // unlocked the device the first time after the device has been restarted. If the value is nil, wait and get
+            // the value again later.
+
+            // The value in this property remains the same while the app (or another app from the same vendor) is 
+            // installed on the iOS device. The value changes when the user deletes all of that vendor’s apps from the 
+            // device and subsequently reinstalls one or more of them. Therefore, if your app stores the value of this 
+            // property anywhere, you should gracefully handle situations where the identifier changes.
+            // http://developer.apple.com/library/ios/documentation/uikit/reference/UIDevice_Class/Reference/UIDevice.html#//apple_ref/occ/instp/UIDevice/identifierForVendor
             (ViewModel as UserIdentityViewModel).DeviceID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 
             var set = this.CreateBindingSet<UserIdentityView, UserIdentityViewModel>();

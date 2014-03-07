@@ -15,7 +15,7 @@ namespace CallForm.iOS
     public static class Reachability
     {
         // Hack: update this to the current backend target
-        public static string _targetURL = "http://dl-backend-02.azurewebsites.net";
+        public static string _targetURL = "http://dl-backend.azurewebsites.net";
 
         public static bool IsReachableWithoutRequiringConnection(NetworkReachabilityFlags flags)
         {

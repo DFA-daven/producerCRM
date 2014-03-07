@@ -23,9 +23,9 @@
             _dataService = dataService;
 
             // Hack: update this to the current backend target
-            // _targetURL = "http://dl-webserver-te.dairydata.local:480");
-            // _targetURL = "http://dl-backend.azurewebsites.net");
-            _targetURL = "http://dl-backend-02.azurewebsites.net";
+            // _targetURL = "http://dl-webserver-te.dairydata.local:480";
+             _targetURL = "http://dl-backend.azurewebsites.net";
+            //_targetURL = "http://dl-backend-02.azurewebsites.net";
         }
 
         /// <summary>Gets the <seealso cref="ReasonCodes"/> from the _dataservice.
