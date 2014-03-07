@@ -9,8 +9,8 @@ namespace BackEnd.Models
 {
     public class VisitContext : DbContext
     {
-        // review: switching the configuration is handled by Web.Release.config -- probably don't need these compiler directives
-#if RELEASE
+        // review: switching the configuration is handled by Web.Release.config -- probably don't need these preprocessor directives
+#if (RELEASE)
         private static string buildConfiguration = "DefaultConnection";
 #else
         private static string buildConfiguration = "DefaultConnection";

@@ -35,13 +35,14 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("<#= GetCopyright() #>")]
 
 <#
+// fixme: try just using DEBUG and TRACE to define the states
 
 // note: if debug is true in the t4 header, this will always evaluate to DEBUG
-#if ALPHA
+#if (ALPHA)
 	WriteLine("[assembly: AssemblyConfiguration(\"Alpha\")]");
-#elif BETA
+#elif (BETA)
 	WriteLine("[assembly: AssemblyConfiguration(\"Beta\")]");
-#elif DEBUG
+#elif (DEBUG)
 	WriteLine("[assembly: AssemblyConfiguration(\"Testing\")]");
 #else
 	WriteLine("[assembly: AssemblyConfiguration(\"Release\")]");

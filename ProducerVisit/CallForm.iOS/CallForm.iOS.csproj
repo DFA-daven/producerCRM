@@ -145,7 +145,7 @@
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <BuildIpa>True</BuildIpa>
     <IpaMetadata />
-    <IpaPackageName>com.dairylea.producervisit</IpaPackageName>
+    <IpaPackageName>com.dairylea.fieldcontact</IpaPackageName>
     <CodesignProvision>04B0F2B2-CC37-4C83-A0E5-7E1BCA85023F</CodesignProvision>
     <CodesignEntitlements />
     <CodesignResourceRules />

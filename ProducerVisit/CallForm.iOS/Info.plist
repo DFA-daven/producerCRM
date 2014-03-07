@@ -30,11 +30,11 @@
 		<string>Icon-72@2x.png</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string>Field Contact (Testing)</string>
+	<string>Field Contact</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.dairylea.testing.producervisit</string>
+	<string>com.dairylea.fieldcontact</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.14065.13138</string>
+	<string>1.4.14066.11241</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>

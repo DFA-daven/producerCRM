@@ -32,9 +32,9 @@
 	<key>CFBundleDisplayName</key>
 	<string>Field Contact</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.dairylea.producervisit</string>
+	<string>com.dairylea.fieldcontact</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.14066.10514</string>
+	<string>1.4.14066.11413</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>

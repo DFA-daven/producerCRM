@@ -38,18 +38,18 @@
 		<string>Icon-72@2x.png</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string><#= projectTitle #><#
+	<string><#= GetProjectTitle() #><#
 
 // this impacts the app's title on the iPad, not title bar inside the app
 // note: if debug is true in the t4 header, this will always evaluate to DEBUG
 // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
-#if ALPHA
+#if (ALPHA)
 	Write(" (Alpha)");
-#elif BETA
+#elif (BETA)
 	Write(" (Beta)");
-#elif RELEASE
+#elif (RELEASE)
 	// release - do nothing
-#elif DEBUG
+#elif (DEBUG)
 	Write(" (Testing)");
 #else
 	// do nothing
@@ -61,19 +61,19 @@
 
 // this impacts the bundle's internal name -- not the name of the .ipa
 // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
-#if ALPHA
+#if (ALPHA)
 	Write("alpha.");
-#elif BETA
+#elif (BETA)
 	Write("beta.");
-#elif RELEASE
+#elif (RELEASE)
 	// release - do nothing
-#elif DEBUG
+#elif (DEBUG)
 	Write("testing.");
 #else
 	// do nothing
 #endif
 
-#>producervisit</string>
+#><#= bundleTitle #></string>
 	<key>CFBundleVersion</key>
 	<string><#= GetVersion() #>.<#= GetBuildNumber() #>.<#= GetRevisionNumber() #></string>
 	<key>UIStatusBarTintParameters</key>

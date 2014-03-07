@@ -11,6 +11,7 @@
 	private static string majorVersion = "1";
 	private static string minorVersion = "4";
 	private static string projectTitle = "Field Contact"; 
+	private static string bundleTitle = "fieldcontact";
 	private static string company = "Dairylea Cooperative, Inc.";
 
 
@@ -54,6 +55,7 @@
 
 	public string GetProjectTitle()
 	{
+		// todo: add code here to determine debug/alpha/beta/release, and append onto project title
 		return projectTitle;
 	}
 
