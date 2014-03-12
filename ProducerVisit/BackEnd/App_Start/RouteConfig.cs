@@ -13,11 +13,20 @@ namespace BackEnd
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            // todo: add other "actions" (reports) here.
+            routes.MapRoute(
+                name: "SummaryReport",
+                url: "Report/Summary/{id}",
+                defaults: new { controller = "Visit", action = "Index", id = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Visit", action = "Index", id = UrlParameter.Optional }
             );
+
         }
     }
 }

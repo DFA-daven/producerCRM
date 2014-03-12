@@ -5,22 +5,26 @@
     using CallForm.Core.Models;
     using Cirrious.MvvmCross.Plugins.Sqlite;
 
+    /// <summary>Implements the <seealso cref="IDataService"/> interface.
+    /// </summary>
     public class DataService : IDataService
     {
+        /// <inheritdoc/>
         private readonly IUserIdentityService _userIdentityService;
         
         /// <summary>The connection to the SQLite database.
         /// </summary>
         private readonly ISQLiteConnection _connection;
 
-        /// <summary>Create an instance of an SQLite database.
+        /// <summary>Opens the SQLite database; 
+        /// if needed create an instance of an SQLite database; 
+        /// if needed create tables: StoredProducerVisitReport, VisitXReason, and ReasonCode; 
+        /// add 
         /// </summary>
         /// <param name="factory"></param>
         /// <param name="userIdentityService"></param>
         public DataService(ISQLiteConnectionFactory factory, IUserIdentityService userIdentityService)
         {
-            _userIdentityService = userIdentityService;
-
             string address = "one.sql";
             _connection = factory.Create(address);
 
@@ -32,21 +36,11 @@
 
             // create a table of type ReasonCode
             _connection.CreateTable<ReasonCode>();
+
+            _userIdentityService = userIdentityService;
         }
 
-        /// <summary>Opens the <seealso cref="_connection"/>, gets rows from "StoredProducerVisitReport"
-        /// where "Uploaded" is false, and returns them as <seealso cref="List<ProducerVisitReport>"/>.
-        /// </summary>
-        /// <returns>A <seealso cref="List<ProducerVisitReport>"/> where "Uploaded" is false.
-        public List<ProducerVisitReport> ToUpload()
-        {
-            var stored = _connection.Table<StoredProducerVisitReport>()
-                              .Where(x => x.Uploaded == false)
-                              .ToList();
-            return stored.Select(Hydrated).ToList();
-        }
-
-        /// <summary>Opens the <seealso cref="_connection"/>, adds a <seealso cref="ReasonCode"/>[], and 
+        /// <summary>Opens the SQLite database, adds <seealso cref="ReasonCode"/>[] to the <seealso cref="StoredProducerVisitReport"/>, and 
         /// returns a <seealso cref="ProducerVisitReport"/>.
         /// </summary>
         /// <param name="spvr">A <seealso cref="StoredProducerVisitReport"/>.</param>
@@ -62,13 +56,20 @@
             return spvr.Hydrate(reasonCodes);
         }
 
-        /// <summary>Get the 100 most recent <seealso cref="StoredProducerVisitReport"/>s.
-        /// </summary>
-        /// <returns>A <seealso cref="List<ReportListItem>"/> sorted in descending order by VisitDate.</returns>
-        /// <remarks>See <seealso cref="VisitController.Recent()"/>.</remarks>
+        #region Required Definitions
+        /// <inheritdoc/>
+        public List<ProducerVisitReport> ToUpload()
+        {
+            var stored = _connection.Table<StoredProducerVisitReport>()
+                                .Where(x => x.Uploaded == false)
+                                .ToList();
+            return stored.Select(Hydrated).ToList();
+        }
+
+        /// <inheritdoc/>
         public List<ReportListItem> Recent()
         {
-            // fixme: change this to a .resx value
+            // fixme: change quantity to a .resx value
             int quantity = 100;
 
             var spvrs = _connection.Table<StoredProducerVisitReport>()
@@ -93,29 +94,23 @@
                 }).ToList();
         }
 
-        /// <summary>Gets the <seealso cref="ReasonCodes"/> from the _connection.
-        /// </summary>
-        /// <returns>A <seealso cref="List<>"/> of type <seealso cref="ReasonCodes"/>.</returns>
+        /// <inheritdoc/>
         public List<ReasonCode> GetReasonsForCall()
         {
-            return _connection.Table<ReasonCode>().ToList();
+            var reasons = _connection.Table<ReasonCode>().ToList();
+            return reasons;
         }
 
-        /// <summary>Drop the "ReasonCodes" table and replace with <paramref name="reasonCodes"/>.
-        /// </summary>
-        /// <param name="reasonCodes"></param>
+        /// <inheritdoc/>
         public void UpdateReasons(List<ReasonCode> reasonCodes)
         {
-            // review: is this method ever called?
+            // drop the existing table
             _connection.DropTable<ReasonCode>();
             _connection.CreateTable<ReasonCode>();
             _connection.InsertAll(reasonCodes); 
         }
 
-        /// <summary>Given a <seealso cref="ProducerVisitReport"/> (and <seealso cref="ReasonCodes"/>), adds a 
-        /// <seealso cref="StoredProducerVisitReport"/> (and <seealso cref="VisitXReason"/>(s)) to the <seealso cref="ISQLiteConnection"/>.
-        /// </summary>
-        /// <param name="report">A new <seealso cref="ProducerVisitReport"/>.</param>
+        /// <inheritdoc/>
         public void Insert(ProducerVisitReport report)
         {
             var spvr = new StoredProducerVisitReport(report);
@@ -131,18 +126,14 @@
             }
         }
 
-        /// <summary>Creates a <seealso cref="ProducerVisitReport"/> for a given <seealso cref="StoredProducerVisitReport"/> ID.
-        /// </summary>
-        /// <param name="id">The internal ID number of a <seealso cref="StoredProducerVisitReport"/>.</param>
-        /// <returns>A <seealso cref="ProducerVisitReport"/>.</returns>
+        /// <inheritdoc/>
         public ProducerVisitReport GetReport(int id)
         {
             var spvr = _connection.Get<StoredProducerVisitReport>(id);
             return Hydrated(spvr);
         }
 
-        /// <summary>The number of records in the <seealso cref="StoredProducerVisitReport"/> table.
-        /// </summary>
+        /// <inheritdoc/>
         public int Count
         {
             get
@@ -151,14 +142,13 @@
             }
         }
 
-        /// <summary>Marks the "uploaded" flag for a given <seealso cref="StoredProducerVisitReport"/>.
-        /// </summary>
-        /// <param name="id">The internal ID number of <seealso cref="StoredProducerVisitReport"/>.</param>
+        /// <inheritdoc/>
         public void ReportUploaded(int id)
         {
             var report = _connection.Get<StoredProducerVisitReport>(id);
             report.Uploaded = true;
             _connection.Update(report);
         }
+        #endregion
     }
 }

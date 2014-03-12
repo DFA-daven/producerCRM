@@ -157,7 +157,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
-    <DefineConstants>__IOS__;__MOBILE__;</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;__IOS__;__MOBILE__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -168,7 +168,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator\Alpha</OutputPath>
-    <DefineConstants>__IOS__;__MOBILE__;ALPHA;</DefineConstants>
+    <DefineConstants>DEBUG;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -179,12 +179,13 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhoneSimulator\Beta</OutputPath>
-    <DefineConstants>__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
+    <DefineConstants>TRACE;__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <DocumentationFile>bin\iPhoneSimulator\Beta\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -396,19 +397,23 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Alpha|iPhone'">
     <OutputPath>bin\iPhone\Alpha\</OutputPath>
-    <DefineConstants>TRACE;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
+    <DefineConstants>DEBUG;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta|iPhone'">
     <OutputPath>bin\iPhone\Beta\</OutputPath>
-    <DefineConstants>__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
+    <DefineConstants>TRACE;__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <!-- process *.tt templates on each build  -->
@@ -425,8 +430,8 @@
     <PreBuildEvent>del "$(ProjectDir)..\AutoVersionNumber\GlobalAssemblyVersion.cs" 
 "C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\GlobalAssemblyVersion.tt"
 
-del "$(ProjectDir)info.plist"
-del "$(ProjectDir)..\AutoVersionNumber\info.plist" 
+rem del "$(ProjectDir)info.plist"
+rem del "$(ProjectDir)..\AutoVersionNumber\info.plist" 
 "C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\info.tt"
 copy /Y "$(ProjectDir)..\AutoVersionNumber\Info.plist" "$(ProjectDir)Info.plist"</PreBuildEvent>
   </PropertyGroup>

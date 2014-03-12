@@ -10,8 +10,7 @@ namespace BackEnd.Controllers
 {
     public class VisitController : Controller
     {
-        /// <summary>A connection to the BackEnd database.
-        /// </summary>
+        /// <inheritdoc/>
         private readonly VisitContext _db = new VisitContext();
 
         public ActionResult Index()
@@ -19,6 +18,17 @@ namespace BackEnd.Controllers
             ViewBag.VRCount = _db.ProducerVisitReports.Count();
             ViewBag.UserCount = _db.UserIdentities.Count();
             ViewBag.UniqueUsers = _db.UserIdentities.Distinct().Count();
+            // todo: add more reports elements here
+
+            return View();
+        }
+
+        public ActionResult Summary()
+        {
+            ViewBag.VRCount = _db.ProducerVisitReports.Count();
+            ViewBag.UserCount = 99;
+            ViewBag.UniqueUsers = 99;
+            // todo: add more reports elements here
 
             return View();
         }
@@ -176,7 +186,9 @@ namespace BackEnd.Controllers
         /// <returns>List<string> of Call Types.</returns>
         public ActionResult CallTypes(string id)
         {
-            // review: when is this list used? can't this be pulled from the XML file?
+            // review: this static list is being used to keep the web service from querying the database. This is better than
+            // hard-coding the values into the app, but still requires a re-publish in order to make changes. Apply same
+            // change to EmailRecipients.
             return Json(new List<string>(new[]
                 {
                     "Farm Visit",

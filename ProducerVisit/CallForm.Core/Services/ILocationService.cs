@@ -2,6 +2,7 @@
 {
     /// <summary>Creates the interface for <seealso cref="LocationService"/>.
     /// </summary>
+    /// <remarks>Signatures of methods, properties, events and/or indexers</remarks>
     public interface ILocationService
     {
         /// <summary>Attempts to get the current coordinates.

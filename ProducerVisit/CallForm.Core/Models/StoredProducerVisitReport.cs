@@ -3,7 +3,7 @@
     using System;
     using Cirrious.MvvmCross.Plugins.Sqlite;
 
-    /// <summary>Creates an object representing a "StoredProducerVisitReport" record.
+    /// <summary>An object representing a "StoredProducerVisitReport" record.
     /// </summary>
     /// <remarks>The database stores each visit as a record in the "StoredProducerVisitReport" table, and the 
     /// possible reason for a visit in the "ReasonCode" table. For any given visit the reasons are stored in a cross reference table 

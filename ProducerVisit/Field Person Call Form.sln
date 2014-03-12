@@ -20,6 +20,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEnd", "BackEnd\BackEnd.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoVersionNumber", "AutoVersionNumber\AutoVersionNumber.csproj", "{4EF91104-404E-451D-8E7C-B28B8DC6705B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75D2DA9D-DFD4-49A1-98FB-FE0F0677EF0F} = {75D2DA9D-DFD4-49A1-98FB-FE0F0677EF0F}
+		{3CAF9EB6-5E29-40E2-8798-2DE909310CBE} = {3CAF9EB6-5E29-40E2-8798-2DE909310CBE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

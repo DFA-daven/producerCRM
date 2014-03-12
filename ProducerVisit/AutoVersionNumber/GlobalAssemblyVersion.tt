@@ -35,15 +35,45 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("<#= GetCopyright() #>")]
 
 <#
-// fixme: try just using DEBUG and TRACE to define the states
-
 // note: if debug is true in the t4 header, this will always evaluate to DEBUG
-#if (ALPHA)
-	WriteLine("[assembly: AssemblyConfiguration(\"Alpha\")]");
-#elif (BETA)
-	WriteLine("[assembly: AssemblyConfiguration(\"Beta\")]");
-#elif (DEBUG)
+#if DEBUG
+  WriteLine("// found debug ");
+#else
+  WriteLine("// did not find debug ");
+#endif
+
+#if (TRACE)
+  WriteLine("// found trace");
+#else
+  WriteLine("// did not find trace");
+#endif
+
+#if BETA
+  WriteLine("// found beta ");
+#else
+  WriteLine("// did not find beta ");
+#endif
+
+#if ALPHA
+  WriteLine("// found Alpha ");
+#else
+  WriteLine("// did not find Alpha ");
+#endif
+
+#if AlphaConfig
+  WriteLine("// found AlphaConfig ");
+#else
+  WriteLine("// did not find AlphaConfig ");
+#endif
+
+#if (DEBUG)
+  #if (TRACE)
 	WriteLine("[assembly: AssemblyConfiguration(\"Testing\")]");
+  #else
+    WriteLine("[assembly: AssemblyConfiguration(\"Alpha\")]");
+  #endif
+#elif (TRACE)
+	WriteLine("[assembly: AssemblyConfiguration(\"Beta\")]");
 #else
 	WriteLine("[assembly: AssemblyConfiguration(\"Release\")]");
 #endif

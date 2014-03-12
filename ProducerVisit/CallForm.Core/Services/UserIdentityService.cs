@@ -7,6 +7,8 @@ using CallForm.Core.ViewModels;
 
 namespace CallForm.Core.Services
 {
+    /// <summary>Implements the <seealso cref="IUserIdentityService"/> interface.
+    /// </summary>
     public class UserIdentityService : IUserIdentityService
     {
         /// <summary>An instance of the <see cref="IMvxFileStore"/>.
@@ -30,11 +32,11 @@ namespace CallForm.Core.Services
             _restClient = restClient;
 
             // Hack: update this to the current backend target
-            _targetURL = "http://dl-backend.azurewebsites.net";
+            _targetURL = "http://dl-backend-02.azurewebsites.net";
         }
 
-        /// <summary>Indicates if the "Identity.xml" file exists in the "Data" folder of the <see cref="IMvxFileStore"/>.
-        /// </summary>
+        #region Required Definitions
+        /// <inheritdoc/>
         public bool IdentityRecorded
         {
             get
@@ -45,9 +47,7 @@ namespace CallForm.Core.Services
             }
         }
 
-        /// <summary>Saves <paramref name="identity"/> to the "Identity.xml" file on device, and to the web service.
-        /// </summary>
-        /// <param name="identity">A <seealso cref="UserIdentity"/>.</param>
+        /// <inheritdoc/>
         public void SaveIdentity(UserIdentity identity)
         {
             SaveIdentityToFile(identity);
@@ -92,10 +92,8 @@ namespace CallForm.Core.Services
                 throw;
             }
         }
-
-        /// <summary>Get the <seealso cref="UserIdentity"/> from the XML file on device.
-        /// </summary>
-        /// <returns>The on-device copy of <seealso cref="UserIdentity"/>.</returns>
+        
+        /// <inheritdoc/>
         public UserIdentity GetSavedIdentity()
         {
             var filename = _fileStore.PathCombine("Data", "Identity.xml");
@@ -106,12 +104,12 @@ namespace CallForm.Core.Services
             }
             return null;
         }
+        #endregion
 
         private void ParseResponse(MvxRestResponse obj)
         {
         }
 
         public event EventHandler<ErrorEventArgs> Error;
-
     }
 }

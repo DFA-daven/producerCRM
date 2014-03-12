@@ -9,6 +9,8 @@
     using System.IO;
     using System.Xml.Serialization;
 
+    /// <summary>Implements the <seealso cref="ISemiStaticWebDataService"/> interface.
+    /// </summary>
     public class SemiStaticWebDataService : ISemiStaticWebDataService
     {
         private readonly IMvxFileStore _fileStore;
@@ -16,6 +18,11 @@
         private readonly IDataService _dataService;
         private readonly string _targetURL;
 
+        /// <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="dataService"/>.
+        /// </summary>
+        /// <param name="fileStore">The target <see cref="IMvxFileStore"/></param>
+        /// <param name="jsonRestClient">The target <see cref="IMvxJsonRestClient"/></param>
+        /// <param name="dataService">The target <see cref="IDataService"/></param>
         public SemiStaticWebDataService(IMvxFileStore fileStore, IMvxJsonRestClient jsonRestClient, IDataService dataService)
         {
             _fileStore = fileStore;
@@ -24,18 +31,18 @@
 
             // Hack: update this to the current backend target
             // _targetURL = "http://dl-webserver-te.dairydata.local:480";
-             _targetURL = "http://dl-backend.azurewebsites.net";
-            //_targetURL = "http://dl-backend-02.azurewebsites.net";
+            // _targetURL = "http://dl-backend.azurewebsites.net";
+            _targetURL = "http://dl-backend-02.azurewebsites.net";
         }
 
-        /// <summary>Gets the <seealso cref="ReasonCodes"/> from the _dataservice.
-        /// </summary>
-        /// <returns>A <seealso cref="List<>"/> of type <seealso cref="ReasonCodes"/>.</returns>
+        #region Required Definitions
+        /// <inheritdoc/>
         public List<ReasonCode> GetReasonsForCall()
         {
             return _dataService.GetReasonsForCall();
         }
 
+        /// <inheritdoc/>
         public List<string> GetCallTypes()
         {
             _fileStore.EnsureFolderExists("Data");
@@ -59,6 +66,7 @@
             }
         }
 
+        /// <inheritdoc/>
         public List<string> GetEmailRecipients()
         {
             _fileStore.EnsureFolderExists("Data");
@@ -88,16 +96,17 @@
             }
         }
 
+        /// <inheritdoc/>
         public void Update()
         {
             try
             {
                 // fixme: errors down at this level are not presented to the UI. add an error log?
+                // review: how often are these tables going to be changing? do we really need to pull the fresh list every time?
                 var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
                 _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
                     response => 
                     {
-                        // review: why is _dataservice used for Reasons, and _filestore used for CallTypes and Email?
                         _dataService.UpdateReasons(response.Result);
                         //_fileStore.EnsureFolderExists("Data");
                         //var filename = _fileStore.PathCombine("Data", "Reasons.xml");
@@ -107,6 +116,7 @@
 
                 // request Call Types from the web service, and save them on-device
                 request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
+                // fixme: this table doesn't exist on the webservice, so this is constantly erroring
                 _jsonRestClient.MakeRequestFor<List<string>>(request,
                     response =>
                     {
@@ -118,6 +128,7 @@
 
                 // request Email Recipients from the web service, and save them on-device
                 request = new MvxRestRequest(_targetURL + "/Visit/EmailRecipients/");
+                // fixme: this table doesn't exist on the webservice, so this is constantly erroring
                 _jsonRestClient.MakeRequestFor<List<string>>(request,
                     response =>
                     {
@@ -132,6 +143,7 @@
                 Error(this, new ErrorEventArgs { Message = exc.Message });
             }
         }
+        #endregion
 
         public event EventHandler<ErrorEventArgs> Error;
 

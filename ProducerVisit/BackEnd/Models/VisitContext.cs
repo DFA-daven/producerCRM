@@ -16,7 +16,7 @@ namespace BackEnd.Models
         private static string buildConfiguration = "DefaultConnection";
 #endif
 
-        /// <summary>Opens a connection to the database defined in Web.Config.
+        /// <summary>Opens a connection to a database using the definition in Web.Config.
         /// </summary>
         public VisitContext()
             : base(buildConfiguration)
@@ -24,9 +24,25 @@ namespace BackEnd.Models
             // review: initializes database (backend) when called from .pubxml
         }
 
-        public DbSet<StoredProducerVisitReport> ProducerVisitReports { get; set; }
+        /// <summary>The collection of <seealso cref="StoredProducerVisitReport"/>.
+        /// </summary>
+        public DbSet<StoredProducerVisitReport> ProducerVisitReports 
+        {
+            // review: is this correct - isn't it returning *Stored*ProducerVisitReports?
+            get; 
+            set; 
+        }
+
+        /// <summary>The collection of <seealso cref="ReasonCode"/>.
+        /// </summary>
         public DbSet<ReasonCode> ReasonCodes { get; set; }
+
+        /// <summary>The collection of <seealso cref="VisitXReason"/>.
+        /// </summary>
         public DbSet<VisitXReason> VisitXReason { get; set; }
+
+        /// <summary>The collection of <seealso cref="UserIdentities"/>.
+        /// </summary>
         public DbSet<UserIdentity> UserIdentities { get; set; }
     }
 }

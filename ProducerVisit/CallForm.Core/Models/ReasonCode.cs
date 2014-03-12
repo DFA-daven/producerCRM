@@ -2,7 +2,7 @@
 
 namespace CallForm.Core.Models
 {
-    /// <summary>Creates an object representing a "ReasonCode" record.
+    /// <summary>An object representing a "ReasonCode" record.
     /// </summary>
     public class ReasonCode
     {
