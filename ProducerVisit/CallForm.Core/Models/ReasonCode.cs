@@ -14,13 +14,13 @@ namespace CallForm.Core.Models
         /// </summary>
         public string Name { get; set; }
 
-        /// <summary>The value associated with this <seealso cref="ReasonCode"/>.
+        /// <summary>The value associated with this <see cref="ReasonCode"/>.
         /// </summary>
         public int Code { get; set; }
 
-        /// <summary>The description of this <seealso cref="ReasonCode"/>.
+        /// <summary>The description of this <see cref="ReasonCode"/>.
         /// </summary>
-        /// <returns>A <seealso cref="String"/> of the description.</returns>
+        /// <returns>A <see cref="String"/> of the description.</returns>
         public override string ToString()
         {
             return Name;

@@ -4,8 +4,8 @@
 
     /// <summary>Creates an object representing a report of a visit to a member.
     /// </summary>
-    /// <remarks>A ProducerVisitReport object is equivalent to a <seealso cref="StoredProducerVisitReport"/> with the associated
-    /// <seealso cref="ReasonCode[]"/>. It may represent a visit that exists on the web service, or a new visit.</remarks>
+    /// <remarks>A ProducerVisitReport object is equivalent to a <see cref="StoredProducerVisitReport"/> with the associated
+    /// <see cref="ReasonCode[]"/>. It may represent a visit that exists on the web service, or a new visit.</remarks>
     public class ProducerVisitReport
     {
         /// <summary>The internal ID for this object.
@@ -40,11 +40,11 @@
         /// </summary>
         public decimal Duration { get; set; }
 
-        /// <summary>The timestamp of this Visit Report.
+        /// <summary>The time-stamp of this Visit Report.
         /// </summary>
         public DateTime EntryDateTime { get; set; }
 
-        /// <summary>The <seealso cref="CallType"/> for this visit.
+        /// <summary>The <see cref="CallType"/> for this visit.
         /// </summary>
         public string CallType { get; set; }
 

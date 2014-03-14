@@ -79,7 +79,7 @@
             }
         }
 
-        /// <summary>Runs before this view Overlays <seealso cref="UserIdentityViewModel"/> if no identity exists.
+        /// <summary>Runs before this view Overlays <see cref="UserIdentityViewModel"/> if no identity exists.
         /// </summary>
         /// <remarks>This model is the RegisterAppStart<> of App.cs.</remarks>
         public override void Start()

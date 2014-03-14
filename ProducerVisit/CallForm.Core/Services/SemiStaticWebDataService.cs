@@ -9,7 +9,7 @@
     using System.IO;
     using System.Xml.Serialization;
 
-    /// <summary>Implements the <seealso cref="ISemiStaticWebDataService"/> interface.
+    /// <summary>Implements the <see cref="ISemiStaticWebDataService"/> interface.
     /// </summary>
     public class SemiStaticWebDataService : ISemiStaticWebDataService
     {
@@ -20,8 +20,8 @@
 
         /// <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="dataService"/>.
         /// </summary>
-        /// <param name="fileStore">The target <see cref="IMvxFileStore"/></param>
-        /// <param name="jsonRestClient">The target <see cref="IMvxJsonRestClient"/></param>
+        /// <param name="fileStore">The target <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/></param>
+        /// <param name="jsonRestClient">The target <see cref="Cirrious.MvvmCross.Plugins.Network.Rest.IMvxJsonRestClient"/></param>
         /// <param name="dataService">The target <see cref="IDataService"/></param>
         public SemiStaticWebDataService(IMvxFileStore fileStore, IMvxJsonRestClient jsonRestClient, IDataService dataService)
         {

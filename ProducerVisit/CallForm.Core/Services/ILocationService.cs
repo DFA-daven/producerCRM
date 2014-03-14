@@ -1,6 +1,6 @@
 ﻿namespace CallForm.Core.Services
 {
-    /// <summary>Creates the interface for <seealso cref="LocationService"/>.
+    /// <summary>Creates the interface for <see cref="LocationService"/>.
     /// </summary>
     /// <remarks>Signatures of methods, properties, events and/or indexers</remarks>
     public interface ILocationService

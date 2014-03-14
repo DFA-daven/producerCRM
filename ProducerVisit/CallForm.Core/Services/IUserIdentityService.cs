@@ -2,7 +2,7 @@
 
 namespace CallForm.Core.Services
 {
-    /// <summary>An interface to the <seealso cref="UserIdentity"/>.
+    /// <summary>An interface to the <see cref="UserIdentity"/>.
     /// </summary>
     /// <remarks>Signatures of methods, properties, events and/or indexers</remarks>
     public interface IUserIdentityService
@@ -11,14 +11,14 @@ namespace CallForm.Core.Services
         /// </summary>
         bool IdentityRecorded { get; }
 
-        /// <summary><summary>Saves <paramref name="identity"/> to the "Identity.xml" file on-device, and to the web service.
+        /// <summary>Saves <paramref name="identity"/> to the "Identity.xml" file on-device, and to the web service.
         /// </summary>
-        /// <param name="identity">A <seealso cref="UserIdentity"/>.</param>
+        /// <param name="identity">A <see cref="UserIdentity"/>.</param>
         void SaveIdentity(UserIdentity identity);
 
-        /// <summary><summary>Get the <seealso cref="UserIdentity"/> from the XML file on-device.
+        /// <summary>Get the <see cref="UserIdentity"/> from the XML file on-device.
         /// </summary>
-        /// <returns>The on-device copy of <seealso cref="UserIdentity"/>.</returns>
+        /// <returns>The on-device copy of <see cref="UserIdentity"/>.</returns>
         /// <returns></returns>
         UserIdentity GetSavedIdentity();
     }

@@ -9,8 +9,8 @@
     /// possible reason for a visit in the "ReasonCode" table. For any given visit the reasons are stored in a cross reference table 
     /// "VisitXReason".
     /// 
-    /// A <seealso cref="StoredProducerVisitReport"/> object represents a single records from the "StoredProducerVisitReport" table. 
-    /// A <seealso cref="ProducerVisitReport"/> is that same record with a <seealso cref="ReasonCode[]"/> holding the 
+    /// A <see cref="StoredProducerVisitReport"/> object represents a single records from the "StoredProducerVisitReport" table. 
+    /// A <see cref="ProducerVisitReport"/> is that same record with a <see cref="ReasonCode"/> holding the 
     /// reason codes for the specific visit.</remarks>
     public class StoredProducerVisitReport
     {
@@ -67,7 +67,7 @@
         /// </summary>
         public byte[] PictureBytes { get; set; }
 
-        /// <summary>Has this <seealso cref="StoredProducerVisitReport"/> been uploaded?
+        /// <summary>Has this <see cref="StoredProducerVisitReport"/> been uploaded?
         /// </summary>
         public bool Uploaded { get; set; }
 
@@ -76,9 +76,9 @@
         public StoredProducerVisitReport()
         {}
 
-        /// <summary>Creates a <seealso cref="StoredProducerVisitReport"/> based on a <seealso cref="ProducerVisitReport"/>.
+        /// <summary>Creates a <see cref="StoredProducerVisitReport"/> based on a <see cref="ProducerVisitReport"/>.
         /// </summary>
-        /// <remarks>Creates a <seealso cref="StoredProducerVisitReport"/> by dropping the <seealso cref="ReasonCode[]"/>, and
+        /// <remarks>Creates a <see cref="StoredProducerVisitReport"/> by dropping the <see cref="ReasonCode"/>, and
         /// marking the Uploaded properties as false.</remarks>
         /// <param name="visitReport">The visit report.</param>
         public StoredProducerVisitReport(ProducerVisitReport visitReport)
@@ -98,11 +98,11 @@
             Uploaded = false;
         }
 
-        /// <summary>Creates a <seealso cref="ProducerVisitReport"/> by appending a <seealso cref="ReasonCode[]"/> to this 
-        /// <seealso cref="StoredProducerVisitReport"/>.
+        /// <summary>Creates a <see cref="ProducerVisitReport"/> by appending a <see cref="ReasonCode"/> to this 
+        /// <see cref="StoredProducerVisitReport"/>.
         /// </summary>
-        /// <param name="reasonCodes">An array of <seealso cref="ReasonCode"/> to be added.</param>
-        /// <returns>A <seealso cref="ProducerVisitReport"/>.</returns>
+        /// <param name="reasonCodes">An array of <see cref="ReasonCode"/> to be added.</param>
+        /// <returns>A <see cref="ProducerVisitReport"/>.</returns>
         public ProducerVisitReport Hydrate(ReasonCode[] reasonCodes)
         {
             return new ProducerVisitReport

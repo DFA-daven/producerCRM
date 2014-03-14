@@ -24,7 +24,7 @@ namespace BackEnd.Models
             // review: initializes database (backend) when called from .pubxml
         }
 
-        /// <summary>The collection of <seealso cref="StoredProducerVisitReport"/>.
+        /// <summary>The collection of <see cref="StoredProducerVisitReport"/>.
         /// </summary>
         public DbSet<StoredProducerVisitReport> ProducerVisitReports 
         {
@@ -33,15 +33,15 @@ namespace BackEnd.Models
             set; 
         }
 
-        /// <summary>The collection of <seealso cref="ReasonCode"/>.
+        /// <summary>The collection of <see cref="ReasonCode"/>.
         /// </summary>
         public DbSet<ReasonCode> ReasonCodes { get; set; }
 
-        /// <summary>The collection of <seealso cref="VisitXReason"/>.
+        /// <summary>The collection of <see cref="VisitXReason"/>.
         /// </summary>
         public DbSet<VisitXReason> VisitXReason { get; set; }
 
-        /// <summary>The collection of <seealso cref="UserIdentities"/>.
+        /// <summary>The collection of <see cref="UserIdentities"/>.
         /// </summary>
         public DbSet<UserIdentity> UserIdentities { get; set; }
     }

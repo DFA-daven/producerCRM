@@ -33,11 +33,11 @@ namespace BackEnd.Controllers
             return View();
         }
 
-        /// <summary>Get the 100 most recent <seealso cref=""/> for a given member number.
+        /// <summary>Get the 100 most recent <see cref="ProducerVisitReports"/> for a given member number.
         /// </summary>
         /// <param name="id">The 8 digit Member Number.</param>
-        /// <returns>An <seealso cref="ActionResult"/> object representing the set of records.</returns>
-        /// <remarks>See <seealso cref="DataService.Recent()"/>.</remarks>
+        /// <returns>A <see cref="ReportListItem"/> object representing the set of records.</returns>
+        /// <seealso cref="DataService.Recent()"/>
         public ActionResult Recent(string id)
         {
             // fixme: change this to a .resx value
@@ -90,14 +90,14 @@ namespace BackEnd.Controllers
             return Json(rlis, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>Opens the <seealso cref="_db"/>, adds a <seealso cref="ReasonCode"/>[], and 
-        /// returns a <seealso cref="ProducerVisitReport"/>.
+        /// <summary>Opens the <see cref="_db"/>, adds a <see cref="ReasonCode"/>[], and 
+        /// returns a <see cref="ProducerVisitReport"/>.
         /// </summary>
-        /// <param name="spvr">A <seealso cref="StoredProducerVisitReport"/>.</param>
-        /// <returns>A <seealso cref="ProducerVisitReport"/> based on a <seealso cref="StoredProducerVisitReport"/>.</returns>
-        /// <remarks>Opens the <seealso cref="BackEnd.Models.VisitContext"/> connection, queries the <seealso cref="VisitXReason"/> table for the given
-        /// <seealso cref="StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <seealso cref="ReasonCode"/> table
-        /// to get a <seealso cref="ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <seealso cref="ProducerVisitReport"/>.</remarks>
+        /// <param name="spvr">A <see cref="StoredProducerVisitReport"/>.</param>
+        /// <returns>A <see cref="ProducerVisitReport"/> based on a <see cref="StoredProducerVisitReport"/>.</returns>
+        /// <remarks>Opens the <see cref="BackEnd.Models.VisitContext"/> connection, queries the <see cref="VisitXReason"/> table for the given
+        /// <see cref="StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <see cref="ReasonCode"/> table
+        /// to get a <see cref="ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <see cref="ProducerVisitReport"/>.</remarks>
         private ProducerVisitReport Hydrated(StoredProducerVisitReport spvr)
         {
             var vxrs = _db.VisitXReason.Where(vxr => vxr.VisitID == spvr.ID).ToList();
@@ -135,7 +135,7 @@ namespace BackEnd.Controllers
         /// <summary>Gets the list of Reason Codes. Creates a new list if needed.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>A <seealso cref="List<ReasonCode>"/> of the Reason Codes.</returns>
+        /// <returns>A <see cref="List<ReasonCode>"/> of the Reason Codes.</returns>
         /// <remarks>Checks to see if the web service has a ReasonCodes table. If not, creates one.</remarks>
         public ActionResult Reasons(string id)
         {
@@ -171,7 +171,7 @@ namespace BackEnd.Controllers
             return Json(_db.ReasonCodes.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>Gets a <seealso cref="ProducerVisitReport"/> based on the 
+        /// <summary>Gets a <see cref="ProducerVisitReport"/> based on the 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

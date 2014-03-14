@@ -8,22 +8,22 @@ namespace CallForm.Core.Services
     /// <remarks>Signatures of methods, properties, events and/or indexers</remarks>
     public interface ISemiStaticWebDataService
     {
-        /// <summary>Gets the <seealso cref="ReasonCodes"/> from the <seealso cref="IDataService"/>.
+        /// <summary>Gets the <see cref="ReasonCodes"/> from the <see cref="IDataService"/>.
         /// </summary>
-        /// <returns>A <seealso cref="List<>"/> of type <seealso cref="ReasonCodes"/>.</returns>
+        /// <returns>A <see cref="List"/> of type <see cref="ReasonCodes"/>.</returns>
         List<ReasonCode> GetReasonsForCall();
 
-        /// <summary>Gets the <seealso cref="List<String>"/> from the <seealso cref="IMvxFileStore"/>, or from a built-in list.
+        /// <summary>Gets the <see cref="List"/> of <see cref="CallTypes"/> from the <see cref="IMvxFileStore"/>, or from a built-in list.
         /// </summary>
         /// <returns></returns>
         List<string> GetCallTypes();
 
-        /// <summary>Gets a <seealso cref="List<String>"/> of "Email Recipients" from the <seealso cref="IMvxFileStore"/>, or from a built-in list.
+        /// <summary>Gets a <see cref="List"/> of <see cref="EmailRecipients"/> from the <see cref="IMvxFileStore"/>, or from a built-in list.
         /// </summary>
         /// <returns></returns>
         List<string> GetEmailRecipients();
 
-        /// <summary>Requests current copies of Reason Codes, Call Types, and Email Recipients from the web service, 
+        /// <summary>Requests current copies of <see cref="ReasonCodes"/>, <see cref="CallTypes"/>, and <see cref="EmailRecipients"/> from the web service, 
         /// and updates the tables stored in the data service (Reason Codes) and XML/file store (Call Types and Email Recipients).
         /// </summary>
         void Update();

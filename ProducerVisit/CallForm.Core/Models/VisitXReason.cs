@@ -2,7 +2,7 @@
 
 namespace CallForm.Core.Models
 {
-    /// <summary>An object cross-referencing a <seealso cref="StoredProducerVisitReports"/> with a <seealso cref="ReasonCodes"/>.
+    /// <summary>An object cross-referencing a <see cref="StoredProducerVisitReport"/> with a <see cref="ReasonCode"/>.
     /// </summary>
     /// <remarks>This is a cross-reference linking a specific visit to a reason code(s).</remarks>
     public class VisitXReason

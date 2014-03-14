@@ -7,7 +7,7 @@ using CallForm.Core.ViewModels;
 
 namespace CallForm.Core.Services
 {
-    /// <summary>Implements the <seealso cref="IUserIdentityService"/> interface.
+    /// <summary>Implements the <see cref="IUserIdentityService"/> interface.
     /// </summary>
     public class UserIdentityService : IUserIdentityService
     {

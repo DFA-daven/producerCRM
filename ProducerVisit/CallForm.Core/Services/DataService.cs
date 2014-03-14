@@ -1,11 +1,11 @@
 ﻿namespace CallForm.Core.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using CallForm.Core.Models;
     using Cirrious.MvvmCross.Plugins.Sqlite;
+    using System.Collections.Generic;
+    using System.Linq;
 
-    /// <summary>Implements the <seealso cref="IDataService"/> interface.
+    /// <summary>Implements the <see cref="IDataService"/> interface.
     /// </summary>
     public class DataService : IDataService
     {
@@ -21,8 +21,8 @@
         /// if needed create tables: StoredProducerVisitReport, VisitXReason, and ReasonCode; 
         /// add 
         /// </summary>
-        /// <param name="factory"></param>
-        /// <param name="userIdentityService"></param>
+        /// <param name="factory">The <see cref="ISQLiteConnectionFactory"/>.</param>
+        /// <param name="userIdentityService">The <see cref="IUserIdentityService"/>.</param>
         public DataService(ISQLiteConnectionFactory factory, IUserIdentityService userIdentityService)
         {
             string address = "one.sql";
@@ -40,14 +40,14 @@
             _userIdentityService = userIdentityService;
         }
 
-        /// <summary>Opens the SQLite database, adds <seealso cref="ReasonCode"/>[] to the <seealso cref="StoredProducerVisitReport"/>, and 
-        /// returns a <seealso cref="ProducerVisitReport"/>.
+        /// <summary>Opens the SQLite database, adds <see cref="ReasonCode[]"/> to the <see cref="Models.StoredProducerVisitReport"/>, and 
+        /// returns a <see cref="ProducerVisitReport"/>.
         /// </summary>
-        /// <param name="spvr">A <seealso cref="StoredProducerVisitReport"/>.</param>
-        /// <returns>A <seealso cref="ProducerVisitReport"/> based on a <seealso cref="StoredProducerVisitReport"/>.</returns>
-        /// <remarks>Opens the <seealso cref="DataService._connection"/>, queries the <seealso cref="VisitXReason"/> table for the given
-        /// <seealso cref="StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <seealso cref="ReasonCode"/> table
-        /// to get a <seealso cref="ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <seealso cref="ProducerVisitReport"/>.</remarks>
+        /// <param name="spvr">A <see cref="StoredProducerVisitReport"/>.</param>
+        /// <returns>A <see cref="ProducerVisitReport"/> based on a <see cref="StoredProducerVisitReport"/>.</returns>
+        /// <remarks>Opens the <see cref="DataService._connection"/>, queries the <see cref="VisitXReason"/> table for the given
+        /// <see cref="StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <see cref="ReasonCode"/> table
+        /// to get a <see cref="ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <see cref="ProducerVisitReport"/>.</remarks>
         private ProducerVisitReport Hydrated(StoredProducerVisitReport spvr)
         {
             List<VisitXReason> vxrs = _connection.Table<VisitXReason>().Where(vxr => vxr.VisitID == spvr.ID).ToList();
