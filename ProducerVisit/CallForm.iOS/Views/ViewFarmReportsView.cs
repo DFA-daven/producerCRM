@@ -22,7 +22,7 @@
 
         // hard-coded values
         private static float topMarginPixels = 65;
-        // fixme: until we get a new banner, just hiding the old one
+        // FixMe: until we get a new banner, just hiding the old one
         private static double bannerHeightPercent = 10;
         //private static double bannerHeightPercent = 0.5;
 
@@ -104,7 +104,7 @@
 
             logoView.SizeToFit();
 
-            // todo: place the 3 controls in a horizontal view with something like
+            // ToDo: place the 3 controls in a horizontal view with something like
             // var layout = new LinearLayout(Orientation.Horizontal)
             // SubViews = new View[]
             
@@ -132,7 +132,7 @@
             var newButton = _new = new UIButton(UIButtonType.Custom);
             newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             newButton.SetTitle("New", UIControlState.Normal);
-            // todo: scale the image so it fits in the control
+            // ToDo: scale the image so it fits in the control
             var plusSign = UIImage.FromBundle("Add.png");
             //plusSign.Scale();
             newButton.SetImage(UIImage.FromBundle("Add.png"), UIControlState.Normal);
@@ -175,7 +175,7 @@
 
             tableView.Source = source;
 
-            // fixme: find way to get the app's title
+            // FixMe: find way to get the app's title
             // get current values from the assembly
             var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName();
             string appName = assemblyName.Name;                     // the name of this project -- CallForm.iOS
@@ -183,7 +183,7 @@
             string appVersion = assemblyName.Version.ToString();    // the version number
             ////var up = System.Reflection.Ass
 
-            // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
+            // FixMe: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
             // need something like if this.config != release then appName = appName + this.config
 #if ALPHA
     appName += " (ALPHA)";
@@ -196,22 +196,22 @@
 
 #endif
 
-            // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
+            // FixMe: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
             Title = appName + " " + appVersion;
             //Title = appName + " (VFRVBETA); " + appVersion;
         }
 
-        // todo: manipulate base image? 
+        // ToDo: manipulate base image? 
         public override void ViewDidLayoutSubviews()
         {
             base.ViewDidLayoutSubviews();
 
-            // todo: use bool method here
+            // ToDo: use boolean method here
             if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
             {
                 float displacement_y = this.TopLayoutGuide.Length;
 
-                //load subviews with displacement
+                // load sub-views with displacement
             }
         }
 
@@ -445,13 +445,13 @@
 
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            // fixme: remove hard-coded values
+            // FixMe: remove hard-coded values (or add XML entry)
             return 50;
         }
 
         public override int RowsInSection(UITableView tableview, int section)
         {
-            // fixme: why aren't the parameters being used here?
+            // FixMe: why aren't the parameters being used here?
             return _viewModel.Reports == null ? 0 : _viewModel.Reports.Count;
         }
 
@@ -485,7 +485,7 @@
         public UILabel Date, FarmNo, Source, Reasons;
         public UILayoutHost Host;
 
-        // fixme: plenty of hard-coded values in this one
+        // FixMe: plenty of hard-coded values in this one
         public TableViewCell() : base(UITableViewCellStyle.Default, "tableViewCell")
         {
             var layout = new LinearLayout(Orientation.Horizontal)

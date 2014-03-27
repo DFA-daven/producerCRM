@@ -12,7 +12,7 @@ namespace CallForm.iOS.ViewElements
         private readonly UITableView _table;
         private readonly NewVisitViewModel _viewModel;
 
-        // todo: replace fixed values
+        // ToDo: replace fixed values
         public ReasonCodePickerDialogViewController(NewVisitViewModel viewModel, NewVisitTableViewSource source)
         {
             View.BackgroundColor = UIColor.White;

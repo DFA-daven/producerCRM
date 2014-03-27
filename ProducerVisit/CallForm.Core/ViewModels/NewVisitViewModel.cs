@@ -34,7 +34,7 @@ namespace CallForm.Core.ViewModels
         private List<ReasonCode> _reasonCodes;
         private MvxCommand _saveCommand;
 
-        // fixme: refactor userID to DeviceID
+        // FixMe: re-factor userID to DeviceID
         private string _userID;
         private List<string> _callTypes;
         private bool _editing;
@@ -50,7 +50,7 @@ namespace CallForm.Core.ViewModels
             IMvxJsonConverter jsonConverter,
             ISemiStaticWebDataService webDataService)
         {
-            // fixme: refactor "BuiltInReasonCodes" to indicate the source is webDataService.GetReasonsForCall()
+            // FixMe: re-factor "BuiltInReasonCodes" to indicate the source is webDataService.GetReasonsForCall()
             BuiltInReasonCodes = webDataService.GetReasonsForCall();
             ReasonCodes = new List<ReasonCode>();
 
@@ -128,7 +128,7 @@ namespace CallForm.Core.ViewModels
             Lng = locationMessage.Lng;
         }
 
-        // fixme: refactor userID to DeviceID
+        // FixMe: re-factor userID to DeviceID
         public string UserID
         {
             get { return _userID; }

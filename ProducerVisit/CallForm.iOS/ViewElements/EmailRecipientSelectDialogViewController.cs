@@ -80,7 +80,7 @@ namespace CallForm.iOS.ViewElements
             tableView.ReloadData();
         }
 
-        // todo: fixed value
+        // ToDo: fixed value
         public override float GetHeightForFooter(UITableView tableView, int section)
         {
             return 50;

@@ -23,7 +23,7 @@ namespace CallForm.iOS
 
             // initialize the app for single single screen display
             var presenter = new MvxModalSupportTouchViewPresenter(this, _window);
-            // fixme: use this after fixing UserIdentityView.cs
+            // FixMe: use this after fixing UserIdentityView.cs
             //var setup = new Setup(this, presenter);
             var setup = new Setup(this, _window);
             setup.Initialize();

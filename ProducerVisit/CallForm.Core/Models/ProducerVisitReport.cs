@@ -12,13 +12,13 @@
         /// </summary>
         public int ID { get; set; }
 
-        // fixme: change userID to DeviceID
+        // FixMe: change userID to DeviceID
 
         /// <summary>The device ID associated with this visit.
         /// </summary>
         public string UserID { get; set; }
 
-        // fixme: change FarmNumber to MemberNumber
+        // FixMe: change FarmNumber to MemberNumber
 
         /// <summary>The 8 digit member number.
         /// </summary>

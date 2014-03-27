@@ -29,7 +29,7 @@
             _jsonRestClient = jsonRestClient;
             _dataService = dataService;
 
-            // Hack: update this to the current backend target
+            // Hack: update this to the current back-end target 
             // _targetURL = "http://dl-webserver-te.dairydata.local:480";
             // _targetURL = "http://dl-backend.azurewebsites.net";
             _targetURL = "http://dl-backend-02.azurewebsites.net";
@@ -101,7 +101,7 @@
         {
             try
             {
-                // fixme: errors down at this level are not presented to the UI. add an error log?
+                // FixMe: errors down at this level are not presented to the UI. add an error log?
                 // review: how often are these tables going to be changing? do we really need to pull the fresh list every time?
                 var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
                 _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
@@ -116,7 +116,7 @@
 
                 // request Call Types from the web service, and save them on-device
                 request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
-                // fixme: this table doesn't exist on the webservice, so this is constantly erroring
+                // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
                 _jsonRestClient.MakeRequestFor<List<string>>(request,
                     response =>
                     {
@@ -128,7 +128,7 @@
 
                 // request Email Recipients from the web service, and save them on-device
                 request = new MvxRestRequest(_targetURL + "/Visit/EmailRecipients/");
-                // fixme: this table doesn't exist on the webservice, so this is constantly erroring
+                // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
                 _jsonRestClient.MakeRequestFor<List<string>>(request,
                     response =>
                     {

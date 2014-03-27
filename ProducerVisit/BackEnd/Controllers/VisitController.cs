@@ -18,7 +18,7 @@ namespace BackEnd.Controllers
             ViewBag.VRCount = _db.ProducerVisitReports.Count();
             ViewBag.UserCount = _db.UserIdentities.Count();
             ViewBag.UniqueUsers = _db.UserIdentities.Distinct().Count();
-            // todo: add more reports elements here
+            // ToDo: add more reports elements here
 
             return View();
         }
@@ -28,7 +28,7 @@ namespace BackEnd.Controllers
             ViewBag.VRCount = _db.ProducerVisitReports.Count();
             ViewBag.UserCount = 99;
             ViewBag.UniqueUsers = 99;
-            // todo: add more reports elements here
+            // ToDo: add more reports elements here
 
             return View();
         }
@@ -40,7 +40,7 @@ namespace BackEnd.Controllers
         /// <seealso cref="DataService.Recent()"/>
         public ActionResult Recent(string id)
         {
-            // fixme: change this to a .resx value
+            // FixMe: change this to a .resx value (or an XML entry)
             int quantity = 100;
 
             var spvrs = _db.ProducerVisitReports.Where(vr => vr.FarmNumber == id)
@@ -139,8 +139,8 @@ namespace BackEnd.Controllers
         /// <remarks>Checks to see if the web service has a ReasonCodes table. If not, creates one.</remarks>
         public ActionResult Reasons(string id)
         {
-            // review: this seems like a better approach to retreiving the data. Use this for the other lists below?
-            // todo: these should probably be in an .resx
+            // review: this seems like a better approach to retrieving the data. Use this for the other lists below?
+            // ToDo: these should probably be in an .resx
             // note: establishes the reason code list
             if (!_db.ReasonCodes.Any())
             {

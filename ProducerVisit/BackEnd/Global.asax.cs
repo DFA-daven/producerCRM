@@ -27,7 +27,7 @@ namespace BackEnd
             // this seems safer, but still must be commented out on first run:
             Database.SetInitializer(new CreateDatabaseIfNotExists<VisitContext>());
 
-            // fixme: the issue seems to be that later on, if the empty table(s) exist, the code
+            // FixMe: the issue seems to be that later on, if the empty table(s) exist, the code
             // will not populate them with the default values. It should be possible to move the database
             // seeding here, and never comment out "CreateDatabaseIfNotExists".
 

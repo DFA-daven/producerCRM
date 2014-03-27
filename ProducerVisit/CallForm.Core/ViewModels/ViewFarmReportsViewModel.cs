@@ -46,7 +46,7 @@
                 Reports = _dataService.Recent();
                 Loading = false;
 
-                // Hack: update this to the current backend target
+                // Hack: update this to the current back-end target
                 _targetURL = "http://dl-backend-02.azurewebsites.net";
 
                 // Hack: commenting out the Update() seems to prevent the Airplane Mode error
@@ -54,7 +54,7 @@
             }
             catch (Exception exc)
             {
-                // fixme: add proper error handling
+                // FixMe: add proper error handling
                 Error(this, new ErrorEventArgs { Message = exc.Message });
             }
         }
@@ -157,7 +157,7 @@
             {
                 Loading = true;
                 var request = new MvxRestRequest(_targetURL + "/Visit/Recent/" + Filter);
-                // note: example of handling the response/error inline
+                // note: example of handling the response/error in-line
                 _jsonRestClient.MakeRequestFor<List<ReportListItem>>(request,
                     response =>
                     {

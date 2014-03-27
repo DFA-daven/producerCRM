@@ -23,7 +23,7 @@ namespace CallForm.Core.Models
         /// </summary>
         public DateTime VisitDate { get; set; }
 
-        // fixme: this is getting pvr.ReasonCodes[0], which will be the first match in [VisitXReasons].[ReasonID]. This is not necessarily the "primary" reason.
+        // FixMe: this is getting pvr.ReasonCodes[0], which will be the first match in [VisitXReasons].[ReasonID]. This is not necessarily the "primary" reason.
         /// <summary>The primary reason for the visit.
         /// </summary>
         public ReasonCode PrimaryReasonCode { get; set; }

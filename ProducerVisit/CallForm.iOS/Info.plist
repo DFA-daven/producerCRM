@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -22,26 +22,19 @@
 		<string>Default.png</string>
 		<string>Default@2x.png</string>
 		<string>Default-568h@2x.png</string>
-		<string>Icon-Small@2x.png</string>
-		<string>Icon-Small-50@2x.png</string>
-		<string>Icon-Small-40.png</string>
-		<string>Icon-Small-40@2x.png</string>
-		<string>Icon-Small-50.png</string>
-		<string>Icon-Small.png</string>
-		<string>Icon-72@2x.png</string>
-		<string>Icon-76.png</string>
-		<string>Icon-76@2x.png</string>
 		<string>Icon-72.png</string>
-		<string>Icon@2x.png</string>
-		<string>Icon-60@2x.png</string>
-		<string>Icon.png</string>
+		<string>Icon-Small-50.png</string>
+		<string>Icon-Small-50@2x.png</string>
+		<string>Icon-Small.png</string>
+		<string>Icon-Small@2x.png</string>
+		<string>Icon-72@2x.png</string>
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Field Contact</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.dairylea.fieldcontact</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.14073.11379</string>
+	<string>1.4.14086.7717</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -52,7 +45,7 @@
 			<false/>
 		</dict>
 	</dict>
-	<key>UIPrerenderedIcon</key>
-	<true/>
 </dict>
 </plist>
+
+

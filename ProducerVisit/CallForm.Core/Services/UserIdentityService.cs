@@ -27,11 +27,11 @@ namespace CallForm.Core.Services
         /// <param name="restClient">The target <see cref="IMvxRestClient"/></param>
         public UserIdentityService(IMvxFileStore fileStore, IMvxRestClient restClient)
         {
-            // fixme: this seems to be the first method that requires a data connection
+            // FixMe: this seems to be the first method that requires a data connection
             _fileStore = fileStore;
             _restClient = restClient;
 
-            // Hack: update this to the current backend target
+            // Hack: update this to the current back-end target
             _targetURL = "http://dl-backend-02.azurewebsites.net";
         }
 
@@ -68,7 +68,7 @@ namespace CallForm.Core.Services
             }
             catch
             {
-                // fixme: just ignore any errors for now
+                // FixMe: just ignore any errors for now
                 throw;
             }
         }
@@ -88,7 +88,7 @@ namespace CallForm.Core.Services
             }
             catch
             {
-                // fixme: just ignore any errors for now
+                // FixMe: just ignore any errors for now
                 throw;
             }
         }

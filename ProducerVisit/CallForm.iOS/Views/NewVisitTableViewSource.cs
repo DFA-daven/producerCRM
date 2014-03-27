@@ -172,7 +172,7 @@
                         _farmNoCell.Edit();
                         break;
                     case 1:
-                        // todo: seeing an unhandled exception here if debug on iPhoneSimulator
+                        // ToDo: seeing an un-handled exception here if debug on iPhoneSimulator
                         _popover = new UIPopoverController(CallTypePickerPopover);
                         // _popover.PopoverContentSize = CallTypePickerPopover.ContentSizeForViewInPopover;
                         _popover.PopoverContentSize = CallTypePickerPopover.PreferredContentSize;
@@ -216,7 +216,7 @@
             tableView.DeselectRow(indexPath, true);
         }
 
-        // todo: is this ever used?
+        // ToDo: is this ever used?
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
             if (indexPath.Row == 5)

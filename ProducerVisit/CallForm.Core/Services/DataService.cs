@@ -69,7 +69,7 @@
         /// <inheritdoc/>
         public List<ReportListItem> Recent()
         {
-            // fixme: change quantity to a .resx value
+            // FixMe: change quantity to a .resx value (or an XML entry)
             int quantity = 100;
 
             var spvrs = _connection.Table<StoredProducerVisitReport>()
