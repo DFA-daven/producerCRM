@@ -32,7 +32,7 @@ namespace CallForm.Core.Services
             _restClient = restClient;
 
             // Hack: update this to the current back-end target
-            _targetURL = "http://dl-backend-02.azurewebsites.net";
+            _targetURL = "http://dl-websvcs-test.dairydata.local";
         }
 
         #region Required Definitions

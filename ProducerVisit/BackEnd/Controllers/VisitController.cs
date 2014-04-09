@@ -18,6 +18,19 @@ namespace BackEnd.Controllers
             ViewBag.VRCount = _db.ProducerVisitReports.Count();
             ViewBag.UserCount = _db.UserIdentities.Count();
             ViewBag.UniqueUsers = _db.UserIdentities.Distinct().Count();
+
+            string source = string.Empty;
+            source = _db.Database.Connection.DataSource;
+            if (_db.Database.Connection.DataSource.Contains(":"))
+            {
+                // datasource could be tcp:server.name.net,1433
+                source = _db.Database.Connection.DataSource.Split(':')[1];
+            }
+
+            ViewBag.DataSource = source.Split('.')[0]; // just the left-most part of the address
+            ViewBag.DataSource = source.Split(',')[0]; // drop the port number, in case the address was only the machine name
+            ViewBag.Database = _db.Database.Connection.Database;
+
             // ToDo: add more reports elements here
 
             return View();
