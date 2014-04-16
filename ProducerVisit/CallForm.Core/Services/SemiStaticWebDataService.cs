@@ -62,10 +62,11 @@
                 // review: when is this list used? can't this be pulled from the XML file?
                 return new List<string>(new[]
                 {
-                    "Farm Visit",
                     "Phone Call",
                     "Email",
+                    "Farm Visit",
                     "Farm Show",
+                    "SMS (Text Msg.)",
                     "Other"
                 });
             }

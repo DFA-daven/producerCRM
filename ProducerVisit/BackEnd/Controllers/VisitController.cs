@@ -159,20 +159,26 @@ namespace BackEnd.Controllers
             {
                 var list = new List<ReasonCode>(new[]
                 {
-                    new ReasonCode {Name = "Regulatory - Inspection", Code = 51},
-                    new ReasonCode {Name = "Regulatory - Hi-Count / Antibiotic", Code = 11},
-                    new ReasonCode {Name = "Regulatory - Calibrations", Code = 12},
-                    new ReasonCode {Name = "Regulatory - Samples", Code = 15},
-                    new ReasonCode {Name = "Membership - Relationship Call", Code = 55},
-                    new ReasonCode {Name = "Membership - Solicitation", Code = 56},
-                    new ReasonCode {Name = "Membership - Cancellation", Code = 50},
-                    new ReasonCode {Name = "Gold Standard III", Code = 40},
-                    new ReasonCode {Name = "Farm Services - Agri-Max", Code = 31},
-                    new ReasonCode {Name = "Farm Services - ASA - Insurance", Code = 32},
-                    new ReasonCode {Name = "Farm Services - Dairy One", Code = 33},
-                    new ReasonCode {Name = "Farm Services - Eagle - Farm Supplies", Code = 34},
-                    new ReasonCode {Name = "Farm Services - Empire Livestock", Code = 35},
-                    new ReasonCode {Name = "Farm Services - Risk Management", Code = 36},
+                    new ReasonCode {Name = "Regulatory: Calibrations", Code = 11},
+                    new ReasonCode {Name = "Regulatory: Inspection", Code = 12},
+                    new ReasonCode {Name = "Regulatory: Quality: Antibiotic", Code = 15},
+                    new ReasonCode {Name = "Regulatory: Quality: Cryo", Code = 16},
+                    new ReasonCode {Name = "Regulatory: Quality: Hi-count", Code = 17},
+                    new ReasonCode {Name = "Regulatory: Samples", Code = 13},
+                    
+                    new ReasonCode {Name = "Membership: Cancellation", Code = 59},
+                    new ReasonCode {Name = "Membership: Relationship Call", Code = 55},
+                    new ReasonCode {Name = "Membership: Solicitation", Code = 56},
+                    
+                    new ReasonCode {Name = "Gold Standard III", Code = 43},
+                    
+                    new ReasonCode {Name = "Farm Services: Agri-Max", Code = 31},
+                    new ReasonCode {Name = "Farm Services: ASA: Insurance", Code = 32},
+                    new ReasonCode {Name = "Farm Services: Dairy One", Code = 33},
+                    new ReasonCode {Name = "Farm Services: Eagle: Farm Supplies", Code = 34},
+                    new ReasonCode {Name = "Farm Services: Empire Livestock", Code = 35},
+                    new ReasonCode {Name = "Farm Services: Risk Management", Code = 36},
+                    
                     new ReasonCode {Name = "Other", Code = -1},
                 });
                 foreach (var reasonCode in list)
@@ -204,10 +210,11 @@ namespace BackEnd.Controllers
             // change to EmailRecipients.
             return Json(new List<string>(new[]
                 {
-                    "Farm Visit",
                     "Phone Call",
                     "Email",
+                    "Farm Visit",
                     "Farm Show",
+                    "SMS (Text Msg.)",
                     "Other"
                 }), JsonRequestBehavior.AllowGet);
         }

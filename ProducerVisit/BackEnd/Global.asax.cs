@@ -25,7 +25,7 @@ namespace BackEnd
             // The following implementations are provided: 
             // DropCreateDatabaseIfModelChanges<TContext>, DropCreateDatabaseAlways<TContext>, CreateDatabaseIfNotExists<TContext>.
             // this seems safer, but still must be commented out on first run:
-            //Database.SetInitializer(new CreateDatabaseIfNotExists<VisitContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<VisitContext>());
 
             // FixMe: the issue seems to be that later on, if the empty table(s) exist, the code
             // will not populate them with the default values. It should be possible to move the database
