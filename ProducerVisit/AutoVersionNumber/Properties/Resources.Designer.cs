@@ -79,7 +79,7 @@ namespace AutoVersionNumber.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Field Contact.
+        ///   Looks up a localized string similar to ProducerCRM.
         /// </summary>
         public static string ProjectTitle {
             get {

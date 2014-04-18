@@ -1,17 +1,17 @@
 ﻿<#+
 // This is a class to be included for use in other T4 templates. Use the following:
 // < # @ include file="Custom Code\CommonT4.t4" # >
-// (without the spaces at the begining and end)
+// (without the spaces at the beginning and end)
 // Any assemblies used in this class need to include in the calling template. For example:
 // < # @ assembly name="EnvDTE" # >
 // < # @ import namespace="EnvDTE" # >
-// (again, without the spaces at the begining and end)
+// (again, without the spaces at the beginning and end)
 
 	// fixme: find a way to get these values from the resx file
 	private static string majorVersion = "1";
 	private static string minorVersion = "4";
-	private static string projectTitle = "Field Contact"; 
-	private static string bundleTitle = "fieldcontact";
+	private static string projectTitle = "ProducerCRM"; 
+	private static string bundleTitle = "producercrm";
 	private static string company = "Dairylea Cooperative, Inc.";
 
 

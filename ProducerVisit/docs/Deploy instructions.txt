@@ -1,8 +1,21 @@
-﻿Visual Studio
-1. Comment out line in BackEnd Global.asax
+﻿----
+Visual Studio
+
+Manually update all references of web service (search/replace):
+    CallForm.Core\Services\SemiStaticWebDataService.cs
+    CallForm.Core\Services\UserIdentityService.cs
+    CallForm.Core\ViewModels\ViewFarmReportsViewModel.cs
+    CallForm.iOS\AppDelegate.cs (maybe)
+    CallForm.iOS\Main.cs (maybe)
+    CallForm.iOS\Reachability.cs (maybe)
+
+Do NOT manually update (but be sure to select the correct one when publishing the BackEnd):
+    BackEnd\Properties\PublishProfiles\*.pubxml
+
+1. Comment out line in BackEnd\Global.asax
 2. Rebuild CallForm.Core
 3. Rebuild Solution
-4. Publish BackEnd
+4. Publish BackEnd (web service)
     a. Build / Publish BackEnd
 	b. On the Profile tab, select an appropriate profile
 	c. On the Connection tab, 
@@ -10,7 +23,7 @@
 		- review all settings
 		- Click the "Test Connection" 
 	d. On the Settings tab, select "Release - Any CPU" as the Configuration
-		- see note in Web.Debug.Config for details
+		- see note in Web.Debug.Config for details. This selection relates to the target database.
 	e. Click Publish 
 		- Browser opens and displays default page with no errors (see \docs\no errors.png)
 		- Tables created / exist on target database (as set in Web.*.config)
@@ -18,8 +31,10 @@
 6. Rebuild CallForm.Core
 7. Deploy CallForm.iOS
 
+----
 Mac
 1. Open Terminal window
 2. run CallForm-resign.sh
 3. copy .ipa from /IPA to /Public
 4. Check plist in .ipa for correct bundle ID
+

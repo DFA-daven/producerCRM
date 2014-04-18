@@ -19,10 +19,10 @@ using System.Runtime.InteropServices;
 // Major and minor version are hard-coded.
 // Build number is: [two-digit year][three-digit day-of-year]
 // Revision is: the number of seconds since midnight (divided by 5)
-[assembly: AssemblyVersion("1.4.14100.10082")]
-[assembly: AssemblyFileVersion("1.4.14100.10082")]
+[assembly: AssemblyVersion("1.4.14108.11179")]
+[assembly: AssemblyFileVersion("1.4.14108.11179")]
 
-[assembly: AssemblyProduct("Field Contact")]
+[assembly: AssemblyProduct("ProducerCRM")]
 [assembly: AssemblyCompany("Dairylea Cooperative, Inc.")]
 [assembly: AssemblyCopyright("Copyright © 2013-2014 Dairylea Cooperative, Inc. All Rights Reserved.")]
 

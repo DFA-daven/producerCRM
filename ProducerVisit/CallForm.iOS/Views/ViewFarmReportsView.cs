@@ -179,7 +179,7 @@
             // get current values from the assembly
             var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName();
             string appName = assemblyName.Name;                     // the name of this project -- CallForm.iOS
-            appName = "Field Contact";
+            appName = "ProducerCRM";
             string appVersion = assemblyName.Version.ToString();    // the version number
             ////var up = System.Reflection.Ass
 

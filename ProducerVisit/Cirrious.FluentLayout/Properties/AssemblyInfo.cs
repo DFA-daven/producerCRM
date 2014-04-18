@@ -12,8 +12,8 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Field Contact Cirrious.FluentLayout")]
-[assembly: AssemblyDescription("Provides Cirrious.FluentLayout support to the Field Contact app.")]
+[assembly: AssemblyTitle("ProducerCRM Cirrious.FluentLayout")]
+[assembly: AssemblyDescription("Provides Cirrious.FluentLayout support to the ProducerCRM app.")]
 
 
 // Setting ComVisible to false makes the types in this assembly not visible 

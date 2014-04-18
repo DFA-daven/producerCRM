@@ -17,7 +17,7 @@ namespace CallForm.iOS
         {
             bool hostWasReachable = false;
 
-            if (!Reachability.IsHostReachable("dl-websvcs-test.dairydata.local"))
+            if (!Reachability.IsHostReachable("dl-backend-02.azurewebsites.net"))
             {
                 hostWasReachable = false;
 

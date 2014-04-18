@@ -1,4 +1,4 @@
-﻿/* Drop the tables created by the Field Contact mobile app */
+﻿/* Drop the tables created by the ProducerCRM mobile app */
 
 --USE [dlBackendAz01]
 GO
