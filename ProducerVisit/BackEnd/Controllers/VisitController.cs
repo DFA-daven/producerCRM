@@ -63,16 +63,16 @@ namespace BackEnd.Controllers
 
             var rlis = storedProducerVisitReports.Select(storedProducerVisitReport =>
             {
-                var pvr = Hydrated(storedProducerVisitReport);
+                var producerVisitReport = Hydrated(storedProducerVisitReport);
                 var userID = _db.UserIdentities.FirstOrDefault(uid => uid.DeviceID == storedProducerVisitReport.UserID);
                 return new ReportListItem
                 {
                     ID = storedProducerVisitReport.ID,
                     UserEmail = (userID ?? new UserIdentity { UserEmail = "Unknown" }).UserEmail,
-                    MemberNumber = pvr.MemberNumber,
+                    MemberNumber = producerVisitReport.MemberNumber,
                     Local = false,
-                    PrimaryReasonCode = pvr.ReasonCodes[0],
-                    VisitDate = pvr.VisitDate,
+                    PrimaryReasonCode = producerVisitReport.ReasonCodes[0],
+                    VisitDate = producerVisitReport.VisitDate,
                     Uploaded = true
                 };
             }).ToList();
@@ -87,15 +87,15 @@ namespace BackEnd.Controllers
 
             var rlis = storedProducerVisitReports.Select(storedProducerVisitReport =>
             {
-                var pvr = Hydrated(storedProducerVisitReport);
+                var producerVisitReport = Hydrated(storedProducerVisitReport);
                 return new ReportListItem
                 {
                     ID = storedProducerVisitReport.ID,
                     UserEmail = _db.UserIdentities.First(uid => uid.DeviceID == storedProducerVisitReport.UserID).UserEmail,
-                    MemberNumber = pvr.MemberNumber,
+                    MemberNumber = producerVisitReport.MemberNumber,
                     Local = false,
-                    PrimaryReasonCode = pvr.ReasonCodes[0],
-                    VisitDate = pvr.VisitDate,
+                    PrimaryReasonCode = producerVisitReport.ReasonCodes[0],
+                    VisitDate = producerVisitReport.VisitDate,
                     Uploaded = true
                 };
             }).ToList();

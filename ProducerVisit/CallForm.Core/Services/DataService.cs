@@ -73,22 +73,22 @@
             int quantity = 100;
 
             var storedProducerVisitReports = _connection.Table<StoredProducerVisitReport>()
-                .OrderByDescending(pvr => pvr.VisitDate)
+                .OrderByDescending(producerVisitReport => producerVisitReport.VisitDate)
                 .Take(quantity)
                 .ToList();
 
             return storedProducerVisitReports.Select(storedProducerVisitReport =>
                 {
-                    var pvr = Hydrated(storedProducerVisitReport);
+                    var producerVisitReport = Hydrated(storedProducerVisitReport);
                     // review: would a reason code ever not be found? is "other" the right thing to show?
                     return new ReportListItem
                     {
                         ID = storedProducerVisitReport.ID,
                         UserEmail = _userIdentityService.IdentityRecorded ? _userIdentityService.GetSavedIdentity().UserEmail : "You",
-                        MemberNumber = pvr.MemberNumber,
+                        MemberNumber = producerVisitReport.MemberNumber,
                         Local = true,
-                        PrimaryReasonCode = pvr.ReasonCodes != null && pvr.ReasonCodes.Length > 0 ? pvr.ReasonCodes[0] : new ReasonCode { Name = "Other", Code = -1 },
-                        VisitDate = pvr.VisitDate,
+                        PrimaryReasonCode = producerVisitReport.ReasonCodes != null && producerVisitReport.ReasonCodes.Length > 0 ? producerVisitReport.ReasonCodes[0] : new ReasonCode { Name = "Other", Code = -1 },
+                        VisitDate = producerVisitReport.VisitDate,
                         Uploaded = storedProducerVisitReport.Uploaded
                     };
                 }).ToList();
