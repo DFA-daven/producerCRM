@@ -61,7 +61,7 @@ namespace BackEnd.Controllers
                 .Take(quantity)
                 .ToList();
 
-            var rlis = storedProducerVisitReports.Select(storedProducerVisitReport =>
+            var reportListItems = storedProducerVisitReports.Select(storedProducerVisitReport =>
             {
                 var producerVisitReport = Hydrated(storedProducerVisitReport);
                 var userID = _db.UserIdentities.FirstOrDefault(uid => uid.DeviceID == storedProducerVisitReport.UserID);
@@ -77,7 +77,7 @@ namespace BackEnd.Controllers
                 };
             }).ToList();
 
-            return Json(rlis, JsonRequestBehavior.AllowGet);
+            return Json(reportListItems, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult All(string id)
@@ -85,7 +85,7 @@ namespace BackEnd.Controllers
             var storedProducerVisitReports = _db.ProducerVisitReports.Where(visitReport => visitReport.MemberNumber == id)
                 .OrderByDescending(visitReport => visitReport.VisitDate).ToList();
 
-            var rlis = storedProducerVisitReports.Select(storedProducerVisitReport =>
+            var reportListItems = storedProducerVisitReports.Select(storedProducerVisitReport =>
             {
                 var producerVisitReport = Hydrated(storedProducerVisitReport);
                 return new ReportListItem
@@ -100,7 +100,7 @@ namespace BackEnd.Controllers
                 };
             }).ToList();
 
-            return Json(rlis, JsonRequestBehavior.AllowGet);
+            return Json(reportListItems, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>Opens the <see cref="_db"/>, adds a <see cref="ReasonCode"/>[], and 

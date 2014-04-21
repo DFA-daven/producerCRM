@@ -467,12 +467,12 @@
         {
             TableViewCell cell = tableView.DequeueReusableCell(CellIdentifier) as TableViewCell ?? new TableViewCell();
 
-            ReportListItem rli = _viewModel.Reports[indexPath.Row];
+            ReportListItem reportListItem = _viewModel.Reports[indexPath.Row];
 
-            cell.Date.Text = rli.VisitDate.ToShortDateString();
-            cell.MemberNumber.Text = rli.MemberNumber;
-            cell.Source.Text = rli.UserEmail;
-            cell.Reasons.Text = rli.PrimaryReasonCode.Name;
+            cell.Date.Text = reportListItem.VisitDate.ToShortDateString();
+            cell.MemberNumber.Text = reportListItem.MemberNumber;
+            cell.Source.Text = reportListItem.UserEmail;
+            cell.Reasons.Text = reportListItem.PrimaryReasonCode.Name;
 
             cell.Host.SetNeedsLayout();
 
