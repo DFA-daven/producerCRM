@@ -85,9 +85,9 @@
     <Compile Include="Services\ILocationService.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\LocationMessage.cs" />
-    <Compile Include="ViewModels\UserIdentityViewModel.cs" />
-    <Compile Include="ViewModels\ViewFarmReportsViewModel.cs" />
-    <Compile Include="ViewModels\NewVisitViewModel.cs" />
+    <Compile Include="ViewModels\UserIdentity_ViewModel.cs" />
+    <Compile Include="ViewModels\ViewReports_ViewModel.cs" />
+    <Compile Include="ViewModels\NewVisit_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Cirrious.CrossCore">

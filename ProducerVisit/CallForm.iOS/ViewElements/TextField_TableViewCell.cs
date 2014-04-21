@@ -4,11 +4,11 @@ using MonoTouch.UIKit;
 
 namespace CallForm.iOS.ViewElements
 {
-    class TextFieldTableViewCell : UITableViewCell
+    class TextField_TableViewCell : UITableViewCell
     {
         private readonly UITextField _textField;
 
-        public TextFieldTableViewCell(string cellID, bool editing, string text, UIKeyboardType type, UITextFieldChange shouldChange, EventHandler onTextChanged)
+        public TextField_TableViewCell(string cellID, bool editing, string text, UIKeyboardType type, UITextFieldChange shouldChange, EventHandler onTextChanged)
             : base(UITableViewCellStyle.Value1, cellID)
         {
             _textField = new UITextField

@@ -6,13 +6,13 @@
     using MonoTouch.UIKit;
     using System.Drawing;
 
-    public class NewVisitTableViewSource : UITableViewSource
+    public class NewVisit_TableViewSource : UITableViewSource
     {
-        private readonly NewVisitViewModel _viewModel;
-        private readonly TextFieldTableViewCell _farmNoCell, _durationCell;
+        private readonly NewVisit_ViewModel _viewModel;
+        private readonly TextField_TableViewCell _memberNumberCell, _durationCell;
         private readonly UITableViewCell _callTypeCell, _dateCell, _reasonCell, _emailRecipientsCell;
-        private readonly ImageTableViewCell _takePictureCell;
-        private readonly TextViewTableViewCell _notesCell;
+        private readonly Image_TableViewCell _takePictureCell;
+        private readonly TextView_TableViewCell _notesCell;
 
         UIPopoverController _popover;
 
@@ -21,7 +21,7 @@
         public UIViewController ReasonPickerPopover;
         public UIViewController EmailPickerPopover;
 
-        public NewVisitTableViewSource(NewVisitViewModel viewModel, UITableView tableView)
+        public NewVisit_TableViewSource(NewVisit_ViewModel viewModel, UITableView tableView)
         {
             _viewModel = viewModel;
             _viewModel.PropertyChanged += (sender, args) =>
@@ -30,7 +30,7 @@
                 switch (args.PropertyName)
                 {
                     case "MemberNumber":
-                        _farmNoCell.SetText(_viewModel.MemberNumber);
+                        _memberNumberCell.SetText(_viewModel.MemberNumber);
                         break;
                     case "CallType":
                         _callTypeCell.DetailTextLabel.Text = _viewModel.CallType;
@@ -63,7 +63,7 @@
                 }
             }; 
 
-            _farmNoCell = new TextFieldTableViewCell("farmNo", _viewModel.Editing, _viewModel.MemberNumber,
+            _memberNumberCell = new TextField_TableViewCell("memberNumber", _viewModel.Editing, _viewModel.MemberNumber,
                 UIKeyboardType.NumberPad, (field, range, replacementString) =>
                 {
                     int i;
@@ -73,23 +73,23 @@
                 {
                     _viewModel.MemberNumber = (sender as UITextField).Text;
                 });
-            _farmNoCell.TextLabel.Text = "Member Number";
+            _memberNumberCell.TextLabel.Text = "Member Number";
             if (!_viewModel.Editing)
             {
-                _farmNoCell.DetailTextLabel.Text = _viewModel.MemberNumber ?? string.Empty;
+                _memberNumberCell.DetailTextLabel.Text = _viewModel.MemberNumber ?? string.Empty;
 
                 // TODO: validate data (business logic - check for 8 digits now?, or wait until save is pressed?)
-                if (_farmNoCell.DetailTextLabel.Text.Length != 8)
+                if (_memberNumberCell.DetailTextLabel.Text.Length != 8)
                 {
-                    _farmNoCell.DetailTextLabel.TextColor = UIColor.Red;
+                    _memberNumberCell.DetailTextLabel.TextColor = UIColor.Red;
                 }
                 else
                 {
-                    _farmNoCell.DetailTextLabel.TextColor = UIColor.Black;
+                    _memberNumberCell.DetailTextLabel.TextColor = UIColor.Black;
                 }
             }
 
-            _durationCell = new TextFieldTableViewCell("duration", _viewModel.Editing, _viewModel.DurationString,
+            _durationCell = new TextField_TableViewCell("duration", _viewModel.Editing, _viewModel.DurationString,
                 UIKeyboardType.DecimalPad, (field, range, replacementString) =>
                 {
                     string newString = new NSString(field.Text).Replace(range, new NSString(replacementString));
@@ -139,11 +139,11 @@
                 : "Tap to Select";
             _reasonCell.DetailTextLabel.TextColor = UIColor.Black;
 
-            _notesCell = new TextViewTableViewCell("notes", _viewModel.Editing, _viewModel.Notes,
+            _notesCell = new TextView_TableViewCell("notes", _viewModel.Editing, _viewModel.Notes,
                 (sender, args) => _viewModel.Notes = (sender as UITextView).Text);
             _notesCell.TextLabel.Text = "Notes";
 
-            _takePictureCell = new ImageTableViewCell("takePicture", _viewModel.PictureBytes, _viewModel.Editing, _viewModel);
+            _takePictureCell = new Image_TableViewCell("takePicture", _viewModel.PictureBytes, _viewModel.Editing, _viewModel);
             _takePictureCell.TextLabel.Text = "Take Picture";
 
             _emailRecipientsCell = new UITableViewCell(UITableViewCellStyle.Value1, "emailRecipients");
@@ -164,13 +164,13 @@
         {
             if (_viewModel.Editing)
             {
-                _farmNoCell.HideKeyboard();
+                _memberNumberCell.HideKeyboard();
                 _durationCell.HideKeyboard();
                 _notesCell.HideKeyboard();
                 switch (indexPath.Row)
                 {
                     case 0:
-                        _farmNoCell.Edit();
+                        _memberNumberCell.Edit();
                         break;
                     case 1:
                         // ToDo: seeing an un-handled exception here if debug on iPhoneSimulator
@@ -236,7 +236,7 @@
             switch (indexPath.Row)
             {
                 case 0:
-                    return _farmNoCell;
+                    return _memberNumberCell;
                 case 1:
                     return _callTypeCell;
                 case 2:

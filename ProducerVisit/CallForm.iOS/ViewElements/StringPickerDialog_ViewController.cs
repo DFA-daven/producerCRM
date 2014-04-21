@@ -7,13 +7,13 @@ using MonoTouch.UIKit;
 
 namespace CallForm.iOS.ViewElements
 {
-    public class StringPickerDialogViewController : UIViewController
+    public class StringPickerDialog_ViewController : UIViewController
     {
         private Action<string> _setValue = obj => { };
         private readonly UIPickerView _picker;
         private readonly StringListPickerViewModel _model;
 
-        public StringPickerDialogViewController(Action<string> setValue, string initialValue, NewVisitTableViewSource source, params string[] values)
+        public StringPickerDialog_ViewController(Action<string> setValue, string initialValue, NewVisit_TableViewSource source, params string[] values)
         {
             _model = new StringListPickerViewModel(values.ToList());
             _picker = new UIPickerView

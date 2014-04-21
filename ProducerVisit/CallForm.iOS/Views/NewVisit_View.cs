@@ -13,8 +13,8 @@ namespace CallForm.iOS.Views
     using System.Linq;
 
     // notes: see _Touch UI.txt for design details.
-    [Register("NewVisitView")]
-    public class NewVisitView : MvxViewController
+    [Register("NewVisit_View")]
+    public class NewVisit_View : MvxViewController
     {
         private UITableView _table;
 
@@ -30,16 +30,16 @@ namespace CallForm.iOS.Views
             {
                 BackgroundView = null
             };
-            var source = new NewVisitTableViewSource(ViewModel as NewVisitViewModel, _table);
-            source.DatePickerPopover = new DateTimePickerDialogViewController(
-                val => (ViewModel as NewVisitViewModel).Date = val,
-                (ViewModel as NewVisitViewModel).Date, UIDatePickerMode.Date, source);
-            source.CallTypePickerPopover = new StringPickerDialogViewController(
-                code => (ViewModel as NewVisitViewModel).CallType = code,
-                (ViewModel as NewVisitViewModel).CallType, source,
-                (ViewModel as NewVisitViewModel).CallTypes.ToArray());
-            source.ReasonPickerPopover = new ReasonCodePickerDialogViewController(ViewModel as NewVisitViewModel, source);
-            source.EmailPickerPopover = new EmailRecipientSelectDialogViewController(ViewModel as NewVisitViewModel, source);
+            var source = new NewVisit_TableViewSource(ViewModel as NewVisit_ViewModel, _table);
+            source.DatePickerPopover = new DateTimePickerDialog_ViewController(
+                val => (ViewModel as NewVisit_ViewModel).Date = val,
+                (ViewModel as NewVisit_ViewModel).Date, UIDatePickerMode.Date, source);
+            source.CallTypePickerPopover = new StringPickerDialog_ViewController(
+                code => (ViewModel as NewVisit_ViewModel).CallType = code,
+                (ViewModel as NewVisit_ViewModel).CallType, source,
+                (ViewModel as NewVisit_ViewModel).CallTypes.ToArray());
+            source.ReasonPickerPopover = new ReasonCodePickerDialog_ViewController(ViewModel as NewVisit_ViewModel, source);
+            source.EmailPickerPopover = new EmailRecipientSelectDialog_ViewController(ViewModel as NewVisit_ViewModel, source);
 
             _table.Source = source;
 
@@ -48,7 +48,7 @@ namespace CallForm.iOS.Views
             UIButton saveButton = new UIButton(UIButtonType.System);
             saveButton.Frame = new RectangleF(_table.Frame.Width / 4, 0, _table.Frame.Width / 2, 50);
 
-            if (!(ViewModel as NewVisitViewModel).Editing)
+            if (!(ViewModel as NewVisit_ViewModel).Editing)
             {
                 UIButton reSendButton = new UIButton(UIButtonType.System);
                 reSendButton.SetTitle("Forward via Email", UIControlState.Normal);
@@ -60,7 +60,7 @@ namespace CallForm.iOS.Views
 
             wrapper.AddSubview(saveButton);
 
-            var set = this.CreateBindingSet<NewVisitView, NewVisitViewModel>();
+            var set = this.CreateBindingSet<NewVisit_View, NewVisit_ViewModel>();
             set.Bind(saveButton).For("Title").To(vm => vm.SaveButtonText);
             set.Bind(saveButton).To(vm => vm.SaveCommand);
             set.Bind(this).For(o => o.Title).To(vm => vm.Title);
@@ -70,18 +70,18 @@ namespace CallForm.iOS.Views
             Add(_table);
             _table.ReloadData();
 
-            (ViewModel as NewVisitViewModel).Error += OnError;
+            (ViewModel as NewVisit_ViewModel).Error += OnError;
 
-            (ViewModel as NewVisitViewModel).SendEmail += OnSendEmail;
+            (ViewModel as NewVisit_ViewModel).SendEmail += OnSendEmail;
 
-            (ViewModel as NewVisitViewModel).UserID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
+            (ViewModel as NewVisit_ViewModel).UserID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 
             SetTableFrameForOrientation(InterfaceOrientation);
         }
 
         private void ReSendEmail(object sender, EventArgs eventArgs)
         {
-            NewVisitViewModel viewModel = ViewModel as NewVisitViewModel;
+            NewVisit_ViewModel viewModel = ViewModel as NewVisit_ViewModel;
             if (MFMailComposeViewController.CanSendMail)
             {
                 MFMailComposeViewController mailView = new MFMailComposeViewController();
@@ -147,7 +147,7 @@ namespace CallForm.iOS.Views
 
         private void OnSendEmail(object sender, EventArgs eventArgs)
         {
-            NewVisitViewModel viewModel = ViewModel as NewVisitViewModel;
+            NewVisit_ViewModel viewModel = ViewModel as NewVisit_ViewModel;
             if (MFMailComposeViewController.CanSendMail)
             {
                 MFMailComposeViewController mailView = new MFMailComposeViewController();

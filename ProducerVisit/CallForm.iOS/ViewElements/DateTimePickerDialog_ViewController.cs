@@ -6,12 +6,12 @@ using MonoTouch.UIKit;
 
 namespace CallForm.iOS.ViewElements
 {
-    public class DateTimePickerDialogViewController : UIViewController
+    public class DateTimePickerDialog_ViewController : UIViewController
     {
         private Action<DateTime> _setValue = obj => { };
         private readonly UIDatePicker _picker;
 
-        public DateTimePickerDialogViewController(Action<DateTime> setValue, DateTime initialValue, UIDatePickerMode mode, NewVisitTableViewSource source)
+        public DateTimePickerDialog_ViewController(Action<DateTime> setValue, DateTime initialValue, UIDatePickerMode mode, NewVisit_TableViewSource source)
         {
             _picker = new UIDatePicker
             {

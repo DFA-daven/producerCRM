@@ -4,11 +4,11 @@ using MonoTouch.UIKit;
 
 namespace CallForm.iOS.ViewElements
 {
-    class TimeTableViewCell : UITableViewCell
+    class Time_TableViewCell : UITableViewCell
     {
         private readonly UIButton _setToNow;
 
-        public TimeTableViewCell(string cellID, bool editing, string buttonText, Action onClick) : base(UITableViewCellStyle.Value1, cellID)
+        public Time_TableViewCell(string cellID, bool editing, string buttonText, Action onClick) : base(UITableViewCellStyle.Value1, cellID)
         {
             _setToNow = new UIButton(UIButtonType.System);
             _setToNow.SetTitle(buttonText, UIControlState.Normal);

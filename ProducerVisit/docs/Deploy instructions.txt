@@ -4,7 +4,7 @@ Visual Studio
 Manually update all references of web service (search/replace):
     CallForm.Core\Services\SemiStaticWebDataService.cs
     CallForm.Core\Services\UserIdentityService.cs
-    CallForm.Core\ViewModels\ViewFarmReportsViewModel.cs
+    CallForm.Core\ViewModels\ViewReports_ViewModel.cs
     CallForm.iOS\AppDelegate.cs (maybe)
     CallForm.iOS\Main.cs (maybe)
     CallForm.iOS\Reachability.cs (maybe)

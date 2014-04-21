@@ -11,7 +11,7 @@ namespace CallForm.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 				
-            RegisterAppStart<ViewModels.ViewFarmReportsViewModel>();
+            RegisterAppStart<ViewModels.ViewReports_ViewModel>();
         }
     }
 }

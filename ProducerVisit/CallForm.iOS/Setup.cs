@@ -43,9 +43,9 @@ namespace CallForm.iOS
         public override void Show(IMvxTouchView view)
         {
 
-            if (view.Request.ViewModelType == typeof(NewVisitViewModel))
+            if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {
-                if (MasterNavigationController.TopViewController is NewVisitView)
+                if (MasterNavigationController.TopViewController is NewVisit_View)
                 {
                     MasterNavigationController.PopViewControllerAnimated(false);
                 }

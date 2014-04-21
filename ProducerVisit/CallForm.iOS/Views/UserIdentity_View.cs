@@ -11,7 +11,7 @@
     // FixMe: the UserIdentity view does not implement modal correctly. It looks like the foundation is here, but it was never implemented.
     //public class UserIdentityView : MvxBindingTouchViewController<MyViewModel>, IMvxModalTouchView
     // visit http://stackoverflow.com/questions/14518876/integrating-google-mobile-analytics-with-mvvmcross for examples of getting this to work.
-    public class UserIdentityView : MvxViewController, IMvxModalTouchView
+    public class UserIdentity_View : MvxViewController, IMvxModalTouchView
     {
         public override void ViewDidLoad()
         {
@@ -140,7 +140,7 @@
 
             base.ViewDidLoad();
 
-            (ViewModel as UserIdentityViewModel).Error += OnError;
+            (ViewModel as UserIdentity_ViewModel).Error += OnError;
 
             // note: regarding UIDevice.CurrentDevice.IdentifierForVendor
             // The value of this property is the same for apps that come from the same vendor running on the same
@@ -156,9 +156,9 @@
             // device and subsequently reinstalls one or more of them. Therefore, if your app stores the value of this 
             // property anywhere, you should gracefully handle situations where the identifier changes.
             // http://developer.apple.com/library/ios/documentation/uikit/reference/UIDevice_Class/Reference/UIDevice.html#//apple_ref/occ/instp/UIDevice/identifierForVendor
-            (ViewModel as UserIdentityViewModel).DeviceID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
+            (ViewModel as UserIdentity_ViewModel).DeviceID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 
-            var set = this.CreateBindingSet<UserIdentityView, UserIdentityViewModel>();
+            var set = this.CreateBindingSet<UserIdentity_View, UserIdentity_ViewModel>();
             set.Bind(email).To(vm => vm.UserEmail);
             set.Bind(assetTag).To(vm => vm.AssetTag);
             set.Bind(button).To(vm => vm.SaveCommand);

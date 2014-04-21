@@ -43,17 +43,17 @@
         /// <summary>Opens the SQLite database, adds <see cref="ReasonCode[]"/> to the <see cref="Models.StoredProducerVisitReport"/>, and 
         /// returns a <see cref="ProducerVisitReport"/>.
         /// </summary>
-        /// <param name="spvr">A <see cref="StoredProducerVisitReport"/>.</param>
+        /// <param name="storedProducerVisitReport">A <see cref="StoredProducerVisitReport"/>.</param>
         /// <returns>A <see cref="ProducerVisitReport"/> based on a <see cref="StoredProducerVisitReport"/>.</returns>
         /// <remarks>Opens the <see cref="DataService._connection"/>, queries the <see cref="VisitXReason"/> table for the given
         /// <see cref="StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <see cref="ReasonCode"/> table
         /// to get a <see cref="ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <see cref="ProducerVisitReport"/>.</remarks>
-        private ProducerVisitReport Hydrated(StoredProducerVisitReport spvr)
+        private ProducerVisitReport Hydrated(StoredProducerVisitReport storedProducerVisitReport)
         {
-            List<VisitXReason> vxrs = _connection.Table<VisitXReason>().Where(vxr => vxr.VisitID == spvr.ID).ToList();
+            List<VisitXReason> vxrs = _connection.Table<VisitXReason>().Where(vxr => vxr.VisitID == storedProducerVisitReport.ID).ToList();
             List<int> reasonids = vxrs.Select(vxr => vxr.ReasonID).ToList();
             ReasonCode[] reasonCodes = _connection.Table<ReasonCode>().ToList().Where(rc => reasonids.Contains(rc.ID)).ToArray();
-            return spvr.Hydrate(reasonCodes);
+            return storedProducerVisitReport.Hydrate(reasonCodes);
         }
 
         #region Required Definitions
@@ -72,24 +72,24 @@
             // FixMe: change quantity to a .resx value (or an XML entry)
             int quantity = 100;
 
-            var spvrs = _connection.Table<StoredProducerVisitReport>()
+            var storedProducerVisitReports = _connection.Table<StoredProducerVisitReport>()
                 .OrderByDescending(pvr => pvr.VisitDate)
                 .Take(quantity)
                 .ToList();
 
-            return spvrs.Select(spvr =>
+            return storedProducerVisitReports.Select(storedProducerVisitReport =>
                 {
-                    var pvr = Hydrated(spvr);
+                    var pvr = Hydrated(storedProducerVisitReport);
                     // review: would a reason code ever not be found? is "other" the right thing to show?
                     return new ReportListItem
                     {
-                        ID = spvr.ID,
+                        ID = storedProducerVisitReport.ID,
                         UserEmail = _userIdentityService.IdentityRecorded ? _userIdentityService.GetSavedIdentity().UserEmail : "You",
                         MemberNumber = pvr.MemberNumber,
                         Local = true,
                         PrimaryReasonCode = pvr.ReasonCodes != null && pvr.ReasonCodes.Length > 0 ? pvr.ReasonCodes[0] : new ReasonCode { Name = "Other", Code = -1 },
                         VisitDate = pvr.VisitDate,
-                        Uploaded = spvr.Uploaded
+                        Uploaded = storedProducerVisitReport.Uploaded
                     };
                 }).ToList();
         }
@@ -113,14 +113,14 @@
         /// <inheritdoc/>
         public void Insert(ProducerVisitReport report)
         {
-            var spvr = new StoredProducerVisitReport(report);
-            _connection.Insert(spvr);
+            var storedProducerVisitReport = new StoredProducerVisitReport(report);
+            _connection.Insert(storedProducerVisitReport);
             foreach (var reasonCode in report.ReasonCodes)
             {
                 var vxr = new VisitXReason
                 {
                     ReasonID = reasonCode.ID,
-                    VisitID = spvr.ID,
+                    VisitID = storedProducerVisitReport.ID,
                 };
                 _connection.Insert(vxr);
             }
@@ -129,8 +129,8 @@
         /// <inheritdoc/>
         public ProducerVisitReport GetReport(int id)
         {
-            var spvr = _connection.Get<StoredProducerVisitReport>(id);
-            return Hydrated(spvr);
+            var storedProducerVisitReport = _connection.Get<StoredProducerVisitReport>(id);
+            return Hydrated(storedProducerVisitReport);
         }
 
         /// <inheritdoc/>

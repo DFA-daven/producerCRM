@@ -56,18 +56,18 @@ namespace BackEnd.Controllers
             // FixMe: change this to a .resx value (or an XML entry)
             int quantity = 100;
 
-            var spvrs = _db.ProducerVisitReports.Where(vr => vr.MemberNumber == id)
+            var storedProducerVisitReports = _db.ProducerVisitReports.Where(vr => vr.MemberNumber == id)
                 .OrderByDescending(vr => vr.VisitDate)
                 .Take(quantity)
                 .ToList();
 
-            var rlis = spvrs.Select(spvr =>
+            var rlis = storedProducerVisitReports.Select(storedProducerVisitReport =>
             {
-                var pvr = Hydrated(spvr);
-                var userID = _db.UserIdentities.FirstOrDefault(uid => uid.DeviceID == spvr.UserID);
+                var pvr = Hydrated(storedProducerVisitReport);
+                var userID = _db.UserIdentities.FirstOrDefault(uid => uid.DeviceID == storedProducerVisitReport.UserID);
                 return new ReportListItem
                 {
-                    ID = spvr.ID,
+                    ID = storedProducerVisitReport.ID,
                     UserEmail = (userID ?? new UserIdentity { UserEmail = "Unknown" }).UserEmail,
                     MemberNumber = pvr.MemberNumber,
                     Local = false,
@@ -82,16 +82,16 @@ namespace BackEnd.Controllers
 
         public ActionResult All(string id)
         {
-            var spvrs = _db.ProducerVisitReports.Where(vr => vr.MemberNumber == id)
+            var storedProducerVisitReports = _db.ProducerVisitReports.Where(vr => vr.MemberNumber == id)
                 .OrderByDescending(vr => vr.VisitDate).ToList();
 
-            var rlis = spvrs.Select(spvr =>
+            var rlis = storedProducerVisitReports.Select(storedProducerVisitReport =>
             {
-                var pvr = Hydrated(spvr);
+                var pvr = Hydrated(storedProducerVisitReport);
                 return new ReportListItem
                 {
-                    ID = spvr.ID,
-                    UserEmail = _db.UserIdentities.First(uid => uid.DeviceID == spvr.UserID).UserEmail,
+                    ID = storedProducerVisitReport.ID,
+                    UserEmail = _db.UserIdentities.First(uid => uid.DeviceID == storedProducerVisitReport.UserID).UserEmail,
                     MemberNumber = pvr.MemberNumber,
                     Local = false,
                     PrimaryReasonCode = pvr.ReasonCodes[0],
@@ -106,31 +106,31 @@ namespace BackEnd.Controllers
         /// <summary>Opens the <see cref="_db"/>, adds a <see cref="ReasonCode"/>[], and 
         /// returns a <see cref="ProducerVisitReport"/>.
         /// </summary>
-        /// <param name="spvr">A <see cref="StoredProducerVisitReport"/>.</param>
+        /// <param name="storedProducerVisitReport">A <see cref="StoredProducerVisitReport"/>.</param>
         /// <returns>A <see cref="ProducerVisitReport"/> based on a <see cref="StoredProducerVisitReport"/>.</returns>
         /// <remarks>Opens the <see cref="BackEnd.Models.VisitContext"/> connection, queries the <see cref="VisitXReason"/> table for the given
         /// <see cref="StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <see cref="ReasonCode"/> table
         /// to get a <see cref="ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <see cref="ProducerVisitReport"/>.</remarks>
-        private ProducerVisitReport Hydrated(StoredProducerVisitReport spvr)
+        private ProducerVisitReport Hydrated(StoredProducerVisitReport storedProducerVisitReport)
         {
-            var vxrs = _db.VisitXReason.Where(vxr => vxr.VisitID == spvr.ID).ToList();
+            var vxrs = _db.VisitXReason.Where(vxr => vxr.VisitID == storedProducerVisitReport.ID).ToList();
             var ids = vxrs.Select(vxr => vxr.ReasonID).ToList();
             var rcs = _db.ReasonCodes.Where(rc => ids.Contains(rc.ID)).ToArray();
-            return spvr.Hydrate(rcs);
+            return storedProducerVisitReport.Hydrate(rcs);
         }
 
         [HttpPost]
         public ActionResult Log(ProducerVisitReport report)
         {
             report.ID = 0;
-            var spvr = new StoredProducerVisitReport(report);
-            _db.ProducerVisitReports.Add(spvr);
+            var storedProducerVisitReport = new StoredProducerVisitReport(report);
+            _db.ProducerVisitReports.Add(storedProducerVisitReport);
             _db.SaveChanges();
             if (report.ReasonCodes != null)
             {
                 foreach (var rc in report.ReasonCodes)
                 {
-                    _db.VisitXReason.Add(new VisitXReason {ReasonID = rc.ID, VisitID = spvr.ID});
+                    _db.VisitXReason.Add(new VisitXReason {ReasonID = rc.ID, VisitID = storedProducerVisitReport.ID});
                 }
                 _db.SaveChanges();
             }

@@ -6,11 +6,11 @@ using Cirrious.MvvmCross.ViewModels;
 
 namespace CallForm.Core.ViewModels
 {
-    public class UserIdentityViewModel : MvxViewModel
+    public class UserIdentity_ViewModel : MvxViewModel
     {
         private readonly IUserIdentityService _userIdentityService;
 
-        public UserIdentityViewModel(IUserIdentityService userIdentityService)
+        public UserIdentity_ViewModel(IUserIdentityService userIdentityService)
         {
             _userIdentityService = userIdentityService;
         }

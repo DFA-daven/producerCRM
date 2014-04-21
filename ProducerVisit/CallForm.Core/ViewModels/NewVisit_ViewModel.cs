@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace CallForm.Core.ViewModels
 {
-    public class NewVisitViewModel 
+    public class NewVisit_ViewModel 
 		: MvxViewModel
     {
         private readonly ILocationService _locationService;
@@ -42,7 +42,7 @@ namespace CallForm.Core.ViewModels
         private MvxCommand _takePictureCommand;
         private List<string> _emailRecipients;
 
-        public NewVisitViewModel(
+        public NewVisit_ViewModel(
             ILocationService locationService,
             IMvxMessenger messenger,
             IMvxPictureChooserTask pictureChooserTask,
@@ -303,7 +303,7 @@ namespace CallForm.Core.ViewModels
             else
             {
                 //Close(this);
-                ShowViewModel<NewVisitViewModel>(new NewVisitInit { MemberNumber = MemberNumber });
+                ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { MemberNumber = MemberNumber });
             }
         }
 

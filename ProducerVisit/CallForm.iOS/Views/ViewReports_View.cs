@@ -11,7 +11,7 @@
     using XibFree;
 
     // notes: see _Touch UI.txt for design details.
-    class ViewFarmReportsView : MvxViewController
+    class ViewReports_View : MvxViewController
     {
         private UIView _logos;
         private UIButton _logoButton;
@@ -112,7 +112,7 @@
             {
                 TextAlignment = UITextAlignment.Center,
                 KeyboardType = UIKeyboardType.NumberPad,
-                Placeholder = "Farm #",
+                Placeholder = "Member #",
                 ShouldChangeCharacters = (field, range, replacementString) =>
                 {
                     int i;
@@ -159,7 +159,7 @@
 
             base.ViewDidLoad();
 
-            var set = this.CreateBindingSet<ViewFarmReportsView, ViewFarmReportsViewModel>();
+            var set = this.CreateBindingSet<ViewReports_View, ViewReports_ViewModel>();
             set.Bind(filterField).To(vm => vm.Filter);
             set.Bind(findButton).To(vm => vm.GetReportsCommand);
             set.Bind(loading).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
@@ -169,9 +169,9 @@
 
             findButton.TouchUpInside += (sender, args) => filterField.ResignFirstResponder();
 
-            (ViewModel as ViewFarmReportsViewModel).Error += OnError;
+            (ViewModel as ViewReports_ViewModel).Error += OnError;
 
-            var source = new ViewReportsTableSource(ViewModel as ViewFarmReportsViewModel, tableView);
+            var source = new ViewReportsTableSource(ViewModel as ViewReports_ViewModel, tableView);
 
             tableView.Source = source;
 
@@ -374,8 +374,8 @@
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
-            (ViewModel as ViewFarmReportsViewModel).UploadReports();
-            (ViewModel as ViewFarmReportsViewModel).Loading = false;
+            (ViewModel as ViewReports_ViewModel).UploadReports();
+            (ViewModel as ViewReports_ViewModel).Loading = false;
         }
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
@@ -426,11 +426,11 @@
 
     public class ViewReportsTableSource : UITableViewSource
     {
-        private readonly ViewFarmReportsViewModel _viewModel;
+        private readonly ViewReports_ViewModel _viewModel;
         private const string CellIdentifier = "tableViewCell";
 
 
-        public ViewReportsTableSource(ViewFarmReportsViewModel viewModel, UITableView tableView)
+        public ViewReportsTableSource(ViewReports_ViewModel viewModel, UITableView tableView)
         {
             _viewModel = viewModel;
 
@@ -470,7 +470,7 @@
             ReportListItem rli = _viewModel.Reports[indexPath.Row];
 
             cell.Date.Text = rli.VisitDate.ToShortDateString();
-            cell.FarmNo.Text = rli.MemberNumber;
+            cell.MemberNumber.Text = rli.MemberNumber;
             cell.Source.Text = rli.UserEmail;
             cell.Reasons.Text = rli.PrimaryReasonCode.Name;
 
@@ -482,7 +482,7 @@
 
     public class TableViewCell : UITableViewCell
     {
-        public UILabel Date, FarmNo, Source, Reasons;
+        public UILabel Date, MemberNumber, Source, Reasons;
         public UILayoutHost Host;
 
         // FixMe: plenty of hard-coded values in this one
@@ -515,7 +515,7 @@
                         Spacing = 10,
                         SubViews = new View[]
                         {
-                            new TextNativeView(FarmNo = new UILabel
+                            new TextNativeView(MemberNumber = new UILabel
                             {
                                 Font = UIFont.SystemFontOfSize(14)
                             }),

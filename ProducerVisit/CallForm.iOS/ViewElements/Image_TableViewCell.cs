@@ -5,13 +5,13 @@ using MonoTouch.UIKit;
 
 namespace CallForm.iOS.ViewElements
 {
-    class ImageTableViewCell : UITableViewCell
+    class Image_TableViewCell : UITableViewCell
     {
         private readonly UIButton _imageButton, _clearButton;
         private UIImage _image;
-        private readonly NewVisitViewModel _viewModel;
+        private readonly NewVisit_ViewModel _viewModel;
 
-        public ImageTableViewCell(string cellID, byte[] pictureBytes, bool editing, NewVisitViewModel viewModel)
+        public Image_TableViewCell(string cellID, byte[] pictureBytes, bool editing, NewVisit_ViewModel viewModel)
             : base(UITableViewCellStyle.Value1, cellID)
         {
             _imageButton = new UIButton(UIButtonType.System);

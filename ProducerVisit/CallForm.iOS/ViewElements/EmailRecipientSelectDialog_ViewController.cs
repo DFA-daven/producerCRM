@@ -7,12 +7,12 @@ using XibFree;
 
 namespace CallForm.iOS.ViewElements
 {
-    public class EmailRecipientSelectDialogViewController : UIViewController
+    public class EmailRecipientSelectDialog_ViewController : UIViewController
     {
         private readonly UITableView _table;
-        private readonly NewVisitViewModel _viewModel;
+        private readonly NewVisit_ViewModel _viewModel;
 
-        public EmailRecipientSelectDialogViewController(NewVisitViewModel viewModel, NewVisitTableViewSource source)
+        public EmailRecipientSelectDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             View.BackgroundColor = UIColor.White;
             _viewModel = viewModel;
@@ -38,12 +38,12 @@ namespace CallForm.iOS.ViewElements
 
     public class EmailRecipientsTableSource : UITableViewSource
     {
-        private readonly NewVisitViewModel _viewModel;
-        private readonly NewVisitTableViewSource _source;
+        private readonly NewVisit_ViewModel _viewModel;
+        private readonly NewVisit_TableViewSource _source;
         private const string CellIdentifier = "TableCell";
 
 
-        public EmailRecipientsTableSource(NewVisitViewModel viewModel, NewVisitTableViewSource source)
+        public EmailRecipientsTableSource(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             _viewModel = viewModel;
             _source = source;

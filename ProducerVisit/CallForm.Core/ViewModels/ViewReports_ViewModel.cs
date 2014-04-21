@@ -10,7 +10,7 @@
     using Cirrious.MvvmCross.Plugins.Network.Rest;
     using Cirrious.MvvmCross.ViewModels;
 
-    public class ViewFarmReportsViewModel : MvxViewModel
+    public class ViewReports_ViewModel : MvxViewModel
     {
         private readonly IMvxJsonRestClient _jsonRestClient;
         private readonly IMvxJsonConverter _jsonConverter;
@@ -28,7 +28,7 @@
         private MvxCommand _viewReportCommand;
         
         // review: 
-        public ViewFarmReportsViewModel(
+        public ViewReports_ViewModel(
             IMvxJsonRestClient jsonRestClient,
             IMvxJsonConverter jsonConverter,
             IDataService dataService,
@@ -90,7 +90,7 @@
             // review: does this always require a call to the Connection? (even if local data exists?)
             if (!_userIdentityService.IdentityRecorded)
             {
-                ShowViewModel<UserIdentityViewModel>();
+                ShowViewModel<UserIdentity_ViewModel>();
             }
         }
 
@@ -110,7 +110,7 @@
 
         protected void DoNewVisitCommand()
         {
-            ShowViewModel<NewVisitViewModel>(new NewVisitInit {MemberNumber = string.Empty});
+            ShowViewModel<NewVisit_ViewModel>(new NewVisitInit {MemberNumber = string.Empty});
         }
 
         public string Filter
@@ -210,7 +210,7 @@
             {
                 if (SelectedReport.Local)
                 {
-                    ShowViewModel<NewVisitViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(_dataService.GetReport(_selectedReport.ID)) });
+                    ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(_dataService.GetReport(_selectedReport.ID)) });
                 }
                 else
                 {
@@ -219,7 +219,7 @@
                     _jsonRestClient.MakeRequestFor<ProducerVisitReport>(request,
                         response =>
                         {
-                            ShowViewModel<NewVisitViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(response.Result) });
+                            ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(response.Result) });
                             Loading = false;
                         },
                         exception =>

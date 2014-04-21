@@ -7,13 +7,13 @@ namespace CallForm.iOS.ViewElements
     using MonoTouch.UIKit;
     using System.Drawing;
 
-    public class ReasonCodePickerDialogViewController : UIViewController
+    public class ReasonCodePickerDialog_ViewController : UIViewController
     {
         private readonly UITableView _table;
-        private readonly NewVisitViewModel _viewModel;
+        private readonly NewVisit_ViewModel _viewModel;
 
         // ToDo: replace fixed values
-        public ReasonCodePickerDialogViewController(NewVisitViewModel viewModel, NewVisitTableViewSource source)
+        public ReasonCodePickerDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             View.BackgroundColor = UIColor.White;
             _viewModel = viewModel;
@@ -37,12 +37,12 @@ namespace CallForm.iOS.ViewElements
 
     public class ReasonCodeTableSource : UITableViewSource
     {
-        private readonly NewVisitViewModel _viewModel;
-        private readonly NewVisitTableViewSource _source;
+        private readonly NewVisit_ViewModel _viewModel;
+        private readonly NewVisit_TableViewSource _source;
         private const string CellIdentifier = "TableCell";
 
 
-        public ReasonCodeTableSource(NewVisitViewModel viewModel, NewVisitTableViewSource source)
+        public ReasonCodeTableSource(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             _viewModel = viewModel;
             _source = source;
