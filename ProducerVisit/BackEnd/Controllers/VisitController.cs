@@ -15,7 +15,7 @@ namespace BackEnd.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.VRCount = _db.ProducerVisitReports.Count();
+            ViewBag.VisitReportCount = _db.ProducerVisitReports.Count();
             ViewBag.UserCount = _db.UserIdentities.Count();
             ViewBag.UniqueUsers = _db.UserIdentities.Distinct().Count();
 
@@ -38,7 +38,7 @@ namespace BackEnd.Controllers
 
         public ActionResult Summary()
         {
-            ViewBag.VRCount = _db.ProducerVisitReports.Count();
+            ViewBag.VisitReportCount = _db.ProducerVisitReports.Count();
             ViewBag.UserCount = 99;
             ViewBag.UniqueUsers = 99;
             // ToDo: add more reports elements here
@@ -56,8 +56,8 @@ namespace BackEnd.Controllers
             // FixMe: change this to a .resx value (or an XML entry)
             int quantity = 100;
 
-            var storedProducerVisitReports = _db.ProducerVisitReports.Where(vr => vr.MemberNumber == id)
-                .OrderByDescending(vr => vr.VisitDate)
+            var storedProducerVisitReports = _db.ProducerVisitReports.Where(visitReport => visitReport.MemberNumber == id)
+                .OrderByDescending(visitReport => visitReport.VisitDate)
                 .Take(quantity)
                 .ToList();
 
@@ -82,8 +82,8 @@ namespace BackEnd.Controllers
 
         public ActionResult All(string id)
         {
-            var storedProducerVisitReports = _db.ProducerVisitReports.Where(vr => vr.MemberNumber == id)
-                .OrderByDescending(vr => vr.VisitDate).ToList();
+            var storedProducerVisitReports = _db.ProducerVisitReports.Where(visitReport => visitReport.MemberNumber == id)
+                .OrderByDescending(visitReport => visitReport.VisitDate).ToList();
 
             var rlis = storedProducerVisitReports.Select(storedProducerVisitReport =>
             {
