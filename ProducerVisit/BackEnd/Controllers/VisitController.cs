@@ -56,7 +56,7 @@ namespace BackEnd.Controllers
             // FixMe: change this to a .resx value (or an XML entry)
             int quantity = 100;
 
-            var spvrs = _db.ProducerVisitReports.Where(vr => vr.FarmNumber == id)
+            var spvrs = _db.ProducerVisitReports.Where(vr => vr.MemberNumber == id)
                 .OrderByDescending(vr => vr.VisitDate)
                 .Take(quantity)
                 .ToList();
@@ -69,7 +69,7 @@ namespace BackEnd.Controllers
                 {
                     ID = spvr.ID,
                     UserEmail = (userID ?? new UserIdentity { UserEmail = "Unknown" }).UserEmail,
-                    FarmNumber = pvr.FarmNumber,
+                    MemberNumber = pvr.MemberNumber,
                     Local = false,
                     PrimaryReasonCode = pvr.ReasonCodes[0],
                     VisitDate = pvr.VisitDate,
@@ -82,7 +82,7 @@ namespace BackEnd.Controllers
 
         public ActionResult All(string id)
         {
-            var spvrs = _db.ProducerVisitReports.Where(vr => vr.FarmNumber == id)
+            var spvrs = _db.ProducerVisitReports.Where(vr => vr.MemberNumber == id)
                 .OrderByDescending(vr => vr.VisitDate).ToList();
 
             var rlis = spvrs.Select(spvr =>
@@ -92,7 +92,7 @@ namespace BackEnd.Controllers
                 {
                     ID = spvr.ID,
                     UserEmail = _db.UserIdentities.First(uid => uid.DeviceID == spvr.UserID).UserEmail,
-                    FarmNumber = pvr.FarmNumber,
+                    MemberNumber = pvr.MemberNumber,
                     Local = false,
                     PrimaryReasonCode = pvr.ReasonCodes[0],
                     VisitDate = pvr.VisitDate,

@@ -25,11 +25,9 @@
         /// </summary>
         public string UserID { get; set; }
 
-        // FixMe: re-factor FarmNumber to MemberNumber
-
         /// <summary>The 8 digit member number.
         /// </summary>
-        public string FarmNumber { get; set; }
+        public string MemberNumber { get; set; }
 
         /// <summary>Decimal latitude.
         /// </summary>
@@ -85,7 +83,7 @@
         {
             ID = visitReport.ID;
             UserID = visitReport.UserID;
-            FarmNumber = visitReport.FarmNumber;
+            MemberNumber = visitReport.MemberNumber;
             Lat = visitReport.Lat;
             Lng = visitReport.Lng;
             VisitDate = visitReport.VisitDate;
@@ -109,7 +107,7 @@
             {
                 ID = ID,
                 UserID = UserID,
-                FarmNumber = FarmNumber,
+                MemberNumber = MemberNumber,
                 Lat = Lat,
                 Lng = Lng,
                 VisitDate = VisitDate,

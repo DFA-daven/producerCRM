@@ -110,7 +110,7 @@
 
         protected void DoNewVisitCommand()
         {
-            ShowViewModel<NewVisitViewModel>(new NewVisitInit {FarmNumber = string.Empty});
+            ShowViewModel<NewVisitViewModel>(new NewVisitInit {MemberNumber = string.Empty});
         }
 
         public string Filter

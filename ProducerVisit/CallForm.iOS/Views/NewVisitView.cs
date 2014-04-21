@@ -85,7 +85,7 @@ namespace CallForm.iOS.Views
             if (MFMailComposeViewController.CanSendMail)
             {
                 MFMailComposeViewController mailView = new MFMailComposeViewController();
-                mailView.SetSubject("Notes regarding contact with member " + viewModel.FarmNumber);
+                mailView.SetSubject("Notes regarding contact with member " + viewModel.MemberNumber);
                 if (viewModel.PictureBytes != null && viewModel.PictureBytes.Length > 0)
                 {
                     mailView.AddAttachmentData(NSData.FromArray(viewModel.PictureBytes), "image/jpeg", "Picture.jpg");
@@ -93,7 +93,7 @@ namespace CallForm.iOS.Views
 
                 // ToDo: add a message to the body to indicate if a picture was attached
                 mailView.SetMessageBody(
-                    "Member Number: " + viewModel.FarmNumber + "\n" +
+                    "Member Number: " + viewModel.MemberNumber + "\n" +
                     "Contact Type: " + viewModel.CallType + "\n" +
                     "Date: " + viewModel.Date.ToShortDateString() + "\n" +
                     "Length of Call (hours): " + viewModel.Duration + "\n" +
@@ -156,7 +156,7 @@ namespace CallForm.iOS.Views
                 {
                     mailView.SetToRecipients(recipientList.ToArray());
                 }
-                mailView.SetSubject("Notes regarding contact with member " + viewModel.FarmNumber);
+                mailView.SetSubject("Notes regarding contact with member " + viewModel.MemberNumber);
                 if (viewModel.PictureBytes != null && viewModel.PictureBytes.Length > 0)
                 {
                     mailView.AddAttachmentData(NSData.FromArray(viewModel.PictureBytes), "image/jpeg", "Picture.jpg");
@@ -164,7 +164,7 @@ namespace CallForm.iOS.Views
                 // ToDo: add a message to the body to indicate if a picture was attached
 
                 mailView.SetMessageBody(
-                    "Member Number: " + viewModel.FarmNumber + "\n" +
+                    "Member Number: " + viewModel.MemberNumber + "\n" +
                     "Contact Type: " + viewModel.CallType + "\n" +
                     "Date: " + viewModel.Date.ToShortDateString() + "\n" +
                     "Length of Call (hours): " + viewModel.Duration + "\n" +

@@ -18,11 +18,9 @@
         /// </summary>
         public string UserID { get; set; }
 
-        // FixMe: change FarmNumber to MemberNumber
-
         /// <summary>The 8 digit member number.
         /// </summary>
-        public string FarmNumber { get; set; }
+        public string MemberNumber { get; set; }
 
         /// <summary>Decimal latitude.
         /// </summary>

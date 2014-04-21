@@ -44,6 +44,7 @@
         /// <inheritdoc/>
         public List<ReasonCode> GetReasonsForCall()
         {
+            // note: see GetCallTypes()
             return _dataService.GetReasonsForCall();
         }
 
@@ -59,7 +60,11 @@
             }
             else
             {
-                // review: when is this list used? can't this be pulled from the XML file?
+                // note: USE THIS AS A MODEL FOR THE OTHER PULL-DOWNS. DON'T DELETE THESE COMMENTS UNTIL THE OTHERS ARE RE-FACTORED.
+                // note: This file will be missing (locally) on the first run.
+                // todo: get this list from the web service.
+
+                // todo: Move the default content to BackEnd. Only create if the database is being initially created (don't overwrite).
                 return new List<string>(new[]
                 {
                     "Phone Call",
@@ -82,6 +87,8 @@
             {
                 return Deserialize<List<string>>(xml);
             }
+
+            // note: see GetCallTypes()
             else
             {
                 return new List<string>(new[]
@@ -109,6 +116,7 @@
             {
                 // FixMe: errors down at this level are not presented to the UI. add an error log?
                 // review: how often are these tables going to be changing? do we really need to pull the fresh list every time?
+                // request Reason Codes from the web service, and save them on-device
                 var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
                 _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
                     response => 

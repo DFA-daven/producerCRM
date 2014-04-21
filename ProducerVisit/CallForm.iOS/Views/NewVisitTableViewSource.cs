@@ -26,10 +26,11 @@
             _viewModel = viewModel;
             _viewModel.PropertyChanged += (sender, args) =>
             {
+                // Review: Is switch/case the best way to handle this? What if a property name changes?
                 switch (args.PropertyName)
                 {
-                    case "FarmNumber":
-                        _farmNoCell.SetText(_viewModel.FarmNumber);
+                    case "MemberNumber":
+                        _farmNoCell.SetText(_viewModel.MemberNumber);
                         break;
                     case "CallType":
                         _callTypeCell.DetailTextLabel.Text = _viewModel.CallType;
@@ -62,7 +63,7 @@
                 }
             }; 
 
-            _farmNoCell = new TextFieldTableViewCell("farmNo", _viewModel.Editing, _viewModel.FarmNumber,
+            _farmNoCell = new TextFieldTableViewCell("farmNo", _viewModel.Editing, _viewModel.MemberNumber,
                 UIKeyboardType.NumberPad, (field, range, replacementString) =>
                 {
                     int i;
@@ -70,12 +71,12 @@
                 },
                 (sender, args) =>
                 {
-                    _viewModel.FarmNumber = (sender as UITextField).Text;
+                    _viewModel.MemberNumber = (sender as UITextField).Text;
                 });
             _farmNoCell.TextLabel.Text = "Member Number";
             if (!_viewModel.Editing)
             {
-                _farmNoCell.DetailTextLabel.Text = _viewModel.FarmNumber ?? string.Empty;
+                _farmNoCell.DetailTextLabel.Text = _viewModel.MemberNumber ?? string.Empty;
 
                 // TODO: validate data (business logic - check for 8 digits now?, or wait until save is pressed?)
                 if (_farmNoCell.DetailTextLabel.Text.Length != 8)

@@ -85,7 +85,7 @@
                     {
                         ID = spvr.ID,
                         UserEmail = _userIdentityService.IdentityRecorded ? _userIdentityService.GetSavedIdentity().UserEmail : "You",
-                        FarmNumber = pvr.FarmNumber,
+                        MemberNumber = pvr.MemberNumber,
                         Local = true,
                         PrimaryReasonCode = pvr.ReasonCodes != null && pvr.ReasonCodes.Length > 0 ? pvr.ReasonCodes[0] : new ReasonCode { Name = "Other", Code = -1 },
                         VisitDate = pvr.VisitDate,

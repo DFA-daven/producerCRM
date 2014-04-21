@@ -17,7 +17,7 @@ namespace CallForm.Core.Models
 
         /// <summary>The 8 digit member number.
         /// </summary>
-        public string FarmNumber { get; set; }
+        public string MemberNumber { get; set; }
 
         /// <summary>The date of the visit/contact with the member.
         /// </summary>

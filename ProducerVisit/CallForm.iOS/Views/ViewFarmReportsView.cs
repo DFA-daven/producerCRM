@@ -470,7 +470,7 @@
             ReportListItem rli = _viewModel.Reports[indexPath.Row];
 
             cell.Date.Text = rli.VisitDate.ToShortDateString();
-            cell.FarmNo.Text = rli.FarmNumber;
+            cell.FarmNo.Text = rli.MemberNumber;
             cell.Source.Text = rli.UserEmail;
             cell.Reasons.Text = rli.PrimaryReasonCode.Name;
 

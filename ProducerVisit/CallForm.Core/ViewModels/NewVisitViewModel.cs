@@ -29,7 +29,7 @@ namespace CallForm.Core.ViewModels
         private decimal _duration;
         private string _durationString;
         private DateTime _actualTime;
-        private string _farmNumber;
+        private string _memberNumber;
         private string _notes;
         private List<ReasonCode> _reasonCodes;
         private MvxCommand _saveCommand;
@@ -81,7 +81,7 @@ namespace CallForm.Core.ViewModels
             Mvx.Trace(MvxTraceLevel.Diagnostic, "Init: Report Data", data.ReportData);
             if (string.IsNullOrEmpty(data.ReportData))
             {
-                FarmNumber = data.FarmNumber;
+                MemberNumber = data.MemberNumber;
                 Editing = true;
                 return;
             }
@@ -89,7 +89,7 @@ namespace CallForm.Core.ViewModels
             Editing = false;
 
             UserID = report.UserID;
-            FarmNumber = report.FarmNumber;
+            MemberNumber = report.MemberNumber;
             Lat = report.Lat;
             Lng = report.Lng;
             Date = report.VisitDate;
@@ -219,13 +219,13 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        public string FarmNumber
+        public string MemberNumber
         {
-            get { return _farmNumber; }
+            get { return _memberNumber; }
             set
             {
-                _farmNumber = value;
-                RaisePropertyChanged(() => FarmNumber);
+                _memberNumber = value;
+                RaisePropertyChanged(() => MemberNumber);
             }
         }
 
@@ -239,6 +239,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>A set of ReasonCode(s) assigned by the user to this Visit.
+        /// </summary>
         public List<ReasonCode> ReasonCodes
         {
             get { return _reasonCodes; }
@@ -249,7 +251,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        // review: what do BuiltInReasonCodes do?
+        /// <summary>Create a master-list of ReasonCodes for the user to select from.
+        /// </summary>
         public readonly List<ReasonCode> BuiltInReasonCodes;
 
         #region Save
@@ -267,7 +270,7 @@ namespace CallForm.Core.ViewModels
         private void DoSaveCommand()
         {
             // 
-            if (FarmNumber == null || FarmNumber.Length != 8)
+            if (MemberNumber == null || MemberNumber.Length != 8)
             {
                 Error(this, new ErrorEventArgs {Message = "The Member Number must be eight characters long"});
             }
@@ -300,7 +303,7 @@ namespace CallForm.Core.ViewModels
             else
             {
                 //Close(this);
-                ShowViewModel<NewVisitViewModel>(new NewVisitInit { FarmNumber = FarmNumber });
+                ShowViewModel<NewVisitViewModel>(new NewVisitInit { MemberNumber = MemberNumber });
             }
         }
 
@@ -309,7 +312,7 @@ namespace CallForm.Core.ViewModels
             return new ProducerVisitReport
             {
                 UserID = UserID,
-                FarmNumber = FarmNumber,
+                MemberNumber = MemberNumber,
                 Lat = Lat,
                 Lng = Lng,
                 VisitDate = Date,
@@ -403,6 +406,6 @@ namespace CallForm.Core.ViewModels
     public class NewVisitInit
     {
         public string ReportData { get; set; }
-        public string FarmNumber { get; set; }
+        public string MemberNumber { get; set; }
     }
 }
