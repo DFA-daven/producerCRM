@@ -18,10 +18,11 @@ namespace BackEnd.Models
 
         /// <summary>Opens a connection to a database using the definition in Web.Config.
         /// </summary>
+        /// <remarks>The specific web.*.config file is selected when the BackEnd project is published.</remarks>
         public VisitContext()
             : base(buildConfiguration)
         {
-            // review: initializes database (backend) when called from .pubxml
+            // review: initializes database (BackEnd) when called from .pubxml
         }
 
         /// <summary>The collection of <see cref="StoredProducerVisitReport"/>.
@@ -44,5 +45,9 @@ namespace BackEnd.Models
         /// <summary>The collection of <see cref="UserIdentities"/>.
         /// </summary>
         public DbSet<UserIdentity> UserIdentities { get; set; }
+
+        /// <summary>The collection of <see cref="NewEmailRecipient"/>.
+        /// </summary>
+        public DbSet<NewEmailRecipient> NewEmailRecipients { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace CallForm.Core.Models
+﻿namespace CallForm.Core.Models
 {
+    using System;
+
     /// <summary>An object representing a "ReasonCode" record.
     /// </summary>
     public class ReasonCode

@@ -54,10 +54,10 @@
                         _takePictureCell.SetPicture(_viewModel.PictureBytes);
                         tableView.ReloadData();
                         break;
-                    case "EmailRecipients":
-                        _emailRecipientsCell.DetailTextLabel.Text = _viewModel.EmailRecipients == null
+                    case "pvrEmailRecipients":
+                        _emailRecipientsCell.DetailTextLabel.Text = _viewModel.SelectedEmailRecipients == null
                             ? string.Empty
-                            : string.Join(", ", _viewModel.EmailRecipients);
+                            : string.Join(", ", _viewModel.SelectedEmailRecipients);
                         tableView.ReloadData();
                         break;
                 }
@@ -148,9 +148,9 @@
 
             _emailRecipientsCell = new UITableViewCell(UITableViewCellStyle.Value1, "emailRecipients");
             _emailRecipientsCell.TextLabel.Text = "Email Recipients";
-            _emailRecipientsCell.DetailTextLabel.Text = _viewModel.EmailRecipients == null
+            _emailRecipientsCell.DetailTextLabel.Text = _viewModel.SelectedEmailRecipients == null
                 ? string.Empty
-                : string.Join(", ", _viewModel.EmailRecipients);
+                : string.Join(", ", _viewModel.SelectedEmailRecipients);
             _emailRecipientsCell.DetailTextLabel.TextColor = UIColor.Black;
 
         }
@@ -160,6 +160,10 @@
             return 8;
         }
 
+        /// <summary>Handles the user clicking on a row
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView"/> containing the row/control that the user selected.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the row/control that the user selected.</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
             if (_viewModel.Editing)

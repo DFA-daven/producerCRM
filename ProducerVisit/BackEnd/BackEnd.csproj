@@ -229,7 +229,7 @@
     <None Include="Properties\PublishProfiles\dl-backend.pubxml" />
     <None Include="Properties\PublishProfiles\dl-websvcs-03.pubxml" />
     <None Include="Properties\PublishProfiles\Test Package.pubxml" />
-    <None Include="Properties\PublishProfiles\test.pubxml" />
+    <None Include="Properties\PublishProfiles\DL-WebSvcs-Test.pubxml" />
     <None Include="Properties\PublishProfiles\zip.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />

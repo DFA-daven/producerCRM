@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace CallForm.Core.Models
+﻿namespace CallForm.Core.Models
 {
+    using System;
+
     /// <summary>Creates an object representing the top-level information for a visit.
     /// </summary>
     /// <remarks>This object is used to populate the table views for the UI.</remarks>

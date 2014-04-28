@@ -1,7 +1,7 @@
-﻿using Cirrious.MvvmCross.Plugins.Sqlite;
-
-namespace CallForm.Core.Models
+﻿namespace CallForm.Core.Models
 {
+    using Cirrious.MvvmCross.Plugins.Sqlite;
+
     /// <summary>An object cross-referencing a <see cref="StoredProducerVisitReport"/> with a <see cref="ReasonCode"/>.
     /// </summary>
     /// <remarks>This is a cross-reference linking a specific visit to a reason code(s).</remarks>

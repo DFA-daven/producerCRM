@@ -37,6 +37,10 @@
             // create a table of type ReasonCode
             _connection.CreateTable<ReasonCode>();
 
+            // create a table of type NewEmailRecipient
+            _connection.CreateTable<NewEmailRecipient>();
+
+            // initialize the UserIdentity -- local XML, and record in cloud
             _userIdentityService = userIdentityService;
         }
 

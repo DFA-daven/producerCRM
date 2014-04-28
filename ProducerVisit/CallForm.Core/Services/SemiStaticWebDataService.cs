@@ -78,7 +78,7 @@
         }
 
         /// <inheritdoc/>
-        public List<string> GetEmailRecipients()
+        public List<string> GetPvrEmailRecipients()
         {
             _fileStore.EnsureFolderExists("Data");
             string xml = string.Empty;
@@ -91,6 +91,7 @@
             // note: see GetCallTypes()
             else
             {
+                return null; // hack
                 return new List<string>(new[]
                 {
                     "info@agri-maxfinancial.com",
@@ -141,7 +142,7 @@
                     exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
 
                 // request Email Recipients from the web service, and save them on-device
-                request = new MvxRestRequest(_targetURL + "/Visit/EmailRecipients/");
+                request = new MvxRestRequest(_targetURL + "/Visit/pvrEmailRecipients/");
                 // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
                 _jsonRestClient.MakeRequestFor<List<string>>(request,
                     response =>

@@ -18,12 +18,12 @@ namespace CallForm.Core.Services
         /// <returns></returns>
         List<string> GetCallTypes();
 
-        /// <summary>Gets a <see cref="List"/> of <see cref="EmailRecipients"/> from the <see cref="IMvxFileStore"/>, or from a built-in list.
+        /// <summary>Gets a <see cref="List"/> of <see cref="pvrEmailRecipients"/> from the <see cref="IMvxFileStore"/>, or from a built-in list.
         /// </summary>
         /// <returns></returns>
-        List<string> GetEmailRecipients();
+        List<string> GetPvrEmailRecipients();
 
-        /// <summary>Requests current copies of <see cref="ReasonCodes"/>, <see cref="CallTypes"/>, and <see cref="EmailRecipients"/> from the web service, 
+        /// <summary>Requests current copies of <see cref="ReasonCodes"/>, <see cref="CallTypes"/>, and <see cref="pvrEmailRecipients"/> from the web service, 
         /// and updates the tables stored in the data service (Reason Codes) and XML/file store (Call Types and Email Recipients).
         /// </summary>
         void Update();

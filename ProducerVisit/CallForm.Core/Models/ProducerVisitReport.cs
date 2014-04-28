@@ -5,7 +5,7 @@
     /// <summary>Creates an object representing a report of a visit to a member.
     /// </summary>
     /// <remarks>A ProducerVisitReport object is equivalent to a <see cref="StoredProducerVisitReport"/> with the associated
-    /// <see cref="ReasonCode[]"/>. It may represent a visit that exists on the web service, or a new visit.</remarks>
+    /// <see cref="ReasonCode"/> list. It may represent a visit that exists on the web service, or a new visit.</remarks>
     public class ProducerVisitReport
     {
         /// <summary>The internal ID for this object.
@@ -52,7 +52,7 @@
 
         /// <summary>The email recipients notified about this visit.
         /// </summary>
-        public string EmailRecipients { get; set; }
+        public string pvrEmailRecipients { get; set; }
 
         /// <summary>A picture associated with this visit.
         /// </summary>

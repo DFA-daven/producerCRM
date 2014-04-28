@@ -133,6 +133,8 @@
             }
         }
 
+        /// <summary>Gets the Reports
+        /// </summary>
         public ICommand GetReportsCommand
         {
             get
@@ -142,33 +144,44 @@
             }
         }
 
+        /// <summary>Executes the query that retrieves the Reports (or if blank, the most recent result).
+        /// </summary>
         private void DoGetReportsCommand()
         {
-            if (string.IsNullOrEmpty(Filter))
+            int memberNumberFilter = 0;
+
+            if (string.IsNullOrEmpty(Filter))       // is there something to search for?
             {
                 Reports = _dataService.Recent();
                 Loading = false;
             }
-            else if (Filter.Length != 8)
+            else if (Int32.TryParse(Filter, out memberNumberFilter)) // is it a number?
             {
-                Error(this, new ErrorEventArgs { Message = "Member Number must be eight characters"});
+                if (Filter.Length != 8)
+                {
+                    Error(this, new ErrorEventArgs { Message = "Member Number must be eight characters"});
+                }
+                else
+                {
+                    Loading = true;
+                    var request = new MvxRestRequest(_targetURL + "/Visit/Recent/" + Filter);
+                    // note: example of handling the response/error in-line
+                    _jsonRestClient.MakeRequestFor<List<ReportListItem>>(request,
+                        response =>
+                        {
+                            Reports = response.Result;
+                            Loading = false;
+                        },
+                        exception =>
+                        {
+                            Loading = false;
+                            Error(this, new ErrorEventArgs {Message = exception.Message});
+                        });
+                }
             }
             else
             {
-                Loading = true;
-                var request = new MvxRestRequest(_targetURL + "/Visit/Recent/" + Filter);
-                // note: example of handling the response/error in-line
-                _jsonRestClient.MakeRequestFor<List<ReportListItem>>(request,
-                    response =>
-                    {
-                        Reports = response.Result;
-                        Loading = false;
-                    },
-                    exception =>
-                    {
-                        Loading = false;
-                        Error(this, new ErrorEventArgs {Message = exception.Message});
-                    });
+                // todo: add new service to check for member name
             }
         }
 

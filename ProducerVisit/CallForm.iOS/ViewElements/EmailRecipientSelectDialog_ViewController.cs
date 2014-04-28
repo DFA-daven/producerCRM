@@ -24,7 +24,7 @@ namespace CallForm.iOS.ViewElements
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
-            _viewModel.RaisePropertyChanged("EmailRecipients");
+            _viewModel.RaisePropertyChanged("pvrEmailRecipients");
         }
 
         // replace ContentSizeForViewInPopover with PreferredContentSize
@@ -64,18 +64,22 @@ namespace CallForm.iOS.ViewElements
             return doneButton;
         }
 
+        /// <summary>Toggles selected email recipients.
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView"/>/control that contains the selected row.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> of the selected row in the control.</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
             string email = _viewModel.BuiltinEmailRecipients[indexPath.Row];
-            if (_viewModel.EmailRecipients.Contains(email))
+            if (_viewModel.SelectedEmailRecipients.Contains(email))
             {
-                _viewModel.EmailRecipients.Remove(email);
+                _viewModel.SelectedEmailRecipients.Remove(email);
             }
             else
             {
-                _viewModel.EmailRecipients.Add(email);
+                _viewModel.SelectedEmailRecipients.Add(email);
             }
-            _viewModel.RaisePropertyChanged("EmailRecipients");
+            _viewModel.RaisePropertyChanged("pvrEmailRecipients");
             tableView.DeselectRow(indexPath, true);
             tableView.ReloadData();
         }
@@ -92,7 +96,7 @@ namespace CallForm.iOS.ViewElements
                                    new UITableViewCell(UITableViewCellStyle.Default, CellIdentifier);
             string email = _viewModel.BuiltinEmailRecipients[indexPath.Row];
             cell.TextLabel.Text = email;
-            cell.Accessory = _viewModel.EmailRecipients.Contains(email) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
+            cell.Accessory = _viewModel.SelectedEmailRecipients.Contains(email) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
             return cell;
         }
     }

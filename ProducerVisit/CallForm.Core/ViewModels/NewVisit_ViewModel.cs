@@ -40,7 +40,7 @@ namespace CallForm.Core.ViewModels
         private bool _editing;
         private byte[] _pictureBytes;
         private MvxCommand _takePictureCommand;
-        private List<string> _emailRecipients;
+        private List<string> _nvvmemailRecipients;
 
         public NewVisit_ViewModel(
             ILocationService locationService,
@@ -57,7 +57,7 @@ namespace CallForm.Core.ViewModels
             CallTypes = webDataService.GetCallTypes();
             CallType = CallTypes.First();
 
-            BuiltinEmailRecipients = webDataService.GetEmailRecipients();
+            BuiltinEmailRecipients = webDataService.GetPvrEmailRecipients();
 
             Date = DateTime.Now.Date;
             ActualTime = DateTime.Now;
@@ -72,7 +72,7 @@ namespace CallForm.Core.ViewModels
 
             Editing = true;
 
-            _emailRecipients = new List<string>();
+            _nvvmemailRecipients = new List<string>();
         }
 
         public void Init(NewVisitInit data)
@@ -99,14 +99,14 @@ namespace CallForm.Core.ViewModels
             CallType = report.CallType;
             ReasonCodes = report.ReasonCodes.ToList();
             Notes = report.Notes;
-            if (report.EmailRecipients == null)
+            if (report.pvrEmailRecipients == null)
             {
-                EmailRecipients = new List<string>();
+                SelectedEmailRecipients = new List<string>();
             }
             else
             {
-                EmailRecipients =
-                    new List<string>(report.EmailRecipients.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries));
+                SelectedEmailRecipients =
+                    new List<string>(report.pvrEmailRecipients.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries));
             }
             PictureBytes = (byte[]) (report.PictureBytes ?? new byte[0]).Clone();
         }
@@ -291,7 +291,7 @@ namespace CallForm.Core.ViewModels
             else if (Editing)
             {
                 _dataService.Insert(ToProducerVisitReport());
-                if (EmailRecipients == null || EmailRecipients.Count <= 0)
+                if (SelectedEmailRecipients == null || SelectedEmailRecipients.Count <= 0)
                 {
                     Close(this);
                 }
@@ -321,7 +321,7 @@ namespace CallForm.Core.ViewModels
                 CallType = CallType,
                 ReasonCodes = ReasonCodes.ToArray(),
                 Notes = Notes,
-                EmailRecipients = string.Join(", ", EmailRecipients),
+                pvrEmailRecipients = string.Join(", ", SelectedEmailRecipients),
                 PictureBytes = (byte[]) (PictureBytes ?? new byte[0]).Clone(),
             };
         }
@@ -361,16 +361,20 @@ namespace CallForm.Core.ViewModels
         #endregion
 
         #region Email
-        public List<string> EmailRecipients
+        /// <summary>Gets/sets the list of Email Recipients selected by the user.
+        /// </summary>
+        public List<string> SelectedEmailRecipients
         {
-            get { return _emailRecipients; }
+            get { return _nvvmemailRecipients; }
             set
             {
-                _emailRecipients = value;
-                RaisePropertyChanged(() => EmailRecipients);
+                _nvvmemailRecipients = value;
+                RaisePropertyChanged(() => SelectedEmailRecipients);
             }
         }
 
+        /// <summary>Holds the list of potential Email Recipients.
+        /// </summary>
         public List<string> BuiltinEmailRecipients;
 
         public event EventHandler SendEmail;

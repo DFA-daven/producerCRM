@@ -207,7 +207,7 @@ namespace BackEnd.Controllers
         {
             // review: this static list is being used to keep the web service from querying the database. This is better than
             // hard-coding the values into the app, but still requires a re-publish in order to make changes. Apply same
-            // change to EmailRecipients.
+            // change to vcEmailRecipients.
             return Json(new List<string>(new[]
                 {
                     "Phone Call",
@@ -219,28 +219,36 @@ namespace BackEnd.Controllers
                 }), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>Creates the list of Email Recipients.
+        /// <summary>Gets the Email Recipients.
         /// </summary>
         /// <param name="id"></param>
         /// <returns>List<string> of email recipients.</returns>
-        public ActionResult EmailRecipients(string id)
+        public ActionResult vcEmailRecipients(string id)
         {
-            // undone: can't this be pulled from the XML file?
-            return Json(new List<string>(new[]
+            if (!_db.NewEmailRecipients.Any())
             {
-                "info@agri-maxfinancial.com",
-                "info@agri-servicesagency.com",
-                "communications@dairylea.com",
-                "FieldStaffNotification-DairyOne@DairyOne.com",
-                "FieldStaffNotification-DMS@dairylea.com",
-                "drms@dairylea.com",
-                "FieldStaffNotification-Eagle@dairylea.com",
-                "FieldStaffNotification-HR@dairylea.com",
-                "technicalsupport-brittonfield@dairylea.com",
-                "FieldStaffNotification-Membership@dairylea.com",
-                "FieldStaffNotification-Payroll@dairylea.com",
-                "Recipients Not Listed"
-            }), JsonRequestBehavior.AllowGet);
+                var list = new List<NewEmailRecipient>(new[]
+                {
+                    new NewEmailRecipient {Address = "visitcontroller.cs",                     },
+                    //new NewEmailRecipient {Address = "info@agri-maxfinancial.com",                     DisplayName = "info@agri-maxfinancial.com"},
+                    //new NewEmailRecipient {Address = "info@agri-servicesagency.com",                   DisplayName = "info@agri-servicesagency.com"},
+                    //new NewEmailRecipient {Address = "communications@dairylea.com",                    DisplayName = "Member Communications"},
+                    //new NewEmailRecipient {Address = "FieldStaffNotification-DairyOne@DairyOne.com",   DisplayName = "FieldStaffNotification-DairyOne@DairyOne.com"},
+                    //new NewEmailRecipient {Address = "FieldStaffNotification-DMS@dairylea.com",        DisplayName = "FieldStaffNotification-DMS@dairylea.com"},
+                    //new NewEmailRecipient {Address = "drms@dairylea.com",                              DisplayName = "DRMS"},
+                    //new NewEmailRecipient {Address = "FieldStaffNotification-Eagle@dairylea.com",      DisplayName = "FieldStaffNotification-Eagle@dairylea.com"},
+                    //new NewEmailRecipient {Address = "FieldStaffNotification-HR@dairylea.com",         DisplayName = "FieldStaffNotification-HR@dairylea.com"},
+                    //new NewEmailRecipient {Address = "TechnicalSupport-brittonfield@dairylea.com",     DisplayName = "Technical Support"},
+                    //new NewEmailRecipient {Address = "FieldStaffNotification-Membership@dairylea.com", DisplayName = "FieldStaffNotification-Membership@dairylea.com"},
+                    //new NewEmailRecipient {Address = "FieldStaffNotification-Payroll@dairylea.com",    DisplayName = "FieldStaffNotification-Payroll@dairylea.com"},
+                });
+                foreach (var emailRecipient in list)
+                {
+                    _db.NewEmailRecipients .Add(emailRecipient);
+                }
+                _db.SaveChanges();
+            }
+            return Json(_db.NewEmailRecipients.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

@@ -20,16 +20,6 @@ namespace CallForm.Core.Services
         /// <remarks>See <see cref="VisitController.Recent()"/>.</remarks>
         List<ReportListItem> Recent();
 
-        /// <summary>Opens the SQLite database, gets the <see cref="ReasonCodes"/>.
-        /// </summary>
-        /// <returns>A <see cref="List<>"/> of <see cref="ReasonCodes"/>.</returns>
-        List<ReasonCode> GetReasonsForCall();
-
-        /// <summary>Opens the SQLite database, replaces the "ReasonCodes" table with <paramref name="reasonCodes"/>.
-        /// </summary>
-        /// <param name="reasonCodes">A <see cref="List"/> of new <see cref="ReasonCodes"/>.</param>
-        void UpdateReasons(List<ReasonCode> reasonCodes);
-
         /// <summary>Given a <see cref="ProducerVisitReport"/>, adds a 
         /// <see cref="StoredProducerVisitReport"/> (and <see cref="VisitXReason"/>(s)) to the SQLite database.
         /// </summary>
@@ -51,5 +41,15 @@ namespace CallForm.Core.Services
         /// </summary>
         /// <param name="id">The internal ID number of <see cref="StoredProducerVisitReport"/>.</param>
         void ReportUploaded(int id);
+
+        /// <summary>Opens the SQLite database, gets the <see cref="ReasonCodes"/>.
+        /// </summary>
+        /// <returns>A <see cref="List<>"/> of <see cref="ReasonCodes"/>.</returns>
+        List<ReasonCode> GetReasonsForCall();
+
+        /// <summary>Opens the SQLite database, replaces the "ReasonCodes" table with <paramref name="reasonCodes"/>.
+        /// </summary>
+        /// <param name="reasonCodes">A <see cref="List"/> of new <see cref="ReasonCodes"/>.</param>
+        void UpdateReasons(List<ReasonCode> reasonCodes);
     }
 }
