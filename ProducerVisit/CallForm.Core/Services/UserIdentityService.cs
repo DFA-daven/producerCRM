@@ -31,8 +31,8 @@ namespace CallForm.Core.Services
             _fileStore = fileStore;
             _restClient = restClient;
 
-            // Hack: update this to the current back-end target
-            _targetURL = "http://dl-backend-02.azurewebsites.net";
+            // Hack: update this to the current back-end web service
+            _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
         }
 
         #region Required Definitions

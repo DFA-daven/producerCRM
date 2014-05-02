@@ -29,15 +29,23 @@
             _jsonRestClient = jsonRestClient;
             _dataService = dataService;
 
-            // Hack: uncomment the current back-end target 
-            // server 2003 ent SP2, 1GB
+            // Hack: uncomment the current back-end web service 
+            // DL-WebServer-Te: server 2003 Enterprise SP2, 1GB
                 //_targetURL = "http://dl-webserver-te.dairydata.local:480"; 
-            // server 2008 R2 ent SP1, 8GB
+            
+            // DL-WebSvcs-Test: server 2008 R2 Enterprise SP1, 8GB
                 //_targetURL = "http://dl-websvcs-test.dairydata.local"; 
-            // azure production
-                //_targetURL = "http://dl-backend.azurewebsites.net";
-            // azure development
-                _targetURL = "http://dl-backend-02.azurewebsites.net"; 
+
+            // DL-WebSvcs-03: server 2008 R2 Enterprise SP1, 8GB
+            // INTERNAL
+                //_targetURL = "http://DL-WebSvcs-03:480";
+            // EXTERNAL
+            _targetURL = "http://ProducerCRM.DairyDataProcessing.com"; 
+
+            // Azure production
+                // _targetURL = "http://dl-backend.azurewebsites.net";
+            // Azure development
+                // _targetURL = "http://dl-backend-02.azurewebsites.net"; 
         }
 
         #region Required Definitions
