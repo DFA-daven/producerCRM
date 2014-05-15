@@ -238,17 +238,6 @@
   <ItemGroup>
     <BundleResource Include="Resources\Default-640x960.png" />
     <BundleResource Include="Resources\Default-640x1136.png" />
-    <BundleResource Include="Resources\Icon-72-2x.png" />
-    <BundleResource Include="Resources\Icon-72.png" />
-    <BundleResource Include="Resources\Icon-76-2x.png" />
-    <BundleResource Include="Resources\Icon-76.png" />
-    <BundleResource Include="Resources\Icon-Small-2x.png" />
-    <BundleResource Include="Resources\Icon-Small-40-2x.png" />
-    <BundleResource Include="Resources\Icon-Small-40.png" />
-    <BundleResource Include="Resources\Icon-Small-50-2x.png" />
-    <BundleResource Include="Resources\Icon-Small-50.png" />
-    <BundleResource Include="Resources\Icon-Small.png" />
-    <BundleResource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CallForm.Core\CallForm.Core.csproj">
@@ -378,7 +367,6 @@
     <BundleResource Include="Resources\Camera_icon.gif" />
     <Content Include="Resources\DFA-DMS-Banner.png" />
     <Content Include="Resources\icon design guidelines.txt" />
-    <BundleResource Include="Resources\Icon-60-2x.png" />
     <Content Include="ToDo-MvvmCross\_ Touch UI.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -397,8 +385,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ITunesArtwork Include="iTunesArtwork" />
-    <ITunesArtwork Include="iTunesArtwork%402x" />
+    <Content Include="Resources\iTunesArtwork-512x512.png" />
+    <Content Include="Resources\iTunesArtwork-1024x1024.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
