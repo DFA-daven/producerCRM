@@ -17,7 +17,35 @@
         private readonly IDataService _dataService;
         private readonly IMvxRestClient _restClient;
         private readonly IUserIdentityService _userIdentityService;
-        private readonly string _targetURL;
+        //private readonly string _targetURL;
+
+        // hack: fix the _targetURL definitions to match web.*.config
+        // temporary config:
+        //  - release/production "http://ProducerCRM.DairyDataProcessing.com";
+        //  - beta/staging       "http://ProducerCRM.DairyDataProcessing.com";
+        //  - alpha/testing      "http://dl-backend-02.azurewebsites.net";
+        //  - debug/internal     "http://dl-websvcs-test.dairydata.local";
+
+        // final config:
+        //  - release/production "http://ProducerCRM.DairyDataProcessing.com";
+        //  - beta/staging       "http://dl-backend.azurewebsites.net";
+        //  - alpha/testing      "http://dl-backend-02.azurewebsites.net";
+        //  - debug/internal     "http://dl-websvcs-test.dairydata.local";
+
+        // others/not used:
+        //    "http://dl-webserver-te.dairydata.local:480"; 
+        //    "http://DL-WebSvcs-03:480";
+
+        // Note: this value determines where the app will look for web services
+#if (RELEASE)
+        private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com"; 
+#elif (BETA)
+        private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com"; 
+#elif (ALPHA)
+        private static string _targetURL = "http://dl-websvcs-test";
+#else
+        private static string _targetURL = "http://dl-websvcs-test";
+#endif
 
         private MvxCommand _newVisitCommand;
         private string _filter;
@@ -45,9 +73,6 @@
                 _userIdentityService = userIdentityService;
                 Reports = _dataService.Recent();
                 Loading = false;
-
-                // Hack: update this to the current back-end target
-                _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
 
                 // Hack: commenting out the Update() seems to prevent the Airplane Mode error
                 webDataService.Update();

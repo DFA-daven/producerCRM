@@ -1,9 +1,7 @@
 namespace CallForm.iOS.Screens
 {
-    using System;
     using System.Drawing;
 
-    using MonoTouch.CoreFoundation;
     using MonoTouch.UIKit;
     using MonoTouch.Foundation;
 

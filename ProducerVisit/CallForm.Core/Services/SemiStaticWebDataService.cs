@@ -16,7 +16,36 @@
         private readonly IMvxFileStore _fileStore;
         private readonly IMvxJsonRestClient _jsonRestClient;
         private readonly IDataService _dataService;
-        private readonly string _targetURL;
+        //private readonly string _targetURL;
+
+        // hack: fix the _targetURL definitions to match web.*.config
+        // temporary config:
+        //  - release/production "http://ProducerCRM.DairyDataProcessing.com";
+        //  - beta/staging       "http://ProducerCRM.DairyDataProcessing.com";
+        //  - alpha/testing      "http://dl-backend-02.azurewebsites.net";
+        //  - debug/internal     "http://dl-websvcs-test.dairydata.local";
+
+        // final config:
+        //  - release/production "http://ProducerCRM.DairyDataProcessing.com";
+        //  - beta/staging       "http://dl-backend.azurewebsites.net";
+        //  - alpha/testing      "http://dl-backend-02.azurewebsites.net";
+        //  - debug/internal     "http://dl-websvcs-test.dairydata.local";
+
+        // others/not used:
+        //    "http://dl-webserver-te.dairydata.local:480"; 
+        //    "http://DL-WebSvcs-03:480";
+
+        // Note: this value determines where the app will look for web services
+
+#if (RELEASE)
+        private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com"; 
+#elif (BETA)
+        private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com"; 
+#elif (ALPHA)
+        private static string _targetURL = "http://dl-websvcs-test";
+#else
+        private static string _targetURL = "http://dl-websvcs-test";
+#endif
 
         /// <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="dataService"/>.
         /// </summary>
@@ -29,9 +58,8 @@
             _jsonRestClient = jsonRestClient;
             _dataService = dataService;
 
-            // Hack: uncomment the current back-end web service 
             // DL-WebServer-Te: server 2003 Enterprise SP2, 1GB
-                //_targetURL = "http://dl-webserver-te.dairydata.local:480"; 
+            //_targetURL = "http://dl-webserver-te.dairydata.local:480"; 
             
             // DL-WebSvcs-Test: server 2008 R2 Enterprise SP1, 8GB
                 //_targetURL = "http://dl-websvcs-test.dairydata.local"; 
@@ -40,12 +68,14 @@
             // INTERNAL
                 //_targetURL = "http://DL-WebSvcs-03:480";
             // EXTERNAL
-            _targetURL = "http://ProducerCRM.DairyDataProcessing.com"; 
+            //_targetURL = "http://ProducerCRM.DairyDataProcessing.com"; 
 
             // Azure production
                 // _targetURL = "http://dl-backend.azurewebsites.net";
             // Azure development
                 // _targetURL = "http://dl-backend-02.azurewebsites.net"; 
+
+
         }
 
         #region Required Definitions

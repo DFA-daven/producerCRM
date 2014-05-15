@@ -1,7 +1,10 @@
 ﻿----
+(other steps may work -- these are known to work)
+
 Visual Studio
 
-Manually update all references of web service (search/replace):
+Update Web Service in code:
+Manually update (search/replace) all references to the web service OUTSIDE OF the BackEnd project:
     CallForm.Core\Services\SemiStaticWebDataService.cs
     CallForm.Core\Services\UserIdentityService.cs
     CallForm.Core\ViewModels\ViewReports_ViewModel.cs
@@ -9,9 +12,11 @@ Manually update all references of web service (search/replace):
     CallForm.iOS\Main.cs (maybe)
     CallForm.iOS\Reachability.cs (maybe)
 
-Do NOT manually update (but be sure to select the correct one when publishing the BackEnd):
-    BackEnd\Properties\PublishProfiles\*.pubxml
-
+For the BackEnd project, the web service is specified in the .pubxml file. 
+HOWEVER, DO NOT manually update BackEnd\Properties\PublishProfiles\*.pubxml.
+This is better handled by selecting the correct publishing profile and storing any changes there when publishing BackEnd.
+    
+Publish BackEnd Web Service (and database):
 1. Comment out line in BackEnd\Global.asax
 2. Rebuild CallForm.Core
 3. Rebuild Solution
@@ -29,7 +34,7 @@ Do NOT manually update (but be sure to select the correct one when publishing th
 		- Tables created / exist on target database (as set in Web.*.config)
 5. Uncomment line in BackEnd Global.asax
 6. Rebuild CallForm.Core
-7. Deploy CallForm.iOS
+7. Deploy CallForm.iOS (not Deploy Solution)
 
 ----
 Mac

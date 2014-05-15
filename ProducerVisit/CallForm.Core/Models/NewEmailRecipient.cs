@@ -15,20 +15,20 @@
         /// </summary>
         public string Address { get; set; }
 
-        ///// <summary>Gets/sets the e-mail address for this instance.
-        ///// </summary>
-        //public string DisplayName 
-        //{ 
-        //    get; 
-        //    set; 
-        //}
+        /// <summary>Gets/sets the e-mail address for this instance.
+        /// </summary>
+        public string DisplayName
+        {
+            get;
+            set;
+        }
 
         /// <summary>The DisplayName of this <see cref="NewEmailRecipient"/>.
         /// </summary>
-        ///// <returns>A <see cref="String"/> of the description.</returns>
-        //public override string ToString()
-        //{
-        //    return DisplayName;
-        //}
+        /// <returns>A <see cref="String"/> of the description.</returns>
+        public override string ToString()
+        {
+            return DisplayName;
+        }
     }
 }

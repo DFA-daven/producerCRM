@@ -9,12 +9,17 @@ namespace BackEnd.Models
 {
     public class VisitContext : DbContext
     {
-        // review: switching the configuration is handled by Web.Release.config -- probably don't need these preprocessor directives
-#if (RELEASE)
-        private static string buildConfiguration = "DefaultConnection";
-#else
-        private static string buildConfiguration = "DefaultConnection";
-#endif
+        // Note: Web.*.config will automatically assign the database connection for the web service 
+        // based on the currently selected Solution Configuration. To change the database, you must 
+        // select the target Solution Configuration, rebuild the solution, Publish BackEnd, and deploy the mobile app.
+
+        /// <summary>The (BackEnd) database connection information.
+        /// </summary>
+        /// <remarks>Web.*.config will automatically assign the database connection for the web service 
+        /// based on the currently selected Solution Configuration. To change the database, you must 
+        /// select the target Solution Configuration, rebuild the solution, Publish BackEnd, 
+        /// and deploy the mobile app.</remarks>
+        private static string buildConfiguration = "SolutionConfigurationConnection";
 
         /// <summary>Opens a connection to a database using the definition in Web.Config.
         /// </summary>
