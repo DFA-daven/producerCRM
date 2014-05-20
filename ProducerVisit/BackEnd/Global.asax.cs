@@ -60,21 +60,21 @@ namespace BackEnd
         /// <summary>Create a new instance of type <VisitContext>. 
         /// </summary>
         /// <remarks>On the first connection to the server, if the specified database does not exist it will be created.</remarks>
-        public class SiteDBInitialize : CreateDatabaseIfNotExists<VisitContext> { }
+        //public class SiteDBInitialize : CreateDatabaseIfNotExists<VisitContext> { }
 
         /// <summary>Dangerous. If the database model has changed, Drop/Create a new instance of type <VisitContext>. 
         /// </summary>
         /// <remarks>On the first connection to the server, if the specified database exists and the database model is 
         /// different, the existing instance of the database will be dropped and a new instance (with the new model)
         /// will be created.</remarks>
-        //public class SiteDBInitialize : DropCreateDatabaseIfModelChanges<VisitContext>
-        //{
-        //    protected override void Seed(VisitContext context)
-        //    {
-        //        context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "global.asax.cs DropCreateDatabaseIfModelChanges", });
-        //        context.SaveChanges();
-        //    }
-        //}
+        public class SiteDBInitialize : DropCreateDatabaseIfModelChanges<VisitContext>
+        {
+            protected override void Seed(VisitContext context)
+            {
+                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "global.asax.cs DropCreateDatabaseIfModelChanges", });
+                context.SaveChanges();
+            }
+        }
 
         ///// <summary>Very dangerous. ALWAYS Drop/Create a new instance of type <VisitContext>. 
         ///// </summary>

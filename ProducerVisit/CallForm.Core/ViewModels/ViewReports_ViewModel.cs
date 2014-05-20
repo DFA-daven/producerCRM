@@ -42,7 +42,7 @@
 #elif (BETA)
         private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com"; 
 #elif (ALPHA)
-        private static string _targetURL = "http://dl-websvcs-test";
+        private static string _targetURL = "http://dl-backend-02.azurewebsites.net/";
 #else
         private static string _targetURL = "http://dl-websvcs-test";
 #endif
