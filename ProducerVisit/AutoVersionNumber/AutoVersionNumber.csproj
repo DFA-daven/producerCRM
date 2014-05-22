@@ -134,6 +134,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="info.plist">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
