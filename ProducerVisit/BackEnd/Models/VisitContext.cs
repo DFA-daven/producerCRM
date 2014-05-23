@@ -28,6 +28,10 @@ namespace BackEnd.Models
             : base(buildConfiguration)
         {
             // review: initializes database (BackEnd) when called from .pubxml
+
+            // Note: buildConfiguration 1) must be defined in Web.*.config; 2) the catalog defined in the 
+            // connection string will be created when BackEnd is published; 3) you must verify that
+            // deployed app is actually using the same database.
         }
 
         /// <summary>The collection of <see cref="StoredProducerVisitReport"/>.

@@ -27,8 +27,8 @@ namespace BackEnd.Controllers
                 source = _db.Database.Connection.DataSource.Split(':')[1];
             }
 
-            ViewBag.DataSource = source.Split('.')[0]; // just the left-most part of the address
-            ViewBag.DataSource = source.Split(',')[0]; // drop the port number, in case the address was only the machine name
+            ViewBag.DatabaseSource = source.Split('.')[0]; // just the left-most part of the address
+            ViewBag.DatabaseSource = source.Split(',')[0]; // drop the port number, in case the address was only the machine name
             ViewBag.Database = _db.Database.Connection.Database;
 
             // ToDo: add more reports elements here

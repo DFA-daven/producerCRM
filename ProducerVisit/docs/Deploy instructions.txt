@@ -18,7 +18,7 @@ This is better handled by selecting the correct publishing profile and storing a
     
 Publish BackEnd Web Service (and database):
 1. Comment out line in BackEnd\Global.asax
-2. Rebuild CallForm.Core
+2. Rebuild BackEnd
 3. Rebuild Solution
 4. Publish BackEnd (web service)
     a. Build / Publish BackEnd
@@ -28,13 +28,14 @@ Publish BackEnd Web Service (and database):
 		- review all settings
 		- Click the "Test Connection" 
 	d. On the Settings tab, select "Release - Any CPU" as the Configuration
-		- see note in Web.Debug.Config for details. This selection relates to the target database.
+		- This selection determines the target database. See note in Web.Debug.Config for details. 
 	e. Click Publish 
 		- Browser opens and displays default page with no errors (see \docs\no errors.png)
 		- Tables created / exist on target database (as set in Web.*.config)
 5. Uncomment line in BackEnd Global.asax
-6. Rebuild CallForm.Core
-7. Deploy CallForm.iOS (not Deploy Solution)
+6. Rebuild BackEnd
+7. Rebuild CallForm.Core
+8. Deploy CallForm.iOS (not Deploy Solution)
 
 ----
 Mac
