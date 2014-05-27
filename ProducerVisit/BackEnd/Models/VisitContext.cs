@@ -55,6 +55,10 @@ namespace BackEnd.Models
         /// </summary>
         public DbSet<UserIdentity> UserIdentities { get; set; }
 
+        /// <summary>The collection of <see cref="CallTypes"/>.
+        /// </summary>
+        public DbSet<CallTypes> CallTypes { get; set; }
+
         /// <summary>The collection of <see cref="NewEmailRecipient"/>.
         /// </summary>
         public DbSet<NewEmailRecipient> NewEmailRecipients { get; set; }

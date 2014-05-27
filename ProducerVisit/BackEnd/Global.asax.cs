@@ -101,6 +101,7 @@ namespace BackEnd
             /// <param name="context">The VisitContext model from BackEnd.</param>
             protected override void Seed(VisitContext context)
             {
+                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "loaded via global", DisplayName = "loaded via global" });
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "info@agri-maxfinancial.com", DisplayName = "info@agri-maxfinancial.com" });
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "info@agri-servicesagency.com", DisplayName = "info@agri-servicesagency.com" });
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "communications@dairylea.com", DisplayName = "Member Communications" });
@@ -112,6 +113,14 @@ namespace BackEnd
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "TechnicalSupport-brittonfield@dairylea.com", DisplayName = "Technical Support" });
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "FieldStaffNotification-Membership@dairylea.com", DisplayName = "FieldStaffNotification-Membership@dairylea.com" });
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "FieldStaffNotification-Payroll@dairylea.com", DisplayName = "FieldStaffNotification-Payroll@dairylea.com" });
+
+                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "loaded via Global" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Phone Call" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Email" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Farm Visit" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Farm Show" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "SMS (Text Msg.)" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Other" });
 
                 context.SaveChanges();
             }

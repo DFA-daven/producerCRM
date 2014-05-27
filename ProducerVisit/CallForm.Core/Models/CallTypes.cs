@@ -5,19 +5,15 @@
 
     /// <summary>An object representing an "EmailRecipient" record.
     /// </summary>
-    public class NewEmailRecipient
+    public class CallTypes
     {
         /// <summary>The internal ID for this object.
         /// </summary>
         public int ID { get; set; }
 
-        /// <summary>Gets/sets the e-mail address for this instance.
+        /// <summary>Gets/sets the "type" for this instance.
         /// </summary>
-        public string Address { get; set; }
-
-        /// <summary>Gets/sets the displayed name for this instance.
-        /// </summary>
-        public string DisplayName
+        public string CallType
         {
             get;
             set;
@@ -28,7 +24,7 @@
         /// <returns>A <see cref="String"/> of the description.</returns>
         public override string ToString()
         {
-            return DisplayName;
+            return CallType;
         }
     }
 }

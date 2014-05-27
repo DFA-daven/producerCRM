@@ -37,17 +37,12 @@ namespace CallForm.Core.Services
         // others/not used:
         //    "http://dl-webserver-te.dairydata.local:480"; 
         //    "http://DL-WebSvcs-03:480";
+        //    "http://dl-WebSvcs-tes2";
+        //    "http://dl-WebServer-Te";
 
-        // Note: this value determines where the app will look for web services
-#if (RELEASE)
-        private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com"; 
-#elif (BETA)
-        private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com"; 
-#elif (ALPHA)
-        private static string _targetURL = "http://dl-backend-02.azurewebsites.net/";
-#else
-        private static string _targetURL = "http://dl-websvcs-test";
-#endif
+
+        private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
+
 
         /// <summary>Provides access to the <paramref name="fileStore"/> and <paramref name="restClient"/>.
         /// </summary>

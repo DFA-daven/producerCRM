@@ -40,8 +40,8 @@
             // create a table of type NewEmailRecipient
             _connection.CreateTable<NewEmailRecipient>();
 
-            // initialize the UserIdentity -- local XML, and record in cloud
-            _userIdentityService = userIdentityService;
+            //// initialize the UserIdentity -- local XML, and record in cloud
+            //_userIdentityService = userIdentityService;
         }
 
         /// <summary>Opens the SQLite database, adds <see cref="ReasonCode[]"/> to the <see cref="Models.StoredProducerVisitReport"/>, and 

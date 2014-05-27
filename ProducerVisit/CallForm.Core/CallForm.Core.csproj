@@ -69,6 +69,7 @@
     <Compile Include="Converters\ObjectToStringValueConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeStringValueConverter.cs" />
     <Compile Include="Converters\DateTimeToShortDateValueConverter.cs" />
+    <Compile Include="Models\CallTypes.cs" />
     <Compile Include="Models\NewEmailRecipient.cs" />
     <Compile Include="Models\ReportListItem.cs" />
     <Compile Include="Models\StoredProducerVisitReport.cs" />
