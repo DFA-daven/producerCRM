@@ -1,0 +1,93 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".plist" #>
+<# WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\" ?>"); #>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array/>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array/>
+	<key>MinimumOSVersion</key>
+	<string>6.0</string>
+	<key>NSMainNibFile</key>
+	<string></string>
+	<key>NSMainNibFile~ipad</key>
+	<string></string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Default.png</string>
+		<string>Default@2x.png</string>
+		<string>Default-568h@2x.png</string>
+		<string>Icon-72.png</string>
+		<string>Icon-Small-50.png</string>
+		<string>Icon-Small-50@2x.png</string>
+		<string>Icon-Small.png</string>
+		<string>Icon-Small@2x.png</string>
+		<string>Icon-72@2x.png</string>
+	</array>
+	<key>CFBundleDisplayName</key>
+	<string><#= GetProjectTitle() #><#
+
+// this impacts the app's title on the iPad, not title bar inside the app
+// note: if debug is true in the t4 header, this will always evaluate to DEBUG
+// fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
+#if (ALPHA)
+	Write(" (Alpha)");
+#elif (BETA)
+	Write(" (Beta)");
+#elif (RELEASE)
+	// release - do nothing
+#elif (DEBUG)
+	Write(" (Testing)");
+#else
+	// do nothing
+#endif
+
+#></string>
+	<key>CFBundleIdentifier</key>
+	<string>com.dairylea.<#
+
+// this impacts the bundle's internal name -- not the name of the .ipa
+// fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
+#if (ALPHA)
+	Write("alpha.");
+#elif (BETA)
+	Write("beta.");
+#elif (RELEASE)
+	// release - do nothing
+#elif (DEBUG)
+	Write("testing.");
+#else
+	// do nothing
+#endif
+
+#><#= bundleTitle #></string>
+	<key>CFBundleVersion</key>
+	<string><#= GetVersion() #>.<#= GetBuildNumber() #>.<#= GetRevisionNumber() #></string>
+	<key>UIStatusBarTintParameters</key>
+	<dict>
+		<key>UINavigationBar</key>
+		<dict>
+			<key>Style</key>
+			<string>UIBarStyleDefault</string>
+			<key>Translucent</key>
+			<false/>
+		</dict>
+	</dict>
+</dict>
+</plist>
+
+
+<#@ include file="Custom Code\CommonT4.t4" #>
