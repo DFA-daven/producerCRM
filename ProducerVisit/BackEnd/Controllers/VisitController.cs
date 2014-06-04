@@ -159,7 +159,7 @@ namespace BackEnd.Controllers
             {
                 var list = new List<ReasonCode>(new[]
                 {
-                    new ReasonCode {Name = "Regulatory: Calibrations", Code = 11},
+                    new ReasonCode {Name = "VisitController Regulatory: Calibrations", Code = 11},
                     new ReasonCode {Name = "Regulatory: Inspection", Code = 12},
                     new ReasonCode {Name = "Regulatory: Quality: Antibiotic", Code = 15},
                     new ReasonCode {Name = "Regulatory: Quality: Cryo", Code = 16},
@@ -210,6 +210,7 @@ namespace BackEnd.Controllers
             // change to vcEmailRecipients.
             return Json(new List<string>(new[]
                 {
+                    "VisitController",
                     "Phone Call",
                     "Email",
                     "Farm Visit",
@@ -223,13 +224,13 @@ namespace BackEnd.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>List<string> of email recipients.</returns>
-        public ActionResult vcEmailRecipients(string id)
+        public ActionResult pvrEmailRecipients(string id)
         {
             if (!_db.NewEmailRecipients.Any())
             {
                 var list = new List<NewEmailRecipient>(new[]
                 {
-                    new NewEmailRecipient {Address = "visitcontroller.cs",                     },
+                    new NewEmailRecipient {Address = "visitcontroller.cs", DisplayName = "provided by method" },
                     //new NewEmailRecipient {Address = "info@agri-maxfinancial.com",                     DisplayName = "info@agri-maxfinancial.com"},
                     //new NewEmailRecipient {Address = "info@agri-servicesagency.com",                   DisplayName = "info@agri-servicesagency.com"},
                     //new NewEmailRecipient {Address = "communications@dairylea.com",                    DisplayName = "Member Communications"},
@@ -244,7 +245,7 @@ namespace BackEnd.Controllers
                 });
                 foreach (var emailRecipient in list)
                 {
-                    _db.NewEmailRecipients .Add(emailRecipient);
+                    _db.NewEmailRecipients.Add(emailRecipient);
                 }
                 _db.SaveChanges();
             }

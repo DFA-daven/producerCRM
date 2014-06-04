@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CallForm.Core.Models;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Network.Rest;
@@ -21,27 +20,9 @@ namespace CallForm.Core.Services
 
         //private readonly string _targetURL;
 
-        // hack: fix the _targetURL definitions to match web.*.config
-        // temporary config:
-        //  - release/production "http://ProducerCRM.DairyDataProcessing.com";
-        //  - beta/staging       "http://ProducerCRM.DairyDataProcessing.com";
-        //  - alpha/testing      "http://dl-backend-02.azurewebsites.net";
-        //  - debug/internal     "http://dl-websvcs-test.dairydata.local";
-
-        // final config:
-        //  - release/production "http://ProducerCRM.DairyDataProcessing.com";
-        //  - beta/staging       "http://dl-backend.azurewebsites.net";
-        //  - alpha/testing      "http://dl-backend-02.azurewebsites.net";
-        //  - debug/internal     "http://dl-websvcs-test.dairydata.local";
-
-        // others/not used:
-        //    "http://dl-webserver-te.dairydata.local:480"; 
-        //    "http://DL-WebSvcs-03:480";
-        //    "http://dl-WebSvcs-tes2";
-        //    "http://dl-WebServer-Te";
-
-
-        private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
+        //private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
+        private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
+        //private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
 
 
         /// <summary>Provides access to the <paramref name="fileStore"/> and <paramref name="restClient"/>.
@@ -61,9 +42,25 @@ namespace CallForm.Core.Services
         {
             get
             {
-                _fileStore.EnsureFolderExists("Data");
-                var filename = _fileStore.PathCombine("Data", "Identity.xml");
-                return _fileStore.Exists(filename);
+                bool foundIdentityFile = false;
+
+                try
+                {
+                    // FixMe: this should be using Documents .. Library as the location 
+                    // note: the current top level directory location may be breaking app signature, and risks not being copied btwn app versions.
+
+                    // create folder if not found
+                    _fileStore.EnsureFolderExists("Data"); 
+
+                    var filename = _fileStore.PathCombine("Data", "Identity.xml");
+                    foundIdentityFile = _fileStore.Exists(filename);
+                }
+                catch (Exception)
+                {
+                    // FixMe: Fail silently
+                }
+
+                return foundIdentityFile;
             }
         }
 
@@ -117,10 +114,13 @@ namespace CallForm.Core.Services
         public UserIdentity GetSavedIdentity()
         {
             var filename = _fileStore.PathCombine("Data", "Identity.xml");
-            string xml;
-            if (_fileStore.Exists(filename) && _fileStore.TryReadTextFile(filename, out xml))
+            string xml = string.Empty;
+            if (_fileStore.Exists(filename)) 
             {
-                return SemiStaticWebDataService.Deserialize<UserIdentity>(xml);
+                if (_fileStore.TryReadTextFile(filename, out xml))
+                {
+                    return SemiStaticWebDataService.Deserialize<UserIdentity>(xml);
+                }
             }
             return null;
         }

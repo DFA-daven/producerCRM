@@ -60,10 +60,10 @@ namespace BackEnd
         /// <summary>Create a new instance of type <VisitContext>. 
         /// </summary>
         /// <remarks>On the first connection to the server, if the specified database does not exist it will be created.</remarks>
-        public class SiteDBInitialize : CreateDatabaseIfNotExists<VisitContext>
-        {
-            // use the Seed method below to initially populate the database
-        }
+        //public class SiteDBInitialize : CreateDatabaseIfNotExists<VisitContext>
+        //{
+        //    // use the Seed method below to initially populate the database
+        //}
 
         /// <summary>Dangerous. If the database model has changed, Drop/Create a new instance of type <VisitContext>. 
         /// </summary>
@@ -81,14 +81,15 @@ namespace BackEnd
 
         ///// <summary>Very dangerous. ALWAYS Drop/Create a new instance of type <VisitContext>. 
         ///// </summary>
-        //public class SiteDBInitialize : DropCreateDatabaseAlways<VisitContext>
-        //{
-        //    protected override void Seed(VisitContext context)
-        //    {
-        //        context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "global.asax.cs DropCreateDatabaseAlways", });
-        //        context.SaveChanges();
-        //    }
-        //}
+        public class SiteDBInitialize : DropCreateDatabaseAlways<VisitContext>
+        {
+            // use the Seed method below to initially populate the database
+            //protected override void Seed(VisitContext context)
+            //{
+            //    context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "global.asax.cs DropCreateDatabaseAlways", });
+            //    context.SaveChanges();
+            //}
+        }
 
 
         /// <summary>Inherited object that "wraps" SiteDBInitialize so that this one Seed method can service all three initialize classes
@@ -101,6 +102,7 @@ namespace BackEnd
             /// <param name="context">The VisitContext model from BackEnd.</param>
             protected override void Seed(VisitContext context)
             {
+                // NewEmailRecipients
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "loaded via global", DisplayName = "loaded via global" });
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "info@agri-maxfinancial.com", DisplayName = "info@agri-maxfinancial.com" });
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "info@agri-servicesagency.com", DisplayName = "info@agri-servicesagency.com" });
@@ -114,7 +116,8 @@ namespace BackEnd
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "FieldStaffNotification-Membership@dairylea.com", DisplayName = "FieldStaffNotification-Membership@dairylea.com" });
                 context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "FieldStaffNotification-Payroll@dairylea.com", DisplayName = "FieldStaffNotification-Payroll@dairylea.com" });
 
-                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "loaded via Global" });
+                // CallTypes
+                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Global" });
                 context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Phone Call" });
                 context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Email" });
                 context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Farm Visit" });
@@ -122,6 +125,28 @@ namespace BackEnd
                 context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "SMS (Text Msg.)" });
                 context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Other" });
 
+                // ReasonCodes
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Global Regulatory: Calibrations", Code = 11});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Regulatory: Inspection", Code = 12});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Regulatory: Quality: Antibiotic", Code = 15});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Regulatory: Quality: Cryo", Code = 16});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Regulatory: Quality: Hi-count", Code = 17});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Regulatory: Samples", Code = 13});
+
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Membership: Cancellation", Code = 59});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Membership: Relationship Call", Code = 55});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Membership: Solicitation", Code = 56});
+
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Gold Standard III", Code = 43});
+                
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: Agri-Max", Code = 31});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: ASA: Insurance", Code = 32});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: Dairy One", Code = 33});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: Eagle: Farm Supplies", Code = 34});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: Empire Livestock", Code = 35});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: Risk Management", Code = 36});
+
+                // write changes
                 context.SaveChanges();
             }
         }

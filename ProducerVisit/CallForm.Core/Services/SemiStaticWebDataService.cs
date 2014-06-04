@@ -23,24 +23,29 @@
         //  - release/production "http://ProducerCRM.DairyDataProcessing.com";
         //  - beta/staging       "http://ProducerCRM.DairyDataProcessing.com";
         //  - alpha/testing      "http://dl-backend-02.azurewebsites.net";
-        //  - debug/internal     "http://dl-websvcs-test.dairydata.local";
+        //  - debug/internal     "http://dl-websvcs-test.dairydata.local:480";
 
         // final config:
         //  - release/production "http://ProducerCRM.DairyDataProcessing.com";
         //  - beta/staging       "http://dl-backend.azurewebsites.net";
         //  - alpha/testing      "http://dl-backend-02.azurewebsites.net";
-        //  - debug/internal     "http://dl-websvcs-test.dairydata.local";
+        //  - debug/internal     "http://dl-websvcs-test.dairydata.local:480";
 
         // others/not used:
-        //    "http://dl-webserver-te.dairydata.local:480"; 
         //    "http://DL-WebSvcs-03:480";
-        //    "http://dl-WebSvcs-tes2";
+        //    "http://dl-websvcs-03.dairydata.local:480"; 
+
+        //    "http://dl-webserver-te.dairydata.local:480"; 
         //    "http://dl-WebServer-Te";
+        //    "http://dl-WebSvcs-tes2";
+
 
         // Note: this value determines where the app will look for web services
 
 
-        private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
+        //private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
+        private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
+        //private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
 
 
         /// <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="dataService"/>.
@@ -101,6 +106,7 @@
                 // todo: Move the default content to BackEnd. Only create if the database is being initially created (don't overwrite).
                 return new List<string>(new[]
                 {
+                    "SemiStatic",
                     "Phone Call",
                     "Email",
                     "Farm Visit",
@@ -112,44 +118,77 @@
         }
 
         /// <inheritdoc/>
-        public List<string> GetPvrEmailRecipients()
+        public List<string> GetPvrEmailName()
         {
+            //// note: see GetCallTypes()
+            //return _dataService.GetPvrEmailRecipients();
+
             _fileStore.EnsureFolderExists("Data");
             string xml = string.Empty;
             var emailsFilename = _fileStore.PathCombine("Data", "Emails.xml");
             if (_fileStore.Exists(emailsFilename) && _fileStore.TryReadTextFile(emailsFilename, out xml))
             {
-                return Deserialize<List<string>>(xml);
+                //return Deserialize<List<string>>(xml);
+
+                // hack: only returning single column data for now
+                return new List<string>(new[]
+                {
+                    "SemiStaticWDS, GetPvrEmailName(): file found",
+                    "FieldStaffNotification-Payroll@dairylea.com",
+                    "Recipients Not Listed"
+                });
             }
 
             // note: see GetCallTypes()
             else
             {
-                return null; // hack
+                // hack: only returning single column data for now
                 return new List<string>(new[]
                 {
-                    //"info@agri-maxfinancial.com",
-                    //"info@agri-servicesagency.com",
-                    //"communications@dairylea.com",
-                    //"FieldStaffNotification-DairyOne@DairyOne.com",
-                    //"FieldStaffNotification-DMS@dairylea.com",
-                    //"drms@dairylea.com",
-                    //"FieldStaffNotification-Eagle@dairylea.com",
-                    //"FieldStaffNotification-HR@dairylea.com",
-                    //"technicalsupport-brittonfield@dairylea.com",
-                    //"FieldStaffNotification-Membership@dairylea.com",
-                    //"FieldStaffNotification-Payroll@dairylea.com",
-                    //"Recipients Not Listed"
-                    "dataFromSemiStatic",
-                    "FieldStaffNotification-Payroll@dairylea.com",
-                    "Recipients Not Listed"
+                    "SemiStaticWDS, GetPvrEmailName(): no file",
                 });
             }
         }
 
         /// <inheritdoc/>
+        public List<NewEmailRecipient> GetPvrEmailAddressAndName()
+        {
+            // note: see GetCallTypes()
+            return _dataService.GetPvrEmailAddressAndName();
+
+            //_fileStore.EnsureFolderExists("Data");
+            //string xml = string.Empty;
+            //var emailsFilename = _fileStore.PathCombine("Data", "Emails.xml");
+            //if (_fileStore.Exists(emailsFilename) && _fileStore.TryReadTextFile(emailsFilename, out xml))
+            //{
+            //    //return Deserialize<List<string>>(xml);
+
+            //    // hack: only returning single column data for now
+            //    return new List<string>(new[]
+            //    {
+            //        "SemiStaticWebDataService, GetPvrEmailRecipients(): file found",
+            //        "FieldStaffNotification-Payroll@dairylea.com",
+            //        "Recipients Not Listed"
+            //    });
+            //}
+
+            //// note: see GetCallTypes()
+            //else
+            //{
+            //    // hack: only returning single column data for now
+            //    return new List<string>(new[]
+            //    {
+            //        "SemiStaticWebDataService, GetPvrEmailRecipients(): no file",
+            //        "FieldStaffNotification-Payroll@dairylea.com",
+            //        "Recipients Not Listed"
+            //    });
+            //}
+        }
+
+        /// <inheritdoc/>
         public void Update()
         {
+            // note: the "Reasons" part of "/Visit/Reasons/" is handled in BackEnd.Controllers.VisitController.cs
             try
             {
                 // FixMe: errors down at this level are not presented to the UI. add an error log?
@@ -179,9 +218,11 @@
                     exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
 
                 // request Email Recipients from the web service, and save them on-device
-                request = new MvxRestRequest(_targetURL + "/Visit/pvrEmailRecipients/");
+                //request = new MvxRestRequest(_targetURL + "/Visit/pvrEmailRecipients/");
+                request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
+
                 // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
-                _jsonRestClient.MakeRequestFor<List<string>>(request,
+                _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
                     response =>
                     {
                         _fileStore.EnsureFolderExists("Data");

@@ -10,19 +10,14 @@
     using Cirrious.MvvmCross.Plugins.Network.Rest;
     using Cirrious.MvvmCross.ViewModels;
 
-    public class ViewReports_ViewModel : MvxViewModel
+    public class ViewFarmReportsViewModel : MvxViewModel
     {
         private readonly IMvxJsonRestClient _jsonRestClient;
         private readonly IMvxJsonConverter _jsonConverter;
         private readonly IDataService _dataService;
         private readonly IMvxRestClient _restClient;
         private readonly IUserIdentityService _userIdentityService;
-        //private readonly string _targetURL;
-
-        //private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
-        private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
-        //private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
-
+        private readonly string _targetURL;
 
         private MvxCommand _newVisitCommand;
         private string _filter;
@@ -33,7 +28,7 @@
         private MvxCommand _viewReportCommand;
         
         // review: 
-        public ViewReports_ViewModel(
+        public ViewFarmReportsViewModel(
             IMvxJsonRestClient jsonRestClient,
             IMvxJsonConverter jsonConverter,
             IDataService dataService,
@@ -50,6 +45,10 @@
                 _userIdentityService = userIdentityService;
                 Reports = _dataService.Recent();
                 Loading = false;
+
+                // Hack: update this to the current back-end target
+                //_targetURL = "http://dl-websvcs-test.dairydata.local";
+                _targetURL = "http://dl-backend-02.azurewebsites.net";
 
                 // Hack: commenting out the Update() seems to prevent the Airplane Mode error
                 webDataService.Update();
@@ -92,7 +91,7 @@
             // review: does this always require a call to the Connection? (even if local data exists?)
             if (!_userIdentityService.IdentityRecorded)
             {
-                ShowViewModel<UserIdentity_ViewModel>();
+                ShowViewModel<UserIdentityViewModel>();
             }
         }
 
@@ -112,7 +111,7 @@
 
         protected void DoNewVisitCommand()
         {
-            ShowViewModel<NewVisit_ViewModel>(new NewVisitInit {MemberNumber = string.Empty});
+            ShowViewModel<NewVisitViewModel>(new NewVisitInit {FarmNumber = string.Empty});
         }
 
         public string Filter
@@ -135,8 +134,6 @@
             }
         }
 
-        /// <summary>Gets the Reports
-        /// </summary>
         public ICommand GetReportsCommand
         {
             get
@@ -146,44 +143,33 @@
             }
         }
 
-        /// <summary>Executes the query that retrieves the Reports (or if blank, the most recent result).
-        /// </summary>
         private void DoGetReportsCommand()
         {
-            int memberNumberFilter = 0;
-
-            if (string.IsNullOrEmpty(Filter))       // is there something to search for?
+            if (string.IsNullOrEmpty(Filter))
             {
                 Reports = _dataService.Recent();
                 Loading = false;
             }
-            else if (Int32.TryParse(Filter, out memberNumberFilter)) // is it a number?
+            else if (Filter.Length != 8)
             {
-                if (Filter.Length != 8)
-                {
-                    Error(this, new ErrorEventArgs { Message = "Member Number must be eight characters"});
-                }
-                else
-                {
-                    Loading = true;
-                    var request = new MvxRestRequest(_targetURL + "/Visit/Recent/" + Filter);
-                    // note: example of handling the response/error in-line
-                    _jsonRestClient.MakeRequestFor<List<ReportListItem>>(request,
-                        response =>
-                        {
-                            Reports = response.Result;
-                            Loading = false;
-                        },
-                        exception =>
-                        {
-                            Loading = false;
-                            Error(this, new ErrorEventArgs {Message = exception.Message});
-                        });
-                }
+                Error(this, new ErrorEventArgs { Message = "Member Number must be eight characters"});
             }
             else
             {
-                // todo: add new service to check for member name
+                Loading = true;
+                var request = new MvxRestRequest(_targetURL + "/Visit/Recent/" + Filter);
+                // note: example of handling the response/error in-line
+                _jsonRestClient.MakeRequestFor<List<ReportListItem>>(request,
+                    response =>
+                    {
+                        Reports = response.Result;
+                        Loading = false;
+                    },
+                    exception =>
+                    {
+                        Loading = false;
+                        Error(this, new ErrorEventArgs {Message = exception.Message});
+                    });
             }
         }
 
@@ -225,7 +211,7 @@
             {
                 if (SelectedReport.Local)
                 {
-                    ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(_dataService.GetReport(_selectedReport.ID)) });
+                    ShowViewModel<NewVisitViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(_dataService.GetReport(_selectedReport.ID)) });
                 }
                 else
                 {
@@ -234,7 +220,7 @@
                     _jsonRestClient.MakeRequestFor<ProducerVisitReport>(request,
                         response =>
                         {
-                            ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(response.Result) });
+                            ShowViewModel<NewVisitViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(response.Result) });
                             Loading = false;
                         },
                         exception =>

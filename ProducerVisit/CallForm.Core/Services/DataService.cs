@@ -109,9 +109,28 @@
         public void UpdateReasons(List<ReasonCode> reasonCodes)
         {
             // drop the existing table
+
+            // BROKEN: DropTable? Seriously?
             _connection.DropTable<ReasonCode>();
             _connection.CreateTable<ReasonCode>();
             _connection.InsertAll(reasonCodes); 
+        }
+
+        /// <inheritdoc/>
+        public List<string> GetPvrEmailName()
+        {
+
+            return new List<string>(new[]
+                {
+                    "empty list",
+                });
+        }
+
+        /// <inheritdoc/>
+        public List<NewEmailRecipient> GetPvrEmailAddressAndName()
+        {
+            var recipients = _connection.Table<NewEmailRecipient>().ToList();
+            return recipients;
         }
 
         /// <inheritdoc/>

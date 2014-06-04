@@ -42,14 +42,24 @@ namespace CallForm.Core.Services
         /// <param name="id">The internal ID number of <see cref="StoredProducerVisitReport"/>.</param>
         void ReportUploaded(int id);
 
-        /// <summary>Opens the SQLite database, gets the <see cref="ReasonCodes"/>.
+        /// <summary>Opens the SQLite database, gets the <see cref="ReasonCode"/>.
         /// </summary>
-        /// <returns>A <see cref="List<>"/> of <see cref="ReasonCodes"/>.</returns>
+        /// <returns>A <see cref="List"/> of <see cref="ReasonCodes"/>.</returns>
         List<ReasonCode> GetReasonsForCall();
 
         /// <summary>Opens the SQLite database, replaces the "ReasonCodes" table with <paramref name="reasonCodes"/>.
         /// </summary>
-        /// <param name="reasonCodes">A <see cref="List"/> of new <see cref="ReasonCodes"/>.</param>
+        /// <param name="reasonCodes">A <see cref="List"/> of new <see cref="ReasonCode"/>.</param>
         void UpdateReasons(List<ReasonCode> reasonCodes);
+
+        /// <summary>Opens the SQLite database, gets the Display Name.
+        /// </summary>
+        /// <returns>A <see cref="List"/> of <see cref="string"/>.</returns>
+        List<string> GetPvrEmailName();
+
+        /// <summary>Opens the SQLite database, gets the <see cref="NewEmailRecipient"/>.
+        /// </summary>
+        /// <returns>A <see cref="List"/> of <see cref="NewEmailRecipient"/>.</returns>
+        List<NewEmailRecipient> GetPvrEmailAddressAndName();
     }
 }

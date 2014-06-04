@@ -19,7 +19,8 @@ namespace BackEnd.Models
         /// based on the currently selected Solution Configuration. To change the database, you must 
         /// select the target Solution Configuration, rebuild the solution, Publish BackEnd, 
         /// and deploy the mobile app.</remarks>
-        private static string buildConfiguration = "SolutionConfigurationConnection";
+        //private static string buildConfiguration = "SolutionConfigurationConnection";
+        private static string buildConfiguration = "DefaultConnection";
 
         /// <summary>Opens a connection to a database using the definition in Web.Config.
         /// </summary>
