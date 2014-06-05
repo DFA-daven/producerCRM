@@ -41,7 +41,7 @@
             _connection.CreateTable<NewEmailRecipient>();
 
             //// initialize the UserIdentity -- local XML, and record in cloud
-            //_userIdentityService = userIdentityService;
+            _userIdentityService = userIdentityService;
         }
 
         /// <summary>Opens the SQLite database, adds <see cref="ReasonCode[]"/> to the <see cref="Models.StoredProducerVisitReport"/>, and 
@@ -117,20 +117,35 @@
         }
 
         /// <inheritdoc/>
-        public List<string> GetPvrEmailName()
+        public string GetEmailAddress(string emailName)
         {
-
-            return new List<string>(new[]
-                {
-                    "empty list",
-                });
+            string result = "matching email name";
+            return result;
         }
 
         /// <inheritdoc/>
-        public List<NewEmailRecipient> GetPvrEmailAddressAndName()
+        public string GetEmailName(string emailAddress)
+        {
+            string result = "matching.email@address";
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public List<NewEmailRecipient> GetEmailAddressesAndNames()
         {
             var recipients = _connection.Table<NewEmailRecipient>().ToList();
             return recipients;
+        }
+
+        /// <inheritdoc/>
+        public void UpdateRecipients(List<NewEmailRecipient> emailAddessesAndNames)
+        {
+            // drop the existing table
+
+            // BROKEN: DropTable? Seriously?
+            _connection.DropTable<NewEmailRecipient>();
+            _connection.CreateTable<NewEmailRecipient>();
+            _connection.InsertAll(emailAddessesAndNames);
         }
 
         /// <inheritdoc/>

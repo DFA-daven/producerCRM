@@ -58,7 +58,7 @@ namespace CallForm.Core.ViewModels
             CallType = CallTypes.First();
 
             //BuiltinEmailRecipients = webDataService.GetPvrEmailRecipients();
-            BuiltinEmailRecipients = webDataService.GetPvrEmailName();
+            BuiltinEmailRecipients = webDataService.GetEmailNames();
 
             Date = DateTime.Now.Date;
             ActualTime = DateTime.Now;

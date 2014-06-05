@@ -47,6 +47,10 @@
         private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
         //private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
 
+        private static string _dataFolderPathName = "Data";
+        private static string _reasonCodeFileName = "ReasonCodes.xml";
+        private static string _callTypeFileName = "CallTypes.xml";
+        private static string _emailRecipientFileName = "EmailRecipients.xml";
 
         /// <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="dataService"/>.
         /// </summary>
@@ -90,9 +94,9 @@
         /// <inheritdoc/>
         public List<string> GetCallTypes()
         {
-            _fileStore.EnsureFolderExists("Data");
+            _fileStore.EnsureFolderExists(_dataFolderPathName);
             string xml = string.Empty;
-            var callTypesFilename = _fileStore.PathCombine("Data", "CallTypes.xml");
+            var callTypesFilename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
             if (_fileStore.Exists(callTypesFilename) && _fileStore.TryReadTextFile(callTypesFilename, out xml))
             {
                 return Deserialize<List<string>>(xml);
@@ -118,19 +122,20 @@
         }
 
         /// <inheritdoc/>
-        public List<string> GetPvrEmailName()
+        public List<string> GetEmailNames()
         {
             //// note: see GetCallTypes()
             //return _dataService.GetPvrEmailRecipients();
 
-            _fileStore.EnsureFolderExists("Data");
+            _fileStore.EnsureFolderExists(_dataFolderPathName);
             string xml = string.Empty;
-            var emailsFilename = _fileStore.PathCombine("Data", "Emails.xml");
+            var emailsFilename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
             if (_fileStore.Exists(emailsFilename) && _fileStore.TryReadTextFile(emailsFilename, out xml))
             {
                 //return Deserialize<List<string>>(xml);
 
                 // hack: only returning single column data for now
+                // note: "Recipients Not Listed" is hard-coded in NewVisit_View
                 return new List<string>(new[]
                 {
                     "SemiStaticWDS, GetPvrEmailName(): file found",
@@ -151,14 +156,14 @@
         }
 
         /// <inheritdoc/>
-        public List<NewEmailRecipient> GetPvrEmailAddressAndName()
+        public List<NewEmailRecipient> GetEmailAddressesAndNames()
         {
             // note: see GetCallTypes()
-            return _dataService.GetPvrEmailAddressAndName();
+            return _dataService.GetEmailAddressesAndNames();
 
-            //_fileStore.EnsureFolderExists("Data");
+            //_fileStore.EnsureFolderExists(_dataFolderPathName);
             //string xml = string.Empty;
-            //var emailsFilename = _fileStore.PathCombine("Data", "Emails.xml");
+            //var emailsFilename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
             //if (_fileStore.Exists(emailsFilename) && _fileStore.TryReadTextFile(emailsFilename, out xml))
             //{
             //    //return Deserialize<List<string>>(xml);
@@ -198,10 +203,10 @@
                 _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
                     response => 
                     {
-                        _dataService.UpdateReasons(response.Result);
-                        //_fileStore.EnsureFolderExists("Data");
-                        //var filename = _fileStore.PathCombine("Data", "Reasons.xml");
-                        //_fileStore.WriteFile(filename, Serialize(response.Result));
+                       // _dataService.UpdateReasons(response.Result);
+                        _fileStore.EnsureFolderExists(_dataFolderPathName);
+                        var filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
+                        _fileStore.WriteFile(filename, Serialize(response.Result));
                     },
                     exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
 
@@ -211,22 +216,23 @@
                 _jsonRestClient.MakeRequestFor<List<string>>(request,
                     response =>
                     {
-                        _fileStore.EnsureFolderExists("Data");
-                        var filename = _fileStore.PathCombine("Data", "CallTypes.xml");
+                        _fileStore.EnsureFolderExists(_dataFolderPathName);
+                        var filename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
                         _fileStore.WriteFile(filename, Serialize(response.Result));
                     },
                     exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
 
                 // request Email Recipients from the web service, and save them on-device
                 //request = new MvxRestRequest(_targetURL + "/Visit/pvrEmailRecipients/");
-                request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
+                request = new MvxRestRequest(_targetURL + "/Visit/NewEmailRecipients/");
 
                 // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
-                _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
+                _jsonRestClient.MakeRequestFor<List<NewEmailRecipient>>(request,
                     response =>
                     {
-                        _fileStore.EnsureFolderExists("Data");
-                        var filename = _fileStore.PathCombine("Data", "Emails.xml");
+                       // _dataService.UpdateRecipients(response.Result);
+                        _fileStore.EnsureFolderExists(_dataFolderPathName);
+                        var filename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
                         _fileStore.WriteFile(filename, Serialize(response.Result));
                     },
                     exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });

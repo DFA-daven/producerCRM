@@ -113,16 +113,26 @@ namespace CallForm.Core.Services
         /// <inheritdoc/>
         public UserIdentity GetSavedIdentity()
         {
+            UserIdentity savedUser = new UserIdentity();
+            savedUser.AssetTag = string.Empty;
+            savedUser.UserEmail = "unknown";
+            savedUser.DeviceID = "unknown";
+
             var filename = _fileStore.PathCombine("Data", "Identity.xml");
             string xml = string.Empty;
             if (_fileStore.Exists(filename)) 
             {
                 if (_fileStore.TryReadTextFile(filename, out xml))
                 {
-                    return SemiStaticWebDataService.Deserialize<UserIdentity>(xml);
+                    savedUser = SemiStaticWebDataService.Deserialize<UserIdentity>(xml);
                 }
             }
-            return null;
+            else
+            {
+                SaveIdentity(savedUser);
+            }
+
+            return savedUser;
         }
         #endregion
 

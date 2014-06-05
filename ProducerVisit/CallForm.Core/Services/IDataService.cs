@@ -52,14 +52,24 @@ namespace CallForm.Core.Services
         /// <param name="reasonCodes">A <see cref="List"/> of new <see cref="ReasonCode"/>.</param>
         void UpdateReasons(List<ReasonCode> reasonCodes);
 
+        /// <summary>Opens the SQLite database, gets the Email Address.
+        /// </summary>
+        /// <returns>The Email Address for the given Display Name.</returns>
+        string GetEmailAddress(string emailName);
+
         /// <summary>Opens the SQLite database, gets the Display Name.
         /// </summary>
-        /// <returns>A <see cref="List"/> of <see cref="string"/>.</returns>
-        List<string> GetPvrEmailName();
+        /// <returns>The Display Name for the given email address.</returns>
+        string GetEmailName(string emailAddress);
 
-        /// <summary>Opens the SQLite database, gets the <see cref="NewEmailRecipient"/>.
+        /// <summary>Opens the SQLite database, gets all <see cref="NewEmailRecipient"/>.
         /// </summary>
         /// <returns>A <see cref="List"/> of <see cref="NewEmailRecipient"/>.</returns>
-        List<NewEmailRecipient> GetPvrEmailAddressAndName();
+        List<NewEmailRecipient> GetEmailAddressesAndNames();
+
+        /// <summary>Opens the SQLite database, replaces the "NewEmailRecipient" table with <paramref name="reasonCodes"/>.
+        /// </summary>
+        /// <param name="emailAddressAndName">A <see cref="List"/> of new <see cref="NewEmailRecipient"/>.</param>
+        void UpdateRecipients(List<NewEmailRecipient> emailAddressAndName);
     }
 }

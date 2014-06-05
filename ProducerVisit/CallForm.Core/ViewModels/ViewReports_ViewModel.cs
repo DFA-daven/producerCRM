@@ -89,11 +89,12 @@
             // note: CallForm.Core starts here!
             base.Start();
 
+            // broken: commenting this out reveals there is another problem (in addition to userid)
             // review: does this always require a call to the Connection? (even if local data exists?)
-            if (!_userIdentityService.IdentityRecorded)
-            {
-                ShowViewModel<UserIdentity_ViewModel>();
-            }
+            //if (!_userIdentityService.IdentityRecorded)
+            //{
+            //    ShowViewModel<UserIdentity_ViewModel>();
+            //}
         }
 
         private void ParseResponse(MvxRestResponse response)
