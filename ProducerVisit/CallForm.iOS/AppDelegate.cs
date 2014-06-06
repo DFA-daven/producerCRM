@@ -10,11 +10,18 @@ using System;
 
 namespace CallForm.iOS
 {
+    /// <summary>Creates an AppDelegate for CallForm.iOS.</summary>
+    /// <remarks>This Class is called from Main.cs, and in turn calls Setup.cs.</remarks>
     [Register("AppDelegate")]
     public partial class AppDelegate : MvxApplicationDelegate
     {
         UIWindow _window;
-        
+
+        /// <summary>Define FinishedLaunching actions for the AppDelegate (including initializing, and starting the App).
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             // System.Console.WriteLine("App entered FinishedLaunching.");
@@ -23,6 +30,7 @@ namespace CallForm.iOS
 
             // initialize the app for single single screen display
             var presenter = new MvxModalSupportTouchViewPresenter(this, _window);
+
             // FixMe: use this after fixing UserIdentityView.cs
             //var setup = new Setup(this, presenter);
             var setup = new Setup(this, _window);
@@ -31,6 +39,8 @@ namespace CallForm.iOS
             // start the app
             //var start = this.GetService<ImvxStartNavigation>();
             var startup = Mvx.Resolve<IMvxAppStart>();
+
+            // launch the App via the IMvxAppStart interface -- CallForm.Core.ViewModels.ViewReports_ViewModel.Start
             startup.Start();
             
 
@@ -75,6 +85,7 @@ namespace CallForm.iOS
         {
             System.Console.WriteLine("ReceivedLocalNotification: " + notification.Description); 
         }
+
         // not guaranteed that this will run
         public override void WillTerminate(UIApplication application)
         {

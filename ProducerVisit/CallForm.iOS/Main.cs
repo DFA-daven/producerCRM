@@ -1,18 +1,24 @@
-﻿using System;
+﻿using Cirrious.CrossCore;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 //using CallForm.Core.ViewModels;
-using Cirrious.CrossCore;
 
+// note: check which of these "usings" are required. 
+// MonoTouch.UIKit is the only one needed to build, but the application doesn't work without the others. 
+// This could either be an issue that Clean/Rebuild could fix, or it may be that the "usings" loaded here
+// are inherited by the App.
+    
 
-    using MonoTouch.Foundation;
-    using MonoTouch.UIKit;
 
 namespace CallForm.iOS
 {
     public class Application
     {
-        // This is the main entry point of the application.
+        // This is the main entry point of the application. Control moves from here to AppDelegate.
         static void Main(string[] args)
         {
             bool hostWasReachable = false;

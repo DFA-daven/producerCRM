@@ -9,6 +9,9 @@ using Cirrious.MvvmCross.Touch.Platform;
 
 namespace CallForm.iOS
 {
+    /// <summary>
+    /// </summary>
+    /// <remarks>This Class is called from AppDelegate.cs, and in turn calls CallForm.Core.App.</remarks>
 	public class Setup : MvxTouchSetup
 	{
 
@@ -22,16 +25,19 @@ namespace CallForm.iOS
             return new MvxProducerVisitTouchViewPresenter(ApplicationDelegate, Window);
 	    }
 
+        /// <summary>Creates a new instance of the App.
+        /// </summary>
+        /// <returns></returns>
 	    protected override IMvxApplication CreateApp ()
 		{
 			return new Core.App();
 		}
 		
         // broken: using this seems to cause the app to crash
-        protected override IMvxTrace CreateDebugTrace()
-        {
-            return new DebugTrace();
-        }
+        //protected override IMvxTrace CreateDebugTrace()
+        //{
+        //    return new DebugTrace();
+        //}
 	}
 
     public class MvxProducerVisitTouchViewPresenter : MvxTouchViewPresenter

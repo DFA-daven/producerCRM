@@ -2,8 +2,13 @@ using Cirrious.CrossCore.IoC;
 
 namespace CallForm.Core
 {
+    /// <summary>Creates an instance of the App. 
+    /// </summary>
+    /// <remarks>This Class is called from CallForm.iOS.Setup.</remarks>
     public class App : Cirrious.MvvmCross.ViewModels.MvxApplication
     {
+        /// <summary>Defines the App Start point as ViewReports_ViewModel.
+        /// </summary>
         public override void Initialize()
         {
             CreatableTypes()

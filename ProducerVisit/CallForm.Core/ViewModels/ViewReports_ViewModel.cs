@@ -52,7 +52,8 @@
                 Loading = false;
 
                 // Hack: commenting out the Update() seems to prevent the Airplane Mode error
-                webDataService.Update();
+                // broken: is it just too early to be updating???
+                webDataService.Update()
             }
             catch (Exception exc)
             {
@@ -89,12 +90,12 @@
             // note: CallForm.Core starts here!
             base.Start();
 
-            // broken: commenting this out reveals there is another problem (in addition to userid)
+            // broken: commenting this out reveals there is another problem (in addition to UserIdentity)
             // review: does this always require a call to the Connection? (even if local data exists?)
-            //if (!_userIdentityService.IdentityRecorded)
-            //{
-            //    ShowViewModel<UserIdentity_ViewModel>();
-            //}
+            if (!_userIdentityService.IdentityRecorded)
+            {
+                ShowViewModel<UserIdentity_ViewModel>();
+            }
         }
 
         private void ParseResponse(MvxRestResponse response)
