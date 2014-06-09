@@ -85,7 +85,7 @@ namespace CallForm.Core.ViewModels
                         AssetTag = AssetTag ?? string.Empty
                     };
 
-                    _userIdentityService.SaveIdentity(id);
+                    _userIdentityService.UpdateIdentity(id);
 
                     Close(this);
                 }

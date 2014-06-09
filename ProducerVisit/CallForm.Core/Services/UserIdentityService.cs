@@ -14,6 +14,10 @@ namespace CallForm.Core.Services
         /// </summary>
         private readonly IMvxFileStore _fileStore;
 
+        private Boolean _identityRecorded = false;
+        private static string _dataFolderPathName = "Data";
+        private static string _userIdentityFileName = "Identity.xml";
+
         /// <summary>An instance of the <see cref="IMvxRestClient"/>.
         /// </summary>
         private readonly IMvxRestClient _restClient;
@@ -23,7 +27,6 @@ namespace CallForm.Core.Services
         //private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
         private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
         //private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
-
 
         /// <summary>Provides access to the <paramref name="fileStore"/> and <paramref name="restClient"/>.
         /// </summary>
@@ -40,53 +43,78 @@ namespace CallForm.Core.Services
         /// <inheritdoc/>
         public bool IdentityRecorded
         {
-            get
+            get 
             {
-                bool foundIdentityFile = false;
-
-                try
-                {
-                    // FixMe: this should be using Documents .. Library as the location 
-                    // note: the current top level directory location may be breaking app signature, and risks not being copied btwn app versions.
-
-                    // create folder if not found
-                    _fileStore.EnsureFolderExists("Data"); 
-
-                    var filename = _fileStore.PathCombine("Data", "Identity.xml");
-                    foundIdentityFile = _fileStore.Exists(filename);
-                }
-                catch (Exception)
-                {
-                    // FixMe: Fail silently
-                }
-
-                return foundIdentityFile;
+                return _identityRecorded;
+            }
+            set
+            {
+                _identityRecorded = value;
             }
         }
 
         /// <inheritdoc/>
-        public void SaveIdentity(UserIdentity identity)
+        public UserIdentity GetIdentity()
+        {
+            UserIdentity savedUser = new UserIdentity();
+
+            // ToDo: get identify based on the device ID
+            savedUser = GetSavedIdentity();
+
+            return savedUser;
+        }
+
+        /// <inheritdoc/>
+        public void UpdateIdentity(UserIdentity identity)
         {
             SaveIdentityToFile(identity);
 
-            SaveIdentityToWebService(identity);
+            //SaveIdentityToWebService(identity);
+        }
+        #endregion
+
+        private UserIdentity GetSavedIdentity()
+        {
+            UserIdentity savedUser = new UserIdentity();
+
+            _fileStore.EnsureFolderExists(_dataFolderPathName);
+
+            var userIdentityFilename = _fileStore.PathCombine(_dataFolderPathName, _userIdentityFileName);
+            string xml = string.Empty;
+            if (_fileStore.Exists(userIdentityFilename))
+            {
+                if (_fileStore.TryReadTextFile(userIdentityFilename, out xml))
+                {
+                    savedUser = SemiStaticWebDataService.Deserialize<UserIdentity>(xml);
+                }
+            }
+            else
+            {
+                savedUser = CreateIdentity();
+            }
+
+            return savedUser;
         }
 
         private void SaveIdentityToFile(UserIdentity identity)
         {
             try
             {
-                if (!IdentityRecorded)
-                {
-                    _fileStore.EnsureFolderExists("Data");
-                    var filename = _fileStore.PathCombine("Data", "Identity.xml");
+                //if (!IdentityRecorded)
+                //{
+                    _fileStore.EnsureFolderExists(_dataFolderPathName);
+                    var filename = _fileStore.PathCombine(_dataFolderPathName, _userIdentityFileName);
                     _fileStore.WriteFile(filename, SemiStaticWebDataService.Serialize(identity));
-                }
+                //}
             }
             catch
             {
                 // FixMe: just ignore any errors for now
                 throw;
+            }
+            finally
+            {
+                IdentityRecorded = true;
             }
         }
 
@@ -109,32 +137,18 @@ namespace CallForm.Core.Services
                 throw;
             }
         }
-        
-        /// <inheritdoc/>
-        public UserIdentity GetSavedIdentity()
+
+        private UserIdentity CreateIdentity()
         {
-            UserIdentity savedUser = new UserIdentity();
-            savedUser.AssetTag = string.Empty;
-            savedUser.UserEmail = "unknown";
-            savedUser.DeviceID = "unknown";
+            UserIdentity newUser = new UserIdentity();
+            newUser.AssetTag = string.Empty;
+            newUser.UserEmail = string.Empty;
+            newUser.DeviceID = string.Empty;
 
-            var filename = _fileStore.PathCombine("Data", "Identity.xml");
-            string xml = string.Empty;
-            if (_fileStore.Exists(filename)) 
-            {
-                if (_fileStore.TryReadTextFile(filename, out xml))
-                {
-                    savedUser = SemiStaticWebDataService.Deserialize<UserIdentity>(xml);
-                }
-            }
-            else
-            {
-                SaveIdentity(savedUser);
-            }
+            SaveIdentityToFile(newUser);
 
-            return savedUser;
+            return newUser;
         }
-        #endregion
 
         private void ParseResponse(MvxRestResponse obj)
         {

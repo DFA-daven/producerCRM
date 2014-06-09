@@ -31,8 +31,15 @@
         private bool _loading;
         private ReportListItem _selectedReport;
         private MvxCommand _viewReportCommand;
-        
-        // review: 
+
+        /// <summary>Creates an instance of <see cref="ViewReports_ViewModel"/>.
+        /// </summary>
+        /// <param name="jsonRestClient"></param>
+        /// <param name="jsonConverter"></param>
+        /// <param name="dataService"></param>
+        /// <param name="restClient"></param>
+        /// <param name="webDataService"></param>
+        /// <param name="userIdentityService"></param>
         public ViewReports_ViewModel(
             IMvxJsonRestClient jsonRestClient,
             IMvxJsonConverter jsonConverter,
@@ -41,25 +48,30 @@
             ISemiStaticWebDataService webDataService,
             IUserIdentityService userIdentityService)
         {
-            try
-            {
+            //try
+            //{
                 _jsonRestClient = jsonRestClient;
                 _jsonConverter = jsonConverter;
                 _dataService = dataService;
                 _restClient = restClient;
+
                 _userIdentityService = userIdentityService;
-                Reports = _dataService.Recent();
+                userIdentityService.GetIdentity();
+
+                // broken: this requires an existing UserIdentity -- but on the first start there is no UserIdentity...
+                // Reports = _dataService.Recent();
                 Loading = false;
 
                 // Hack: commenting out the Update() seems to prevent the Airplane Mode error
                 // broken: is it just too early to be updating???
-                webDataService.Update()
-            }
-            catch (Exception exc)
-            {
-                // FixMe: add proper error handling
-                Error(this, new ErrorEventArgs { Message = exc.Message });
-            }
+                
+                webDataService.Update();
+            //}
+            //catch (Exception exc)
+            //{
+            //    // FixMe: add proper error handling
+            //    Error(this, new ErrorEventArgs { Message = exc.Message });
+            //}
         }
 
         public event EventHandler<ErrorEventArgs> Error;
@@ -94,7 +106,10 @@
             // review: does this always require a call to the Connection? (even if local data exists?)
             if (!_userIdentityService.IdentityRecorded)
             {
-                ShowViewModel<UserIdentity_ViewModel>();
+                // broken: is IdentityRecorded causing the failure?
+
+                // Note: open the User Identity page (to capture the missing information)
+                // ShowViewModel<UserIdentity_ViewModel>();
             }
         }
 
@@ -112,6 +127,8 @@
             }
         }
 
+        /// <summary>Open the <see cref="NewVisit_ViewModel"/> view.
+        /// </summary>
         protected void DoNewVisitCommand()
         {
             ShowViewModel<NewVisit_ViewModel>(new NewVisitInit {MemberNumber = string.Empty});
@@ -200,7 +217,6 @@
             }
         }
 
-
         public ReportListItem SelectedReport
         {
             get { return _selectedReport; }
@@ -210,7 +226,6 @@
                 RaisePropertyChanged(() => SelectedReport);
             }
         }
-
 
         public ICommand ViewReportCommand
         {

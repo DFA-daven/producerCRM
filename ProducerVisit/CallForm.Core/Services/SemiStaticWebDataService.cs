@@ -198,49 +198,65 @@
             {
                 // FixMe: errors down at this level are not presented to the UI. add an error log?
                 // review: how often are these tables going to be changing? do we really need to pull the fresh list every time?
-                // request Reason Codes from the web service, and save them on-device
-                var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
-                _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
-                    response => 
-                    {
-                       // _dataService.UpdateReasons(response.Result);
-                        _fileStore.EnsureFolderExists(_dataFolderPathName);
-                        var filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
-                        _fileStore.WriteFile(filename, Serialize(response.Result));
-                    },
-                    exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
 
-                // request Call Types from the web service, and save them on-device
-                request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
-                // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
-                _jsonRestClient.MakeRequestFor<List<string>>(request,
-                    response =>
-                    {
-                        _fileStore.EnsureFolderExists(_dataFolderPathName);
-                        var filename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
-                        _fileStore.WriteFile(filename, Serialize(response.Result));
-                    },
-                    exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
+                UpdateReasonCodes();
 
-                // request Email Recipients from the web service, and save them on-device
-                //request = new MvxRestRequest(_targetURL + "/Visit/pvrEmailRecipients/");
-                request = new MvxRestRequest(_targetURL + "/Visit/NewEmailRecipients/");
+                UpdateCallTypes();
 
-                // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
-                _jsonRestClient.MakeRequestFor<List<NewEmailRecipient>>(request,
-                    response =>
-                    {
-                       // _dataService.UpdateRecipients(response.Result);
-                        _fileStore.EnsureFolderExists(_dataFolderPathName);
-                        var filename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
-                        _fileStore.WriteFile(filename, Serialize(response.Result));
-                    },
-                    exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
+                //UpdateEmailRecipients();
             }
             catch (Exception exc)
             {
                 Error(this, new ErrorEventArgs { Message = exc.Message });
             }
+        }
+
+        private void UpdateCallTypes()
+        {
+            // request Call Types from the web service, and save them on-device
+            var request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
+            // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
+            _jsonRestClient.MakeRequestFor<List<string>>(request,
+                response =>
+                {
+                    _fileStore.EnsureFolderExists(_dataFolderPathName);
+                    var filename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
+                    _fileStore.WriteFile(filename, Serialize(response.Result));
+                },
+                exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
+        }
+
+        private void UpdateEmailRecipients()
+        {
+            // request Email Recipients from the web service, and save them on-device
+            //request = new MvxRestRequest(_targetURL + "/Visit/pvrEmailRecipients/");
+            var request = new MvxRestRequest(_targetURL + "/Visit/NewEmailRecipients/");
+
+            // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
+            _jsonRestClient.MakeRequestFor<List<NewEmailRecipient>>(request,
+                response =>
+                {
+                    // _dataService.UpdateRecipients(response.Result);
+                    _fileStore.EnsureFolderExists(_dataFolderPathName);
+                    var filename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
+                    _fileStore.WriteFile(filename, Serialize(response.Result));
+                },
+                exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
+        }
+
+        private void UpdateReasonCodes()
+        {
+            // request Reason Codes from the web service, and save them on-device
+            var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
+            _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
+                response =>
+                {
+                    // _dataService.UpdateReasons(response.Result);
+                    _fileStore.EnsureFolderExists(_dataFolderPathName);
+                    var filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
+                    _fileStore.WriteFile(filename, Serialize(response.Result));
+                },
+                exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
         }
         #endregion
 

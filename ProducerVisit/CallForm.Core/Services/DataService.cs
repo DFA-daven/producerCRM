@@ -25,7 +25,7 @@
         /// <param name="userIdentityService">The <see cref="IUserIdentityService"/>.</param>
         public DataService(ISQLiteConnectionFactory factory, IUserIdentityService userIdentityService)
         {
-            string address = "one.sql";
+            string address = "local.sql";
             _connection = factory.Create(address);
 
             // create a table of type StoredProducerVisitReport
@@ -40,8 +40,7 @@
             // create a table of type NewEmailRecipient
             _connection.CreateTable<NewEmailRecipient>();
 
-            //// initialize the UserIdentity -- local XML, and record in cloud
-            _userIdentityService = userIdentityService;
+
         }
 
         /// <summary>Opens the SQLite database, adds <see cref="ReasonCode[]"/> to the <see cref="Models.StoredProducerVisitReport"/>, and 
@@ -88,7 +87,7 @@
                     return new ReportListItem
                     {
                         ID = storedProducerVisitReport.ID,
-                        UserEmail = _userIdentityService.IdentityRecorded ? _userIdentityService.GetSavedIdentity().UserEmail : "You",
+                        UserEmail = _userIdentityService.IdentityRecorded ? _userIdentityService.GetIdentity().UserEmail : "You",
                         MemberNumber = producerVisitReport.MemberNumber,
                         Local = true,
                         PrimaryReasonCode = producerVisitReport.ReasonCodes != null && producerVisitReport.ReasonCodes.Length > 0 ? producerVisitReport.ReasonCodes[0] : new ReasonCode { Name = "Other", Code = -1 },
