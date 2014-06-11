@@ -40,6 +40,8 @@ namespace CallForm.Core.ViewModels
         private bool _editing;
         private byte[] _pictureBytes;
         private MvxCommand _takePictureCommand;
+
+        /// <summary>the email recipients selected by the user</summary>
         private List<string> _nvvmemailRecipients;
 
         public NewVisit_ViewModel(
@@ -58,7 +60,7 @@ namespace CallForm.Core.ViewModels
             CallType = CallTypes.First();
 
             //BuiltinEmailRecipients = webDataService.GetPvrEmailRecipients();
-            BuiltinEmailRecipients = webDataService.GetEmailNames();
+            BuiltinEmailRecipients = webDataService.GetEmailDisplayNames();
 
             Date = DateTime.Now.Date;
             ActualTime = DateTime.Now;

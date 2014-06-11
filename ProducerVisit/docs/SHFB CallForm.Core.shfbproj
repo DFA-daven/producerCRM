@@ -123,6 +123,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Deploy instructions.txt" />
+    <Content Include="Simulator instructions.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="no errors.png">

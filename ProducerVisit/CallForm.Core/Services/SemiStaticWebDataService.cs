@@ -88,18 +88,126 @@
         public List<ReasonCode> GetReasonsForCall()
         {
             // note: see GetCallTypes()
+            // broken: fix CallTypes first.
             return _dataService.GetReasonsForCall();
         }
 
         /// <inheritdoc/>
         public List<string> GetCallTypes()
         {
-            _fileStore.EnsureFolderExists(_dataFolderPathName);
+            // note: USE THIS METHOD AS A MODEL FOR THE OTHER PULL-DOWNS. DON'T DELETE THESE COMMENTS UNTIL THE OTHERS ARE RE-FACTORED.
+            // note: The XML file will be missing (locally) on the first run.
+
+            List<string> callTypes = new List<string>(new[]
+                {
+                    "initialized"
+                });
+
             string xml = string.Empty;
             var callTypesFilename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
-            if (_fileStore.Exists(callTypesFilename) && _fileStore.TryReadTextFile(callTypesFilename, out xml))
+
+            _fileStore.EnsureFolderExists(_dataFolderPathName);
+
+            if (_fileStore.TryReadTextFile(callTypesFilename, out xml))
             {
-                return Deserialize<List<string>>(xml);
+                callTypes =  Deserialize<List<string>>(xml);
+            }
+            else
+            {
+                callTypes.Clear();
+            }
+
+            // double-check that we got some result
+            if (callTypes.Count < 1)
+            {
+                callTypes.Add("Error: count < 1");
+            }
+
+            return callTypes;
+        }
+
+        /// <inheritdoc/>
+        public string GetEmailAddress(string emailName)
+        {
+            string result = "matching email name";
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public string GetEmailName(string emailAddress)
+        {
+            string result = "matching email address";
+            return result;
+        }
+
+        ///// <inheritdoc/>
+        //public List<NewEmailRecipient> GetEmailAddressesAndNames()
+        //{
+        //    NewEmailRecipient email1 = new NewEmailRecipient();
+        //    NewEmailRecipient email2 = new NewEmailRecipient();
+        //    email1.Address = "add1@dl";
+        //    email1.DisplayName = "name one";
+        //    email2.Address = "add2@dl";
+        //    email2.DisplayName = "name two";
+
+        //    // note: see GetCallTypes()
+        //    List<NewEmailRecipient> emailRecipients = new List<NewEmailRecipient>(new[]
+        //        {
+        //            email1,
+        //        });
+
+        //    string xml = string.Empty;
+        //    var callTypesFilename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
+
+        //    _fileStore.EnsureFolderExists(_dataFolderPathName);
+
+        //    if (_fileStore.TryReadTextFile(callTypesFilename, out xml))
+        //    {
+        //        emailRecipients = Deserialize<List<NewEmailRecipient>>(xml);
+        //        // List<int> reasonids = vxrs.Select(vxr => vxr.ReasonID).ToList();
+        //        List<string> test = Serialize<List<NewEmailRecipient>>(xml).sel
+        //    }
+        //    else
+        //    {
+        //        // note: USE THIS AS A MODEL FOR THE OTHER PULL-DOWNS. DON'T DELETE THESE COMMENTS UNTIL THE OTHERS ARE RE-FACTORED.
+        //        // note: This file will be missing (locally) on the first run.
+        //        // todo: get this list from the web service.
+
+        //        // todo: Move the default content to BackEnd. Only create if the database is being initially created (don't overwrite).
+        //        emailRecipients = new List<NewEmailRecipient>(new[]
+        //        {
+        //            email2,
+        //        });
+        //    }
+
+        //    return emailRecipients;
+        //}
+
+        /// <inheritdoc/>
+        public List<string> GetEmailDisplayNames()
+        {
+            NewEmailRecipient email1 = new NewEmailRecipient();
+            NewEmailRecipient email2 = new NewEmailRecipient();
+            email1.Address = "add1@dl";
+            email1.DisplayName = "name one";
+            email2.Address = "add2@dl";
+            email2.DisplayName = "name two";
+
+            // note: see GetCallTypes()
+            List<string> emailDisplayNames = new List<string>(new[]
+                {
+                    email1.ToString(),
+                });
+
+            string xml = string.Empty;
+            var callTypesFilename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
+
+            _fileStore.EnsureFolderExists(_dataFolderPathName);
+
+            if (_fileStore.TryReadTextFile(callTypesFilename, out xml))
+            {
+                List<NewEmailRecipient> emailRecipients = Deserialize<List<NewEmailRecipient>>(xml);
+                //emailDisplayNames = List<string>
             }
             else
             {
@@ -108,102 +216,28 @@
                 // todo: get this list from the web service.
 
                 // todo: Move the default content to BackEnd. Only create if the database is being initially created (don't overwrite).
-                return new List<string>(new[]
+                emailDisplayNames = new List<string>(new[]
                 {
-                    "SemiStatic",
-                    "Phone Call",
-                    "Email",
-                    "Farm Visit",
-                    "Farm Show",
-                    "SMS (Text Msg.)",
-                    "Other"
-                });
-            }
-        }
-
-        /// <inheritdoc/>
-        public List<string> GetEmailNames()
-        {
-            //// note: see GetCallTypes()
-            //return _dataService.GetPvrEmailRecipients();
-
-            _fileStore.EnsureFolderExists(_dataFolderPathName);
-            string xml = string.Empty;
-            var emailsFilename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
-            if (_fileStore.Exists(emailsFilename) && _fileStore.TryReadTextFile(emailsFilename, out xml))
-            {
-                //return Deserialize<List<string>>(xml);
-
-                // hack: only returning single column data for now
-                // note: "Recipients Not Listed" is hard-coded in NewVisit_View
-                return new List<string>(new[]
-                {
-                    "SemiStaticWDS, GetPvrEmailName(): file found",
-                    "FieldStaffNotification-Payroll@dairylea.com",
-                    "Recipients Not Listed"
+                    email2.ToString(),
                 });
             }
 
-            // note: see GetCallTypes()
-            else
-            {
-                // hack: only returning single column data for now
-                return new List<string>(new[]
-                {
-                    "SemiStaticWDS, GetPvrEmailName(): no file",
-                });
-            }
-        }
-
-        /// <inheritdoc/>
-        public List<NewEmailRecipient> GetEmailAddressesAndNames()
-        {
-            // note: see GetCallTypes()
-            return _dataService.GetEmailAddressesAndNames();
-
-            //_fileStore.EnsureFolderExists(_dataFolderPathName);
-            //string xml = string.Empty;
-            //var emailsFilename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
-            //if (_fileStore.Exists(emailsFilename) && _fileStore.TryReadTextFile(emailsFilename, out xml))
-            //{
-            //    //return Deserialize<List<string>>(xml);
-
-            //    // hack: only returning single column data for now
-            //    return new List<string>(new[]
-            //    {
-            //        "SemiStaticWebDataService, GetPvrEmailRecipients(): file found",
-            //        "FieldStaffNotification-Payroll@dairylea.com",
-            //        "Recipients Not Listed"
-            //    });
-            //}
-
-            //// note: see GetCallTypes()
-            //else
-            //{
-            //    // hack: only returning single column data for now
-            //    return new List<string>(new[]
-            //    {
-            //        "SemiStaticWebDataService, GetPvrEmailRecipients(): no file",
-            //        "FieldStaffNotification-Payroll@dairylea.com",
-            //        "Recipients Not Listed"
-            //    });
-            //}
+            return emailDisplayNames;
         }
 
         /// <inheritdoc/>
         public void Update()
         {
-            // note: the "Reasons" part of "/Visit/Reasons/" is handled in BackEnd.Controllers.VisitController.cs
             try
             {
                 // FixMe: errors down at this level are not presented to the UI. add an error log?
                 // review: how often are these tables going to be changing? do we really need to pull the fresh list every time?
 
-                UpdateReasonCodes();
+                UpdateLocalReasons();
 
-                UpdateCallTypes();
+                UpdateLocalCallTypes();
 
-                //UpdateEmailRecipients();
+                //UpdateLocalEmailRecipients();
             }
             catch (Exception exc)
             {
@@ -211,11 +245,13 @@
             }
         }
 
-        private void UpdateCallTypes()
+        /// <summary>Request CallTypes from the web service, and save them on-device.
+        /// </summary>
+        /// <remarks>The "CallTypes" part of "/Visit/CallTypes/" is handled in BackEnd.Controllers.VisitController.cs.</remarks>
+        private void UpdateLocalCallTypes()
         {
-            // request Call Types from the web service, and save them on-device
             var request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
-            // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
+
             _jsonRestClient.MakeRequestFor<List<string>>(request,
                 response =>
                 {
@@ -226,13 +262,13 @@
                 exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
         }
 
-        private void UpdateEmailRecipients()
+        /// <summary>Request Email Recipients from the web service, and save them on-device.
+        /// </summary>
+        /// <remarks>The "NewEmailRecipients" part of "/Visit/NewEmailRecipients/" is handled in BackEnd.Controllers.VisitController.cs.</remarks>
+        private void UpdateLocalEmailRecipients()
         {
-            // request Email Recipients from the web service, and save them on-device
-            //request = new MvxRestRequest(_targetURL + "/Visit/pvrEmailRecipients/");
             var request = new MvxRestRequest(_targetURL + "/Visit/NewEmailRecipients/");
 
-            // FixMe: this table doesn't exist on the web-service, so this is constantly creating an error 
             _jsonRestClient.MakeRequestFor<List<NewEmailRecipient>>(request,
                 response =>
                 {
@@ -244,9 +280,11 @@
                 exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
         }
 
-        private void UpdateReasonCodes()
+        /// <summary>Request (visit) Reasons from the web service, and save them on-device.
+        /// </summary>
+        /// <remarks>The "Reasons" part of "/Visit/Reasons/" is handled in BackEnd.Controllers.VisitController.cs</remarks>
+        private void UpdateLocalReasons()
         {
-            // request Reason Codes from the web service, and save them on-device
             var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
             _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
                 response =>

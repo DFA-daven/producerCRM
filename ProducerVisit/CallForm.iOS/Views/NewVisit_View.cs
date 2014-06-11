@@ -74,6 +74,8 @@ namespace CallForm.iOS.Views
 
             (ViewModel as NewVisit_ViewModel).SendEmail += OnSendEmail;
 
+            // Note: the "AsString" method returns a string representation of the UUID. The "ToString" method returns the description (selector).
+            // ToDo:  replace with the advertisingIdentifier property of the ASIdentifierManager class.
             (ViewModel as NewVisit_ViewModel).UserID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 
             SetTableFrameForOrientation(InterfaceOrientation);

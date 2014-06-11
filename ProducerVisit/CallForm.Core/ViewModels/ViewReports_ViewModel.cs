@@ -55,16 +55,13 @@
                 _dataService = dataService;
                 _restClient = restClient;
 
-                _userIdentityService = userIdentityService;
                 userIdentityService.GetIdentity();
+                _userIdentityService = userIdentityService;
 
                 // broken: this requires an existing UserIdentity -- but on the first start there is no UserIdentity...
-                // Reports = _dataService.Recent();
+                Reports = _dataService.Recent();
                 Loading = false;
 
-                // Hack: commenting out the Update() seems to prevent the Airplane Mode error
-                // broken: is it just too early to be updating???
-                
                 webDataService.Update();
             //}
             //catch (Exception exc)
@@ -106,10 +103,8 @@
             // review: does this always require a call to the Connection? (even if local data exists?)
             if (!_userIdentityService.IdentityRecorded)
             {
-                // broken: is IdentityRecorded causing the failure?
-
-                // Note: open the User Identity page (to capture the missing information)
-                // ShowViewModel<UserIdentity_ViewModel>();
+                // open the User Identity page (to capture the missing information)
+                ShowViewModel<UserIdentity_ViewModel>();
             }
         }
 

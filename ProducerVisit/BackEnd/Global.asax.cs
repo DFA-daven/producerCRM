@@ -62,7 +62,8 @@ namespace BackEnd
         /// <remarks>On the first connection to the server, if the specified database does not exist it will be created.</remarks>
         public class SiteDBInitialize : CreateDatabaseIfNotExists<VisitContext>
         {
-            // use the Seed method below to initially populate the database
+            // Note: the Seed (override) method below is used to initially populate the database.
+            // Note: if the tables on the database have no rows, delete the database and publish BackEnd. Seed (override) will populate the tables.
         }
 
         /// <summary>Dangerous. If the database model has changed, Drop/Create a new instance of type <VisitContext>. 

@@ -40,7 +40,10 @@ Publish BackEnd Web Service (and database):
 ----
 Mac
 1. Open Terminal window
-2. run CallForm-resign.sh
-3. copy .ipa from /IPA to /Public
-4. Check plist in .ipa for correct bundle ID
+2. enter "cd" (should be in the home aka ~ directory)" 
+3. run ./CallForm-resign.sh
+4. copy .ipa from /IPA to /Public
+5. Check plist in .ipa for correct bundle ID
+
+The bundle Id set in the CallForm.iOS Project properties must match the Id set in the "resign.sh" script.dave.nouza	wasabi84
 

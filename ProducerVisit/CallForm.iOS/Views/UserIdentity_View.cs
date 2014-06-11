@@ -156,6 +156,9 @@
             // device and subsequently reinstalls one or more of them. Therefore, if your app stores the value of this 
             // property anywhere, you should gracefully handle situations where the identifier changes.
             // http://developer.apple.com/library/ios/documentation/uikit/reference/UIDevice_Class/Reference/UIDevice.html#//apple_ref/occ/instp/UIDevice/identifierForVendor
+
+            // Note: the "AsString" method returns a string representation of the UUID. The "ToString" method returns the description (selector).
+            // ToDo:  replace with the advertisingIdentifier property of the ASIdentifierManager class.
             (ViewModel as UserIdentity_ViewModel).DeviceID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 
             var set = this.CreateBindingSet<UserIdentity_View, UserIdentity_ViewModel>();

@@ -1,0 +1,18 @@
+﻿In order to properly test code changes, both the code in Visual Studio and on the simulator must be refreshed.
+
+If Project A depends on Project B, 
+  * Project B must be rebuilt,
+  * then Project A must be rebuilt,
+  * then the Solution must be rebuilt.
+
+For this Solution, 
+  * CallForm.iOS depends on CallForm.Core (CallForm.iOS also depends on Cirrious.FluentLayouts.Touch and XibFree -- but they don't change).
+  * BackEnd depends on CallForm.Core
+
+The safest course is that if there has been a code change, complete the following steps:
+  * clean the Solution
+  * rebuild CallForm.Core
+  * rebuild CallForm.iOS
+  * rebuild the Solution.
+  * on the Mac, reset the iOS Simulator
+  * in Visual Studio start debugging on the iOS Simulator

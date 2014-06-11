@@ -59,7 +59,7 @@ namespace CallForm.Core.Services
             UserIdentity savedUser = new UserIdentity();
 
             // ToDo: get identify based on the device ID
-            savedUser = GetSavedIdentity();
+            savedUser = GetXmlIdentity();
 
             return savedUser;
         }
@@ -73,7 +73,7 @@ namespace CallForm.Core.Services
         }
         #endregion
 
-        private UserIdentity GetSavedIdentity()
+        private UserIdentity GetXmlIdentity()
         {
             UserIdentity savedUser = new UserIdentity();
 
@@ -100,12 +100,9 @@ namespace CallForm.Core.Services
         {
             try
             {
-                //if (!IdentityRecorded)
-                //{
-                    _fileStore.EnsureFolderExists(_dataFolderPathName);
-                    var filename = _fileStore.PathCombine(_dataFolderPathName, _userIdentityFileName);
-                    _fileStore.WriteFile(filename, SemiStaticWebDataService.Serialize(identity));
-                //}
+                _fileStore.EnsureFolderExists(_dataFolderPathName);
+                var filename = _fileStore.PathCombine(_dataFolderPathName, _userIdentityFileName);
+                _fileStore.WriteFile(filename, SemiStaticWebDataService.Serialize(identity));
             }
             catch
             {
@@ -114,7 +111,7 @@ namespace CallForm.Core.Services
             }
             finally
             {
-                IdentityRecorded = true;
+                //IdentityRecorded = true;
             }
         }
 
