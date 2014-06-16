@@ -5,7 +5,7 @@
 
     /// <summary>An object representing an "EmailRecipient" record.
     /// </summary>
-    public class NewEmailRecipient
+    public class EmailRecipient
     {
         /// <summary>The internal ID for this object.
         /// </summary>
@@ -23,7 +23,7 @@
             set;
         }
 
-        /// <summary>The DisplayName of this <see cref="NewEmailRecipient"/>.
+        /// <summary>The DisplayName of this <see cref="EmailRecipient"/>.
         /// </summary>
         /// <returns>A <see cref="String"/> of the description.</returns>
         public override string ToString()

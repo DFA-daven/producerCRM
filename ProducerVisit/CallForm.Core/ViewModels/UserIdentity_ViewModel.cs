@@ -1,22 +1,33 @@
-﻿using System;
-using System.Windows.Input;
-using CallForm.Core.Models;
-using CallForm.Core.Services;
-using Cirrious.MvvmCross.ViewModels;
-
-namespace CallForm.Core.ViewModels
+﻿namespace CallForm.Core.ViewModels
 {
+    using CallForm.Core.Models;
+    using CallForm.Core.Services;
+    using Cirrious.MvvmCross.ViewModels;
+    using System;
+    using System.Windows.Input;
+
+    /// <summary>Class definition of the User Identity ViewModel.
+    /// </summary>
+    /// <remarks>This is the page for the collecting information about the user.</remarks>
     public class UserIdentity_ViewModel : MvxViewModel
     {
+        #region backing fields
         private readonly IUserIdentityService _userIdentityService;
+        private string _deviceID;
+        private string _userEmail;
+        private string _assetTag;
+        #endregion
 
+        /// <summary>Creates an instance of <see cref="UserIdentity_ViewModel"/>.
+        /// </summary>
+        /// <param name="userIdentityService"></param>
         public UserIdentity_ViewModel(IUserIdentityService userIdentityService)
         {
             _userIdentityService = userIdentityService;
         }
 
-        private string _deviceID;
-
+        /// <summary>The unique Id of the iOS device.
+        /// </summary>
         public string DeviceID
         {
             get { return _deviceID; }
@@ -27,8 +38,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        private string _userEmail;
-
+        /// <summary>The user's email address.
+        /// </summary>
         public string UserEmail
         {
             get { return _userEmail; }
@@ -39,8 +50,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        private string _assetTag;
-
+        /// <summary>The "Asset Tag" assigned to the iOS device.
+        /// </summary>
         public string AssetTag
         {
             get { return _assetTag; }
@@ -53,6 +64,7 @@ namespace CallForm.Core.ViewModels
 
         public event EventHandler<ErrorEventArgs> Error;
 
+        #region Save
         private MvxCommand _saveCommand;
 
         /// <summary>The action for the "OK" / Save button.
@@ -61,6 +73,7 @@ namespace CallForm.Core.ViewModels
         {
             get
             {
+                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
                 _saveCommand = _saveCommand ?? new MvxCommand(DoSaveCommand);
                 return _saveCommand;
             }
@@ -74,6 +87,7 @@ namespace CallForm.Core.ViewModels
             {
                 Error(this, new ErrorEventArgs {Message = "You must enter your email address"});
             }
+            // ToDo: add check to validate email address
             else
             {
                 try
@@ -96,5 +110,6 @@ namespace CallForm.Core.ViewModels
                 }
             }
         }
+        #endregion
     }
 }

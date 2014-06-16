@@ -35,6 +35,18 @@ namespace BackEnd.Models
             // deployed app is actually using the same database.
         }
 
+        /// <summary>The collection of <see cref="CallTypes"/>.
+        /// </summary>
+        public DbSet<CallType> CallTypes { get; set; }
+
+        /// <summary>The collection of <see cref="EmailRecipient"/>.
+        /// </summary>
+        public DbSet<EmailRecipient> EmailRecipients { get; set; }
+
+        /// <summary>The collection of <see cref="ReasonCode"/>.
+        /// </summary>
+        public DbSet<ReasonCode> ReasonCodes { get; set; }
+
         /// <summary>The collection of <see cref="StoredProducerVisitReport"/>.
         /// </summary>
         public DbSet<StoredProducerVisitReport> ProducerVisitReports 
@@ -44,24 +56,15 @@ namespace BackEnd.Models
             set; 
         }
 
-        /// <summary>The collection of <see cref="ReasonCode"/>.
-        /// </summary>
-        public DbSet<ReasonCode> ReasonCodes { get; set; }
-
-        /// <summary>The collection of <see cref="VisitXReason"/>.
-        /// </summary>
-        public DbSet<VisitXReason> VisitXReason { get; set; }
-
         /// <summary>The collection of <see cref="UserIdentities"/>.
         /// </summary>
         public DbSet<UserIdentity> UserIdentities { get; set; }
 
-        /// <summary>The collection of <see cref="CallTypes"/>.
+        /// <summary>The collection of <see cref="VisitXReasons"/>.
         /// </summary>
-        public DbSet<CallTypes> CallTypes { get; set; }
+        public DbSet<VisitXReason> VisitXReasons { get; set; }
 
-        /// <summary>The collection of <see cref="NewEmailRecipient"/>.
-        /// </summary>
-        public DbSet<NewEmailRecipient> NewEmailRecipients { get; set; }
+
+
     }
 }

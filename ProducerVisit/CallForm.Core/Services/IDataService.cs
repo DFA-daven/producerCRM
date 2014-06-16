@@ -9,14 +9,14 @@ namespace CallForm.Core.Services
     public interface IDataService
     {
         /// <summary>Opens the SQLite database, gets rows from "StoredProducerVisitReport"
-        /// where "Uploaded" is false, and returns them as <see cref="List<ProducerVisitReport>"/>.
+        /// where "Uploaded" is false, and returns them as <see cref="List"/> of <see cref="ProducerVisitReport>"/>.
         /// </summary>
-        /// <returns>A <see cref="List<ProducerVisitReport>"/> where "Uploaded" is false.
+        /// <returns>A <see cref="List"/> of <see cref="ProducerVisitReport>"/> where "Uploaded" is false.
         List<ProducerVisitReport> ToUpload();
 
         /// <summary>Opens the SQLite database, gets the most recent <see cref="StoredProducerVisitReport"/>s.
         /// </summary>
-        /// <returns>A <see cref="List<ReportListItem>"/> sorted in descending order by VisitDate.</returns>
+        /// <returns>A <see cref="List"/> of <see cref="ReportListItem"/> sorted in descending order by VisitDate.</returns>
         /// <remarks>See <see cref="VisitController.Recent()"/>.</remarks>
         List<ReportListItem> Recent();
 
@@ -31,7 +31,7 @@ namespace CallForm.Core.Services
         /// </summary>
         /// <param name="id">The internal ID number of a <see cref="StoredProducerVisitReport"/>.</param>
         /// <returns>A <see cref="ProducerVisitReport"/>.</returns>
-        ProducerVisitReport GetReport(int id);
+        ProducerVisitReport GetHydratedReport(int id);
 
         /// <summary>The number of <see cref="StoredProducerVisitReport"/> records in the SQLite database.
         /// </summary>
@@ -45,16 +45,11 @@ namespace CallForm.Core.Services
         /// <summary>Opens the SQLite database, gets the <see cref="ReasonCode"/>.
         /// </summary>
         /// <returns>A <see cref="List"/> of <see cref="ReasonCodes"/>.</returns>
-        List<ReasonCode> GetReasonsForCall();
+        List<ReasonCode> GetSQLiteReasonsCodes();
 
         /// <summary>Opens the SQLite database, replaces the "ReasonCodes" table with <paramref name="reasonCodes"/>.
         /// </summary>
         /// <param name="reasonCodes">A <see cref="List"/> of new <see cref="ReasonCode"/>.</param>
-        void UpdateReasons(List<ReasonCode> reasonCodes);
-
-        /// <summary>Opens the SQLite database, gets the <see cref="ReasonCode"/>.
-        /// </summary>
-        /// <returns>A <see cref="List"/> of <see cref="ReasonCodes"/>.</returns>
-        List<NewEmailRecipient> GetEmailAddressesAndNames();
+        void UpdateSQLiteReasons(List<ReasonCode> reasonCodes);
     }
 }

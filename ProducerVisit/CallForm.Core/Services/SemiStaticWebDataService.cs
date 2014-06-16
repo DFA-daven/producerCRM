@@ -48,9 +48,9 @@
         //private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
 
         private static string _dataFolderPathName = "Data";
-        private static string _reasonCodeFileName = "ReasonCodes.xml";
         private static string _callTypeFileName = "CallTypes.xml";
         private static string _emailRecipientFileName = "EmailRecipients.xml";
+        private static string _reasonCodeFileName = "ReasonCodes.xml";
 
         /// <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="dataService"/>.
         /// </summary>
@@ -85,14 +85,6 @@
 
         #region Required Definitions
         /// <inheritdoc/>
-        public List<ReasonCode> GetReasonsForCall()
-        {
-            // note: see GetCallTypes()
-            // broken: fix CallTypes first.
-            return _dataService.GetReasonsForCall();
-        }
-
-        /// <inheritdoc/>
         public List<string> GetCallTypes()
         {
             // note: USE THIS METHOD AS A MODEL FOR THE OTHER PULL-DOWNS. DON'T DELETE THESE COMMENTS UNTIL THE OTHERS ARE RE-FACTORED.
@@ -106,11 +98,16 @@
             string xml = string.Empty;
             var callTypesFilename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
 
-            _fileStore.EnsureFolderExists(_dataFolderPathName);
+            CheckFolder(_dataFolderPathName);
+
+            if (!_fileStore.TryReadTextFile(callTypesFilename, out xml))
+            { 
+                UpdateXmlCallTypes();
+            }
 
             if (_fileStore.TryReadTextFile(callTypesFilename, out xml))
             {
-                callTypes =  Deserialize<List<string>>(xml);
+                callTypes = Deserialize<List<string>>(xml);
             }
             else
             {
@@ -120,11 +117,54 @@
             // double-check that we got some result
             if (callTypes.Count < 1)
             {
-                callTypes.Add("Error: count < 1");
+                callTypes.Add( "Error: count < 1" );
             }
 
             return callTypes;
         }
+
+        /// <inheritdoc/>
+        public List<EmailRecipient> GetEmailRecipients()
+        {
+            List<EmailRecipient> emailRecipients = new List<EmailRecipient>(new[]
+                {
+                    new EmailRecipient { Address= "initialized", DisplayName = "initialized" }
+                });
+
+            string xml = string.Empty;
+            var emailRecipientsFilename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
+
+            CheckFolder(_dataFolderPathName);
+
+            if (_fileStore.TryReadTextFile(emailRecipientsFilename, out xml))
+            {
+                emailRecipients = Deserialize<List<EmailRecipient>>(xml);
+            }
+            else
+            {
+                emailRecipients.Clear();
+            }
+
+            // double-check that we got some result
+            if (emailRecipients.Count < 1)
+            {
+                emailRecipients.Add(new EmailRecipient { Address = "Error: count < 1", DisplayName = "Error: count < 1" });
+            }
+
+            return emailRecipients;
+        }
+
+        /// <inheritdoc/>
+        public List<ReasonCode> GetReasonCodes()
+        {
+            List<ReasonCode> reasonCodes = new List<ReasonCode>(new[]
+                {
+                    new ReasonCode { Name = "initialized", Code = -1 }
+                });
+
+            return reasonCodes;
+        }
+
 
         /// <inheritdoc/>
         public string GetEmailAddress(string emailName)
@@ -134,11 +174,107 @@
         }
 
         /// <inheritdoc/>
-        public string GetEmailName(string emailAddress)
+        public string GetEmailDisplayName(string emailAddress)
         {
             string result = "matching email address";
             return result;
         }
+
+        /// <inheritdoc/>
+        public bool UpdateXml()
+        {
+            bool success = false;
+
+            try
+            {
+                // FixMe: errors down at this level are not presented to the UI. add an error log?
+                // review: how often are these tables going to be changing? do we really need to pull the fresh list every time?
+                success = UpdateXmlCallTypes();
+                // UpdateXmlEmailRecipients();
+                // UpdateXmlReasons();
+
+                //success = true;
+            }
+            catch (Exception exc)
+            {
+                //Error(this, new ErrorEventArgs { Message = exc.Message });
+            }
+
+            return success;
+        }
+        #endregion
+
+        /// <summary>Request CallTypes from the web service, and save them on-device.
+        /// </summary>
+        /// <remarks>The "CallTypes" part of "/Visit/CallTypes/" is handled in BackEnd.Controllers.VisitController.cs.</remarks>
+        private bool UpdateXmlCallTypes()
+        {
+            var request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
+            bool updated = true;
+
+            _jsonRestClient.MakeRequestFor<List<string>>(request,
+                response =>
+                {
+                    _fileStore.EnsureFolderExists(_dataFolderPathName);
+                    var filename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
+                    _fileStore.WriteFile(filename, Serialize(response.Result));
+                },
+                exception => { updated = false; });
+
+            return updated;
+        }
+
+        /// <summary>Request Email Recipients from the web service, and save them on-device.
+        /// </summary>
+        /// <remarks>The "NewEmailRecipients" part of "/Visit/NewEmailRecipients/" is handled in BackEnd.Controllers.VisitController.cs.</remarks>
+        private void UpdateXmlEmailRecipients()
+        {
+            var request = new MvxRestRequest(_targetURL + "/Visit/EmailRecipients/");
+
+            _jsonRestClient.MakeRequestFor<List<EmailRecipient>>(request,
+                response =>
+                {
+                    // _dataService.UpdateRecipients(response.Result);
+                    _fileStore.EnsureFolderExists(_dataFolderPathName);
+                    var filename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
+                    _fileStore.WriteFile(filename, Serialize(response.Result));
+                },
+                exception => { });
+        }
+
+        /// <summary>Request (visit) Reasons from the web service, and save them on-device.
+        /// </summary>
+        /// <remarks>The "Reasons" part of "/Visit/Reasons/" is handled in BackEnd.Controllers.VisitController.cs</remarks>
+        private void UpdateXmlReasons()
+        {
+            try
+            {
+                var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
+
+                _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
+                    response => _dataService.UpdateSQLiteReasons(response.Result),
+                    exception => { });
+
+                _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
+                    response =>
+                    {
+                        // _dataService.UpdateReasons(response.Result);
+                        _fileStore.EnsureFolderExists(_dataFolderPathName);
+                        var filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
+                        _fileStore.WriteFile(filename, Serialize(response.Result));
+                    },
+                    exception => { });
+                    //{ 
+                    //    Error(this, new ErrorEventArgs { Message = exception.Message }); 
+                    //});
+            }
+            catch (Exception ex)
+            {
+                //
+            }
+        }
+
+
 
         ///// <inheritdoc/>
         //public List<NewEmailRecipient> GetEmailAddressesAndNames()
@@ -186,8 +322,8 @@
         /// <inheritdoc/>
         public List<string> GetEmailDisplayNames()
         {
-            NewEmailRecipient email1 = new NewEmailRecipient();
-            NewEmailRecipient email2 = new NewEmailRecipient();
+            EmailRecipient email1 = new EmailRecipient();
+            EmailRecipient email2 = new EmailRecipient();
             email1.Address = "add1@dl";
             email1.DisplayName = "name one";
             email2.Address = "add2@dl";
@@ -206,7 +342,7 @@
 
             if (_fileStore.TryReadTextFile(callTypesFilename, out xml))
             {
-                List<NewEmailRecipient> emailRecipients = Deserialize<List<NewEmailRecipient>>(xml);
+                List<EmailRecipient> emailRecipients = Deserialize<List<EmailRecipient>>(xml);
                 //emailDisplayNames = List<string>
             }
             else
@@ -225,78 +361,10 @@
             return emailDisplayNames;
         }
 
-        /// <inheritdoc/>
-        public void Update()
+        private void CheckFolder(string folderPath)
         {
-            try
-            {
-                // FixMe: errors down at this level are not presented to the UI. add an error log?
-                // review: how often are these tables going to be changing? do we really need to pull the fresh list every time?
-
-                UpdateLocalReasons();
-
-                UpdateLocalCallTypes();
-
-                //UpdateLocalEmailRecipients();
-            }
-            catch (Exception exc)
-            {
-                Error(this, new ErrorEventArgs { Message = exc.Message });
-            }
+            _fileStore.EnsureFolderExists(folderPath);
         }
-
-        /// <summary>Request CallTypes from the web service, and save them on-device.
-        /// </summary>
-        /// <remarks>The "CallTypes" part of "/Visit/CallTypes/" is handled in BackEnd.Controllers.VisitController.cs.</remarks>
-        private void UpdateLocalCallTypes()
-        {
-            var request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
-
-            _jsonRestClient.MakeRequestFor<List<string>>(request,
-                response =>
-                {
-                    _fileStore.EnsureFolderExists(_dataFolderPathName);
-                    var filename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
-                    _fileStore.WriteFile(filename, Serialize(response.Result));
-                },
-                exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
-        }
-
-        /// <summary>Request Email Recipients from the web service, and save them on-device.
-        /// </summary>
-        /// <remarks>The "NewEmailRecipients" part of "/Visit/NewEmailRecipients/" is handled in BackEnd.Controllers.VisitController.cs.</remarks>
-        private void UpdateLocalEmailRecipients()
-        {
-            var request = new MvxRestRequest(_targetURL + "/Visit/NewEmailRecipients/");
-
-            _jsonRestClient.MakeRequestFor<List<NewEmailRecipient>>(request,
-                response =>
-                {
-                    // _dataService.UpdateRecipients(response.Result);
-                    _fileStore.EnsureFolderExists(_dataFolderPathName);
-                    var filename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
-                    _fileStore.WriteFile(filename, Serialize(response.Result));
-                },
-                exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
-        }
-
-        /// <summary>Request (visit) Reasons from the web service, and save them on-device.
-        /// </summary>
-        /// <remarks>The "Reasons" part of "/Visit/Reasons/" is handled in BackEnd.Controllers.VisitController.cs</remarks>
-        private void UpdateLocalReasons()
-        {
-            var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
-            _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
-                response =>
-                {
-                    // _dataService.UpdateReasons(response.Result);
-                    _fileStore.EnsureFolderExists(_dataFolderPathName);
-                    var filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
-                    _fileStore.WriteFile(filename, Serialize(response.Result));
-                },
-                exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
-        }
-        #endregion
 
         public event EventHandler<ErrorEventArgs> Error;
 

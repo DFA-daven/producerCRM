@@ -1,27 +1,29 @@
-using CallForm.Core.Models;
-using CallForm.Core.Services;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.Plugins.Messenger;
-using Cirrious.MvvmCross.Plugins.PictureChooser;
-using Cirrious.MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows.Input;
-
 namespace CallForm.Core.ViewModels
 {
-    public class NewVisit_ViewModel 
-		: MvxViewModel
+    using CallForm.Core.Models;
+    using CallForm.Core.Services;
+    using Cirrious.CrossCore;
+    using Cirrious.CrossCore.Platform;
+    using Cirrious.MvvmCross.Plugins.Messenger;
+    using Cirrious.MvvmCross.Plugins.PictureChooser;
+    using Cirrious.MvvmCross.ViewModels;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Windows.Input;
+
+    /// <summary>Class definition of the New Visit ViewModel.
+    /// </summary>
+    /// <remarks>This is the page for collecting information about a new visit.</remarks>
+    public class NewVisit_ViewModel : MvxViewModel
     {
         private readonly ILocationService _locationService;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDataService _dataService;
         private readonly IMvxJsonConverter _jsonConverter;
 
-        // backing fields
+        #region backing fields
         private double _lat;
         private double _lng;
         private string _callType;
@@ -32,35 +34,54 @@ namespace CallForm.Core.ViewModels
         private string _memberNumber;
         private string _notes;
         private List<ReasonCode> _reasonCodes;
-        private MvxCommand _saveCommand;
 
+        private MvxCommand _saveCommand;
+        
         // FixMe: re-factor userID to DeviceID
         private string _userID;
+
+        /// <summary>The list of possible visit Call Types.</summary>
         private List<string> _callTypes;
+        
         private bool _editing;
+
         private byte[] _pictureBytes;
         private MvxCommand _takePictureCommand;
 
         /// <summary>the email recipients selected by the user</summary>
         private List<string> _nvvmemailRecipients;
+        #endregion
 
+        /// <summary>Creates an instance of <see cref="NewVisit_ViewModel"/>.
+        /// </summary>
+        /// <param name="locationService"></param>
+        /// <param name="messenger"></param>
+        /// <param name="pictureChooserTask"></param>
+        /// <param name="dataService"></param>
+        /// <param name="jsonConverter"></param>
+        /// <param name="semiStaticWebDataService"></param>
         public NewVisit_ViewModel(
             ILocationService locationService,
             IMvxMessenger messenger,
             IMvxPictureChooserTask pictureChooserTask,
             IDataService dataService,
             IMvxJsonConverter jsonConverter,
-            ISemiStaticWebDataService webDataService)
+            ISemiStaticWebDataService semiStaticWebDataService)
         {
-            // FixMe: re-factor "BuiltInReasonCodes" to indicate the source is webDataService.GetReasonsForCall()
-            BuiltInReasonCodes = webDataService.GetReasonsForCall();
-            ReasonCodes = new List<ReasonCode>();
+            // FixMe: this is a NEW visit -- it should definitely be getting the ReasonCodes from on device.
+            BuiltInReasonCodes = semiStaticWebDataService.GetReasonCodes();
+            ReasonCodes = new List<ReasonCode>(new[]
+                {
+                    new ReasonCode {Name = "NVVM initialized", Code = 11},
+                });
 
-            CallTypes = webDataService.GetCallTypes();
+            // FixMe: this is a NEW visit -- it should definitely be getting the CallTypes from on device.
+            CallTypes = semiStaticWebDataService.GetCallTypes().Select(i => i.ToString()).ToList();
             CallType = CallTypes.First();
 
             //BuiltinEmailRecipients = webDataService.GetPvrEmailRecipients();
-            BuiltinEmailRecipients = webDataService.GetEmailDisplayNames();
+            //BuiltinEmailRecipients = webDataService.GetEmailDisplayNames();
+            BuiltinEmailRecipients = new List<string> { "nvvm initialized" };
 
             Date = DateTime.Now.Date;
             ActualTime = DateTime.Now;
@@ -162,6 +183,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>The visit Call Type selected by the user.
+        /// </summary>
         public string CallType
         {
             get { return _callType; }
@@ -265,6 +288,7 @@ namespace CallForm.Core.ViewModels
         {
             get
             {
+                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
                 _saveCommand = _saveCommand ?? new MvxCommand(DoSaveCommand);
                 return _saveCommand;
             }
@@ -293,7 +317,7 @@ namespace CallForm.Core.ViewModels
             }
             else if (Editing)
             {
-                _dataService.Insert(ToProducerVisitReport());
+                _dataService.Insert(NewVisitAsProducerVisitReport());
                 if (SelectedEmailRecipients == null || SelectedEmailRecipients.Count <= 0)
                 {
                     Close(this);
@@ -310,22 +334,22 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        private ProducerVisitReport ToProducerVisitReport()
+        private ProducerVisitReport NewVisitAsProducerVisitReport()
         {
             return new ProducerVisitReport
             {
-                UserID = UserID,
-                MemberNumber = MemberNumber,
-                Lat = Lat,
-                Lng = Lng,
-                VisitDate = Date,
-                Duration = Duration,
+                UserID        = UserID,
+                MemberNumber  = MemberNumber,
+                Lat           = Lat,
+                Lng           = Lng,
+                VisitDate     = Date,
+                Duration      = Duration,
                 EntryDateTime = ActualTime,
-                CallType = CallType,
-                ReasonCodes = ReasonCodes.ToArray(),
-                Notes = Notes,
+                CallType      = CallType,
+                ReasonCodes   = ReasonCodes.ToArray(),
+                Notes         = Notes,
                 pvrEmailRecipients = string.Join(", ", SelectedEmailRecipients),
-                PictureBytes = (byte[]) (PictureBytes ?? new byte[0]).Clone(),
+                PictureBytes  = (byte[]) (PictureBytes ?? new byte[0]).Clone(),
             };
         }
         #endregion Save
@@ -345,6 +369,7 @@ namespace CallForm.Core.ViewModels
         {
             get
             {
+                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
                 _takePictureCommand = _takePictureCommand ?? new MvxCommand(DoTakePictureCommand);
                 return _takePictureCommand;
             }

@@ -3,28 +3,28 @@
     using System;
     using System.Net;
 
-    /// <summary>An object representing an "EmailRecipient" record.
+    /// <summary>An object representing a visit Call Type.
     /// </summary>
-    public class CallTypes
+    public class CallType
     {
         /// <summary>The internal ID for this object.
         /// </summary>
         public int ID { get; set; }
 
-        /// <summary>Gets/sets the "type" for this instance.
+        /// <summary>Gets/sets the "name" for this instance.
         /// </summary>
-        public string CallType
+        public string Name
         {
             get;
             set;
         }
 
-        /// <summary>The DisplayName of this <see cref="NewEmailRecipient"/>.
+        /// <summary>The name of this visit Call Type.
         /// </summary>
         /// <returns>A <see cref="String"/> of the description.</returns>
         public override string ToString()
         {
-            return CallType;
+            return Name;
         }
     }
 }

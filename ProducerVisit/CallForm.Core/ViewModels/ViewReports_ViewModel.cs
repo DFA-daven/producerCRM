@@ -1,28 +1,32 @@
 ﻿namespace CallForm.Core.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Windows.Input;
     using CallForm.Core.Models;
     using CallForm.Core.Services;
     using Cirrious.CrossCore.Platform;
     using Cirrious.MvvmCross.Plugins.Network.Rest;
     using Cirrious.MvvmCross.ViewModels;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows.Input;
 
+    /// <summary>Class definition of the View Reports ViewModel.
+    /// </summary>
+    /// <remarks>This is the primary page for the App.</remarks>
     public class ViewReports_ViewModel : MvxViewModel
     {
         private readonly IMvxJsonRestClient _jsonRestClient;
         private readonly IMvxJsonConverter _jsonConverter;
-        private readonly IDataService _dataService;
+        private readonly IDataService _localDataService;
         private readonly IMvxRestClient _restClient;
         private readonly IUserIdentityService _userIdentityService;
+        private readonly ISemiStaticWebDataService _semiStaticWebDataService;
+
         //private readonly string _targetURL;
 
         //private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
         private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
         //private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
-
 
         private MvxCommand _newVisitCommand;
         private string _filter;
@@ -36,46 +40,50 @@
         /// </summary>
         /// <param name="jsonRestClient"></param>
         /// <param name="jsonConverter"></param>
-        /// <param name="dataService"></param>
+        /// <param name="localDataService"></param>
         /// <param name="restClient"></param>
-        /// <param name="webDataService"></param>
+        /// <param name="semiStaticWebDataService"></param>
         /// <param name="userIdentityService"></param>
         public ViewReports_ViewModel(
             IMvxJsonRestClient jsonRestClient,
             IMvxJsonConverter jsonConverter,
-            IDataService dataService,
+            IDataService localDataService,
             IMvxRestClient restClient,
-            ISemiStaticWebDataService webDataService,
+            ISemiStaticWebDataService semiStaticWebDataService,
             IUserIdentityService userIdentityService)
         {
-            //try
-            //{
+            try
+            {
                 _jsonRestClient = jsonRestClient;
                 _jsonConverter = jsonConverter;
-                _dataService = dataService;
+                _localDataService = localDataService;
                 _restClient = restClient;
+                //_semiStaticWebDataService = semiStaticWebDataService;
 
-                userIdentityService.GetIdentity();
+                // Note: on first run GetIdentity() must instantiate a UserIdentity.
                 _userIdentityService = userIdentityService;
+                userIdentityService.GetIdentity();
 
-                // broken: this requires an existing UserIdentity -- but on the first start there is no UserIdentity...
-                Reports = _dataService.Recent();
+                // Review: Recent() must only query if UserIdentity is valid (that is, no query on first run).
+                ////Reports = _localDataService.Recent();
+
                 Loading = false;
 
-                webDataService.Update();
-            //}
-            //catch (Exception exc)
-            //{
-            //    // FixMe: add proper error handling
-            //    Error(this, new ErrorEventArgs { Message = exc.Message });
-            //}
+                // update XML files
+                semiStaticWebDataService.UpdateXml();
+            }
+            catch (Exception exc)
+            {
+                // FixMe: add proper error handling
+                Error(this, new ErrorEventArgs { Message = exc.Message });
+            }
         }
 
         public event EventHandler<ErrorEventArgs> Error;
 
         public void UploadReports()
         {
-            foreach (var producerVisitReport in _dataService.ToUpload().ToList())
+            foreach (var producerVisitReport in _localDataService.ToUpload().ToList())
             {
                 // error: break this code.
                 var request =
@@ -97,26 +105,28 @@
         public override void Start()
         {
             // note: CallForm.Core starts here!
+            // note: this creates a new instance of ViewReports_ViewModel.
             base.Start();
 
-            // broken: commenting this out reveals there is another problem (in addition to UserIdentity)
-            // review: does this always require a call to the Connection? (even if local data exists?)
-            if (!_userIdentityService.IdentityRecorded)
+            if (string.IsNullOrWhiteSpace(_userIdentityService.GetIdentity().UserEmail) == true)
             {
                 // open the User Identity page (to capture the missing information)
                 ShowViewModel<UserIdentity_ViewModel>();
             }
+
+            Loading = false;
         }
 
         private void ParseResponse(MvxRestResponse response)
         {
-            _dataService.ReportUploaded(int.Parse(response.Tag));
+            _localDataService.ReportUploaded(int.Parse(response.Tag));
         }
 
         public ICommand NewVisitCommand
         {
             get
             {
+                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
                 _newVisitCommand = _newVisitCommand ?? new MvxCommand(DoNewVisitCommand);
                 return _newVisitCommand;
             }
@@ -149,12 +159,13 @@
             }
         }
 
-        /// <summary>Gets the Reports
+        /// <summary>Gets the Reports Command.
         /// </summary>
         public ICommand GetReportsCommand
         {
             get
             {
+                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
                 _getReportsCommand = _getReportsCommand ?? new MvxCommand(DoGetReportsCommand);
                 return _getReportsCommand;
             }
@@ -168,7 +179,7 @@
 
             if (string.IsNullOrEmpty(Filter))       // is there something to search for?
             {
-                Reports = _dataService.Recent();
+                Reports = _localDataService.Recent();
                 Loading = false;
             }
             else if (Int32.TryParse(Filter, out memberNumberFilter)) // is it a number?
@@ -200,7 +211,6 @@
                 // todo: add new service to check for member name
             }
         }
-
 
         public bool Loading
         {
@@ -237,7 +247,7 @@
             {
                 if (SelectedReport.Local)
                 {
-                    ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(_dataService.GetReport(_selectedReport.ID)) });
+                    ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(_localDataService.GetHydratedReport(_selectedReport.ID)) });
                 }
                 else
                 {

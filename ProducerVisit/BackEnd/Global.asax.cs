@@ -104,27 +104,27 @@ namespace BackEnd
             protected override void Seed(VisitContext context)
             {
                 // NewEmailRecipients
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "loaded via global", DisplayName = "loaded via global" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "info@agri-maxfinancial.com", DisplayName = "info@agri-maxfinancial.com" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "info@agri-servicesagency.com", DisplayName = "info@agri-servicesagency.com" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "communications@dairylea.com", DisplayName = "Member Communications" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "FieldStaffNotification-DairyOne@DairyOne.com", DisplayName = "FieldStaffNotification-DairyOne@DairyOne.com" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "FieldStaffNotification-DMS@dairylea.com", DisplayName = "FieldStaffNotification-DMS@dairylea.com" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "drms@dairylea.com", DisplayName = "DRMS" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "FieldStaffNotification-Eagle@dairylea.com", DisplayName = "FieldStaffNotification-Eagle@dairylea.com" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "FieldStaffNotification-HR@dairylea.com", DisplayName = "FieldStaffNotification-HR@dairylea.com" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "TechnicalSupport-brittonfield@dairylea.com", DisplayName = "Technical Support" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "FieldStaffNotification-Membership@dairylea.com", DisplayName = "FieldStaffNotification-Membership@dairylea.com" });
-                context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "FieldStaffNotification-Payroll@dairylea.com", DisplayName = "FieldStaffNotification-Payroll@dairylea.com" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "loaded via global", DisplayName = "loaded via global" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "info@agri-maxfinancial.com", DisplayName = "info@agri-maxfinancial.com" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "info@agri-servicesagency.com", DisplayName = "info@agri-servicesagency.com" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "communications@dairylea.com", DisplayName = "Member Communications" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-DairyOne@DairyOne.com", DisplayName = "FieldStaffNotification-DairyOne@DairyOne.com" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-DMS@dairylea.com", DisplayName = "FieldStaffNotification-DMS@dairylea.com" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "drms@dairylea.com", DisplayName = "DRMS" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-Eagle@dairylea.com", DisplayName = "FieldStaffNotification-Eagle@dairylea.com" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-HR@dairylea.com", DisplayName = "FieldStaffNotification-HR@dairylea.com" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "TechnicalSupport-brittonfield@dairylea.com", DisplayName = "Technical Support" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-Membership@dairylea.com", DisplayName = "FieldStaffNotification-Membership@dairylea.com" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-Payroll@dairylea.com", DisplayName = "FieldStaffNotification-Payroll@dairylea.com" });
 
                 // CallTypes
-                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Global" });
-                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Phone Call" });
-                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Email" });
-                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Farm Visit" });
-                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Farm Show" });
-                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "SMS (Text Msg.)" });
-                context.CallTypes.Add(new CallForm.Core.Models.CallTypes { CallType = "Other" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Global" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Phone Call" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Email" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Farm Visit" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Farm Show" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "SMS (Text Msg.)" });
+                context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Other" });
 
                 // ReasonCodes
                 context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Global Regulatory: Calibrations", Code = 11});

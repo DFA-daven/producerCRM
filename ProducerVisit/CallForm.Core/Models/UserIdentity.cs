@@ -22,5 +22,13 @@
         /// <summary>Text entered by the user to identify this device.
         /// </summary>
         public string AssetTag { get; set; }
+
+        /// <summary>The UserEmail of this <see cref="UserIdentity"/>.
+        /// </summary>
+        /// <returns>A <see cref="String"/> of the description.</returns>
+        public override string ToString()
+        {
+            return UserEmail;
+        }
     }
 }

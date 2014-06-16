@@ -1,8 +1,8 @@
-using Cirrious.CrossCore.IoC;
-
 namespace CallForm.Core
 {
-    /// <summary>Creates an instance of the App. 
+    using Cirrious.CrossCore.IoC;
+
+    /// <summary>Creates an instance of the App. This is the "Core" Project.
     /// </summary>
     /// <remarks>This Class is called from CallForm.iOS.Setup.</remarks>
     public class App : Cirrious.MvvmCross.ViewModels.MvxApplication
