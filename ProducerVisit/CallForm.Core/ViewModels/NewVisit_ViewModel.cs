@@ -20,36 +20,34 @@ namespace CallForm.Core.ViewModels
     {
         private readonly ILocationService _locationService;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
-        private readonly IDataService _dataService;
+        private readonly IDataService _localSQLiteDataService;
         private readonly IMvxJsonConverter _jsonConverter;
 
         #region backing fields
         private double _lat;
         private double _lng;
-        private string _callType;
+        private string _selectedCallType;
         private DateTime _date;
         private decimal _duration;
         private string _durationString;
         private DateTime _actualTime;
         private string _memberNumber;
         private string _notes;
-        private List<ReasonCode> _reasonCodes;
+        private List<ReasonCode> _selectReasonCodes;
+        /// <summary>The list of possible visit Call Types.</summary>
+        private List<string> _callTypes;
+        /// <summary>the email recipients selected by the user</summary>
+        private List<string> _nvvmemailRecipients; 
 
         private MvxCommand _saveCommand;
         
         // FixMe: re-factor userID to DeviceID
         private string _userID;
 
-        /// <summary>The list of possible visit Call Types.</summary>
-        private List<string> _callTypes;
-        
         private bool _editing;
 
         private byte[] _pictureBytes;
         private MvxCommand _takePictureCommand;
-
-        /// <summary>the email recipients selected by the user</summary>
-        private List<string> _nvvmemailRecipients;
         #endregion
 
         /// <summary>Creates an instance of <see cref="NewVisit_ViewModel"/>.
@@ -57,46 +55,50 @@ namespace CallForm.Core.ViewModels
         /// <param name="locationService"></param>
         /// <param name="messenger"></param>
         /// <param name="pictureChooserTask"></param>
-        /// <param name="dataService"></param>
+        /// <param name="localSQLiteDataService"></param>
         /// <param name="jsonConverter"></param>
         /// <param name="semiStaticWebDataService"></param>
         public NewVisit_ViewModel(
             ILocationService locationService,
             IMvxMessenger messenger,
             IMvxPictureChooserTask pictureChooserTask,
-            IDataService dataService,
+            IDataService localSQLiteDataService,
             IMvxJsonConverter jsonConverter,
             ISemiStaticWebDataService semiStaticWebDataService)
         {
-            // FixMe: this is a NEW visit -- it should definitely be getting the ReasonCodes from on device.
-            BuiltInReasonCodes = semiStaticWebDataService.GetReasonCodes();
-            ReasonCodes = new List<ReasonCode>(new[]
-                {
-                    new ReasonCode {Name = "NVVM initialized", Code = 11},
-                });
+            //BuiltInReasonCodes = webDataService.GetReasonsForCall();
+            //ReasonCodes = new List<ReasonCode>();
 
-            // FixMe: this is a NEW visit -- it should definitely be getting the CallTypes from on device.
-            CallTypes = semiStaticWebDataService.GetCallTypes().Select(i => i.ToString()).ToList();
-            CallType = CallTypes.First();
+            //CallTypes = webDataService.GetCallTypes();
+            //CallType = CallTypes.First();
 
-            //BuiltinEmailRecipients = webDataService.GetPvrEmailRecipients();
-            //BuiltinEmailRecipients = webDataService.GetEmailDisplayNames();
-            BuiltinEmailRecipients = new List<string> { "nvvm initialized" };
+            //BuiltinEmailRecipients = webDataService.GetEmailRecipients();
+
+            ListOfReasonCodes = semiStaticWebDataService.GetReasonCodes();
+            SelectedReasonCodes = new List<ReasonCode>();
+
+            // Note: if CallTypes is stored in the dB as an object, need to convert to a list of strings."
+            ListOfCallTypes = semiStaticWebDataService.GetCallTypesAsList();
+            SelectedCallType = ListOfCallTypes.First();
+
+            _nvvmemailRecipients = new List<string>();
+            BuiltinEmailRecipients = semiStaticWebDataService.GetEmailRecipientsAsList();
 
             Date = DateTime.Now.Date;
             ActualTime = DateTime.Now;
 
             _locationService = locationService;
+            // review: is the location being obtained twice? And is the second time even if the user answered "don't allow"?
             messenger.Subscribe<LocationMessage>(OnLocationMessage);
             GetInitialLocation();
 
             _pictureChooserTask = pictureChooserTask;
-            _dataService = dataService;
+            _localSQLiteDataService = localSQLiteDataService;
             _jsonConverter = jsonConverter;
 
             Editing = true;
 
-            _nvvmemailRecipients = new List<string>();
+            
         }
 
         public void Init(NewVisitInit data)
@@ -120,17 +122,17 @@ namespace CallForm.Core.ViewModels
             Duration = report.Duration;
             DurationString = report.Duration.ToString("F2");
             ActualTime = report.EntryDateTime;
-            CallType = report.CallType;
-            ReasonCodes = report.ReasonCodes.ToList();
+            SelectedCallType = report.CallType;
+            SelectedReasonCodes = report.ReasonCodes.ToList();
             Notes = report.Notes;
-            if (report.pvrEmailRecipients == null)
+            if (report.EmailRecipients == null)
             {
                 SelectedEmailRecipients = new List<string>();
             }
             else
             {
                 SelectedEmailRecipients =
-                    new List<string>(report.pvrEmailRecipients.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries));
+                    new List<string>(report.EmailRecipients.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries));
             }
             PictureBytes = (byte[]) (report.PictureBytes ?? new byte[0]).Clone();
         }
@@ -180,28 +182,6 @@ namespace CallForm.Core.ViewModels
             {
                 _lng = value;
                 RaisePropertyChanged(() => Lng);
-            }
-        }
-
-        /// <summary>The visit Call Type selected by the user.
-        /// </summary>
-        public string CallType
-        {
-            get { return _callType; }
-            set
-            {
-                _callType = value;
-                RaisePropertyChanged(() => CallType);
-            }
-        }
-
-        public List<string> CallTypes
-        {
-            get { return _callTypes; }
-            set
-            {
-                _callTypes = value;
-                RaisePropertyChanged(() => CallTypes);
             }
         }
 
@@ -265,21 +245,60 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        /// <summary>A set of ReasonCode(s) assigned by the user to this Visit.
+        /// <summary>A set of <see cref="ReasonCode"/>(s) assigned by the user to this Visit.
         /// </summary>
-        public List<ReasonCode> ReasonCodes
+        public List<ReasonCode> SelectedReasonCodes
         {
-            get { return _reasonCodes; }
+            get { return _selectReasonCodes; }
             set
             {
-                _reasonCodes = value;
-                RaisePropertyChanged(() => ReasonCodes);
+                _selectReasonCodes = value;
+                RaisePropertyChanged(() => SelectedReasonCodes);
             }
         }
 
-        /// <summary>Create a master-list of ReasonCodes for the user to select from.
+        /// <summary>The list of <see cref="ReasonCode"/>s for the user to select from.
         /// </summary>
-        public readonly List<ReasonCode> BuiltInReasonCodes;
+        /// <remarks><see cref="ListOfReasonCodes"/> is handled by <see cref="CallForm.iOS.ViewElements.ReasonCodePickerDialogViewController"/></remarks>
+        public readonly List<ReasonCode> ListOfReasonCodes;
+
+        /// <summary>The name of the visit <see cref="CallType"/> selected by the user.
+        /// </summary>
+        public string SelectedCallType
+        {
+            get { return _selectedCallType; }
+            set
+            {
+                _selectedCallType = value;
+                RaisePropertyChanged(() => SelectedCallType);
+            }
+        }
+
+        /// <summary>The list of <see cref="CallType"/> names for the user to select from.
+        /// </summary>
+        /// <remarks><see cref="ListOfCallTypes"/> is handled by <see cref="CallForm.iOS.ViewElements.StringPickerDialog_ViewController"/></remarks>
+        public List<string> ListOfCallTypes
+        {
+            get { return _callTypes; }
+            set
+            {
+                _callTypes = value;
+                RaisePropertyChanged(() => ListOfCallTypes);
+            }
+        }
+
+        /// <summary>The list of <see cref="EmailRecipient"/> display names for the user to select from.
+        /// </summary>
+        /// <remarks><see cref="ListOfCallTypes"/> is handled by <see cref="CallForm.iOS.ViewElements.StringPickerDialog_ViewController"/></remarks>
+        public List<string> ListOfEmailRecipients
+        {
+            get { return _nvvmemailRecipients; }
+            set
+            {
+                _nvvmemailRecipients = value;
+                RaisePropertyChanged(() => ListOfEmailRecipients);
+            }
+        }
 
         #region Save
         /// <summary>The action for Save button.
@@ -301,7 +320,7 @@ namespace CallForm.Core.ViewModels
             {
                 Error(this, new ErrorEventArgs {Message = "The Member Number must be eight characters long"});
             }
-            else if (ReasonCodes.Count <= 0)
+            else if (SelectedReasonCodes.Count <= 0)
             {
                 Error(this, new ErrorEventArgs {Message = "You must select at least one Reason for Call."});
             }
@@ -317,7 +336,7 @@ namespace CallForm.Core.ViewModels
             }
             else if (Editing)
             {
-                _dataService.Insert(NewVisitAsProducerVisitReport());
+                _localSQLiteDataService.Insert(NewVisitAsProducerVisitReport());
                 if (SelectedEmailRecipients == null || SelectedEmailRecipients.Count <= 0)
                 {
                     Close(this);
@@ -345,10 +364,10 @@ namespace CallForm.Core.ViewModels
                 VisitDate     = Date,
                 Duration      = Duration,
                 EntryDateTime = ActualTime,
-                CallType      = CallType,
-                ReasonCodes   = ReasonCodes.ToArray(),
+                CallType      = SelectedCallType,
+                ReasonCodes   = SelectedReasonCodes.ToArray(),
                 Notes         = Notes,
-                pvrEmailRecipients = string.Join(", ", SelectedEmailRecipients),
+                EmailRecipients = string.Join(", ", SelectedEmailRecipients),
                 PictureBytes  = (byte[]) (PictureBytes ?? new byte[0]).Clone(),
             };
         }

@@ -17,7 +17,7 @@
     {
         private readonly IMvxJsonRestClient _jsonRestClient;
         private readonly IMvxJsonConverter _jsonConverter;
-        private readonly IDataService _localDataService;
+        private readonly IDataService _localSQLiteDataService;
         private readonly IMvxRestClient _restClient;
         private readonly IUserIdentityService _userIdentityService;
         private readonly ISemiStaticWebDataService _semiStaticWebDataService;
@@ -56,21 +56,21 @@
             {
                 _jsonRestClient = jsonRestClient;
                 _jsonConverter = jsonConverter;
-                _localDataService = localDataService;
+                _localSQLiteDataService = localDataService;
                 _restClient = restClient;
+                _userIdentityService = userIdentityService;
                 //_semiStaticWebDataService = semiStaticWebDataService;
 
-                // Note: on first run GetIdentity() must instantiate a UserIdentity.
-                _userIdentityService = userIdentityService;
-                userIdentityService.GetIdentity();
-
                 // Review: Recent() must only query if UserIdentity is valid (that is, no query on first run).
-                ////Reports = _localDataService.Recent();
+                // Note: on first-run, there will be no UserIdentity. This method will ask try to get the user's email address, which will result in an empty UserIdentity being created.
+                //Reports = localDataService.Recent();
+
+                // Note: on first run GetIdentity() must instantiate a UserIdentity.
+                userIdentityService.GetIdentity();
 
                 Loading = false;
 
-                // update XML files
-                semiStaticWebDataService.UpdateXml();
+                //semiStaticWebDataService.UpdateModels();
             }
             catch (Exception exc)
             {
@@ -83,7 +83,7 @@
 
         public void UploadReports()
         {
-            foreach (var producerVisitReport in _localDataService.ToUpload().ToList())
+            foreach (var producerVisitReport in _localSQLiteDataService.ToUpload().ToList())
             {
                 // error: break this code.
                 var request =
@@ -119,7 +119,7 @@
 
         private void ParseResponse(MvxRestResponse response)
         {
-            _localDataService.ReportUploaded(int.Parse(response.Tag));
+            _localSQLiteDataService.ReportUploaded(int.Parse(response.Tag));
         }
 
         public ICommand NewVisitCommand
@@ -179,7 +179,7 @@
 
             if (string.IsNullOrEmpty(Filter))       // is there something to search for?
             {
-                Reports = _localDataService.Recent();
+                Reports = _localSQLiteDataService.Recent();
                 Loading = false;
             }
             else if (Int32.TryParse(Filter, out memberNumberFilter)) // is it a number?
@@ -247,7 +247,7 @@
             {
                 if (SelectedReport.Local)
                 {
-                    ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(_localDataService.GetHydratedReport(_selectedReport.ID)) });
+                    ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(_localSQLiteDataService.GetHydratedReport(_selectedReport.ID)) });
                 }
                 else
                 {

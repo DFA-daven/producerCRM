@@ -15,7 +15,7 @@ namespace CallForm.iOS.ViewElements
             : base(UITableViewCellStyle.Value1, cellID)
         {
             _imageButton = new UIButton(UIButtonType.System);
-            _imageButton.TouchUpInside += (sender, args) => OnClick();
+            _imageButton.TouchUpInside += (sender, args) => { OnClick(); };
             if (pictureBytes != null && pictureBytes.Length > 0)
             {
                 var imageData = NSData.FromArray(pictureBytes);
@@ -25,7 +25,7 @@ namespace CallForm.iOS.ViewElements
             }
             _clearButton = new UIButton(UIButtonType.System);
             _clearButton.SetTitle("Remove Image", UIControlState.Normal);
-            _clearButton.TouchUpInside += (sender, args) => ClearImage();
+            _clearButton.TouchUpInside += (sender, args) => { ClearImage(); };
             if (editing)
             {
                 ContentView.Add(_clearButton);

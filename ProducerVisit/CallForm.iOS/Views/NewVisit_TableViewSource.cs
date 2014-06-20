@@ -33,15 +33,15 @@
                         _memberNumberCell.SetText(_viewModel.MemberNumber);
                         break;
                     case "CallType":
-                        _callTypeCell.DetailTextLabel.Text = _viewModel.CallType;
+                        _callTypeCell.DetailTextLabel.Text = _viewModel.SelectedCallType;
                         break;
                     case "Date":
                         _dateCell.DetailTextLabel.Text = _viewModel.Date.ToShortDateString();
                         break;
                     case "ReasonCodes":
-                        _reasonCell.DetailTextLabel.Text = _viewModel.ReasonCodes != null &&
-                                                           _viewModel.ReasonCodes.Count > 0
-                            ? string.Join(", ", _viewModel.ReasonCodes)
+                        _reasonCell.DetailTextLabel.Text = _viewModel.SelectedReasonCodes != null &&
+                                                           _viewModel.SelectedReasonCodes.Count > 0
+                            ? string.Join(", ", _viewModel.SelectedReasonCodes)
                             : "Tap to Select";
                         break;
                     case "DurationString":
@@ -123,7 +123,7 @@
 
             _callTypeCell = new UITableViewCell(UITableViewCellStyle.Value1, "callType");
             _callTypeCell.TextLabel.Text = "Call Type";
-            _callTypeCell.DetailTextLabel.Text = _viewModel.CallType;
+            _callTypeCell.DetailTextLabel.Text = _viewModel.SelectedCallType;
             _callTypeCell.DetailTextLabel.TextColor = UIColor.Black;
 
             _dateCell = new UITableViewCell(UITableViewCellStyle.Value1, "date");
@@ -133,14 +133,14 @@
 
             _reasonCell = new UITableViewCell(UITableViewCellStyle.Value1, "reason");
             _reasonCell.TextLabel.Text = "Reason For Call";
-            _reasonCell.DetailTextLabel.Text = _viewModel.ReasonCodes != null &&
-                                               _viewModel.ReasonCodes.Count > 0
-                ? string.Join(", ", _viewModel.ReasonCodes)
+            _reasonCell.DetailTextLabel.Text = _viewModel.SelectedReasonCodes != null &&
+                                               _viewModel.SelectedReasonCodes.Count > 0
+                ? string.Join(", ", _viewModel.SelectedReasonCodes)
                 : "Tap to Select";
             _reasonCell.DetailTextLabel.TextColor = UIColor.Black;
 
             _notesCell = new TextView_TableViewCell("notes", _viewModel.Editing, _viewModel.Notes,
-                (sender, args) => _viewModel.Notes = (sender as UITextView).Text);
+                (sender, args) => { _viewModel.Notes = (sender as UITextView).Text); };
             _notesCell.TextLabel.Text = "Notes";
 
             _takePictureCell = new Image_TableViewCell("takePicture", _viewModel.PictureBytes, _viewModel.Editing, _viewModel);

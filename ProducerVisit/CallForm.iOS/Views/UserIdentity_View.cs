@@ -196,7 +196,7 @@
 
         private void OnError(object sender, ErrorEventArgs errorEventArgs)
         {
-            InvokeOnMainThread(() => new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show());
+            InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );
         }
     }
 }

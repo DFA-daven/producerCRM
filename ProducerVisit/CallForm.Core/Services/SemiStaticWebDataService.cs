@@ -7,6 +7,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Xml.Serialization;
 
     /// <summary>Implements the <see cref="ISemiStaticWebDataService"/> interface.
@@ -15,7 +16,7 @@
     {
         private readonly IMvxFileStore _fileStore;
         private readonly IMvxJsonRestClient _jsonRestClient;
-        private readonly IDataService _dataService;
+        private readonly IDataService _localSQLiteDataService;
         //private readonly string _targetURL;
 
         // hack: fix the _targetURL definitions to match web.*.config
@@ -52,16 +53,16 @@
         private static string _emailRecipientFileName = "EmailRecipients.xml";
         private static string _reasonCodeFileName = "ReasonCodes.xml";
 
-        /// <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="dataService"/>.
+        /// <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="localSQLiteDataService"/>.
         /// </summary>
         /// <param name="fileStore">The target <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/></param>
         /// <param name="jsonRestClient">The target <see cref="Cirrious.MvvmCross.Plugins.Network.Rest.IMvxJsonRestClient"/></param>
-        /// <param name="dataService">The target <see cref="IDataService"/></param>
-        public SemiStaticWebDataService(IMvxFileStore fileStore, IMvxJsonRestClient jsonRestClient, IDataService dataService)
+        /// <param name="localSQLiteDataService">The target <see cref="IDataService"/></param>
+        public SemiStaticWebDataService(IMvxFileStore fileStore, IMvxJsonRestClient jsonRestClient, IDataService localSQLiteDataService)
         {
             _fileStore = fileStore;
             _jsonRestClient = jsonRestClient;
-            _dataService = dataService;
+            _localSQLiteDataService = localSQLiteDataService;
 
             // DL-WebServer-Te: server 2003 Enterprise SP2, 1GB
             //_targetURL = "http://dl-webserver-te.dairydata.local:480"; 
@@ -85,86 +86,74 @@
 
         #region Required Definitions
         /// <inheritdoc/>
-        public List<string> GetCallTypes()
+        public List<string> GetCallTypesAsList()
         {
             // note: USE THIS METHOD AS A MODEL FOR THE OTHER PULL-DOWNS. DON'T DELETE THESE COMMENTS UNTIL THE OTHERS ARE RE-FACTORED.
             // note: The XML file will be missing (locally) on the first run.
 
-            List<string> callTypes = new List<string>(new[]
+            List<string> objectList = new List<string>(new[]
                 {
                     "initialized"
                 });
+            //List<CallType> objectList = new List<CallType>(new[]
+            //    {
+            //        new CallType { Name= "initialized" }
+            //    });
+
+            objectList = _localSQLiteDataService.GetSQLiteCallTypes().Select(i => i.ToString()).ToList();
 
             string xml = string.Empty;
-            var callTypesFilename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
+            var targetFilename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
 
             CheckFolder(_dataFolderPathName);
 
-            if (!_fileStore.TryReadTextFile(callTypesFilename, out xml))
-            { 
-                UpdateXmlCallTypes();
-            }
+            //if (!_fileStore.Exists(targetFilename))
+            //{
+            //    //objectList.Clear();
+            //    //objectList.Add( "file doesn't exist."  );
+            //    UpdateXmlCallTypes();
+            //}
 
-            if (_fileStore.TryReadTextFile(callTypesFilename, out xml))
-            {
-                callTypes = Deserialize<List<string>>(xml);
-            }
-            else
-            {
-                callTypes.Clear();
-            }
+            //if (_fileStore.TryReadTextFile(targetFilename, out xml))
+            //{
+            //    objectList = Deserialize<List<string>>(xml);
+            //}
+            //else
+            //{
+            //    objectList.Clear();
+            //    objectList.Add("Error reading file.");
+            //}
 
             // double-check that we got some result
-            if (callTypes.Count < 1)
-            {
-                callTypes.Add( "Error: count < 1" );
-            }
+            int objectCount = objectList.Count();
+            objectList.Add("count is " + objectCount);
 
-            return callTypes;
+            return objectList;
         }
 
         /// <inheritdoc/>
-        public List<EmailRecipient> GetEmailRecipients()
+        public List<string> GetEmailRecipientsAsList()
         {
-            List<EmailRecipient> emailRecipients = new List<EmailRecipient>(new[]
-                {
-                    new EmailRecipient { Address= "initialized", DisplayName = "initialized" }
-                });
-
-            string xml = string.Empty;
-            var emailRecipientsFilename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
-
-            CheckFolder(_dataFolderPathName);
-
-            if (_fileStore.TryReadTextFile(emailRecipientsFilename, out xml))
-            {
-                emailRecipients = Deserialize<List<EmailRecipient>>(xml);
-            }
-            else
-            {
-                emailRecipients.Clear();
-            }
+            List<string> objectList = _localSQLiteDataService.GetSQLiteEmailRecipients().Select(i => i.ToString()).ToList();
 
             // double-check that we got some result
-            if (emailRecipients.Count < 1)
-            {
-                emailRecipients.Add(new EmailRecipient { Address = "Error: count < 1", DisplayName = "Error: count < 1" });
-            }
+            int objectCount = objectList.Count();
+            objectList.Add("count is " + objectCount);
 
-            return emailRecipients;
+            return objectList;
         }
 
         /// <inheritdoc/>
         public List<ReasonCode> GetReasonCodes()
         {
-            List<ReasonCode> reasonCodes = new List<ReasonCode>(new[]
-                {
-                    new ReasonCode { Name = "initialized", Code = -1 }
-                });
+            List<ReasonCode> objectList = _localSQLiteDataService.GetSQLiteReasonCodes();
 
-            return reasonCodes;
+            // double-check that we got some result
+            int objectCount = objectList.Count();
+            objectList.Add(new ReasonCode{ Name =  "count is " + objectCount});
+
+            return objectList;
         }
-
 
         /// <inheritdoc/>
         public string GetEmailAddress(string emailName)
@@ -181,36 +170,57 @@
         }
 
         /// <inheritdoc/>
-        public bool UpdateXml()
+        public void UpdateModels()
         {
-            bool success = false;
+            //try
+            //{
+                CheckFolder(_dataFolderPathName);
 
-            try
-            {
                 // FixMe: errors down at this level are not presented to the UI. add an error log?
                 // review: how often are these tables going to be changing? do we really need to pull the fresh list every time?
-                success = UpdateXmlCallTypes();
-                // UpdateXmlEmailRecipients();
-                // UpdateXmlReasons();
+
+                // UpdateEmailRecipients();
+                
+                UpdateCallTypes();
+                //UpdateReasonCodes();
+                //UpdateEmailRecipients();
 
                 //success = true;
-            }
-            catch (Exception exc)
-            {
-                //Error(this, new ErrorEventArgs { Message = exc.Message });
-            }
-
-            return success;
+            //}
+            //catch (Exception exc)
+            //{
+            //    //Error(this, new ErrorEventArgs { Message = exc.Message });
+            //}
+                // Note: methods in ISemiStaticWebDataService must return an object -- so this always returns true
+                //return true;
         }
         #endregion
+
+        private void UpdateCallTypes()
+        {
+            //UpdateSQLiteCallTypes();  // broken:
+            UpdateXmlCallTypes();
+        }
+
+        private void UpdateEmailRecipients()
+        {
+            UpdateSQLiteEmailrecipients();
+            //UpdateXmlEmailRecipients();
+        }
+
+        private void UpdateReasonCodes()
+        {
+            UpdateSQLiteReasonCodes();
+            //UpdateXmlReasonCodes();
+        }
 
         /// <summary>Request CallTypes from the web service, and save them on-device.
         /// </summary>
         /// <remarks>The "CallTypes" part of "/Visit/CallTypes/" is handled in BackEnd.Controllers.VisitController.cs.</remarks>
-        private bool UpdateXmlCallTypes()
+        private void UpdateXmlCallTypes()
         {
+            // Hack: this is actually returning a List<CallType>
             var request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
-            bool updated = true;
 
             _jsonRestClient.MakeRequestFor<List<string>>(request,
                 response =>
@@ -219,9 +229,7 @@
                     var filename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
                     _fileStore.WriteFile(filename, Serialize(response.Result));
                 },
-                exception => { updated = false; });
-
-            return updated;
+                exception => { });
         }
 
         /// <summary>Request Email Recipients from the web service, and save them on-device.
@@ -229,12 +237,12 @@
         /// <remarks>The "NewEmailRecipients" part of "/Visit/NewEmailRecipients/" is handled in BackEnd.Controllers.VisitController.cs.</remarks>
         private void UpdateXmlEmailRecipients()
         {
+            // Hack: this is actually returning a List<EmailRecipient>
             var request = new MvxRestRequest(_targetURL + "/Visit/EmailRecipients/");
 
-            _jsonRestClient.MakeRequestFor<List<EmailRecipient>>(request,
+            _jsonRestClient.MakeRequestFor<List<string>>(request,
                 response =>
                 {
-                    // _dataService.UpdateRecipients(response.Result);
                     _fileStore.EnsureFolderExists(_dataFolderPathName);
                     var filename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
                     _fileStore.WriteFile(filename, Serialize(response.Result));
@@ -245,35 +253,46 @@
         /// <summary>Request (visit) Reasons from the web service, and save them on-device.
         /// </summary>
         /// <remarks>The "Reasons" part of "/Visit/Reasons/" is handled in BackEnd.Controllers.VisitController.cs</remarks>
-        private void UpdateXmlReasons()
+        private void UpdateXmlReasonCodes()
         {
-            try
-            {
-                var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
+            var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
 
-                _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
-                    response => _dataService.UpdateSQLiteReasons(response.Result),
-                    exception => { });
-
-                _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
-                    response =>
-                    {
-                        // _dataService.UpdateReasons(response.Result);
-                        _fileStore.EnsureFolderExists(_dataFolderPathName);
-                        var filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
-                        _fileStore.WriteFile(filename, Serialize(response.Result));
-                    },
-                    exception => { });
-                    //{ 
-                    //    Error(this, new ErrorEventArgs { Message = exception.Message }); 
-                    //});
-            }
-            catch (Exception ex)
-            {
-                //
-            }
+            _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
+                response =>
+                {
+                    var filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
+                    _fileStore.DeleteFile(filename);
+                    _fileStore.WriteFile(filename, Serialize(response.Result));
+                },
+                exception => { });
         }
 
+        private void UpdateSQLiteCallTypes()
+        {
+            var request = new MvxRestRequest(_targetURL + "/Visit/CallTypes/");
+
+            _jsonRestClient.MakeRequestFor<List<CallType>>(request,
+                response => { _localSQLiteDataService.UpdateSQLiteCallTypes(response.Result); },
+                exception => { });
+        }
+
+        private void UpdateSQLiteEmailrecipients()
+        {
+            var request = new MvxRestRequest(_targetURL + "/Visit/EmailRecipients/");
+
+            _jsonRestClient.MakeRequestFor<List<EmailRecipient>>(request,
+                response => { _localSQLiteDataService.UpdateSQLiteEmailRecipients(response.Result);  },
+                exception => { });
+        }
+
+        private void UpdateSQLiteReasonCodes()
+        {
+            var request = new MvxRestRequest(_targetURL + "/Visit/Reasons/");
+
+            _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
+                response => { _localSQLiteDataService.UpdateSQLiteReasonCodes(response.Result); },
+                exception => { });
+        }
 
 
         ///// <inheritdoc/>
@@ -336,11 +355,11 @@
                 });
 
             string xml = string.Empty;
-            var callTypesFilename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
+            var filename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
 
             _fileStore.EnsureFolderExists(_dataFolderPathName);
 
-            if (_fileStore.TryReadTextFile(callTypesFilename, out xml))
+            if (_fileStore.TryReadTextFile(filename, out xml))
             {
                 List<EmailRecipient> emailRecipients = Deserialize<List<EmailRecipient>>(xml);
                 //emailDisplayNames = List<string>

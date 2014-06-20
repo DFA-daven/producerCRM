@@ -1,7 +1,12 @@
-﻿namespace CallForm.Core.Models
-{
-    using Cirrious.MvvmCross.Plugins.Sqlite;
+﻿using Cirrious.MvvmCross.Plugins.Sqlite;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Xml.Serialization;
 
+namespace CallForm.Core.Models
+{
     /// <summary>Creates an object representing a "UserIdentity" record.
     /// </summary>
     public class UserIdentity

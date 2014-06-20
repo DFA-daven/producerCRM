@@ -59,7 +59,7 @@ namespace CallForm.iOS.ViewElements
             var doneButton = new UIButton(UIButtonType.System);
             doneButton.SetTitle("Done", UIControlState.Normal);
             // review: is InvokeOnMainThread() a bug fix by Ben?
-            doneButton.TouchUpInside += (sender, args) => InvokeOnMainThread(_source.DismissPopover);
+            doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.DismissPopover); };
             doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
             return doneButton;
         }

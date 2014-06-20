@@ -86,8 +86,6 @@
             var reportListItems = storedProducerVisitReports.Select(storedProducerVisitReport =>
             {
                 var producerVisitReport = Hydrated(storedProducerVisitReport);
-
-                // review: re-factor to not use UserId as primary key (it's unreliable)
                 return new ReportListItem
                 {
                     ID = storedProducerVisitReport.ID,
@@ -153,18 +151,20 @@
         {
             List<ReasonCode> reasonCodeList = new List<ReasonCode>(new[]
                 {
-                    new ReasonCode {Name = "VisitController: initialized", Code = -1},
+                    new ReasonCode {Name = "VstCntrllr: initialized", Code = -1},
                 });
 
+            // check remote
             if (!_webDatabaseConnection.ReasonCodes.Any())
             {
-                reasonCodeList.Clear();
-                reasonCodeList.Add(new ReasonCode {Name = "VisitController: no ReasonCodes on web dB", Code = -1});
+                reasonCodeList.Add(new ReasonCode { Name = "VstCntrllr: no ReasonCodes on web dB", Code = -1 });
             }
             else
             {
                 reasonCodeList = _webDatabaseConnection.ReasonCodes.ToList();
             }
+
+            reasonCodeList.Add(new ReasonCode { Name = "count is " + reasonCodeList.Count() });
 
             return Json(reasonCodeList, JsonRequestBehavior.AllowGet); 
         }
@@ -184,15 +184,15 @@
         /// <returns>List<string> of Call Types.</returns>
         public ActionResult CallTypes(string id)
         {
-            List<string> callTypeList = new List<string>(new[]
+            List<CallType> callTypeList = new List<CallType>(new[]
                 {
-                    "VisitController: initialized" 
+                    new CallType {Name = "VstCntrllr: initialized"},
                 });
 
             if (!_webDatabaseConnection.CallTypes.Any())
             {
                 callTypeList.Clear();
-                callTypeList.Add( "VisitController: no CallTypes on web dB" );
+                callTypeList.Add(new CallType { Name = "VstCntrllr: no CallTypes on web dB" });
 
                 //foreach (var reasonCode in reasonCodeList)
                 //{
@@ -217,13 +217,13 @@
         {
             List<EmailRecipient> emailRecipientList = new List<EmailRecipient>(new[]
                 {
-                    new EmailRecipient { DisplayName = "VisitController: initialized", },
+                    new EmailRecipient { DisplayName = "VstCntrllr: initialized", },
                 });
 
             if (!_webDatabaseConnection.EmailRecipients.Any())
             {
                 emailRecipientList.Clear();
-                emailRecipientList.Add(new EmailRecipient { DisplayName = "VisitController: no EmailRecipients on web dB" });
+                emailRecipientList.Add(new EmailRecipient { DisplayName = "VstCntrllr: no EmailRecipients on web dB" });
             }
             else
             {

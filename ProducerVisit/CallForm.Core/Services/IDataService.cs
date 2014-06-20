@@ -42,14 +42,34 @@ namespace CallForm.Core.Services
         /// <param name="id">The internal ID number of <see cref="StoredProducerVisitReport"/>.</param>
         void ReportUploaded(int id);
 
-        /// <summary>Opens the SQLite database, gets the <see cref="ReasonCode"/>.
+        /// <summary>Opens the SQLite database, gets all <see cref="ReasonCode"/>.
         /// </summary>
-        /// <returns>A <see cref="List"/> of <see cref="ReasonCodes"/>.</returns>
-        List<ReasonCode> GetSQLiteReasonsCodes();
+        /// <returns>A <see cref="List"/> of type <see cref="ReasonCode"/>.</returns>
+        List<ReasonCode> GetSQLiteReasonCodes();
 
-        /// <summary>Opens the SQLite database, replaces the "ReasonCodes" table with <paramref name="reasonCodes"/>.
+        /// <summary>Opens the SQLite database, and replaces the <see cref="ReasonCode"/> table.
         /// </summary>
         /// <param name="reasonCodes">A <see cref="List"/> of new <see cref="ReasonCode"/>.</param>
-        void UpdateSQLiteReasons(List<ReasonCode> reasonCodes);
+        void UpdateSQLiteReasonCodes(List<ReasonCode> reasonCodes);
+
+        /// <summary>Opens the SQLite database, gets all <see cref="CallType"/>.
+        /// </summary>
+        /// <returns>A <see cref="List"/> of type <see cref="CallType"/>.</returns>
+        List<CallType> GetSQLiteCallTypes();
+
+        /// <summary>Opens the SQLite database, and replaces the <see cref="CallType"/> table.
+        /// </summary>
+        /// <param name="callTypes">A <see cref="List"/> of new <see cref="CallType"/>.</param>
+        void UpdateSQLiteCallTypes(List<CallType> callTypes);
+
+        /// <summary>Opens the SQLite database, gets all <see cref="EmailRecipient"/>.
+        /// </summary>
+        /// <returns>A <see cref="List"/> of type <see cref="EmailRecipient"/>.</returns>
+        List<EmailRecipient> GetSQLiteEmailRecipients();
+
+        /// <summary>Opens the SQLite database, and replaces the <see cref="EmailRecipient"/> table.
+        /// </summary>
+        /// <param name="emailRecipients">A <see cref="List"/> of new <see cref="EmailRecipient"/>.</param>
+        void UpdateSQLiteEmailRecipients(List<EmailRecipient> emailRecipients);
     }
 }

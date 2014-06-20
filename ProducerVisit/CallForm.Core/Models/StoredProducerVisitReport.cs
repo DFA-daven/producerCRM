@@ -59,7 +59,7 @@
 
         /// <summary>The email recipients notified about this visit.
         /// </summary>
-        public string spvrEmailRecipients { get; set; }
+        public string EmailRecipients { get; set; }
 
         /// <summary>A picture associated with this visit.
         /// </summary>
@@ -91,7 +91,7 @@
             EntryDateTime = visitReport.EntryDateTime;
             CallType = visitReport.CallType;
             Notes = visitReport.Notes;
-            spvrEmailRecipients = visitReport.pvrEmailRecipients;
+            EmailRecipients = visitReport.EmailRecipients;
             PictureBytes = visitReport.PictureBytes;
             Uploaded = false;
         }
@@ -115,7 +115,7 @@
                 EntryDateTime = EntryDateTime,
                 CallType = CallType,
                 Notes = Notes,
-                pvrEmailRecipients = spvrEmailRecipients,
+                EmailRecipients = EmailRecipients,
                 PictureBytes = PictureBytes,
                 ReasonCodes = reasonCodes
             };

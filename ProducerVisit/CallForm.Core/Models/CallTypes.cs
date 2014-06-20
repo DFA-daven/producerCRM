@@ -1,7 +1,14 @@
-﻿namespace CallForm.Core.Models
+﻿using Cirrious.MvvmCross.Plugins.Sqlite;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Xml.Serialization;
+
+
+
+namespace CallForm.Core.Models
 {
-    using System;
-    using System.Net;
 
     /// <summary>An object representing a visit Call Type.
     /// </summary>
@@ -9,6 +16,7 @@
     {
         /// <summary>The internal ID for this object.
         /// </summary>
+        [PrimaryKey, AutoIncrement]      
         public int ID { get; set; }
 
         /// <summary>Gets/sets the "name" for this instance.

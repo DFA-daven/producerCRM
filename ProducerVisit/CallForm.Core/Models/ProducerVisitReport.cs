@@ -52,7 +52,7 @@
 
         /// <summary>The email recipient(s) notified about this visit.
         /// </summary>
-        public string pvrEmailRecipients { get; set; }
+        public string EmailRecipients { get; set; }
 
         /// <summary>A picture associated with this visit.
         /// </summary>

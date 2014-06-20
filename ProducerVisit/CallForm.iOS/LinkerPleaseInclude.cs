@@ -12,13 +12,13 @@ namespace CallForm.iOS
         public void Include(UIButton uiButton)
         {
             uiButton.TouchUpInside += (s, e) =>
-                                      uiButton.SetTitle(uiButton.Title(UIControlState.Normal), UIControlState.Normal);
+                                     { uiButton.SetTitle(uiButton.Title(UIControlState.Normal), UIControlState.Normal); };
         }
 
         public void Include(UIBarButtonItem barButton)
         {
             barButton.Clicked += (s, e) =>
-                                 barButton.Title = barButton.Title + string.Empty;
+                                { barButton.Title = barButton.Title + string.Empty; };
         }
 
         public void Include(UITextField textField)

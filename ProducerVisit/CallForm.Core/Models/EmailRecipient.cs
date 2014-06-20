@@ -1,8 +1,12 @@
-﻿namespace CallForm.Core.Models
-{
-    using System;
-    using System.Net;
+﻿using Cirrious.MvvmCross.Plugins.Sqlite;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Xml.Serialization;
 
+namespace CallForm.Core.Models
+{
     /// <summary>An object representing an "EmailRecipient" record.
     /// </summary>
     public class EmailRecipient
@@ -13,6 +17,7 @@
 
         /// <summary>Gets/sets the e-mail address for this instance.
         /// </summary>
+        [PrimaryKey, AutoIncrement]
         public string Address { get; set; }
 
         /// <summary>Gets/sets the displayed name for this instance.

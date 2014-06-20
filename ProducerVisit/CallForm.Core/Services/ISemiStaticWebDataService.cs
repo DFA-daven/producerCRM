@@ -11,12 +11,12 @@
         /// <summary>Gets the <see cref="CallType"/>(s) from the <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
         /// </summary>
         /// <returns>A <see cref="System.List"/> of type <see cref="CallType"/>.</returns>
-        List<string> GetCallTypes();
+        List<string> GetCallTypesAsList();
 
         /// <summary>Gets the <see cref="EmailRecipient"/>(s) from the <see cref="IMvxFileStore"/>.
         /// </summary>
         /// <returns>A <see cref="List"/> of type <see cref="EmailRecipient"/>.</returns>
-        List<EmailRecipient> GetEmailRecipients();
+        List<string> GetEmailRecipientsAsList();
 
         /// <summary>Gets the <see cref="ReasonCode"/>(s) from the <see cref="IMvxFileStore"/>.
         /// </summary>
@@ -34,9 +34,8 @@
         /// <returns>The Display Name for the given email address.</returns>
         string GetEmailDisplayName(string emailAddress);
 
-        /// <summary>Gets the <see cref="ReasonCodes"/>, <see cref="CallTypes"/>, and <see cref="EmailRecipients"/> tables from the web service, 
-        /// and updates the tables stored in the data service (Reason Codes) and XML/file store (Call Types and Email Recipients).
+        /// <summary>Gets the object (model) tables from the web service, and updates the SQLite an/or XML file as required.
         /// </summary>
-        bool UpdateXml();
+        void UpdateModels();
     }
 }

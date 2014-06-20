@@ -26,7 +26,7 @@ namespace CallForm.iOS.ViewElements
 
             var doneButton = new UIButton(UIButtonType.System);
             doneButton.SetTitle("Done", UIControlState.Normal);
-            doneButton.TouchUpInside += (sender, args) => source.DismissPopover();
+            doneButton.TouchUpInside += (sender, args) => { source.DismissPopover(); };
             doneButton.Frame = new RectangleF(0, _picker.Frame.Height, _picker.Frame.Width, 50);
 
             View.AddSubview(doneButton);

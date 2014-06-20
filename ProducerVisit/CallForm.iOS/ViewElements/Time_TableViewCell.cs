@@ -12,7 +12,7 @@ namespace CallForm.iOS.ViewElements
         {
             _setToNow = new UIButton(UIButtonType.System);
             _setToNow.SetTitle(buttonText, UIControlState.Normal);
-            _setToNow.TouchUpInside += (sender, args) => onClick();
+            _setToNow.TouchUpInside += (sender, args) => { onClick(); };
             if (editing)
             {
                 ContentView.Add(_setToNow);

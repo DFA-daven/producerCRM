@@ -18,24 +18,24 @@
 
         /// <summary>Opens the SQLite database; 
         /// if needed create an instance of an SQLite database; 
-        /// if needed create tables: StoredProducerVisitReport, VisitXReason, and ReasonCode; 
-        /// add 
+        /// if needed create object tables.
         /// </summary>
         /// <param name="factory">The <see cref="ISQLiteConnectionFactory"/>.</param>
         /// <param name="userIdentityService">The <see cref="IUserIdentityService"/>.</param>
         public DataService(ISQLiteConnectionFactory factory, IUserIdentityService userIdentityService)
         {
-            string address = "local.sql";
-            _localSQLiteConnection = factory.Create(address);
+            string databaseFilename = "local.sql";
+            _localSQLiteConnection = factory.Create(databaseFilename);
 
+            // these tables are used for recording new visits, and visits retrieved from the web service
             _localSQLiteConnection.CreateTable<StoredProducerVisitReport>();
+            _localSQLiteConnection.CreateTable<ReasonCode>();
             _localSQLiteConnection.CreateTable<VisitXReason>();
 
-            // Note: there's already a copy of this table as an XML file, but this copy supports queries in SQLite.
-            _localSQLiteConnection.CreateTable<ReasonCode>();
-
-            // Review: will this hold the same data as the web service, or is this for user selected recipients?
-            // _localSQLiteConnection.CreateTable<EmailRecipient>();
+            // Review: does it make more sense to have these in an XML file?
+            // these tables are used for populating the pull-downs on a report
+            _localSQLiteConnection.CreateTable<CallType>();
+            _localSQLiteConnection.CreateTable<EmailRecipient>();
         }
 
         /// <summary>Opens the SQLite database, adds <see cref="ReasonCode[]"/> to the <see cref="Models.StoredProducerVisitReport"/>, and 
@@ -69,18 +69,19 @@
         {
             // FixMe: change quantity to a .resx value (or an XML entry)
             int quantity = 100;
+            quantity = 20;
 
             var storedProducerVisitReports = _localSQLiteConnection.Table<StoredProducerVisitReport>()
                 .OrderByDescending(producerVisitReport => producerVisitReport.VisitDate)
                 .Take(quantity)
                 .ToList();
 
-            string currentUserEmail = _userIdentityService.GetIdentity().UserEmail;
+            //string currentUserEmail = _userIdentityService.GetIdentity().UserEmail;
 
-            if (string.IsNullOrWhiteSpace(currentUserEmail)) 
-            {
-                currentUserEmail = "unknown";
-            }
+            //if (string.IsNullOrWhiteSpace(currentUserEmail)) 
+            //{
+            //    currentUserEmail = "unknown";
+            //}
             
 
             return storedProducerVisitReports.Select(storedProducerVisitReport =>
@@ -90,14 +91,16 @@
 
                     //UserEmail = _userIdentityService.IdentityRecorded ? "identityTrue" : "identityFalse",
                     //UserEmail = _userIdentityService.IdentityRecorded ? _userIdentityService.GetIdentity().UserEmail : "You",
+                    //UserEmail = currentUserEmail,
+
 
                     return new ReportListItem
                     { 
                         ID = storedProducerVisitReport.ID,
-                        UserEmail = currentUserEmail,
+                        UserEmail = _userIdentityService.IdentityRecorded ? _userIdentityService.GetIdentity().UserEmail : "You",
                         MemberNumber = producerVisitReport.MemberNumber,
                         Local = true,
-                        PrimaryReasonCode = producerVisitReport.ReasonCodes != null && producerVisitReport.ReasonCodes.Length > 0 ? producerVisitReport.ReasonCodes[0] : new ReasonCode { Name = "Other", Code = -1 },
+                        PrimaryReasonCode = producerVisitReport.ReasonCodes != null && producerVisitReport.ReasonCodes.Length > 0 ? producerVisitReport.ReasonCodes[0] : new ReasonCode { Name = "Other" },
                         VisitDate = producerVisitReport.VisitDate,
                         Uploaded = storedProducerVisitReport.Uploaded
                     };
@@ -145,18 +148,48 @@
         }
 
         /// <inheritdoc/>
-        public List<ReasonCode> GetSQLiteReasonsCodes()
+        public List<ReasonCode> GetSQLiteReasonCodes()
         {
-            var reasons = _localSQLiteConnection.Table<ReasonCode>().ToList();
-            return reasons;
+            var objectList = _localSQLiteConnection.Table<ReasonCode>().ToList();
+            return objectList;
         }
 
         /// <inheritdoc/>
-        public void UpdateSQLiteReasons(List<ReasonCode> reasonCodes)
+        public void UpdateSQLiteReasonCodes(List<ReasonCode> reasonCodes)
         {
             _localSQLiteConnection.DropTable<ReasonCode>();
             _localSQLiteConnection.CreateTable<ReasonCode>();
             _localSQLiteConnection.InsertAll(reasonCodes);
+        }
+
+        /// <inheritdoc/>
+        public List<CallType> GetSQLiteCallTypes()
+        {
+            var objectList = _localSQLiteConnection.Table<CallType>().ToList();
+            return objectList;
+        }
+
+        /// <inheritdoc/>
+        public void UpdateSQLiteCallTypes(List<CallType> callTypes)
+        {
+            _localSQLiteConnection.DropTable<CallType>();
+            _localSQLiteConnection.CreateTable<CallType>();
+            _localSQLiteConnection.InsertAll(callTypes);
+        }
+
+        /// <inheritdoc/>
+        public List<EmailRecipient> GetSQLiteEmailRecipients()
+        {
+            var objectList = _localSQLiteConnection.Table<EmailRecipient>().ToList();
+            return objectList;
+        }
+
+        /// <inheritdoc/>
+        public void UpdateSQLiteEmailRecipients(List<EmailRecipient> emailRecipients)
+        {
+            _localSQLiteConnection.DropTable<EmailRecipient>();
+            _localSQLiteConnection.CreateTable<EmailRecipient>();
+            _localSQLiteConnection.InsertAll(emailRecipients);
         }
 
         #endregion

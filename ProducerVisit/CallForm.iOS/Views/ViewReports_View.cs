@@ -167,7 +167,7 @@
             set.Bind(newButton).To(vm => vm.NewVisitCommand);
             set.Apply();
 
-            findButton.TouchUpInside += (sender, args) => filterField.ResignFirstResponder();
+            findButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
 
             (ViewModel as ViewReports_ViewModel).Error += OnError;
 
@@ -362,7 +362,7 @@
 
         private void OnError(object sender, ErrorEventArgs errorEventArgs)
         {
-            InvokeOnMainThread(() => new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show());
+            InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );
         }
 
         public override void ViewWillAppear(bool animated)

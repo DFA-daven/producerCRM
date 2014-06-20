@@ -32,12 +32,12 @@ namespace CallForm.iOS.Views
             };
             var source = new NewVisit_TableViewSource(ViewModel as NewVisit_ViewModel, _table);
             source.DatePickerPopover = new DateTimePickerDialog_ViewController(
-                val => (ViewModel as NewVisit_ViewModel).Date = val,
+                val => { (ViewModel as NewVisit_ViewModel).Date = val; },
                 (ViewModel as NewVisit_ViewModel).Date, UIDatePickerMode.Date, source);
             source.CallTypePickerPopover = new StringPickerDialog_ViewController(
-                code => (ViewModel as NewVisit_ViewModel).CallType = code,
-                (ViewModel as NewVisit_ViewModel).CallType, source,
-                (ViewModel as NewVisit_ViewModel).CallTypes.ToArray());
+                code => { (ViewModel as NewVisit_ViewModel).SelectedCallType = code; },
+                (ViewModel as NewVisit_ViewModel).SelectedCallType, source,
+                (ViewModel as NewVisit_ViewModel).ListOfCallTypes.ToArray());
             source.ReasonPickerPopover = new ReasonCodePickerDialog_ViewController(ViewModel as NewVisit_ViewModel, source);
             source.EmailPickerPopover = new EmailRecipientSelectDialog_ViewController(ViewModel as NewVisit_ViewModel, source);
 
@@ -96,24 +96,24 @@ namespace CallForm.iOS.Views
                 // ToDo: add a message to the body to indicate if a picture was attached
                 mailView.SetMessageBody(
                     "Member Number: " + viewModel.MemberNumber + "\n" +
-                    "Contact Type: " + viewModel.CallType + "\n" +
+                    "Contact Type: " + viewModel.SelectedCallType + "\n" +
                     "Date: " + viewModel.Date.ToShortDateString() + "\n" +
                     "Length of Call (hours): " + viewModel.Duration + "\n" +
-                    "Reason(s) for Call: " + string.Join(", ", viewModel.ReasonCodes) + "\n" +
+                    "Reason(s) for Call: " + string.Join(", ", viewModel.SelectedReasonCodes) + "\n" +
                     "Notes: " + viewModel.Notes + "\n"
                     , false);
                 mailView.Finished += ReSendFinished;
-                InvokeOnMainThread(() => PresentViewController(mailView, true, null));
+                InvokeOnMainThread(() => { PresentViewController(mailView, true, null); } ); 
             }
             else
             {
-                InvokeOnMainThread(() => new UIAlertView("Error", "There are no mail accounts configured to send email.", null, "OK").Show());
+                InvokeOnMainThread(() => { new UIAlertView("Error", "There are no mail accounts configured to send email.", null, "OK").Show(); } );
             }
         }
 
         private void ReSendFinished(object sender, MFComposeResultEventArgs mfComposeResultEventArgs)
         {
-            InvokeOnMainThread(() => DismissViewController(true, null));
+            InvokeOnMainThread(() => { DismissViewController(true, null); } );
         }
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
@@ -153,7 +153,7 @@ namespace CallForm.iOS.Views
             if (MFMailComposeViewController.CanSendMail)
             {
                 MFMailComposeViewController mailView = new MFMailComposeViewController();
-                List<string> recipientList = viewModel.SelectedEmailRecipients.Where(x => x != "Recipients Not Listed").ToList();
+                List<string> recipientList = viewModel.SelectedEmailRecipients.Where(x =>  x != "Recipients Not Listed" ).ToList();
                 if (recipientList.Count > 0)
                 {
                     mailView.SetToRecipients(recipientList.ToArray());
@@ -167,18 +167,18 @@ namespace CallForm.iOS.Views
 
                 mailView.SetMessageBody(
                     "Member Number: " + viewModel.MemberNumber + "\n" +
-                    "Contact Type: " + viewModel.CallType + "\n" +
+                    "Contact Type: " + viewModel.SelectedCallType + "\n" +
                     "Date: " + viewModel.Date.ToShortDateString() + "\n" +
                     "Length of Call (hours): " + viewModel.Duration + "\n" +
-                    "Reason(s) for Call: " + string.Join(", ", viewModel.ReasonCodes) + "\n" +
+                    "Reason(s) for Call: " + string.Join(", ", viewModel.SelectedReasonCodes) + "\n" +
                     "Notes: " + viewModel.Notes + "\n"
                     ,false);
                 mailView.Finished += MailViewOnFinished;
-                InvokeOnMainThread(() => PresentViewController(mailView, true, null));
+                InvokeOnMainThread(() => { PresentViewController(mailView, true, null); } );
             }
             else
             {
-                InvokeOnMainThread(() => new UIAlertView("Error", "There are no mail accounts configured to send email.", null, "OK").Show());
+                InvokeOnMainThread(() => { new UIAlertView("Error", "There are no mail accounts configured to send email.", null, "OK").Show(); } );
             }
         }
 
@@ -211,7 +211,7 @@ namespace CallForm.iOS.Views
 
         private void OnError(object sender, ErrorEventArgs errorEventArgs)
         {
-            InvokeOnMainThread(() => new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show());
+            InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );
         }
     }
 

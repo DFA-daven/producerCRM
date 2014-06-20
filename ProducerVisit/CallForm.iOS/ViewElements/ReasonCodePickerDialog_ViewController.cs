@@ -50,7 +50,7 @@ namespace CallForm.iOS.ViewElements
 
         public override int RowsInSection(UITableView tableview, int section)
         {
-            return _viewModel.BuiltInReasonCodes.Count;
+            return _viewModel.ListOfReasonCodes.Count;
         }
 
         public override UIView GetViewForFooter(UITableView tableView, int section)
@@ -58,21 +58,21 @@ namespace CallForm.iOS.ViewElements
             var doneButton = new UIButton(UIButtonType.System);
             doneButton.SetTitle("Done", UIControlState.Normal);
             // Review: is InvokeOnMainThread() a bug fix by Ben?
-            doneButton.TouchUpInside += (sender, args) => InvokeOnMainThread(_source.DismissPopover);
+            doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.DismissPopover); };
             doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
             return doneButton;
         }
 
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-            ReasonCode reasonCode = _viewModel.BuiltInReasonCodes[indexPath.Row];
-            if (_viewModel.ReasonCodes.Contains(reasonCode))
+            ReasonCode reasonCode = _viewModel.ListOfReasonCodes[indexPath.Row];
+            if (_viewModel.SelectedReasonCodes.Contains(reasonCode))
             {
-                _viewModel.ReasonCodes.Remove(reasonCode);
+                _viewModel.SelectedReasonCodes.Remove(reasonCode);
             }
             else
             {
-                _viewModel.ReasonCodes.Add(reasonCode);
+                _viewModel.SelectedReasonCodes.Add(reasonCode);
             }
             _viewModel.RaisePropertyChanged("ReasonCodes");
             tableView.DeselectRow(indexPath, true);
@@ -88,9 +88,9 @@ namespace CallForm.iOS.ViewElements
         {
             UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier) ??
                                    new UITableViewCell(UITableViewCellStyle.Default, CellIdentifier);
-            ReasonCode reasonCode = _viewModel.BuiltInReasonCodes[indexPath.Row];
+            ReasonCode reasonCode = _viewModel.ListOfReasonCodes[indexPath.Row];
             cell.TextLabel.Text = reasonCode.Name;
-            cell.Accessory = _viewModel.ReasonCodes.Contains(reasonCode) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
+            cell.Accessory = _viewModel.SelectedReasonCodes.Contains(reasonCode) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
             return cell;
         }
     }
