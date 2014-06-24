@@ -85,7 +85,7 @@
         {
             if (string.IsNullOrEmpty(UserEmail))
             {
-                Error(this, new ErrorEventArgs {Message = "You must enter your email address"});
+                Error(this, new ErrorEventArgs { Message = "You must enter your email address" });
             }
             // ToDo: add check to validate email address
             else
@@ -104,9 +104,9 @@
                     Close(this);
                 }
                 catch (Exception exc)
-                {                    
-                    Error(this, new ErrorEventArgs { Message = exc.Message + exc.InnerException});
-                    
+                {
+                    Error(this, new ErrorEventArgs { Message = exc.Message + exc.InnerException });
+
                 }
             }
         }

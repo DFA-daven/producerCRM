@@ -1,11 +1,12 @@
-﻿using System;
-using CallForm.Core.Models;
-using Cirrious.MvvmCross.Plugins.File;
-using Cirrious.MvvmCross.Plugins.Network.Rest;
-using CallForm.Core.ViewModels;
-
-namespace CallForm.Core.Services
+﻿namespace CallForm.Core.Services
 {
+    using CallForm.Core.Models;
+    using CallForm.Core.ViewModels;
+    using Cirrious.MvvmCross.Plugins.File;
+    using Cirrious.MvvmCross.Plugins.Network.Rest;
+    using System;
+    using System.Diagnostics;
+
     /// <summary>Implements the <see cref="IUserIdentityService"/> interface.
     /// </summary>
     public class UserIdentityService : IUserIdentityService
@@ -18,6 +19,8 @@ namespace CallForm.Core.Services
         private bool _identityUploaded = false;
         private static string _dataFolderPathName = "Data";
         private static string _userIdentityFileName = "Identity.xml";
+        private string _request;
+
 
         /// <summary>An instance of the <see cref="IMvxRestClient"/>.
         /// </summary>
@@ -26,7 +29,8 @@ namespace CallForm.Core.Services
         //private readonly string _targetURL;
 
         //private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
-        private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
+        //private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
+        private static string _targetURL = "http://DL-WebSvcs-03:480";
         //private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
 
         /// <summary>Provides access to the <paramref name="fileStore"/> and <paramref name="restClient"/>.
@@ -44,14 +48,14 @@ namespace CallForm.Core.Services
         /// <inheritdoc/>
         public bool IdentityRecorded
         {
-            get 
+            get
             {
                 return _identityRecorded;
             }
             set
             {
                 _identityRecorded = value;
-            }
+        }
         }
 
         /// <inheritdoc/>
@@ -90,7 +94,7 @@ namespace CallForm.Core.Services
             }
 
             if (_fileStore.TryReadTextFile(userIdentityFilename, out xml))
-            {
+        {
                 savedUser = SemiStaticWebDataService.Deserialize<UserIdentity>(xml);
             }
 
@@ -122,20 +126,27 @@ namespace CallForm.Core.Services
         {
             try
             {
+                Request = _targetURL + "/Visit/Identity/";
                 var request =
-                    new MvxJsonRestRequest<UserIdentity>(_targetURL + "/Visit/Identity/")
+                    new MvxJsonRestRequest<UserIdentity>(Request)
                     {
                         Body = identity
                     };
 
                 // review: add error handling here
-                _restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, exception => { });
+                _restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, (Action<Exception>)RestException);
             }
             catch
             {
                 // FixMe: just ignore any errors for now
                 throw;
             }
+        }
+
+        private void RestException(Exception exception)
+        {
+            Debug.WriteLine("Original request: " + Request);
+            Debug.WriteLine("Exception message: " + exception.Message);
         }
 
         private UserIdentity CreateIdentity()
@@ -147,6 +158,15 @@ namespace CallForm.Core.Services
             SaveIdentityToFile(newUser);
 
             return newUser;
+        }
+        
+        public string Request
+        {
+            get { return _request; }
+            set
+            {
+                _request = value;
+            }
         }
 
         private void ParseResponse(MvxRestResponse obj)

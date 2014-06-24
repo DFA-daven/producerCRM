@@ -51,7 +51,7 @@ namespace CallForm.iOS.ViewElements
 
         public override int RowsInSection(UITableView tableview, int section)
         {
-            return _viewModel.BuiltinEmailRecipients.Count;
+            return _viewModel.ListOfEmailRecipients.Count;
         }
 
         public override UIView GetViewForFooter(UITableView tableView, int section)
@@ -70,7 +70,7 @@ namespace CallForm.iOS.ViewElements
         /// <param name="indexPath">The <see cref="NSIndexPath"/> of the selected row in the control.</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-            string email = _viewModel.BuiltinEmailRecipients[indexPath.Row];
+            string email = _viewModel.ListOfEmailRecipients[indexPath.Row];
             if (_viewModel.SelectedEmailRecipients.Contains(email))
             {
                 _viewModel.SelectedEmailRecipients.Remove(email);
@@ -94,7 +94,7 @@ namespace CallForm.iOS.ViewElements
         {
             UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier) ??
                                    new UITableViewCell(UITableViewCellStyle.Default, CellIdentifier);
-            string email = _viewModel.BuiltinEmailRecipients[indexPath.Row];
+            string email = _viewModel.ListOfEmailRecipients[indexPath.Row];
             cell.TextLabel.Text = email;
             cell.Accessory = _viewModel.SelectedEmailRecipients.Contains(email) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
             return cell;

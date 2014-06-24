@@ -66,23 +66,14 @@ namespace CallForm.Core.ViewModels
             IMvxJsonConverter jsonConverter,
             ISemiStaticWebDataService semiStaticWebDataService)
         {
-            //BuiltInReasonCodes = webDataService.GetReasonsForCall();
-            //ReasonCodes = new List<ReasonCode>();
+            //ListOfReasonCodes = semiStaticWebDataService.GetReasonCodes();
+            //SelectedReasonCodes = new List<ReasonCode>();
 
-            //CallTypes = webDataService.GetCallTypes();
-            //CallType = CallTypes.First();
+            //ListOfCallTypes = semiStaticWebDataService.GetCallTypesAsList();
+            //SelectedCallType = ListOfCallTypes.First();
 
-            //BuiltinEmailRecipients = webDataService.GetEmailRecipients();
-
-            ListOfReasonCodes = semiStaticWebDataService.GetReasonCodes();
-            SelectedReasonCodes = new List<ReasonCode>();
-
-            // Note: if CallTypes is stored in the dB as an object, need to convert to a list of strings."
-            ListOfCallTypes = semiStaticWebDataService.GetCallTypesAsList();
-            SelectedCallType = ListOfCallTypes.First();
-
-            _nvvmemailRecipients = new List<string>();
-            BuiltinEmailRecipients = semiStaticWebDataService.GetEmailRecipientsAsList();
+            //ListOfEmailRecipients = semiStaticWebDataService.GetEmailRecipientsAsList();
+            //SelectedEmailRecipients = new List<string>();
 
             Date = DateTime.Now.Date;
             ActualTime = DateTime.Now;
@@ -90,7 +81,7 @@ namespace CallForm.Core.ViewModels
             _locationService = locationService;
             // review: is the location being obtained twice? And is the second time even if the user answered "don't allow"?
             messenger.Subscribe<LocationMessage>(OnLocationMessage);
-            GetInitialLocation();
+            //GetInitialLocation();
 
             _pictureChooserTask = pictureChooserTask;
             _localSQLiteDataService = localSQLiteDataService;
@@ -287,18 +278,7 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        /// <summary>The list of <see cref="EmailRecipient"/> display names for the user to select from.
-        /// </summary>
-        /// <remarks><see cref="ListOfCallTypes"/> is handled by <see cref="CallForm.iOS.ViewElements.StringPickerDialog_ViewController"/></remarks>
-        public List<string> ListOfEmailRecipients
-        {
-            get { return _nvvmemailRecipients; }
-            set
-            {
-                _nvvmemailRecipients = value;
-                RaisePropertyChanged(() => ListOfEmailRecipients);
-            }
-        }
+
 
         #region Save
         /// <summary>The action for Save button.
@@ -408,8 +388,9 @@ namespace CallForm.Core.ViewModels
         #endregion
 
         #region Email
-        /// <summary>Gets/sets the list of Email Recipients selected by the user.
+        /// <summary>The list of <see cref="EmailRecipient"/> display names for the user to select from.
         /// </summary>
+        /// <remarks><see cref="ListOfCallTypes"/> is handled by <see cref="CallForm.iOS.ViewElements.StringPickerDialog_ViewController"/></remarks>
         public List<string> SelectedEmailRecipients
         {
             get { return _nvvmemailRecipients; }
@@ -420,9 +401,10 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+
         /// <summary>Holds the list of potential Email Recipients.
         /// </summary>
-        public List<string> BuiltinEmailRecipients;
+        public List<string> ListOfEmailRecipients;
 
         public event EventHandler SendEmail;
         #endregion

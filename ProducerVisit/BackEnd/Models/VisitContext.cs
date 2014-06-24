@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using CallForm.Core.Models;
-
-namespace BackEnd.Models
+﻿namespace BackEnd.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web;
+    using CallForm.Core.Models;
+
     public class VisitContext : DbContext
     {
         // Note: Web.*.config will automatically assign the database connection for the web service 
@@ -63,8 +63,5 @@ namespace BackEnd.Models
         /// <summary>The collection of <see cref="VisitXReasons"/>.
         /// </summary>
         public DbSet<VisitXReason> VisitXReasons { get; set; }
-
-
-
     }
 }

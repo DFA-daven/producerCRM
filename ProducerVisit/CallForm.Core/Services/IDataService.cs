@@ -52,24 +52,24 @@ namespace CallForm.Core.Services
         /// <param name="reasonCodes">A <see cref="List"/> of new <see cref="ReasonCode"/>.</param>
         void UpdateSQLiteReasonCodes(List<ReasonCode> reasonCodes);
 
-        /// <summary>Opens the SQLite database, gets all <see cref="CallType"/>.
-        /// </summary>
-        /// <returns>A <see cref="List"/> of type <see cref="CallType"/>.</returns>
-        List<CallType> GetSQLiteCallTypes();
+        ///// <summary>Opens the SQLite database, gets all <see cref="CallType"/>.
+        ///// </summary>
+        ///// <returns>A <see cref="List"/> of type <see cref="CallType"/>.</returns>
+        //List<CallType> GetSQLiteCallTypes();
 
-        /// <summary>Opens the SQLite database, and replaces the <see cref="CallType"/> table.
-        /// </summary>
-        /// <param name="callTypes">A <see cref="List"/> of new <see cref="CallType"/>.</param>
-        void UpdateSQLiteCallTypes(List<CallType> callTypes);
+        ///// <summary>Opens the SQLite database, and replaces the <see cref="CallType"/> table.
+        ///// </summary>
+        ///// <param name="callTypes">A <see cref="List"/> of new <see cref="CallType"/>.</param>
+        //void UpdateSQLiteCallTypes(List<CallType> callTypes);
 
-        /// <summary>Opens the SQLite database, gets all <see cref="EmailRecipient"/>.
-        /// </summary>
-        /// <returns>A <see cref="List"/> of type <see cref="EmailRecipient"/>.</returns>
-        List<EmailRecipient> GetSQLiteEmailRecipients();
+        ///// <summary>Opens the SQLite database, gets all <see cref="EmailRecipient"/>.
+        ///// </summary>
+        ///// <returns>A <see cref="List"/> of type <see cref="EmailRecipient"/>.</returns>
+        //List<EmailRecipient> GetSQLiteEmailRecipients();
 
-        /// <summary>Opens the SQLite database, and replaces the <see cref="EmailRecipient"/> table.
-        /// </summary>
-        /// <param name="emailRecipients">A <see cref="List"/> of new <see cref="EmailRecipient"/>.</param>
-        void UpdateSQLiteEmailRecipients(List<EmailRecipient> emailRecipients);
+        ///// <summary>Opens the SQLite database, and replaces the <see cref="EmailRecipient"/> table.
+        ///// </summary>
+        ///// <param name="emailRecipients">A <see cref="List"/> of new <see cref="EmailRecipient"/>.</param>
+        //void UpdateSQLiteEmailRecipients(List<EmailRecipient> emailRecipients);
     }
 }

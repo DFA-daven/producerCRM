@@ -36,6 +36,9 @@
             // these tables are used for populating the pull-downs on a report
             _localSQLiteConnection.CreateTable<CallType>();
             _localSQLiteConnection.CreateTable<EmailRecipient>();
+
+            // initialize the UserIdentity -- local XML, and record in cloud
+            _userIdentityService = userIdentityService;
         }
 
         /// <summary>Opens the SQLite database, adds <see cref="ReasonCode[]"/> to the <see cref="Models.StoredProducerVisitReport"/>, and 
@@ -95,7 +98,7 @@
 
 
                     return new ReportListItem
-                    { 
+                    {
                         ID = storedProducerVisitReport.ID,
                         UserEmail = _userIdentityService.IdentityRecorded ? _userIdentityService.GetIdentity().UserEmail : "You",
                         MemberNumber = producerVisitReport.MemberNumber,
@@ -147,50 +150,26 @@
             _localSQLiteConnection.Update(report);
         }
 
+
         /// <inheritdoc/>
         public List<ReasonCode> GetSQLiteReasonCodes()
         {
-            var objectList = _localSQLiteConnection.Table<ReasonCode>().ToList();
-            return objectList;
+            var reasons = _localSQLiteConnection.Table<ReasonCode>().ToList();
+            return reasons;
         }
 
         /// <inheritdoc/>
         public void UpdateSQLiteReasonCodes(List<ReasonCode> reasonCodes)
         {
+            // drop the existing table
             _localSQLiteConnection.DropTable<ReasonCode>();
             _localSQLiteConnection.CreateTable<ReasonCode>();
-            _localSQLiteConnection.InsertAll(reasonCodes);
+            _localSQLiteConnection.InsertAll(reasonCodes); 
         }
 
-        /// <inheritdoc/>
-        public List<CallType> GetSQLiteCallTypes()
-        {
-            var objectList = _localSQLiteConnection.Table<CallType>().ToList();
-            return objectList;
-        }
 
-        /// <inheritdoc/>
-        public void UpdateSQLiteCallTypes(List<CallType> callTypes)
-        {
-            _localSQLiteConnection.DropTable<CallType>();
-            _localSQLiteConnection.CreateTable<CallType>();
-            _localSQLiteConnection.InsertAll(callTypes);
-        }
 
-        /// <inheritdoc/>
-        public List<EmailRecipient> GetSQLiteEmailRecipients()
-        {
-            var objectList = _localSQLiteConnection.Table<EmailRecipient>().ToList();
-            return objectList;
-        }
 
-        /// <inheritdoc/>
-        public void UpdateSQLiteEmailRecipients(List<EmailRecipient> emailRecipients)
-        {
-            _localSQLiteConnection.DropTable<EmailRecipient>();
-            _localSQLiteConnection.CreateTable<EmailRecipient>();
-            _localSQLiteConnection.InsertAll(emailRecipients);
-        }
 
         #endregion
     }

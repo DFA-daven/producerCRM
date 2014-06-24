@@ -24,15 +24,15 @@
         /// <remarks><see cref="ReasonCode"/> are stored in both the SQLite database and XML.</remarks>
         List<ReasonCode> GetReasonCodes();
 
-        /// <summary>Gets the Email Address.
-        /// </summary>
-        /// <returns>The Email Address for the given Display Name.</returns>
-        string GetEmailAddress(string emailDisplayName);
+        ///// <summary>Gets the Email Address.
+        ///// </summary>
+        ///// <returns>The Email Address for the given Display Name.</returns>
+        //string GetEmailAddress(string emailDisplayName);
 
-        /// <summary>Gets the Display Name.
-        /// </summary>
-        /// <returns>The Display Name for the given email address.</returns>
-        string GetEmailDisplayName(string emailAddress);
+        ///// <summary>Gets the Display Name.
+        ///// </summary>
+        ///// <returns>The Display Name for the given email address.</returns>
+        //string GetEmailDisplayName(string emailAddress);
 
         /// <summary>Gets the object (model) tables from the web service, and updates the SQLite an/or XML file as required.
         /// </summary>

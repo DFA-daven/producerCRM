@@ -6,7 +6,6 @@ namespace BackEnd
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
-    using System.Data.Entity;
     using System.Linq;
     using System.Text;
     using System.Web.Http;
@@ -20,8 +19,6 @@ namespace BackEnd
     public class MvcApplication : System.Web.HttpApplication
     {
         public string EntityType { get; set;}
-
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -92,7 +89,6 @@ namespace BackEnd
         //    //}
         //}
 
-
         /// <summary>Inherited object that "wraps" SiteDBInitialize so that this one Seed method can service all three initialize classes
         /// (by simply commenting out the two inactive classes).
         /// </summary>
@@ -127,25 +123,25 @@ namespace BackEnd
                 context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Other" });
 
                 // ReasonCodes
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Global Regulatory: Calibrations", Code = 11});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Regulatory: Inspection", Code = 12});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Regulatory: Quality: Antibiotic", Code = 15});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Regulatory: Quality: Cryo", Code = 16});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Regulatory: Quality: Hi-count", Code = 17});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Regulatory: Samples", Code = 13});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Global Regulatory: Calibrations", Code = 11 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Regulatory: Inspection", Code = 12 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Regulatory: Quality: Antibiotic", Code = 15 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Regulatory: Quality: Cryo", Code = 16 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Regulatory: Quality: Hi-count", Code = 17 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Regulatory: Samples", Code = 13 });
 
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Membership: Cancellation", Code = 59});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Membership: Relationship Call", Code = 55});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Membership: Solicitation", Code = 56});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Membership: Cancellation", Code = 59 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Membership: Relationship Call", Code = 55 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Membership: Solicitation", Code = 56 });
 
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Gold Standard III", Code = 43});
-                
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: Agri-Max", Code = 31});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: ASA: Insurance", Code = 32});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: Dairy One", Code = 33});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: Eagle: Farm Supplies", Code = 34});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: Empire Livestock", Code = 35});
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode {Name = "Farm Services: Risk Management", Code = 36});
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Gold Standard III", Code = 43 });
+
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Farm Services: Agri-Max", Code = 31 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Farm Services: ASA: Insurance", Code = 32 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Farm Services: Dairy One", Code = 33 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Farm Services: Eagle: Farm Supplies", Code = 34 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Farm Services: Empire Livestock", Code = 35 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Farm Services: Risk Management", Code = 36 });
 
                 // write changes
                 context.SaveChanges();

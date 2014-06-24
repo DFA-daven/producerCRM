@@ -140,7 +140,7 @@
             _reasonCell.DetailTextLabel.TextColor = UIColor.Black;
 
             _notesCell = new TextView_TableViewCell("notes", _viewModel.Editing, _viewModel.Notes,
-                (sender, args) => { _viewModel.Notes = (sender as UITextView).Text); };
+                (sender, args) => { _viewModel.Notes = (sender as UITextView).Text; } );
             _notesCell.TextLabel.Text = "Notes";
 
             _takePictureCell = new Image_TableViewCell("takePicture", _viewModel.PictureBytes, _viewModel.Editing, _viewModel);

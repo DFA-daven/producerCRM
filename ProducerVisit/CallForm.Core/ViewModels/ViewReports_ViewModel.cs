@@ -7,6 +7,7 @@
     using Cirrious.MvvmCross.ViewModels;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Windows.Input;
 
@@ -23,9 +24,11 @@
         private readonly ISemiStaticWebDataService _semiStaticWebDataService;
 
         //private readonly string _targetURL;
+        private string _request;
 
         //private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
-        private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
+        //private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
+        private static string _targetURL = "http://dl-websvcs-03:480";
         //private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
 
         private MvxCommand _newVisitCommand;
@@ -35,7 +38,7 @@
         private bool _loading;
         private ReportListItem _selectedReport;
         private MvxCommand _viewReportCommand;
-
+        
         /// <summary>Creates an instance of <see cref="ViewReports_ViewModel"/>.
         /// </summary>
         /// <param name="jsonRestClient"></param>
@@ -59,7 +62,7 @@
                 _localSQLiteDataService = localDataService;
                 _restClient = restClient;
                 _userIdentityService = userIdentityService;
-                //_semiStaticWebDataService = semiStaticWebDataService;
+                _semiStaticWebDataService = semiStaticWebDataService;
 
                 // Review: Recent() must only query if UserIdentity is valid (that is, no query on first run).
                 // Note: on first-run, there will be no UserIdentity. This method will ask try to get the user's email address, which will result in an empty UserIdentity being created.
@@ -70,7 +73,11 @@
 
                 Loading = false;
 
-                //semiStaticWebDataService.UpdateModels();
+                // Hack: update this to the current back-end target
+                // _targetURL = "http://dl-websvcs-test.dairydata.local:480";
+                _targetURL = "http://DL-WebSvcs-03:480";
+
+                semiStaticWebDataService.UpdateModels();
             }
             catch (Exception exc)
             {
@@ -85,9 +92,9 @@
         {
             foreach (var producerVisitReport in _localSQLiteDataService.ToUpload().ToList())
             {
-                // error: break this code.
+                Request = _targetURL + "/Visit/Log/";
                 var request =
-                    new MvxJsonRestRequest<ProducerVisitReport>(_targetURL + "/Visit/Log/")
+                    new MvxJsonRestRequest<ProducerVisitReport>(Request)
                     {
                         Body = producerVisitReport,
                         Tag = producerVisitReport.ID.ToString()
@@ -95,8 +102,14 @@
                 // note: example of handling the response/error with a call to a method.
                 // make the request: if OK, pass the response to ParseResponse; else it's an error
                 //_restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
-                _restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, exception => {  });
+                _restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, (Action<Exception>)RestException);
             }
+            }
+
+        private void RestException(Exception exception)
+        {
+            Debug.WriteLine("Original request: " + Request);
+            Debug.WriteLine("Exception message: " + exception.Message);
         }
 
         /// <summary>Runs before this view Overlays <see cref="UserIdentityViewModel"/> if no identity exists.
@@ -149,6 +162,15 @@
             }
         }
 
+        public string Request
+        {
+            get { return _request; }
+            set
+            {
+                _request = value;
+            }
+        }
+
         public List<ReportListItem> Reports
         {
             get { return _reports; }
@@ -191,7 +213,8 @@
                 else
                 {
                     Loading = true;
-                    var request = new MvxRestRequest(_targetURL + "/Visit/Recent/" + Filter);
+                    Request = _targetURL + "/Visit/Recent/" + Filter;
+                    var request = new MvxRestRequest(Request);
                     // note: example of handling the response/error in-line
                     _jsonRestClient.MakeRequestFor<List<ReportListItem>>(request,
                         response =>
@@ -199,11 +222,7 @@
                             Reports = response.Result;
                             Loading = false;
                         },
-                        exception =>
-                        {
-                            Loading = false;
-                            Error(this, new ErrorEventArgs {Message = exception.Message});
-                        });
+                        (Action<Exception>)RestException);
                 }
             }
             else
@@ -252,18 +271,15 @@
                 else
                 {
                     Loading = true;
-                    var request = new MvxRestRequest(_targetURL + "/Visit/Report/" + SelectedReport.ID);
+                    Request = _targetURL + "/Visit/Report/" + SelectedReport.ID;
+                    var request = new MvxRestRequest(Request);
                     _jsonRestClient.MakeRequestFor<ProducerVisitReport>(request,
                         response =>
                         {
                             ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(response.Result) });
-                            Loading = false;
                         },
-                        exception =>
-                        {
+                        (Action<Exception>)RestException);
                             Loading = false;
-                            Error(this, new ErrorEventArgs { Message = exception.Message });
-                        });
                 }
             }
         }

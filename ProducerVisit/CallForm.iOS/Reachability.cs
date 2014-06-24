@@ -15,7 +15,8 @@ namespace CallForm.iOS
     public static class Reachability
     {
         // Hack: update this to the current back-end target
-        public static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
+        public static string _targetURL = "http://DL-WebSvcs-03:480";
+        //private static string _targetURL = "http://ProducerCRM.DairyDataProcessing.com";
 
         public static bool IsReachableWithoutRequiringConnection(NetworkReachabilityFlags flags)
         {

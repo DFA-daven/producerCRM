@@ -4,6 +4,7 @@
     using CallForm.Core.Models;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
 
     public class VisitController : Controller
@@ -150,15 +151,15 @@
         public ActionResult Reasons(string id)
         {
             List<ReasonCode> reasonCodeList = new List<ReasonCode>(new[]
-                {
+            {
                     new ReasonCode {Name = "VstCntrllr: initialized", Code = -1},
                 });
-
+                    
             // check remote
             if (!_webDatabaseConnection.ReasonCodes.Any())
-            {
+                {
                 reasonCodeList.Add(new ReasonCode { Name = "VstCntrllr: no ReasonCodes on web dB", Code = -1 });
-            }
+                }
             else
             {
                 reasonCodeList = _webDatabaseConnection.ReasonCodes.ToList();
@@ -181,7 +182,7 @@
         /// <summary>Gets the list of Call Types from the web service.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>List<string> of Call Types.</returns>
+        /// <returns><see cref="List"/> of <see cref="CallType"/>.</returns>
         public ActionResult CallTypes(string id)
         {
             List<CallType> callTypeList = new List<CallType>(new[]
@@ -193,44 +194,37 @@
             {
                 callTypeList.Clear();
                 callTypeList.Add(new CallType { Name = "VstCntrllr: no CallTypes on web dB" });
-
-                //foreach (var reasonCode in reasonCodeList)
-                //{
-                //    _webDatabaseConnection.ReasonCodes.Add(reasonCode);
-                //}
-                //_webDatabaseConnection.SaveChanges();
             }
             else
-            {
+                {
                 callTypeList = _webDatabaseConnection.CallTypes.ToList();
             }
 
             return Json(callTypeList, JsonRequestBehavior.AllowGet);
-
         }
 
         /// <summary>Gets the list of Email Recipients from the web service.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>A <see cref="List"/> of the Email Recipients.</returns>
+        /// <returns><see cref="List"/> of <see cref="EmailRecipient"/>.</returns>
         public ActionResult EmailRecipients(string id)
         {
-            List<EmailRecipient> emailRecipientList = new List<EmailRecipient>(new[]
+            List<EmailRecipient> objectList = new List<EmailRecipient>(new[]
                 {
-                    new EmailRecipient { DisplayName = "VstCntrllr: initialized", },
+                    new EmailRecipient { DisplayName = "VstCntrllr: initialized"},
                 });
 
             if (!_webDatabaseConnection.EmailRecipients.Any())
             {
-                emailRecipientList.Clear();
-                emailRecipientList.Add(new EmailRecipient { DisplayName = "VstCntrllr: no EmailRecipients on web dB" });
+                objectList.Clear();
+                objectList.Add(new EmailRecipient { DisplayName = "VstCntrllr: no EmailRecipients on web dB" });
             }
             else
             {
-                emailRecipientList = _webDatabaseConnection.EmailRecipients.ToList();
+                objectList = _webDatabaseConnection.EmailRecipients.ToList();
             }
 
-            return Json(emailRecipientList, JsonRequestBehavior.AllowGet); 
+            return Json(objectList, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

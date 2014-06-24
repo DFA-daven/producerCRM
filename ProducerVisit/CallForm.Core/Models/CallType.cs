@@ -3,24 +3,24 @@
     using Cirrious.MvvmCross.Plugins.Sqlite;
     using System;
 
-    /// <summary>An object representing a "ReasonCode" record.
+    /// <summary>An object representing a visit Call Type.
     /// </summary>
-    public class ReasonCode
+    public class CallType
     {
         /// <summary>The internal ID for this object.
         /// </summary>
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
-        /// <summary>The description of the reason.
+        /// <summary>Gets/sets the "name" for this instance.
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get;
+            set;
+        }
 
-        /// <summary>The value associated with this <see cref="ReasonCode"/>.
-        /// </summary>
-        public int Code { get; set; }
-
-        /// <summary>The description of this <see cref="ReasonCode"/>.
+        /// <summary>The name of this visit Call Type.
         /// </summary>
         /// <returns>A <see cref="String"/> of the description.</returns>
         public override string ToString()
@@ -29,3 +29,4 @@
         }
     }
 }
+
