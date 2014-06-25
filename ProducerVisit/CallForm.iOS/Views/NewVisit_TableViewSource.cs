@@ -1,11 +1,12 @@
 ﻿namespace CallForm.iOS.Views
 {
     using CallForm.Core.ViewModels;
-    using CallForm.Core.Common;
     using CallForm.iOS.ViewElements;
     using MonoTouch.Foundation;
     using MonoTouch.UIKit;
+    using System;
     using System.Drawing;
+    using System.Linq.Expressions;
 
     public class NewVisit_TableViewSource : UITableViewSource
     {
@@ -28,34 +29,54 @@
             _viewModel.PropertyChanged += (sender, args) =>
             {
                 // Review: Is switch/case the best way to handle this? What if a property name changes?
-                switch (args.PropertyName)
+                int switchNumber = -1;
+
+                if (args.PropertyName == GetPropertyName(() => _viewModel.MemberNumber))
+                    { switchNumber = 0; }
+                else if (args.PropertyName == GetPropertyName(() => _viewModel.SelectedCallType))
+                    { switchNumber = 1; }
+                else if (args.PropertyName == GetPropertyName(() => _viewModel.Date))
+                    { switchNumber = 2; }
+                else if (args.PropertyName == GetPropertyName(() => _viewModel.SelectedReasonCodes))
+                    { switchNumber = 3; }
+                else if (args.PropertyName == GetPropertyName(() => _viewModel.DurationString))
+                    { switchNumber = 4; }
+                else if (args.PropertyName == GetPropertyName(() => _viewModel.Notes))
+                    { switchNumber = 5; }
+                else if (args.PropertyName == GetPropertyName(() => _viewModel.PictureBytes))
+                    { switchNumber = 6; }
+                else if (args.PropertyName == GetPropertyName(() => _viewModel.SelectedEmailRecipients))
+                    { switchNumber = 7; }
+
+
+                switch (switchNumber)
                 {
-                    case GetPropertyName(() => _viewModel.MemberNumber):
+                    case 0:
                         _memberNumberCell.SetText(_viewModel.MemberNumber);
                         break;
-                    case GetPropertyName(() => _viewModel.SelectedCallType):
+                    case 1:
                         _callTypeCell.DetailTextLabel.Text = _viewModel.SelectedCallType;
                         break;
-                    case GetPropertyName(() => _viewModel.Date):
+                    case 2:
                         _dateCell.DetailTextLabel.Text = _viewModel.Date.ToShortDateString();
                         break;
-                    case GetPropertyName(() => _viewModel.SelectedReasonCodes):
+                    case 3:
                         _reasonCell.DetailTextLabel.Text = _viewModel.SelectedReasonCodes != null &&
                                                            _viewModel.SelectedReasonCodes.Count > 0
                             ? string.Join(", ", _viewModel.SelectedReasonCodes)
                             : "Tap to Select";
                         break;
-                    case GetPropertyName(() => _viewModel.DurationString):
+                    case 4:
                         _durationCell.SetText(_viewModel.DurationString);
                         break;
-                    case GetPropertyName(() => _viewModel.Notes):
+                    case 5:
                         _notesCell.SetText(_viewModel.Notes);
                         break;
-                    case GetPropertyName(() => _viewModel.PictureBytes):
+                    case 6:
                         _takePictureCell.SetPicture(_viewModel.PictureBytes);
                         tableView.ReloadData();
                         break;
-                    case GetPropertyName(() => _viewModel.SelectedEmailRecipients):
+                    case 7:
                         _emailRecipientsCell.DetailTextLabel.Text = _viewModel.SelectedEmailRecipients == null
                             ? string.Empty
                             : string.Join(", ", _viewModel.SelectedEmailRecipients);
@@ -268,6 +289,23 @@
             {
                 _popover.Dismiss(true);
             }
+        }
+
+        // <summary>Get the name of a static or instance property from a property access lambda.
+        // </summary>
+        // <typeparam name="T">Type of the property.</typeparam>
+        // <param name="propertyLambda">lambda expression of the form: '() => Class.Property' or '() => object.Property'.</param>
+        // <returns>The name of the property.</returns>
+        public string GetPropertyName<T>(Expression<Func<T>> propertyLambda)
+        {
+            var me = propertyLambda.Body as MemberExpression;
+
+            if (me == null)
+            {
+                throw new ArgumentException("You must pass a lambda of the form: '() => Class.Property' or '() => object.Property'");
+            }
+
+            return me.Member.Name;
         }
     }
 }

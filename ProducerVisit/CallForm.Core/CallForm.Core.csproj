@@ -66,7 +66,6 @@
       <Link>GlobalAssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="App.cs" />
-    <Compile Include="Common\Common.cs" />
     <Compile Include="Converters\ObjectToStringValueConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeStringValueConverter.cs" />
     <Compile Include="Converters\DateTimeToShortDateValueConverter.cs" />
@@ -133,6 +132,7 @@
   <ItemGroup>
     <Content Include="ToDo-MvvmCross\_ Core.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
