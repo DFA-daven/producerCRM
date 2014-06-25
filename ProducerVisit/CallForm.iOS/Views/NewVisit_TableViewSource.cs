@@ -1,6 +1,7 @@
 ﻿namespace CallForm.iOS.Views
 {
     using CallForm.Core.ViewModels;
+    using CallForm.Core.Common;
     using CallForm.iOS.ViewElements;
     using MonoTouch.Foundation;
     using MonoTouch.UIKit;
@@ -23,38 +24,38 @@
 
         public NewVisit_TableViewSource(NewVisit_ViewModel viewModel, UITableView tableView)
         {
-            _viewModel = viewModel;
+            _viewModel = viewModel; 
             _viewModel.PropertyChanged += (sender, args) =>
             {
                 // Review: Is switch/case the best way to handle this? What if a property name changes?
                 switch (args.PropertyName)
                 {
-                    case "MemberNumber":
+                    case GetPropertyName(() => _viewModel.MemberNumber):
                         _memberNumberCell.SetText(_viewModel.MemberNumber);
                         break;
-                    case "CallType":
+                    case GetPropertyName(() => _viewModel.SelectedCallType):
                         _callTypeCell.DetailTextLabel.Text = _viewModel.SelectedCallType;
                         break;
-                    case "Date":
+                    case GetPropertyName(() => _viewModel.Date):
                         _dateCell.DetailTextLabel.Text = _viewModel.Date.ToShortDateString();
                         break;
-                    case "ReasonCodes":
+                    case GetPropertyName(() => _viewModel.SelectedReasonCodes):
                         _reasonCell.DetailTextLabel.Text = _viewModel.SelectedReasonCodes != null &&
                                                            _viewModel.SelectedReasonCodes.Count > 0
                             ? string.Join(", ", _viewModel.SelectedReasonCodes)
                             : "Tap to Select";
                         break;
-                    case "DurationString":
+                    case GetPropertyName(() => _viewModel.DurationString):
                         _durationCell.SetText(_viewModel.DurationString);
                         break;
-                    case "Notes":
+                    case GetPropertyName(() => _viewModel.Notes):
                         _notesCell.SetText(_viewModel.Notes);
                         break;
-                    case "PictureBytes":
+                    case GetPropertyName(() => _viewModel.PictureBytes):
                         _takePictureCell.SetPicture(_viewModel.PictureBytes);
                         tableView.ReloadData();
                         break;
-                    case "pvrEmailRecipients":
+                    case GetPropertyName(() => _viewModel.SelectedEmailRecipients):
                         _emailRecipientsCell.DetailTextLabel.Text = _viewModel.SelectedEmailRecipients == null
                             ? string.Empty
                             : string.Join(", ", _viewModel.SelectedEmailRecipients);

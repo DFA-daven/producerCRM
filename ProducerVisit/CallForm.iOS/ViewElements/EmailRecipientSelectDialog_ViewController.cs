@@ -70,16 +70,16 @@ namespace CallForm.iOS.ViewElements
         /// <param name="indexPath">The <see cref="NSIndexPath"/> of the selected row in the control.</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-            string email = _viewModel.ListOfEmailRecipients[indexPath.Row];
-            if (_viewModel.SelectedEmailRecipients.Contains(email))
+            string currentlySelectedRow = _viewModel.ListOfEmailRecipients[indexPath.Row];
+            if (_viewModel.SelectedEmailRecipients.Contains(currentlySelectedRow))
             {
-                _viewModel.SelectedEmailRecipients.Remove(email);
+                _viewModel.SelectedEmailRecipients.Remove(currentlySelectedRow);
             }
             else
             {
-                _viewModel.SelectedEmailRecipients.Add(email);
+                _viewModel.SelectedEmailRecipients.Add(currentlySelectedRow);
             }
-            _viewModel.RaisePropertyChanged("pvrEmailRecipients");
+            _viewModel.RaisePropertyChanged("SelectedEmailRecipients");
             tableView.DeselectRow(indexPath, true);
             tableView.ReloadData();
         }

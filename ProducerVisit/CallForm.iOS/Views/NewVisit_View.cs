@@ -30,16 +30,27 @@ namespace CallForm.iOS.Views
             {
                 BackgroundView = null
             };
+
             var source = new NewVisit_TableViewSource(ViewModel as NewVisit_ViewModel, _table);
             source.DatePickerPopover = new DateTimePickerDialog_ViewController(
-                val => { (ViewModel as NewVisit_ViewModel).Date = val; },
-                (ViewModel as NewVisit_ViewModel).Date, UIDatePickerMode.Date, source);
+                val => (ViewModel as NewVisit_ViewModel).Date = val, 
+                (ViewModel as NewVisit_ViewModel).Date, 
+                UIDatePickerMode.Date, 
+                source);
+
             source.CallTypePickerPopover = new StringPickerDialog_ViewController(
-                code => { (ViewModel as NewVisit_ViewModel).SelectedCallType = code; },
-                (ViewModel as NewVisit_ViewModel).SelectedCallType, source,
+                code => (ViewModel as NewVisit_ViewModel).SelectedCallType = code, 
+                (ViewModel as NewVisit_ViewModel).SelectedCallType, 
+                source,
                 (ViewModel as NewVisit_ViewModel).ListOfCallTypes.ToArray());
-            source.ReasonPickerPopover = new ReasonCodePickerDialog_ViewController(ViewModel as NewVisit_ViewModel, source);
-            source.EmailPickerPopover = new EmailRecipientSelectDialog_ViewController(ViewModel as NewVisit_ViewModel, source);
+
+            source.ReasonPickerPopover = new ReasonCodePickerDialog_ViewController(
+                ViewModel as NewVisit_ViewModel, 
+                source);
+
+            source.EmailPickerPopover = new EmailRecipientSelectDialog_ViewController(
+                ViewModel as NewVisit_ViewModel, 
+                source);
 
             _table.Source = source;
 
