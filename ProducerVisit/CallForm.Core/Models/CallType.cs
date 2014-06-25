@@ -23,6 +23,7 @@
         /// <summary>The name of this visit Call Type.
         /// </summary>
         /// <returns>A <see cref="String"/> of the description.</returns>
+        /// <remarks>Including this Override simplifies processing this Class (Model).</remarks>
         public override string ToString()
         {
             return Name;

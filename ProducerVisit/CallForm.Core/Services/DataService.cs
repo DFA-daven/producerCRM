@@ -154,21 +154,50 @@
         /// <inheritdoc/>
         public List<ReasonCode> GetSQLiteReasonCodes()
         {
-            var reasons = _localSQLiteConnection.Table<ReasonCode>().ToList();
-            return reasons;
+            var objectList = _localSQLiteConnection.Table<ReasonCode>().ToList();
+            return objectList;
         }
 
         /// <inheritdoc/>
-        public void UpdateSQLiteReasonCodes(List<ReasonCode> reasonCodes)
+        public void UpdateSQLiteReasonCodes(List<ReasonCode> newObjects)
         {
             // drop the existing table
             _localSQLiteConnection.DropTable<ReasonCode>();
             _localSQLiteConnection.CreateTable<ReasonCode>();
-            _localSQLiteConnection.InsertAll(reasonCodes); 
+            _localSQLiteConnection.InsertAll(newObjects); 
         }
 
+        /// <inheritdoc/>
+        public List<CallType> GetSQLiteCallTypes()
+        {
+            var objectList = _localSQLiteConnection.Table<CallType>().ToList();
+            return objectList;
+        }
 
+        /// <inheritdoc/>
+        public void UpdateSQLiteCallTypes(List<CallType> newObjects)
+        {
+            // drop the existing table
+            _localSQLiteConnection.DropTable<CallType>();
+            _localSQLiteConnection.CreateTable<CallType>();
+            _localSQLiteConnection.InsertAll(newObjects);
+        }
 
+        /// <inheritdoc/>
+        public List<EmailRecipient> GetSQLiteEmailRecipients()
+        {
+            var objectList = _localSQLiteConnection.Table<EmailRecipient>().ToList();
+            return objectList;
+        }
+
+        /// <inheritdoc/>
+        public void UpdateSQLiteEmailRecipients(List<EmailRecipient> newObjects)
+        {
+            // drop the existing table
+            _localSQLiteConnection.DropTable<EmailRecipient>();
+            _localSQLiteConnection.CreateTable<EmailRecipient>();
+            _localSQLiteConnection.InsertAll(newObjects);
+        }
 
 
         #endregion

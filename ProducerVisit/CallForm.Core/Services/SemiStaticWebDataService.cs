@@ -79,71 +79,87 @@
         /// <inheritdoc/>
         public List<string> GetCallTypesAsList()
         {
-            List<string> stringList = new List<string>(new[] { "initialized" });
-
-            CheckFolder(_dataFolderPathName);
-
-            string xml = string.Empty;
-            string targetFilename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
-
-            if (!_fileStore.Exists(targetFilename))
-            {
-                stringList.Clear();
-                stringList.Add("file doesn't exist.");
-                //UpdateXmlCallTypes();
-            }
-
-            if (_fileStore.TryReadTextFile(targetFilename, out xml))
-            {
-                List<CallType> objectList = Deserialize<List<CallType>>(xml);
-                stringList = objectList.Select(i => i.ToString()).ToList();
-            }
-            else
-            {
-                stringList.Clear();
-                stringList.Add("Error reading file.");
-            }
-
-            // double-check that we got some result
-            int objectCount = stringList.Count();
-            stringList.Add("count is " + objectCount);
+            List<CallType> objectList = _localDatabaseService.GetSQLiteCallTypes(); 
+            List<string> stringList = objectList.Select(i => i.ToString()).ToList();
 
             return stringList;
         }
+
+        //public List<string> GetCallTypesAsList()
+        //{
+        //    List<string> stringList = new List<string>(new[] { "initialized" });
+
+        //    CheckFolder(_dataFolderPathName);
+
+        //    string xml = string.Empty;
+        //    string targetFilename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
+
+        //    if (!_fileStore.Exists(targetFilename))
+        //    {
+        //        stringList.Clear();
+        //        stringList.Add("file doesn't exist.");
+        //        //UpdateXmlCallTypes();
+        //    }
+
+        //    if (_fileStore.TryReadTextFile(targetFilename, out xml))
+        //    {
+        //        List<CallType> objectList = Deserialize<List<CallType>>(xml);
+        //        stringList = objectList.Select(i => i.ToString()).ToList();
+        //    }
+        //    else
+        //    {
+        //        stringList.Clear();
+        //        stringList.Add("Error reading file.");
+        //    }
+
+        //    // double-check that we got some result
+        //    int objectCount = stringList.Count();
+        //    stringList.Add("count is " + objectCount);
+
+        //    return stringList;
+        //}
 
         /// <inheritdoc/>
         public List<string> GetEmailRecipientsAsList()
         {
-            List<string> stringList = new List<string>(new[] { "initialized" } );
-                    
-            CheckFolder(_dataFolderPathName);
-
-            string xml = string.Empty;
-            string targetFilename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
-
-            if (!_fileStore.Exists(targetFilename))
-            {
-                stringList.Clear();
-                stringList.Add("file doesn't exist.");
-            }
-
-            if (_fileStore.TryReadTextFile(targetFilename, out xml))
-            {
-                List<EmailRecipient> objectList = Deserialize<List<EmailRecipient>>(xml);
-                stringList = objectList.Select(i => i.ToString()).ToList();
-            }
-            else
-            {
-                stringList.Clear();
-                stringList.Add("Error reading file.");
-            }
-
-            // double-check that we got some result
-            int objectCount = stringList.Count();
-            stringList.Add("count is " + objectCount);
+            List<EmailRecipient> objectList = _localDatabaseService.GetSQLiteEmailRecipients();
+            List<string> stringList = objectList.Select(i => i.ToString()).ToList();
 
             return stringList;
         }
+
+        //public List<string> GetEmailRecipientsAsList()
+        //{
+        //    List<string> stringList = new List<string>(new[] { "initialized" } );
+                    
+        //    CheckFolder(_dataFolderPathName);
+
+        //    string xml = string.Empty;
+        //    string targetFilename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
+
+        //    if (!_fileStore.Exists(targetFilename))
+        //    {
+        //        stringList.Clear();
+        //        stringList.Add("file doesn't exist.");
+        //    }
+
+        //    if (_fileStore.TryReadTextFile(targetFilename, out xml))
+        //    {
+        //        List<EmailRecipient> objectList = Deserialize<List<EmailRecipient>>(xml);
+        //        stringList = objectList.Select(i => i.ToString()).ToList();
+        //    }
+        //    else
+        //    {
+        //        stringList.Clear();
+        //        stringList.Add("Error reading file.");
+        //    }
+
+        //    // double-check that we got some result
+        //    int objectCount = stringList.Count();
+        //    stringList.Add("count is " + objectCount);
+
+        //    return stringList;
+        //}
 
         /// <inheritdoc/>
         public void UpdateModels()
@@ -176,6 +192,8 @@
                 _jsonRestClient.MakeRequestFor<List<CallType>>(request,
                     response =>
                     {
+                        _localDatabaseService.UpdateSQLiteCallTypes(response.Result);
+
                         filename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
                         _fileStore.WriteFile(filename, Serialize(response.Result));
                     },
@@ -187,6 +205,8 @@
                 _jsonRestClient.MakeRequestFor<List<EmailRecipient>>(request,
                     response =>
                     {
+                        _localDatabaseService.UpdateSQLiteEmailRecipients(response.Result);
+
                         filename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
                         _fileStore.WriteFile(filename, Serialize(response.Result));
                     },

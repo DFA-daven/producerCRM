@@ -27,6 +27,7 @@
         /// <summary>The DisplayName of this <see cref="EmailRecipient"/>.
         /// </summary>
         /// <returns>A <see cref="String"/> of the description.</returns>
+        /// <remarks>Including this Override simplifies processing this Class (Model).</remarks>
         public override string ToString()
         {
             return DisplayName;

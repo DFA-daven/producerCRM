@@ -20,7 +20,7 @@ namespace CallForm.Core.ViewModels
     {
         private readonly ILocationService _locationService;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
-        private readonly IDataService _localSQLiteDataService;
+        private readonly IDataService _localDatabaseService;
         private readonly IMvxJsonConverter _jsonConverter;
 
         #region backing fields
@@ -55,36 +55,36 @@ namespace CallForm.Core.ViewModels
         /// <param name="locationService"></param>
         /// <param name="messenger"></param>
         /// <param name="pictureChooserTask"></param>
-        /// <param name="localSQLiteDataService"></param>
+        /// <param name="localDatabaseService"></param>
         /// <param name="jsonConverter"></param>
         /// <param name="semiStaticWebDataService"></param>
         public NewVisit_ViewModel(
             ILocationService locationService,
             IMvxMessenger messenger,
             IMvxPictureChooserTask pictureChooserTask,
-            IDataService localSQLiteDataService,
+            IDataService localDatabaseService,
             IMvxJsonConverter jsonConverter,
             ISemiStaticWebDataService semiStaticWebDataService)
         {
-            //ListOfReasonCodes = semiStaticWebDataService.GetReasonCodes();
-            //SelectedReasonCodes = new List<ReasonCode>();
+            ListOfReasonCodes = localDatabaseService.GetSQLiteReasonCodes();
+            SelectedReasonCodes = new List<ReasonCode>();
 
-            //ListOfCallTypes = semiStaticWebDataService.GetCallTypesAsList();
-            //SelectedCallType = ListOfCallTypes.First();
+            ListOfCallTypes = semiStaticWebDataService.GetCallTypesAsList();
+            SelectedCallType = ListOfCallTypes.First();
 
-            //ListOfEmailRecipients = semiStaticWebDataService.GetEmailRecipientsAsList();
-            //SelectedEmailRecipients = new List<string>();
+            ListOfEmailRecipients = semiStaticWebDataService.GetEmailRecipientsAsList();
+            SelectedEmailRecipients = new List<string>();
 
             Date = DateTime.Now.Date;
             ActualTime = DateTime.Now;
 
-            _locationService = locationService;
             // review: is the location being obtained twice? And is the second time even if the user answered "don't allow"?
+            _locationService = locationService;
             messenger.Subscribe<LocationMessage>(OnLocationMessage);
-            //GetInitialLocation();
+            GetInitialLocation();
 
             _pictureChooserTask = pictureChooserTask;
-            _localSQLiteDataService = localSQLiteDataService;
+            _localDatabaseService = localDatabaseService;
             _jsonConverter = jsonConverter;
 
             Editing = true;
@@ -316,7 +316,7 @@ namespace CallForm.Core.ViewModels
             }
             else if (Editing)
             {
-                _localSQLiteDataService.Insert(NewVisitAsProducerVisitReport());
+                _localDatabaseService.Insert(NewVisitAsProducerVisitReport());
                 if (SelectedEmailRecipients == null || SelectedEmailRecipients.Count <= 0)
                 {
                     Close(this);
