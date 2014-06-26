@@ -6,9 +6,13 @@ using MonoTouch.UIKit;
 
 namespace CallForm.iOS.ViewElements
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DateTimePickerDialog_ViewController : UIViewController
     {
         private Action<DateTime> _setValue = obj => { };
+
         private readonly UIDatePicker _picker;
 
         public DateTimePickerDialog_ViewController(Action<DateTime> setValue, DateTime initialValue, UIDatePickerMode mode, NewVisit_TableViewSource source)
@@ -39,16 +43,15 @@ namespace CallForm.iOS.ViewElements
             _setValue(_picker.Date);
         }
 
-        // replace ContentSizeForViewInPopover with PreferredContentSize
         public override SizeF PreferredContentSize
         {
             get
             {
                 SizeF size = _picker.Frame.Size;
+                // leave space for "Done" button
                 size.Height += 50;
                 return size;
             }
-            // replace ContentSizeForViewInPopover with PreferredContentSize
             set { base.PreferredContentSize = value; }
         }
     }
