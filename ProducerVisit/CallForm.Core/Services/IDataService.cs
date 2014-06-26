@@ -9,15 +9,14 @@ namespace CallForm.Core.Services
     public interface IDataService
     {
         /// <summary>Opens the SQLite database, gets rows from "StoredProducerVisitReport"
-        /// where "Uploaded" is false, and returns them as <see cref="List"/> of <see cref="ProducerVisitReport>"/>.
+        /// where "Uploaded" is false, and returns them as <see cref="List{T}"/> of <see cref="ProducerVisitReport"/>.
         /// </summary>
-        /// <returns>A <see cref="List"/> of <see cref="ProducerVisitReport>"/> where "Uploaded" is false.
+        /// <returns>A <see cref="List{T}"/> of <see cref="ProducerVisitReport"/> where "Uploaded" is false.</returns>
         List<ProducerVisitReport> ToUpload();
 
         /// <summary>Opens the SQLite database, gets the most recent <see cref="StoredProducerVisitReport"/>s.
         /// </summary>
-        /// <returns>A <see cref="List"/> of <see cref="ReportListItem"/> sorted in descending order by VisitDate.</returns>
-        /// <remarks>See <see cref="VisitController.Recent()"/>.</remarks>
+        /// <returns>A <see cref="List{T}"/> of <see cref="ReportListItem"/> sorted in descending order by VisitDate.</returns>
         List<ReportListItem> Recent();
 
         /// <summary>Given a <see cref="ProducerVisitReport"/>, adds a 
@@ -44,32 +43,32 @@ namespace CallForm.Core.Services
 
         /// <summary>Opens the SQLite database, gets all <see cref="ReasonCode"/>.
         /// </summary>
-        /// <returns>A <see cref="List"/> of type <see cref="ReasonCode"/>.</returns>
+        /// <returns>A <see cref="List{T}"/> of type <see cref="ReasonCode"/>.</returns>
         List<ReasonCode> GetSQLiteReasonCodes();
 
         /// <summary>Opens the SQLite database, and replaces the <see cref="ReasonCode"/> table.
         /// </summary>
-        /// <param name="newObjects">A <see cref="List"/> of new <see cref="ReasonCode"/>.</param>
+        /// <param name="newObjects">A <see cref="List{T}"/> of new <see cref="ReasonCode"/>.</param>
         void UpdateSQLiteReasonCodes(List<ReasonCode> newObjects);
 
         /// <summary>Opens the SQLite database, gets all <see cref="CallType"/>.
         /// </summary>
-        /// <returns>A <see cref="List"/> of type <see cref="CallType"/>.</returns>
+        /// <returns>A <see cref="List{T}"/> of type <see cref="CallType"/>.</returns>
         List<CallType> GetSQLiteCallTypes();
 
         /// <summary>Opens the SQLite database, and replaces the <see cref="CallType"/> table.
         /// </summary>
-        /// <param name="newObjects">A <see cref="List"/> of new <see cref="CallType"/>.</param>
+        /// <param name="newObjects">A <see cref="List{T}"/> of new <see cref="CallType"/>.</param>
         void UpdateSQLiteCallTypes(List<CallType> newObjects);
 
         /// <summary>Opens the SQLite database, gets all <see cref="EmailRecipient"/>.
         /// </summary>
-        /// <returns>A <see cref="List"/> of type <see cref="EmailRecipient"/>.</returns>
+        /// <returns>A <see cref="List{T}"/> of type <see cref="EmailRecipient"/>.</returns>
         List<EmailRecipient> GetSQLiteEmailRecipients();
 
         /// <summary>Opens the SQLite database, and replaces the <see cref="EmailRecipient"/> table.
         /// </summary>
-        /// <param name="newObjects">A <see cref="List"/> of new <see cref="EmailRecipient"/>.</param>
+        /// <param name="newObjects">A <see cref="List{T}"/> of new <see cref="EmailRecipient"/>.</param>
         void UpdateSQLiteEmailRecipients(List<EmailRecipient> newObjects);
     }
 }

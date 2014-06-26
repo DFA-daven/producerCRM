@@ -7,7 +7,7 @@ namespace CallForm.Core.Services
     /// <remarks>Signatures of methods, properties, events and/or indexers</remarks>
     public interface IUserIdentityService
     {
-        /// <summary>Indicates if the XML file exists in the <see cref="IMvxFileStore"/>.
+        /// <summary>Indicates if the XML file exists in the <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
         /// </summary>
         bool IdentityRecorded { get; set; }
 

@@ -32,6 +32,7 @@ namespace CallForm.iOS.Views
             };
 
             var source = new NewVisit_TableViewSource(ViewModel as NewVisit_ViewModel, _table);
+
             source.DatePickerPopover = new DateTimePickerDialog_ViewController(
                 val => (ViewModel as NewVisit_ViewModel).Date = val, 
                 (ViewModel as NewVisit_ViewModel).Date, 

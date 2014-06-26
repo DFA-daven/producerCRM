@@ -19,7 +19,7 @@
         private readonly IMvxFileStore _fileStore;
         private readonly IMvxJsonRestClient _jsonRestClient;
         private readonly IDataService _localDatabaseService;
-        //private readonly string _targetURL;
+        
         private string _request;
 
         // hack: fix the _targetURL definitions to match web.*.config
@@ -246,11 +246,11 @@
 
         public event EventHandler<ErrorEventArgs> Error;
 
-        /// <summary>Convert XML to an object of type <paramref name="T"/>.
+        /// <summary>Convert XML to an object.
         /// </summary>
         /// <typeparam name="T">The type to apply to the XML.</typeparam>
         /// <param name="xml">An XML ("serialized") string.</param>
-        /// <returns>The <paramref name="xml"/> deserialized to an object of type <paramref name="T"/>.</returns>
+        /// <returns>The <paramref name="xml"/> deserialized to an object.</returns>
         public static T Deserialize<T>(string xml)
         {
             var serializer = new XmlSerializer(typeof(T));
@@ -262,7 +262,7 @@
             return container;
         }
 
-        /// <summary>Convert an object of type <paramref name="T"/> to XML.
+        /// <summary>Convert an object to XML.
         /// </summary>
         /// <typeparam name="T">The type to apply to <paramref name="obj"/>.</typeparam>
         /// <param name="obj">An object that needs to be serialized.</param>

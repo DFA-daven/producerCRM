@@ -41,7 +41,7 @@
             _userIdentityService = userIdentityService;
         }
 
-        /// <summary>Opens the SQLite database, adds <see cref="ReasonCode[]"/> to the <see cref="Models.StoredProducerVisitReport"/>, and 
+        /// <summary>Opens the SQLite database, adds <see cref="ReasonCode()"/> to the <see cref="Models.StoredProducerVisitReport"/>, and 
         /// returns a <see cref="ProducerVisitReport"/>.
         /// </summary>
         /// <param name="storedProducerVisitReport">A <see cref="StoredProducerVisitReport"/>.</param>
