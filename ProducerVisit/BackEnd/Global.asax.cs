@@ -54,7 +54,7 @@ namespace BackEnd
         // automatically creates the database or updates the database schema to the latest version. If the 
         // application implements a Migrations Seed method, the method runs after the database is created or the schema is updated.
 
-        /// <summary>Create a new instance of type <VisitContext>. 
+        /// <summary>Create a new instance of type <see cref="VisitContext"/>
         /// </summary>
         /// <remarks>On the first connection to the server, if the specified database does not exist it will be created.</remarks>
         public class SiteDBInitialize : CreateDatabaseIfNotExists<VisitContext>
@@ -100,7 +100,7 @@ namespace BackEnd
             protected override void Seed(VisitContext context)
             {
                 // NewEmailRecipients
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "loaded via global", DisplayName = "loaded via global" });
+                //context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "loaded via global", DisplayName = "loaded via global" });
                 context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "info@agri-maxfinancial.com", DisplayName = "info@agri-maxfinancial.com" });
                 context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "info@agri-servicesagency.com", DisplayName = "info@agri-servicesagency.com" });
                 context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "communications@dairylea.com", DisplayName = "Member Communications" });
@@ -114,7 +114,7 @@ namespace BackEnd
                 context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-Payroll@dairylea.com", DisplayName = "FieldStaffNotification-Payroll@dairylea.com" });
 
                 // CallTypes
-                context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Global" });
+                //context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Global" });
                 context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Phone Call" });
                 context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Email" });
                 context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Farm Visit" });
@@ -123,7 +123,7 @@ namespace BackEnd
                 context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Other" });
 
                 // ReasonCodes
-                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Global Regulatory: Calibrations", Code = 11 });
+                context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Regulatory: Calibrations", Code = 11 });
                 context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Regulatory: Inspection", Code = 12 });
                 context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Regulatory: Quality: Antibiotic", Code = 15 });
                 context.ReasonCodes.Add(new CallForm.Core.Models.ReasonCode { Name = "Regulatory: Quality: Cryo", Code = 16 });
