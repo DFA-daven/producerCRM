@@ -4,6 +4,8 @@ using CallForm.iOS.Views;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using XibFree;
+using System.Linq.Expressions;
+using System;
 
 namespace CallForm.iOS.ViewElements
 {
@@ -12,11 +14,12 @@ namespace CallForm.iOS.ViewElements
         private readonly UITableView _table;
         private readonly NewVisit_ViewModel _viewModel;
 
+        // ToDo: replace fixed values
         public EmailRecipientSelectDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             View.BackgroundColor = UIColor.White;
             _viewModel = viewModel;
-            _table = new UITableView(new RectangleF(0,0,500, 700));
+            _table = new UITableView(new RectangleF(0,0,500, 600));
             _table.Source = new EmailRecipientsTableSource(_viewModel, source);
             View.Add(_table);
         }
@@ -24,15 +27,37 @@ namespace CallForm.iOS.ViewElements
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
-            _viewModel.RaisePropertyChanged("pvrEmailRecipients");
+            _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailRecipients));
         }
 
-        // replace ContentSizeForViewInPopover with PreferredContentSize
         public override SizeF PreferredContentSize
         {
-            get { return _table.Frame.Size; }
-            // replace ContentSizeForViewInPopover with PreferredContentSize
+            get
+            {
+                //SizeF size = _table.Frame.Size;
+                //// leave space for "Done" button
+                //size.Height += 50;
+                //return size;
+                return _table.Frame.Size;
+            }
             set { base.PreferredContentSize = value; }
+        }
+
+        // <summary>Get the name of a static or instance property from a property access lambda.
+        // </summary>
+        // <typeparam name="T">Type of the property.</typeparam>
+        // <param name="propertyLambda">lambda expression of the form: '() => Class.Property' or '() => object.Property'.</param>
+        // <returns>The name of the property.</returns>
+        public string GetPropertyName<T>(Expression<Func<T>> propertyLambda)
+        {
+            var me = propertyLambda.Body as MemberExpression;
+
+            if (me == null)
+            {
+                throw new ArgumentException("You must pass a lambda of the form: '() => Class.Property' or '() => object.Property'");
+            }
+
+            return me.Member.Name;
         }
     }
 
@@ -57,8 +82,8 @@ namespace CallForm.iOS.ViewElements
         public override UIView GetViewForFooter(UITableView tableView, int section)
         {
             var doneButton = new UIButton(UIButtonType.System);
-            doneButton.SetTitle("Done", UIControlState.Normal);
-            // review: is InvokeOnMainThread() a bug fix by Ben?
+            doneButton.SetTitle("Test 1", UIControlState.Normal);
+            // review: is InvokeOnMainThread() correct?
             doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.DismissPopover); };
             doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
             return doneButton;
@@ -79,7 +104,8 @@ namespace CallForm.iOS.ViewElements
             {
                 _viewModel.SelectedEmailRecipients.Add(currentlySelectedRow);
             }
-            _viewModel.RaisePropertyChanged("SelectedEmailRecipients");
+
+            _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailRecipients));
             tableView.DeselectRow(indexPath, true);
             tableView.ReloadData();
         }
@@ -98,6 +124,23 @@ namespace CallForm.iOS.ViewElements
             cell.TextLabel.Text = email;
             cell.Accessory = _viewModel.SelectedEmailRecipients.Contains(email) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
             return cell;
+        }
+
+        // <summary>Get the name of a static or instance property from a property access lambda.
+        // </summary>
+        // <typeparam name="T">Type of the property.</typeparam>
+        // <param name="propertyLambda">lambda expression of the form: '() => Class.Property' or '() => object.Property'.</param>
+        // <returns>The name of the property.</returns>
+        public string GetPropertyName<T>(Expression<Func<T>> propertyLambda)
+        {
+            var me = propertyLambda.Body as MemberExpression;
+
+            if (me == null)
+            {
+                throw new ArgumentException("You must pass a lambda of the form: '() => Class.Property' or '() => object.Property'");
+            }
+
+            return me.Member.Name;
         }
     }
 }

@@ -5,7 +5,9 @@ namespace CallForm.iOS.ViewElements
     using CallForm.iOS.Views;
     using MonoTouch.Foundation;
     using MonoTouch.UIKit;
+    using System;
     using System.Drawing;
+    using System.Linq.Expressions;
 
     public class ReasonCodePickerDialog_ViewController : UIViewController
     {
@@ -17,21 +19,50 @@ namespace CallForm.iOS.ViewElements
         {
             View.BackgroundColor = UIColor.White;
             _viewModel = viewModel;
-            _table = new UITableView(new RectangleF(0,0,500, 700));
+            int sectionNumber = 0;
+            int count = source.RowsInSection(_table, sectionNumber) + 1;
+            int tableHeight = count * (int)source.GetHeightForFooter(_table, sectionNumber);
+
+            _table = new UITableView(new RectangleF(0,0,500, tableHeight));
             _table.Source = new ReasonCodeTableSource(_viewModel, source);
             View.Add(_table);
+            
         }
 
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
-            _viewModel.RaisePropertyChanged("ReasonCodes");
+            _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedReasonCodes));
         }
 
         public override SizeF PreferredContentSize
         {
-            get { return _table.Frame.Size; }
+            get
+            {
+                //SizeF size = _table.Frame.Size;
+                //// leave space for "Done" button
+                //size.Height += 50;
+                //return size;
+                return _table.Frame.Size;
+            }
             set { base.PreferredContentSize = value; }
+        }
+
+        // <summary>Get the name of a static or instance property from a property access lambda.
+        // </summary>
+        // <typeparam name="T">Type of the property.</typeparam>
+        // <param name="propertyLambda">lambda expression of the form: '() => Class.Property' or '() => object.Property'.</param>
+        // <returns>The name of the property.</returns>
+        public string GetPropertyName<T>(Expression<Func<T>> propertyLambda)
+        {
+            var me = propertyLambda.Body as MemberExpression;
+
+            if (me == null)
+            {
+                throw new ArgumentException("You must pass a lambda of the form: '() => Class.Property' or '() => object.Property'");
+            }
+
+            return me.Member.Name;
         }
     }
 
@@ -48,6 +79,11 @@ namespace CallForm.iOS.ViewElements
             _source = source;
         }
 
+        /// <summary>The number of rows to be displayed.
+        /// </summary>
+        /// <param name="tableview"></param>
+        /// <param name="section"></param>
+        /// <returns>A row count.</returns>
         public override int RowsInSection(UITableView tableview, int section)
         {
             return _viewModel.ListOfReasonCodes.Count;
@@ -56,11 +92,12 @@ namespace CallForm.iOS.ViewElements
         public override UIView GetViewForFooter(UITableView tableView, int section)
         {
             var doneButton = new UIButton(UIButtonType.System);
-            doneButton.SetTitle("Done", UIControlState.Normal);
-            // Review: is InvokeOnMainThread() a bug fix by Ben?
+            doneButton.SetTitle("Test 2", UIControlState.Normal);
+            // review: is InvokeOnMainThread() correct?
             doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.DismissPopover); };
             doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
             return doneButton;
+            // hack: as a last resort, hide the "Done" button?
         }
 
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
@@ -74,7 +111,7 @@ namespace CallForm.iOS.ViewElements
             {
                 _viewModel.SelectedReasonCodes.Add(reasonCode);
             }
-            _viewModel.RaisePropertyChanged("ReasonCodes");
+            _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedReasonCodes));
             tableView.DeselectRow(indexPath, true);
             tableView.ReloadData();
         }
@@ -92,6 +129,23 @@ namespace CallForm.iOS.ViewElements
             cell.TextLabel.Text = reasonCode.Name;
             cell.Accessory = _viewModel.SelectedReasonCodes.Contains(reasonCode) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
             return cell;
+        }
+
+        // <summary>Get the name of a static or instance property from a property access lambda.
+        // </summary>
+        // <typeparam name="T">Type of the property.</typeparam>
+        // <param name="propertyLambda">lambda expression of the form: '() => Class.Property' or '() => object.Property'.</param>
+        // <returns>The name of the property.</returns>
+        public string GetPropertyName<T>(Expression<Func<T>> propertyLambda)
+        {
+            var me = propertyLambda.Body as MemberExpression;
+
+            if (me == null)
+            {
+                throw new ArgumentException("You must pass a lambda of the form: '() => Class.Property' or '() => object.Property'");
+            }
+
+            return me.Member.Name;
         }
     }
 }
