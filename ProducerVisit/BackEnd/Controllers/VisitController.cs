@@ -45,11 +45,10 @@
             return View();
         }
 
-        /// <summary>Get the 100 most recent <see cref="ProducerVisitReports"/> for a given member number.
+        /// <summary>Get the 100 most recent <see cref="StoredProducerVisitReport">ProducerVisitReports</see>/> for a given member number.
         /// </summary>
         /// <param name="id">The 8 digit Member Number.</param>
         /// <returns>A <see cref="ReportListItem"/> object representing the set of records.</returns>
-        /// <seealso cref="DataService.Recent()"/>
         public ActionResult Recent(string id)
         {
             // FixMe: change this to a .resx value (or an XML entry)
@@ -147,7 +146,7 @@
         /// <summary>Gets the list of Reason Codes from the web service.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>A <see cref="List"/> of the Reason Codes.</returns>
+        /// <returns>A <see cref="List{T}"/> of the Reason Codes.</returns>
         public ActionResult Reasons(string id)
         {
             List<ReasonCode> reasonCodeList = new List<ReasonCode>(new[]
@@ -182,7 +181,7 @@
         /// <summary>Gets the list of Call Types from the web service.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns><see cref="List"/> of <see cref="CallType"/>.</returns>
+        /// <returns><see cref="List{T}"/> of <see cref="CallType"/>.</returns>
         public ActionResult CallTypes(string id)
         {
             List<CallType> callTypeList = new List<CallType>(new[]
@@ -206,7 +205,7 @@
         /// <summary>Gets the list of Email Recipients from the web service.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns><see cref="List"/> of <see cref="EmailRecipient"/>.</returns>
+        /// <returns><see cref="List{T}"/> of <see cref="EmailRecipient"/>.</returns>
         public ActionResult EmailRecipients(string id)
         {
             List<EmailRecipient> objectList = new List<EmailRecipient>(new[]
