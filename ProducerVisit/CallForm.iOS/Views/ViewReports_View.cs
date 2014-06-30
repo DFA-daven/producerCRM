@@ -49,9 +49,6 @@
 
         public override void ViewDidLoad()
         {
-            UIColor controlBackgroundColor = UIColor.FromRGB(230, 230, 255);
-            UIColor mainBackgroundColor = UIColor.FromRGB(200, 200, 255);
-
             float topMargin = 0;
 
             if (isOS7())
@@ -120,14 +117,14 @@
                 },
                 //Font = UIFont.SystemFontOfSize(20),
                 Frame = new RectangleF(percentWidth(leftControlOriginPercent), bannerBottom(), controlWidth(), controlHeight()),
-                BackgroundColor = controlBackgroundColor,
+                BackgroundColor = Common.controlBackgroundColor,
             };
             filterField.VerticalAlignment = UIControlContentVerticalAlignment.Center;
 
             var findButton = _find = new UIButton(UIButtonType.Custom);
             findButton.Frame = new RectangleF(percentWidth(middleControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             findButton.SetTitle("Refresh", UIControlState.Normal);
-            findButton.BackgroundColor = mainBackgroundColor;
+            findButton.BackgroundColor = Common.viewBackgroundColor;
 
             var newButton = _new = new UIButton(UIButtonType.Custom);
             newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
@@ -136,12 +133,12 @@
             var plusSign = UIImage.FromBundle("Add.png");
             //plusSign.Scale();
             newButton.SetImage(UIImage.FromBundle("Add.png"), UIControlState.Normal);
-            newButton.BackgroundColor = mainBackgroundColor;
+            newButton.BackgroundColor = Common.viewBackgroundColor;
 
             //var tableView = _table = new UITableView(new RectangleF(percentWidth(leftControlOriginPercent), tableTop(), percentWidth(98), screenHeight() - tableTop()));
             var tableView = _table = new UITableView(new RectangleF(0, tableTop(), screenWidth(), screenHeight() - tableTop()));
             tableView.BackgroundView = null;
-            tableView.BackgroundColor = mainBackgroundColor;
+            tableView.BackgroundColor = Common.viewBackgroundColor;
 
             View.BackgroundColor = UIColor.White;
             View.Add(logoButton);

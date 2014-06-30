@@ -2,16 +2,17 @@ namespace CallForm.iOS
 {
     using MonoTouch.UIKit;
     using System;
+    using System.Drawing;
     using System.Linq.Expressions;
     using System.Resources;
 
     public class Common
     {
-        /// <summary>Use for the background of controls.
+        /// <summary>Use for the background of controls: 230, 230, 255
         /// </summary>
         public static UIColor controlBackgroundColor = UIColor.FromRGB(230, 230, 255);
 
-        /// <summary>Use for the background of views.
+        /// <summary>Use for the background of views: 200, 200, 255
         /// </summary>
         public static UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
 

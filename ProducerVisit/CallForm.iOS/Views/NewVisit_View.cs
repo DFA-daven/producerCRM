@@ -17,11 +17,11 @@ namespace CallForm.iOS.Views
     public class NewVisit_View : MvxViewController
     {
         private UITableView _table;
+        private float _frameWidth;
 
         public override void ViewDidLoad()
         {
-            UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
-            View = new UIView { BackgroundColor = viewBackgroundColor };
+            View = new UIView { BackgroundColor = Common.viewBackgroundColor };
             base.ViewDidLoad();
 
             // Perform any additional setup after loading the view
@@ -55,19 +55,19 @@ namespace CallForm.iOS.Views
 
             _table.Source = source;
 
-            UIView wrapper = new UIView(new RectangleF(0, 0, _table.Frame.Width, 60));
+            UIView wrapper = new UIView(new RectangleF(0, 0, FrameWidth(), 60));
 
             UIButton saveButton = new UIButton(UIButtonType.System);
-            saveButton.Frame = new RectangleF(_table.Frame.Width / 4, 0, _table.Frame.Width / 2, 50);
+            saveButton.Frame = new RectangleF(PercentOfFrameWidth(25), 0, PercentOfFrameWidth(50), ButtonHeight());
 
             if (!(ViewModel as NewVisit_ViewModel).Editing)
             {
                 UIButton reSendButton = new UIButton(UIButtonType.System);
                 reSendButton.SetTitle("Forward via Email", UIControlState.Normal);
                 reSendButton.TouchUpInside += ReSendEmail;
-                reSendButton.Frame = new RectangleF(_table.Frame.Width / 5, 0, _table.Frame.Width / 4, 50);
+                reSendButton.Frame = new RectangleF(PercentOfFrameWidth(20), 0, PercentOfFrameWidth(25), ButtonHeight());
                 wrapper.AddSubview(reSendButton);
-                saveButton.Frame = new RectangleF( 3 * _table.Frame.Width / 5, 0, _table.Frame.Width / 4, 50);
+                saveButton.Frame = new RectangleF(PercentOfFrameWidth(60), 0, PercentOfFrameWidth(25), ButtonHeight());
             }
 
             wrapper.AddSubview(saveButton);
@@ -224,6 +224,42 @@ namespace CallForm.iOS.Views
         private void OnError(object sender, ErrorEventArgs errorEventArgs)
         {
             InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );
+        }
+
+
+        internal float ButtonHeight()
+        {
+            return 50;
+        }
+
+        /// <summary>The width of the current <see cref="UIView.Frame"/>.
+        /// </summary>
+        /// <returns>The Frame width.</returns>
+        internal float FrameWidth()
+        {
+            return _table.Frame.Width;
+        }
+
+        /// <summary>Calculates a value representing a percent of the <see cref="UIView.Frame"/> width.
+        /// </summary>
+        /// <param name="percent">A percent value. Ex: 25.0</param>
+        /// <returns>The product of (<see cref="UIView.Frame"/> * <paramref name="percent"/>)</returns>
+        internal float PercentOfFrameWidth(double percent)
+        {
+            float value = PercentOfRectangleWidth(_table.Frame, percent);
+            return value;
+        }
+
+        /// <summary>Calculates a value representing a <paramref name="percent"/> of the <paramref name="rectangle"/> width.
+        /// </summary>
+        /// <param name="rectangle">The <see cref="RectangleF"/> object.</param>
+        /// <param name="percent">A percent value. Ex: 25.0</param>
+        /// <returns>The product of (<paramref name="rectangle">rectangle.Width</see> * <paramref name="percent"/>)</returns>
+        internal float PercentOfRectangleWidth(RectangleF rectangle, double percent)
+        {
+            percent = percent / 100;
+            float value = (float)(rectangle.Width * percent);
+            return value;
         }
     }
 
