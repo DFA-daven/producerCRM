@@ -17,15 +17,15 @@
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Portable Library 4.0 %28Legacy%29</FrameworkVersion>
     <OutputPath>.\Help\</OutputPath>
-    <HtmlHelpName>FieldContactCallFormCore</HtmlHelpName>
+    <HtmlHelpName>ProducerCRM</HtmlHelpName>
     <Language>en-US</Language>
     <SyntaxFilters>Standard</SyntaxFilters>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <RootNamespaceContainer>True</RootNamespaceContainer>
-    <PresentationStyle>Hana</PresentationStyle>
-    <Preliminary>True</Preliminary>
+    <PresentationStyle>VS2010</PresentationStyle>
+    <Preliminary>False</Preliminary>
     <NamingMethod>Guid</NamingMethod>
-    <HelpTitle>Field Contact CallForm.Core Class Library</HelpTitle>
+    <HelpTitle>Producer CRM</HelpTitle>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
@@ -101,6 +101,14 @@
         </component>
       </ComponentConfig>
     </ComponentConfigurations>
+    <HeaderText>&amp;lt%3bdiv&amp;gt%3badditional header text goes here&amp;lt%3b/div&amp;gt%3b</HeaderText>
+    <ProjectSummary>This is the project summary. It will appear in the root namespaces page.</ProjectSummary>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="CallForm.Core" isDocumented="True" xmlns="">This is a summary for the CallForm.Core namespace. Edit this text in the SHFB Project Properties &gt; Summaries &gt; Edit Namespace Summaries.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="CallForm.Core.Converters" isDocumented="True" xmlns="">This is a summary for the CallForm.Core.Converters namespace. Edit this text in the SHFB Project Properties &gt; Summaries &gt; Edit Namespace Summaries.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="CallForm.Core.Models" isDocumented="True" xmlns="">This is a summary for the CallForm.Core.Models namespace. Edit this text in the SHFB Project Properties &gt; Summaries &gt; Edit Namespace Summaries.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="CallForm.Core.Services" isDocumented="True" xmlns="">This is a summary for the CallForm.Core.Services namespace. Edit this text in the SHFB Project Properties &gt; Summaries &gt; Edit Namespace Summaries.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="CallForm.Core.ViewModels" isDocumented="True" xmlns="">This is a summary for the CallForm.Core.ViewModels namespace. Edit this text in the SHFB Project Properties &gt; Summaries &gt; Edit Namespace Summaries.</NamespaceSummaryItem></NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in
        order for Visual Studio to perform the build.  The others are optional

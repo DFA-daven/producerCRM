@@ -16,6 +16,8 @@
     {
         /// <summary>The internal ID for this object.
         /// </summary>
+        /// <seealso cref="ReasonCode.ID"/>
+        /// <seealso cref="VisitXReason.ID"/>
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 

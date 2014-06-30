@@ -9,18 +9,17 @@
     {
         /// <summary>The internal ID for this object.
         /// </summary>
-        /// <remarks>[VisitXReasons].[ID]</remarks>
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
-        /// <summary>A [ReasonCodes].[ID].
+        /// <summary>A <see cref="ReasonCode.ID">ReasonCode.ID</see>.
         /// </summary>
-        /// <remarks>[VisitXReasons].[ReasonID] == [ReasonCodes].[ID]</remarks>
+        /// <remarks><see cref="VisitXReason.ReasonID">VisitXReason.ReasonID</see> == <see cref="ReasonCode.ID">ReasonCode.ID</see></remarks>
         public int ReasonID { get; set; }
 
-        /// <summary>A [StoredProducerVisitReports].[ID].
+        /// <summary>A <see cref="StoredProducerVisitReport.ID">StoredProducerVisitReport.ID</see>.
         /// </summary>
-        /// <remarks>[VisitXReasons].[VisitID] == [StoredProducerVisitReports].[ID]</remarks>
+        /// <remarks><see cref="VisitXReason.VisitID">VisitXReason.VisitID</see> == <see cref="StoredProducerVisitReport.ID">StoredProducerVisitReport.ID</see></remarks>
         public int VisitID { get; set; }
     }
 }
