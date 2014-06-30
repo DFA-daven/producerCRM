@@ -10,17 +10,17 @@
     {
         /// <summary>Gets the <see cref="CallType"/>(s) from the <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
         /// </summary>
-        /// <returns>A <see cref="List{T}"/> of type <see cref="CallType"/>.</returns>
+        /// <returns>A <see cref="List&lt;T>"/> of type <see cref="CallType"/>.</returns>
         List<string> GetCallTypesAsList();
 
         /// <summary>Gets the <see cref="EmailRecipient"/>(s) from the <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
         /// </summary>
-        /// <returns>A <see cref="List{T}"/> of type <see cref="EmailRecipient"/>.</returns>
+        /// <returns>A <see cref="List&lt;T>"/> of type <see cref="EmailRecipient"/>.</returns>
         List<string> GetEmailRecipientsAsList();
 
         /// <summary>Gets the <see cref="ReasonCode"/>(s) from the <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
         /// </summary>
-        /// <returns>A <see cref="List{T}"/> of type <see cref="ReasonCode"/>.</returns>
+        /// <returns>A <see cref="List&lt;T>"/> of type <see cref="ReasonCode"/>.</returns>
         /// <remarks><see cref="ReasonCode"/> are stored in both the SQLite database and XML.</remarks>
         List<ReasonCode> GetReasonCodes();
 

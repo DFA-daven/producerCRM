@@ -82,7 +82,7 @@
         private UserIdentity GetXmlIdentity()
         {
             UserIdentity savedUser = new UserIdentity();
-            savedUser.AssetTag = "UserIdentitySvc GetXmlIdentity() 1";
+            savedUser.AssetTag = "UserIdentitySvc GetXmlIdentity()";
 
             _fileStore.EnsureFolderExists(_dataFolderPathName);
 
@@ -94,7 +94,7 @@
             }
 
             if (_fileStore.TryReadTextFile(userIdentityFilename, out xml))
-        {
+            {
                 savedUser = SemiStaticWebDataService.Deserialize<UserIdentity>(xml);
             }
 

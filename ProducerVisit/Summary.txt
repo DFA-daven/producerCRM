@@ -1,2 +1,2 @@
 Date		Location							Status
-2014-06-26	subversion\ProducerVisit			This is the ACTIVE version. It might be a Branch.
+2014-06-26	subversion\ProducerVisit			This is the ACTIVE version. It might be Branched in SVN.
