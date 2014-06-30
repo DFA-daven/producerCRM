@@ -5,10 +5,13 @@ using MonoTouch.UIKit;
 
 namespace CallForm.iOS
 {
-	// This class is never actually executed, but when Xamarin linking is enabled it does how to ensure types and properties
-	// are preserved in the deployed app
+    /// <summary>This class is never actually executed, but when Xamarin linking is enabled it ensures that types and properties 
+    /// are preserved in the deployed app.
+    /// </summary>
     public class LinkerPleaseInclude
     {
+        #pragma warning disable 1591
+
         public void Include(UIButton uiButton)
         {
             uiButton.TouchUpInside += (s, e) =>

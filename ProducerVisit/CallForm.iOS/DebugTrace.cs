@@ -4,6 +4,8 @@ using Cirrious.CrossCore.Platform;
 
 namespace CallForm.iOS
 {
+#pragma warning disable 1591
+
     // broken: this causes all sorts of problems.
     public class DebugTrace : IMvxTrace
     {
