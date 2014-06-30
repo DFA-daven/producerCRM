@@ -156,6 +156,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>The latitude value for this visit.
+        /// </summary>
         public double Lat
         {
             get { return _lat; }
@@ -166,6 +168,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>The longitude value for this visit.
+        /// </summary>
         public double Lng
         {
             get { return _lng; }
@@ -176,6 +180,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>The date assigned to this visit.
+        /// </summary>
         public DateTime Date
         {
             get { return _date; }
@@ -186,6 +192,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>The (numeric) duration assigned to this visit.
+        /// </summary>
         public decimal Duration
         {
             get { return _duration; }
@@ -196,6 +204,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>The (string) duration assigned to this visit.
+        /// </summary>
         public string DurationString
         {
             get { return _durationString; }
@@ -206,6 +216,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>The time when this visit was created/updated.
+        /// </summary>
         public DateTime ActualTime
         {
             get { return _actualTime; }
@@ -216,6 +228,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>The member number associated with this visit.
+        /// </summary>
         public string MemberNumber
         {
             get { return _memberNumber; }
@@ -226,6 +240,8 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>Any user entered notes associated with this visit.
+        /// </summary>
         public string Notes
         {
             get { return _notes; }
@@ -277,8 +293,6 @@ namespace CallForm.Core.ViewModels
                 RaisePropertyChanged(() => ListOfCallTypes);
             }
         }
-
-
 
         #region Save
         /// <summary>The action for Save button.
@@ -422,16 +436,22 @@ namespace CallForm.Core.ViewModels
             }
         }
 
+        /// <summary>Label for <see cref="SaveCommand"/>.
+        /// </summary>
         public string SaveButtonText
         {
             get { return Editing ? "Save" : "New Report for Member"; }
         }
 
+        /// <summary>Value for this View's Title.
+        /// </summary>
         public string Title
         {
             get { return Editing ? "New Contact Report" : "Contact Report"; }
         }
 
+        /// <summary>Error handling for this View.
+        /// </summary>
         public event EventHandler<ErrorEventArgs> Error;
         #endregion
     }
