@@ -1,26 +1,45 @@
-using System.Drawing;
-using CallForm.Core.ViewModels;
-using CallForm.iOS.Views;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using XibFree;
-using System.Linq.Expressions;
-using System;
+// CallForm.iOS\ViewElements\EmailRecipientSelectDialog_ViewController.cs
 
 namespace CallForm.iOS.ViewElements
 {
+    using CallForm.Core.Models;
+    using CallForm.Core.ViewModels;
+    using CallForm.iOS.Views;
+    using CallForm.iOS.Views;
+    using MonoTouch.Foundation;
+    using MonoTouch.UIKit;
+    using System;
+    using System.Drawing;
+    using System.Linq.Expressions;
+    using XibFree;
+
+    /// <summary>The class that defines View Element (control) for displaying and 
+    /// selecting Email Recipients.
+    /// </summary>
     public class EmailRecipientSelectDialog_ViewController : UIViewController
     {
         private readonly UITableView _table;
         private readonly NewVisit_ViewModel _viewModel;
 
-        // ToDo: replace fixed values
+        /// <summary>Creates an instance of the <see cref="EmailRecipientSelectDialog_ViewController"/> class.
+        /// </summary>
+        /// <param name="viewModel">The parent <see cref="MvxViewModel"/>.</param>
+        /// <param name="source">The parent <see cref="UITableViewSource"/>.</param>
         public EmailRecipientSelectDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
-            View.BackgroundColor = UIColor.White;
+            //View.BackgroundColor = UIColor.Green;
             _viewModel = viewModel;
-            _table = new UITableView(new RectangleF(0,0,500, 600));
+            _table = new UITableView();
             _table.Source = new EmailRecipientsTableSource(_viewModel, source);
+
+            float maxTableHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);  // the Y value
+            float maxTableWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.75, 0);    // the X value
+
+            // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
+            _table.Frame = new RectangleF(0, 0, maxTableWidth, maxTableHeight);
+
+            _table.ScrollEnabled = true;
+
             View.Add(_table);
         }
 
@@ -30,15 +49,17 @@ namespace CallForm.iOS.ViewElements
             _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailRecipients));
         }
 
+        
         public override SizeF PreferredContentSize
         {
             get
             {
-                //SizeF size = _table.Frame.Size;
+                SizeF size = _table.Frame.Size;
                 //// leave space for "Done" button
                 //size.Height += 50;
-                //return size;
-                return _table.Frame.Size;
+                size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);
+
+                return size;
             }
             set { base.PreferredContentSize = value; }
         }
@@ -74,6 +95,12 @@ namespace CallForm.iOS.ViewElements
             _source = source;
         }
 
+        /// <summary>The number of rows to be displayed.
+        /// </summary>
+        /// <param name="tableview"></param>
+        /// <param name="section"></param>
+        /// <remarks><paramref name="section"/> is included as part of the override -- it is not used in this method.</remarks>
+        /// <returns>A row count.</returns>
         public override int RowsInSection(UITableView tableview, int section)
         {
             return _viewModel.ListOfEmailRecipients.Count;
@@ -82,10 +109,14 @@ namespace CallForm.iOS.ViewElements
         public override UIView GetViewForFooter(UITableView tableView, int section)
         {
             var doneButton = new UIButton(UIButtonType.System);
-            doneButton.SetTitle("Test 1", UIControlState.Normal);
-            // review: is InvokeOnMainThread() correct?
-            doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.DismissPopover); };
-            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
+            // Hack: hide Done button
+
+            //doneButton.SetTitle("Done", UIControlState.Normal);
+            //// review: is InvokeOnMainThread() correct?
+            //doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.DismissPopover); };
+            //doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
+
+
             return doneButton;
         }
 
@@ -110,12 +141,18 @@ namespace CallForm.iOS.ViewElements
             tableView.ReloadData();
         }
 
-        // ToDo: fixed value
         public override float GetHeightForFooter(UITableView tableView, int section)
         {
-            return 50;
+            // Hack: hide Done button.
+            return 50f;
+            //return 1f;
         }
 
+        /// <summary>Find the currently selected cell (row) in the <see cref="UITableView"/>.
+        /// </summary>
+        /// <param name="tableView">The active <see cref="UITableView"/>.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> with the selected row (cell).</param>
+        /// <returns></returns>
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier) ??

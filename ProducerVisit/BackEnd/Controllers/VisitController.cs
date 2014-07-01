@@ -164,7 +164,7 @@
                 reasonCodeList = _webDatabaseConnection.ReasonCodes.ToList();
             }
 
-            reasonCodeList.Add(new ReasonCode { Name = "count is " + reasonCodeList.Count() });
+            //reasonCodeList.Add(new ReasonCode { Name = "count is " + reasonCodeList.Count() });
 
             return Json(reasonCodeList, JsonRequestBehavior.AllowGet); 
         }

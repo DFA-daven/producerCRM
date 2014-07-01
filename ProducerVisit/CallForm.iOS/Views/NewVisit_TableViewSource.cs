@@ -29,6 +29,7 @@
             _viewModel.PropertyChanged += (sender, args) =>
             {
                 // Review: Is switch/case the best way to handle this? What if a property name changes?
+                // Note: these are just arbitrary number in order to organize the switch/case -- they do not relate to the view/subview element.
                 int switchNumber = -1;
 
                 if (args.PropertyName == GetPropertyName(() => _viewModel.MemberNumber))
@@ -83,8 +84,9 @@
                         tableView.ReloadData();
                         break;
                 }
-            }; 
+            };
 
+            #region memberNumber
             _memberNumberCell = new TextField_TableViewCell("memberNumber", _viewModel.Editing, _viewModel.MemberNumber,
                 UIKeyboardType.NumberPad, (field, range, replacementString) =>
                 {
@@ -95,7 +97,9 @@
                 {
                     _viewModel.MemberNumber = (sender as UITextField).Text;
                 });
+
             _memberNumberCell.TextLabel.Text = "Member Number";
+
             if (!_viewModel.Editing)
             {
                 _memberNumberCell.DetailTextLabel.Text = _viewModel.MemberNumber ?? string.Empty;
@@ -110,7 +114,9 @@
                     _memberNumberCell.DetailTextLabel.TextColor = UIColor.Black;
                 }
             }
+            #endregion
 
+            #region duration
             _durationCell = new TextField_TableViewCell("duration", _viewModel.Editing, _viewModel.DurationString,
                 UIKeyboardType.DecimalPad, (field, range, replacementString) =>
                 {
@@ -135,6 +141,7 @@
                     _viewModel.DurationString = (sender as UITextField).Text;
                 }
                 );
+
             _durationCell.TextLabel.Text = "Length of Call (hours)";
             if (!_viewModel.Editing)
             {
@@ -142,17 +149,23 @@
                 _durationCell.DetailTextLabel.Text = _viewModel.Duration.ToString("00.00");
                 _durationCell.DetailTextLabel.TextColor = UIColor.Black;
             }
+            #endregion
 
+            #region callType
             _callTypeCell = new UITableViewCell(UITableViewCellStyle.Value1, "callType");
             _callTypeCell.TextLabel.Text = "Call Type";
             _callTypeCell.DetailTextLabel.Text = _viewModel.SelectedCallType;
             _callTypeCell.DetailTextLabel.TextColor = UIColor.Black;
+            #endregion
 
+            #region date
             _dateCell = new UITableViewCell(UITableViewCellStyle.Value1, "date");
             _dateCell.TextLabel.Text = "Date";
             _dateCell.DetailTextLabel.Text = _viewModel.Date.ToShortDateString();
             _dateCell.DetailTextLabel.TextColor = UIColor.Black;
+            #endregion
 
+            #region reason
             _reasonCell = new UITableViewCell(UITableViewCellStyle.Value1, "reason");
             _reasonCell.TextLabel.Text = "Reason For Call";
             _reasonCell.DetailTextLabel.Text = _viewModel.SelectedReasonCodes != null &&
@@ -160,25 +173,32 @@
                 ? string.Join(", ", _viewModel.SelectedReasonCodes)
                 : "Tap to Select";
             _reasonCell.DetailTextLabel.TextColor = UIColor.Black;
+            #endregion
 
+            #region notes
             _notesCell = new TextView_TableViewCell("notes", _viewModel.Editing, _viewModel.Notes,
                 (sender, args) => { _viewModel.Notes = (sender as UITextView).Text; } );
             _notesCell.TextLabel.Text = "Notes";
+            #endregion
 
+            #region takePicture
             _takePictureCell = new Image_TableViewCell("takePicture", _viewModel.PictureBytes, _viewModel.Editing, _viewModel);
             _takePictureCell.TextLabel.Text = "Take Picture";
+            #endregion
 
+            #region emailRecipients
             _emailRecipientsCell = new UITableViewCell(UITableViewCellStyle.Value1, "emailRecipients");
             _emailRecipientsCell.TextLabel.Text = "Email Recipients";
             _emailRecipientsCell.DetailTextLabel.Text = _viewModel.SelectedEmailRecipients == null
                 ? string.Empty
                 : string.Join(", ", _viewModel.SelectedEmailRecipients);
             _emailRecipientsCell.DetailTextLabel.TextColor = UIColor.Black;
-
+            #endregion
         }
 
         public override int RowsInSection(UITableView tableview, int section)
         {
+            // Review: find a way to get this automatically
             return 8;
         }
 
@@ -193,6 +213,16 @@
                 _memberNumberCell.HideKeyboard();
                 _durationCell.HideKeyboard();
                 _notesCell.HideKeyboard();
+
+                // *********************************************************************************************
+                // *********************************************************************************************
+
+                // Review: the section numbers are off, maybe by one? Need to find where they are called and add 1
+
+                // *********************************************************************************************
+                // *********************************************************************************************
+
+                // Note: the Row # here matches the position of the row in the UITableView.
                 switch (indexPath.Row)
                 {
                     case 0:
@@ -201,27 +231,26 @@
                     case 1:
                         // ToDo: seeing an un-handled exception here if debug on iPhoneSimulator
                         _popover = new UIPopoverController(CallTypePickerPopover);
-                        // _popover.PopoverContentSize = CallTypePickerPopover.ContentSizeForViewInPopover;
                         _popover.PopoverContentSize = CallTypePickerPopover.PreferredContentSize;
-                        _popover.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath), tableView.Superview,
-                            UIPopoverArrowDirection.Any, true);
+                        //_popover.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath ), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(GetRectangle(tableView, _dateCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 2:
                         _popover = new UIPopoverController(DatePickerPopover);
-                        // _popover.PopoverContentSize = DatePickerPopover.ContentSizeForViewInPopover;
                         _popover.PopoverContentSize = DatePickerPopover.PreferredContentSize;
-                        _popover.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath), tableView.Superview,
-                            UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(GetRectangle(tableView, _durationCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 3:
                         _durationCell.Edit();
                         break;
                     case 4:
                         _popover = new UIPopoverController(ReasonPickerPopover);
-                        // _popover.PopoverContentSize = ReasonPickerPopover.ContentSizeForViewInPopover;
                         _popover.PopoverContentSize = ReasonPickerPopover.PreferredContentSize;
-                        _popover.PresentFromRect(RectangleF.Empty, tableView.Superview,
-                            UIPopoverArrowDirection.Any, true);
+                        var reasonRect = tableView.RectForRowAtIndexPath(indexPath);
+                        // reasonRect.Width = 0;
+                        //_popover.PresentFromRect(RectangleF.Empty, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        //_popover.PresentFromRect(GetRectangle(tableView, _reasonCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(reasonRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 5:
                         _notesCell.Edit();
@@ -231,16 +260,20 @@
                         break;
                     case 7:
                         _popover = new UIPopoverController(EmailPickerPopover);
-                        // _popover.PopoverContentSize = EmailPickerPopover.ContentSizeForViewInPopover;
                         _popover.PopoverContentSize = EmailPickerPopover.PreferredContentSize;
-                        var rect = tableView.RectForRowAtIndexPath(indexPath);
-                        rect.Width = 0;
-                        _popover.PresentFromRect(rect, tableView.Superview,
-                            UIPopoverArrowDirection.Any, true);
+                        var emailRect = tableView.RectForRowAtIndexPath(indexPath);
+                        //_popover.PresentFromRect(emailRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(RectangleF.Empty, tableView.Superview, UIPopoverArrowDirection.Any, true);
+
                         break;
                 }
             }
             tableView.DeselectRow(indexPath, true);
+        }
+
+        private RectangleF GetRectangle(UITableView tableView, UITableViewCell cell)
+        {
+            return tableView.RectForRowAtIndexPath(tableView.IndexPathForCell(cell));
         }
 
         // ToDo: is this ever used?
@@ -291,11 +324,11 @@
             }
         }
 
-        // <summary>Get the name of a static or instance property from a property access lambda.
-        // </summary>
-        // <typeparam name="T">Type of the property.</typeparam>
-        // <param name="propertyLambda">lambda expression of the form: '() => Class.Property' or '() => object.Property'.</param>
-        // <returns>The name of the property.</returns>
+        /// <summary>Get the name of a static or instance property from a property access lambda.
+        /// </summary>
+        /// <typeparam name="T">Type of the property.</typeparam>
+        /// <param name="propertyLambda">lambda expression of the form: '() => Class.Property' or '() => object.Property'.</param>
+        /// <returns>The name of the property.</returns>
         public string GetPropertyName<T>(Expression<Func<T>> propertyLambda)
         {
             var me = propertyLambda.Body as MemberExpression;

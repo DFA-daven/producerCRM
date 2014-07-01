@@ -44,6 +44,9 @@ namespace CallForm.Core.ViewModels
         // FixMe: re-factor userID to DeviceID
         private string _userID;
 
+        private float _height;
+        private float _width;
+
         private bool _editing;
 
         private byte[] _pictureBytes;
@@ -153,6 +156,26 @@ namespace CallForm.Core.ViewModels
             {
                 _userID = value;
                 RaisePropertyChanged(() => UserID);
+            }
+        }
+
+        public float Height
+        {
+            get { return _height; }
+            set
+            {
+                _height = value;
+                RaisePropertyChanged(() => Height);
+            }
+        }
+
+        public float Width
+        {
+            get { return _width; }
+            set
+            {
+                _width = value;
+                RaisePropertyChanged(() => Width);
             }
         }
 

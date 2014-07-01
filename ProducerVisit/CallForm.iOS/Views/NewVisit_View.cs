@@ -55,6 +55,7 @@ namespace CallForm.iOS.Views
 
             _table.Source = source;
 
+            // define a sub-view for the saveButton and reSendButton
             UIView wrapper = new UIView(new RectangleF(0, 0, FrameWidth(), 60));
 
             UIButton saveButton = new UIButton(UIButtonType.System);
@@ -89,6 +90,11 @@ namespace CallForm.iOS.Views
             // Note: the "AsString" method returns a string representation of the UUID. The "ToString" method returns the description (selector).
             // ToDo:  replace with the advertisingIdentifier property of the ASIdentifierManager class.
             (ViewModel as NewVisit_ViewModel).UserID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
+
+            (ViewModel as NewVisit_ViewModel).Height = FrameHeight();
+
+            (ViewModel as NewVisit_ViewModel).Width = FrameWidth();
+
 
             SetTableFrameForOrientation(InterfaceOrientation);
         }
@@ -232,10 +238,18 @@ namespace CallForm.iOS.Views
             return 50;
         }
 
+        /// <summary>The height of the current <see cref="UIView.Frame"/>.
+        /// </summary>
+        /// <returns>The Frame height.</returns>
+        public float FrameHeight()
+        {
+            return _table.Frame.Height;
+        }
+
         /// <summary>The width of the current <see cref="UIView.Frame"/>.
         /// </summary>
         /// <returns>The Frame width.</returns>
-        internal float FrameWidth()
+        public float FrameWidth()
         {
             return _table.Frame.Width;
         }
@@ -246,7 +260,7 @@ namespace CallForm.iOS.Views
         /// <returns>The product of (<see cref="UIView.Frame"/> * <paramref name="percent"/>)</returns>
         internal float PercentOfFrameWidth(double percent)
         {
-            float value = PercentOfRectangleWidth(_table.Frame, percent);
+            float value = (float)Math.Round( PercentOfRectangleWidth(_table.Frame, percent), 0);
             return value;
         }
 
@@ -258,7 +272,7 @@ namespace CallForm.iOS.Views
         internal float PercentOfRectangleWidth(RectangleF rectangle, double percent)
         {
             percent = percent / 100;
-            float value = (float)(rectangle.Width * percent);
+            float value = (float)Math.Round((rectangle.Width * percent), 0);
             return value;
         }
     }
