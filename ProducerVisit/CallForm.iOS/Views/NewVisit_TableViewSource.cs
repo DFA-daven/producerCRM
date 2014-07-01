@@ -246,10 +246,14 @@
                     case 4:
                         _popover = new UIPopoverController(ReasonPickerPopover);
                         _popover.PopoverContentSize = ReasonPickerPopover.PreferredContentSize;
-                        var reasonRect = tableView.RectForRowAtIndexPath(indexPath);
-                        // reasonRect.Width = 0;
+
+                        // using RectangleF.Empty sets the popover origin to the NW corner
                         //_popover.PresentFromRect(RectangleF.Empty, tableView.Superview, UIPopoverArrowDirection.Any, true);
+
+                        // using GetRectangle() allows the popover to point to a specific cell
                         //_popover.PresentFromRect(GetRectangle(tableView, _reasonCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+
+                        var reasonRect = tableView.RectForRowAtIndexPath(indexPath);
                         _popover.PresentFromRect(reasonRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 5:
@@ -261,9 +265,9 @@
                     case 7:
                         _popover = new UIPopoverController(EmailPickerPopover);
                         _popover.PopoverContentSize = EmailPickerPopover.PreferredContentSize;
-                        var emailRect = tableView.RectForRowAtIndexPath(indexPath);
+                        //var emailRect = tableView.RectForRowAtIndexPath(indexPath);
                         //_popover.PresentFromRect(emailRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popover.PresentFromRect(RectangleF.Empty, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(GetRectangle(tableView, _reasonCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
 
                         break;
                 }
