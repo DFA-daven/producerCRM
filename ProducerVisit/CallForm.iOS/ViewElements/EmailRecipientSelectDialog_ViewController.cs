@@ -32,8 +32,8 @@ namespace CallForm.iOS.ViewElements
             _table = new UITableView();
             _table.Source = new EmailRecipientsTableSource(_viewModel, source);
 
-            float maxTableHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);  // the Y value
-            float maxTableWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.75, 0);    // the X value
+            float maxTableHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);  // the Y value
+            float maxTableWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.5, 0);    // the X value
 
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
             _table.Frame = new RectangleF(0, 0, maxTableWidth, maxTableHeight);
@@ -57,7 +57,7 @@ namespace CallForm.iOS.ViewElements
                 SizeF size = _table.Frame.Size;
                 //// leave space for "Done" button
                 //size.Height += 50;
-                size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);
+                size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);
 
                 return size;
             }

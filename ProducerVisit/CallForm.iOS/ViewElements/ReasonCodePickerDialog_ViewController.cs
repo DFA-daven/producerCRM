@@ -20,9 +20,12 @@ namespace CallForm.iOS.ViewElements
     {
         private readonly UITableView _table;
         private readonly NewVisit_ViewModel _viewModel;
+        //private readonly float _heightFactor = 0.75f;
+        //private readonly float _widthFactor = 0.75f;
+
         //private SizeF _size;
-        private float _reasonCodeHeight;
-        private float _reasonCodeWidth;
+        //private float _reasonCodeHeight;
+        //private float _reasonCodeWidth;
 
         /// <summary>Creates an instance of the <see cref="ReasonCodePickerDialog_ViewController"/> class.
         /// </summary>
@@ -43,11 +46,11 @@ namespace CallForm.iOS.ViewElements
             //float preferredHeight = count * aCellHeight;
 
             // 75% of the Height, rounded off to zero decimal places
-            ReasonCodeHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);  // the Y value
-            ReasonCodeWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.75, 0);    // the X value
+            float reasonCodeHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);  // the Y value
+            float reasonCodeWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.75, 0);    // the X value
 
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
-            _table.Frame = new RectangleF(0, 0, ReasonCodeWidth, ReasonCodeHeight);
+            _table.Frame = new RectangleF(0, 0, reasonCodeWidth, reasonCodeHeight);
 
             _table.ScrollEnabled = true;
 
@@ -60,29 +63,29 @@ namespace CallForm.iOS.ViewElements
             _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedReasonCodes));
         }
 
-        internal float ReasonCodeHeight
-        {
-            get
-            {
-                return _reasonCodeHeight;
-            }
-            set
-            {
-                _reasonCodeHeight = value;
-            }
-        }
+        //internal float ReasonCodeHeight
+        //{
+        //    get
+        //    {
+        //        return _reasonCodeHeight;
+        //    }
+        //    set
+        //    {
+        //        _reasonCodeHeight = value;
+        //    }
+        //}
 
-        internal float ReasonCodeWidth
-        {
-            get
-            {
-                return _reasonCodeWidth;
-            }
-            set
-            {
-                _reasonCodeWidth = value;
-            }
-        }
+        //internal float ReasonCodeWidth
+        //{
+        //    get
+        //    {
+        //        return _reasonCodeWidth;
+        //    }
+        //    set
+        //    {
+        //        _reasonCodeWidth = value;
+        //    }
+        //}
 
         public override SizeF PreferredContentSize
         {
@@ -164,7 +167,7 @@ namespace CallForm.iOS.ViewElements
     {
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;
-        private const string CellIdentifier = "TableCell";
+        private const string CellIdentifier = "ReasonCodeTableCell";
 
 
         public ReasonCodeTableSource(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
