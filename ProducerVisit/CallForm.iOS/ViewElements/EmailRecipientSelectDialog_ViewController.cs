@@ -31,6 +31,9 @@ namespace CallForm.iOS.ViewElements
             _viewModel = viewModel;
             _table = new UITableView();
             _table.Source = new EmailRecipientsTableSource(_viewModel, source);
+            //_table.BackgroundColor = UIColor.LightGray;
+            //_table.Alpha = 0.5f;
+            _table.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
 
             float maxTableHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);  // the Y value
             float maxTableWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.5, 0);    // the X value
@@ -41,6 +44,8 @@ namespace CallForm.iOS.ViewElements
             _table.ScrollEnabled = true;
 
             View.Add(_table);
+            View.SizeToFit();
+
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -57,7 +62,7 @@ namespace CallForm.iOS.ViewElements
                 SizeF size = _table.Frame.Size;
                 //// leave space for "Done" button
                 //size.Height += 50;
-                size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);
+                //size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);
 
                 return size;
             }
@@ -116,6 +121,7 @@ namespace CallForm.iOS.ViewElements
             //doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.DismissPopover); };
             //doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
 
+            //doneButton.Hidden = true;
 
             return doneButton;
         }

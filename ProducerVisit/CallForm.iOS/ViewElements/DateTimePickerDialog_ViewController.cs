@@ -1,36 +1,44 @@
-using System;
-using System.Drawing;
-using CallForm.iOS.Views;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+// CallForm.iOS\ViewElements\DateTimePickerDialog_ViewController.cs
 
 namespace CallForm.iOS.ViewElements
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class DateTimePickerDialog_ViewController : UIViewController
+    using CallForm.iOS.Views;
+    using MonoTouch.Foundation;
+    using MonoTouch.UIKit;
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+
+    public partial class DateTimePickerDialog_ViewController : UIViewController
     {
         private Action<DateTime> _setValue = obj => { };
-
-        private readonly UIDatePicker _picker;
+        private UIDatePicker _picker;
 
         public DateTimePickerDialog_ViewController(Action<DateTime> setValue, DateTime initialValue, UIDatePickerMode mode, NewVisit_TableViewSource source)
         {
+            // ToDo: select time-zone from user preferences
             _picker = new UIDatePicker
             {
                 Date = initialValue,
                 Mode = mode,
                 TimeZone = NSTimeZone.FromAbbreviation("GMT")
             };
+
+            //_picker.BackgroundColor = UIColor.Gray;
+            //_picker.Alpha = 0.75f;
+            _picker.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
+
             View.AddSubview(_picker);
+            View.SizeToFit();
 
             var doneButton = new UIButton(UIButtonType.System);
             doneButton.SetTitle("Done", UIControlState.Normal);
             doneButton.TouchUpInside += (sender, args) => { source.DismissPopover(); };
             doneButton.Frame = new RectangleF(0, _picker.Frame.Height, _picker.Frame.Width, 50);
 
-            View.AddSubview(doneButton);
+            // Hack: hide doneButton
+            //View.AddSubview(doneButton);
 
             View.BackgroundColor = UIColor.White;
 
@@ -48,8 +56,8 @@ namespace CallForm.iOS.ViewElements
             get
             {
                 SizeF size = _picker.Frame.Size;
-                // leave space for "Done" button
-                size.Height += 50;
+                // Hack: hide doneButton
+                //size.Height += 50;
                 return size;
             }
             set { base.PreferredContentSize = value; }

@@ -38,6 +38,10 @@ namespace CallForm.iOS.ViewElements
             _table = new UITableView();
             _table.Source = new ReasonCodeTableSource(_viewModel, source);
 
+            // ToDo: Gray with no direction-arrow looks pretty good!
+            //_table.BackgroundColor = UIColor.Gray;
+            _table.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
+
             // Note: using cell height won't work -- the cell's don't exist yet
             //int sectionNumber = 0;
             //int count = _table.Source.RowsInSection(_table, sectionNumber);
@@ -55,6 +59,7 @@ namespace CallForm.iOS.ViewElements
             _table.ScrollEnabled = true;
 
             View.Add(_table);
+            View.SizeToFit();
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -94,7 +99,7 @@ namespace CallForm.iOS.ViewElements
                 SizeF size = _table.Frame.Size;
                 // leave space for "Done" button
                 //size.Height += 50;
-                size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);
+                //size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);
 
                 return size;
             }
@@ -190,14 +195,14 @@ namespace CallForm.iOS.ViewElements
         public override UIView GetViewForFooter(UITableView tableView, int section)
         {
             var doneButton = new UIButton(UIButtonType.System);
-            doneButton.SetTitle("Done", UIControlState.Normal);
-            // review: is InvokeOnMainThread() correct?
-            doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.DismissPopover); };
-            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
-            //doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, GetHeightForFooter(tableView, section));
-
             // Hack: hide Done button
-            doneButton = new UIButton(UIButtonType.System);
+
+            //doneButton.SetTitle("Done", UIControlState.Normal);
+            //// review: is InvokeOnMainThread() correct?
+            //doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.DismissPopover); };
+            //doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
+
+            //doneButton.Hidden = true;
 
             return doneButton;
         }
