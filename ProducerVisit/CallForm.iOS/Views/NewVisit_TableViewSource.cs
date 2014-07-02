@@ -233,12 +233,12 @@
                         _popover = new UIPopoverController(CallTypePickerPopover);
                         _popover.PopoverContentSize = CallTypePickerPopover.PreferredContentSize;
                         //_popover.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath ), tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popover.PresentFromRect(GetRectangle(tableView, _dateCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(GetRectangleForCell(tableView, _dateCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 2:
                         _popover = new UIPopoverController(DatePickerPopover);
                         _popover.PopoverContentSize = DatePickerPopover.PreferredContentSize;
-                        _popover.PresentFromRect(GetRectangle(tableView, _durationCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(GetRectangleForCell(tableView, _durationCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 3:
                         _durationCell.Edit();
@@ -247,6 +247,7 @@
                         _popover = new UIPopoverController(ReasonPickerPopover);
                         _popover.PopoverContentSize = ReasonPickerPopover.PreferredContentSize;
 
+                        //_popover.use empty? ToString get iPhone working?
                         // using RectangleF.Empty sets the popover origin to the NW corner
                         //_popover.PresentFromRect(RectangleF.Empty, tableView.Superview, UIPopoverArrowDirection.Any, true);
 
@@ -254,7 +255,7 @@
                         //_popover.PresentFromRect(GetRectangle(tableView, _reasonCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
 
                         var reasonRect = tableView.RectForRowAtIndexPath(indexPath);
-                        _popover.PresentFromRect(reasonRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(GetPresentationRectangleForCell(tableView, _reasonCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 5:
                         _notesCell.Edit();
@@ -267,7 +268,7 @@
                         _popover.PopoverContentSize = EmailPickerPopover.PreferredContentSize;
                         //var emailRect = tableView.RectForRowAtIndexPath(indexPath);
                         //_popover.PresentFromRect(emailRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popover.PresentFromRect(GetRectangle(tableView, _reasonCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(GetPresentationRectangleForCell(tableView, _reasonCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
 
                         break;
                 }
@@ -275,10 +276,37 @@
             tableView.DeselectRow(indexPath, true);
         }
 
-        private RectangleF GetRectangle(UITableView tableView, UITableViewCell cell)
+        /// <summary>Get the rectangle bounding a specific cell.
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView">(view) table</see>/> that contains the cell.</param>
+        /// <param name="targetCell">A <see cref="UITableViewCell">cell</see> (ie: row) in the <paramref name="tableView"/></param>
+        /// <returns></returns>
+        private RectangleF GetRectangleForCell(UITableView tableView, UITableViewCell targetCell)
         {
-            return tableView.RectForRowAtIndexPath(tableView.IndexPathForCell(cell));
+            return tableView.RectForRowAtIndexPath(tableView.IndexPathForCell(targetCell));
         }
+
+        private RectangleF GetPresentationRectangleForCell(UITableView tableView, UITableViewCell targetCell)
+        {
+            RectangleF cellBoundary = tableView.RectForRowAtIndexPath(tableView.IndexPathForCell(targetCell));
+
+            // shift origin to left margin, and to the (vertical) mid-point of the cell
+            PointF presentationLocation = new PointF(0f, cellBoundary.Location.Y + cellBoundary.Height);
+
+            // a really small box for the _popover arrow to aim at
+            SizeF smallBox = new SizeF(2f, 2f);
+
+            // shift location up to account for (half) size of the rectangle
+            presentationLocation.Y = (float)Math.Round( presentationLocation.Y - (smallBox.Height / 2), 0);
+
+            presentationLocation.X = (float)Math.Round(presentationLocation.X, 0);
+
+            RectangleF presentationBoundary = new RectangleF(presentationLocation, cellBoundary.Size);
+
+
+            return presentationBoundary;
+        }
+
 
         // ToDo: is this ever used?
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)

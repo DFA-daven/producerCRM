@@ -144,8 +144,8 @@ namespace CallForm.iOS.ViewElements
         public override float GetHeightForFooter(UITableView tableView, int section)
         {
             // Hack: hide Done button.
-            return 50f;
-            //return 1f;
+            //return 50f;
+            return 5f;
         }
 
         /// <summary>Find the currently selected cell (row) in the <see cref="UITableView"/>.
