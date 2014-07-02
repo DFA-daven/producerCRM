@@ -6,12 +6,12 @@
     /// <summary>An object representing a "StoredProducerVisitReport" record.
     /// </summary>
     /// <remarks>The database stores each visit as a record in the "StoredProducerVisitReport" table, and the 
-    /// possible reason for a visit in the "ReasonCode" table. For any given visit the reasons are stored in a cross reference table 
-    /// "VisitXReason".
+    /// list of possible reasons for visits in the "ReasonCode" table. For any given visit the selected reasons 
+    /// are stored in the "VisitXReason" cross reference table.
     /// 
-    /// A <see cref="StoredProducerVisitReport"/> object represents a single records from the "StoredProducerVisitReport" table. 
-    /// A <see cref="ProducerVisitReport"/> is that same record with a <see cref="ReasonCode"/> holding the 
-    /// reason codes for the specific visit.</remarks>
+    /// A <see cref="StoredProducerVisitReport"/> object represents a single record from the "StoredProducerVisitReport" table. 
+    /// A <see cref="ProducerVisitReport"/> is that same record with a <see cref="ReasonCode">ReasonCode[]</see> holding the 
+    /// reason code(s) for the specific visit.</remarks>
     public class StoredProducerVisitReport
     {
         /// <summary>The internal ID for this object.
@@ -47,7 +47,7 @@
         /// </summary>
         public decimal Duration { get; set; }
 
-        /// <summary>The timestamp of this Visit Report.
+        /// <summary>The time-stamp of this Visit Report.
         /// </summary>
         public DateTime EntryDateTime { get; set; }
 
