@@ -17,10 +17,10 @@ HOWEVER, DO NOT manually update BackEnd\Properties\PublishProfiles\*.pubxml.
 This is better handled by selecting the correct publishing profile and storing any changes there when publishing BackEnd.
     
 Publish BackEnd Web Service (and database):
-1. Comment out line in BackEnd\Global.asax
-2. Rebuild BackEnd
-3. Rebuild Solution
-4. Publish BackEnd (web service)
+ 1. Comment out line in BackEnd\Global.asax
+ 2. Rebuild BackEnd
+ 3. Rebuild Solution
+ 4. Publish BackEnd (web service)
     a. Build / Publish BackEnd
 	b. On the Profile tab, select an appropriate profile
 	c. On the Connection tab, 
@@ -29,21 +29,23 @@ Publish BackEnd Web Service (and database):
 		- Click the "Test Connection" 
 	d. On the Settings tab, select "Release - Any CPU" as the Configuration
 		- This selection determines the target database. See note in Web.Debug.Config for details. 
-	e. Click Publish 
+	e. Click Publish  
 		- Browser opens and displays default page with no errors (see \docs\no errors.png)
-		- Tables created / exist on target database (as set in Web.*.config)
-5. Uncomment line in BackEnd Global.asax
-6. Rebuild BackEnd
-7. Rebuild CallForm.Core
-8. Deploy CallForm.iOS (not Deploy Solution)
+ 		- Tables created / exist on target database (as set in Web.*.config)
+ 5. Uncomment line in BackEnd Global.asax
+ 6. Rebuild BackEnd
+ 7. Rebuild CallForm.Core
+ 8. select 'iPhone' on the Solutions Platforms pull-down
+ 9. select a device on the Target iOS Device pull-down
+10. Deploy CallForm.iOS (not Deploy Solution)
 
 ----
 Mac
-1. Open Terminal window
-2. enter "cd" (should be in the home aka ~ directory)" 
-3. run ./CallForm-resign.sh
-4. copy .ipa from /IPA to /Public
-5. Check plist in .ipa for correct bundle ID
+ 1. Open Terminal window
+ 2. enter "cd" (should be in the home aka ~ directory)" 
+ 3. run ./CallForm-resign.sh
+ 4. copy .ipa from /IPA to /Public
+ 5. Check plist in .ipa for correct bundle ID
 
 The bundle Id set in the CallForm.iOS Project properties must match the Id set in the "resign.sh" script.dave.nouza	wasabi84
 

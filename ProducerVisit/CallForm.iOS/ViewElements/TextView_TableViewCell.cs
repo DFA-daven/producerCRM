@@ -18,7 +18,8 @@ namespace CallForm.iOS.ViewElements
                 Editable = editing,
             };
             _textField.Changed += didChange;
-            _textField.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize + 2);
+            //_textField.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize + 2);
+            _textField.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize);
             ContentView.AddSubview(_textField);
         }
 
