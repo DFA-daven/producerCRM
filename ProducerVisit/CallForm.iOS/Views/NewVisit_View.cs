@@ -235,7 +235,9 @@ namespace CallForm.iOS.Views
 
         internal float ButtonHeight()
         {
-            return 50;
+            float height = UIFont.SystemFontSize * 3f;
+            //return 50;
+            return height;
         }
 
         /// <summary>The height of the current <see cref="UIView.Frame"/>.

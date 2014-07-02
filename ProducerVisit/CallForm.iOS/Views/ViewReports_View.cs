@@ -21,6 +21,8 @@
         private LinearLayout _logoLayout;
 
         // hard-coded values
+        /// <summary>The space reserved for the status-bar in iOS 7 and later.
+        /// </summary>
         private static float topMarginPixels = 65;
         // FixMe: until we get a new banner, just hiding the old one
         private static double bannerHeightPercent = 10;
@@ -226,19 +228,30 @@
             return thisIsOS7;
         }
 
-        private float screenHeight()
+        /// <summary>The height of the device's screen.
+        /// </summary>
+        /// <returns>The screen height measured in points.</returns>
+        internal float screenHeight()
         {
             float screenHeight = UIScreen.MainScreen.Bounds.Height;
             return screenHeight;
         }
 
-        private float screenWidth()
+        /// <summary>The width of the device's screen.
+        /// </summary>
+        /// <returns>The screen width measured in points.</returns>
+        internal float screenWidth()
         {
             float screenWidth = UIScreen.MainScreen.Bounds.Width;
             return screenWidth;
         }
 
-        private float availableHeight()
+        /// <summary>The height of the portion of the screen available for Views.
+        /// </summary>
+        /// <returns>The available height measured in points.</returns>
+        /// <remarks>For pre-iOS 7 devices, this value will be the same as <see cref="screenHeight"/>. For
+        /// iOS 7 and later, the <see cref="topMarginPixels"/> are reserved.</remarks>
+        internal float availableHeight()
         {
             float availableHeight = screenHeight();
 
@@ -304,22 +317,27 @@
         /// <summary>Calculates the pixel-height of controls based on the current screen height.
         /// </summary>
         /// <returns>The pixel-heighth of controls.</returns>
-        private float controlHeight()
+        internal float controlHeight()
         {
             float controlHeight = calculatePercent(availableHeight(), controlHeightPercent);
+            controlHeight = UIFont.ButtonFontSize * 3f;
+
             return controlHeight;
         }
 
         /// <summary>Calculates the pixel-width of controls based on the current screen width.
         /// </summary>
         /// <returns>The pixel-width of controls.</returns>
-        private float controlWidth()
+        internal float controlWidth()
         {
             float controlWidth = percentWidth(controlWidthPercent);
             return controlWidth;
         }
 
-        private float tableTop()
+        /// <summary>The top offset for the table.
+        /// </summary>
+        /// <returns></returns>
+        internal float tableTop()
         {
             float tableTop = bannerBottom() + controlHeight();
             return tableTop;
@@ -413,7 +431,11 @@
             }
         }
 
-        private void SetFrameX(UIView view, float x)
+        /// <summary>Updates the horizontal origin of a view.
+        /// </summary>
+        /// <param name="view">The <see cref="UIView"/> to be updated.</param>
+        /// <param name="x">The new "X" coordinate for the View.</param>
+        internal void SetFrameX(UIView view, float x)
         {
             var frame = view.Frame;
             frame.X = x;
@@ -498,7 +520,8 @@
                 {
                     new TextNativeView(Date = new UILabel
                     {
-                        Font = UIFont.SystemFontOfSize(18)
+                        //Font = UIFont.SystemFontOfSize(18)
+                        Font = UIFont.SystemFontOfSize(UIFont.LabelFontSize)
                     }),
                     new LinearLayout(Orientation.Vertical)
                     {
@@ -513,17 +536,19 @@
                         {
                             new TextNativeView(MemberNumber = new UILabel
                             {
-                                Font = UIFont.SystemFontOfSize(14)
+                                //Font = UIFont.SystemFontOfSize(14)
+                                Font = UIFont.SystemFontOfSize(UIFont.SystemFontSize)
                             }),
                             new TextNativeView(Source = new UILabel
                             {
-                                Font = UIFont.SystemFontOfSize(14)
+                                //Font = UIFont.SystemFontOfSize(14)
+                                Font = UIFont.SystemFontOfSize(UIFont.SystemFontSize)
                             }),
                         }
                     },
                     new TextNativeView(Reasons = new UILabel
                     {
-                        Font = UIFont.SystemFontOfSize(18)
+                        Font = UIFont.SystemFontOfSize(UIFont.SystemFontSize)
                     }),
                 }
             };
