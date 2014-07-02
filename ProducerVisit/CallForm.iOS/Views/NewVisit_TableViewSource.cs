@@ -202,10 +202,10 @@
             return 8;
         }
 
-        /// <summary>Handles the user clicking on a row
+        /// <summary>Handles the user clicking on a row (cell).
         /// </summary>
-        /// <param name="tableView">The <see cref="UITableView"/> containing the row/control that the user selected.</param>
-        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the row/control that the user selected.</param>
+        /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the row (cell) that the user selected.</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
             if (_viewModel.Editing)
@@ -233,12 +233,12 @@
                         _popover = new UIPopoverController(CallTypePickerPopover);
                         _popover.PopoverContentSize = CallTypePickerPopover.PreferredContentSize;
                         //_popover.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath ), tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popover.PresentFromRect(GetRectangleForCell(tableView, _dateCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(GetPresentationRectangleForCell(tableView, _callTypeCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 2:
                         _popover = new UIPopoverController(DatePickerPopover);
                         _popover.PopoverContentSize = DatePickerPopover.PreferredContentSize;
-                        _popover.PresentFromRect(GetRectangleForCell(tableView, _durationCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(GetPresentationRectangleForCell(tableView, _dateCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 3:
                         _durationCell.Edit();
@@ -268,7 +268,7 @@
                         _popover.PopoverContentSize = EmailPickerPopover.PreferredContentSize;
                         //var emailRect = tableView.RectForRowAtIndexPath(indexPath);
                         //_popover.PresentFromRect(emailRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popover.PresentFromRect(GetPresentationRectangleForCell(tableView, _reasonCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popover.PresentFromRect(GetPresentationRectangleForCell(tableView, _emailRecipientsCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
 
                         break;
                 }
@@ -278,47 +278,59 @@
 
         /// <summary>Get the rectangle bounding a specific cell.
         /// </summary>
-        /// <param name="tableView">The <see cref="UITableView">(view) table</see>/> that contains the cell.</param>
+        /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
         /// <param name="targetCell">A <see cref="UITableViewCell">cell</see> (ie: row) in the <paramref name="tableView"/></param>
-        /// <returns></returns>
-        private RectangleF GetRectangleForCell(UITableView tableView, UITableViewCell targetCell)
+        /// <returns>A rectangle bounding the given cell.</returns>
+        internal RectangleF GetRectangleForCell(UITableView tableView, UITableViewCell targetCell)
         {
             return tableView.RectForRowAtIndexPath(tableView.IndexPathForCell(targetCell));
         }
 
-        private RectangleF GetPresentationRectangleForCell(UITableView tableView, UITableViewCell targetCell)
+        /// <summary>Creates a new rectangle which matches the on-screen location of the given cell.
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
+        /// <param name="targetCell">A <see cref="UITableViewCell">cell</see> (ie: row) in the <paramref name="tableView"/></param>
+        /// <returns>A rectangle offset vertically.</returns>
+        /// <remarks>Because of the indexing used to identify the cells, the boundary of any given cell appears to match the 
+        /// previous cell in the <see cref="UITableView">table view</see>. There is no direct method for 'adding one' to the 
+        /// cell. Instead, this method shifts the cell boundary down by the height of the boundary. The resulting location overlays
+        /// the on-screen location of the cell contents.</remarks>
+        internal RectangleF GetPresentationRectangleForCell(UITableView tableView, UITableViewCell targetCell)
         {
             RectangleF cellBoundary = tableView.RectForRowAtIndexPath(tableView.IndexPathForCell(targetCell));
 
-            // shift origin to left margin, and to the (vertical) mid-point of the cell
+            // shift origin to left margin, and to the bottom of the cell
             PointF presentationLocation = new PointF(0f, cellBoundary.Location.Y + cellBoundary.Height);
-
-            // a really small box for the _popover arrow to aim at
-            SizeF smallBox = new SizeF(2f, 2f);
-
-            // shift location up to account for (half) size of the rectangle
-            presentationLocation.Y = (float)Math.Round( presentationLocation.Y - (smallBox.Height / 2), 0);
-
+            presentationLocation.Y = (float)Math.Round( presentationLocation.Y, 0);
             presentationLocation.X = (float)Math.Round(presentationLocation.X, 0);
 
             RectangleF presentationBoundary = new RectangleF(presentationLocation, cellBoundary.Size);
-
 
             return presentationBoundary;
         }
 
 
-        // ToDo: is this ever used?
+        /// <summary>Gets the height (in points) for a given row (cell).
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the row (cell) that the user selected.</param>
+        /// <returns></returns>
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
+            // FixMe: hard-coded values
+            // the _noteCell
             if (indexPath.Row == 5)
             {
                 return 110;
             }
+
+            // the _takePictureCell
             if (indexPath.Row == 6)
             {
                 return 160;
             }
+
+            // otherwise...
             return 50;
         }
 
