@@ -6,7 +6,8 @@ If Project A depends on Project B,
   * then the Solution must be rebuilt.
 
 For this Solution, 
-  * CallForm.iOS depends on CallForm.Core (CallForm.iOS also depends on Cirrious.FluentLayouts.Touch and XibFree -- but they don't change).
+  * CallForm.iOS depends on CallForm.Core (CallForm.iOS also depends on Cirrious.FluentLayouts.Touch 
+    and XibFree -- but they don't change).
   * BackEnd depends on CallForm.Core
 
 The safest course is that if there has been a code change, complete the following steps:
@@ -16,3 +17,20 @@ The safest course is that if there has been a code change, complete the followin
   * rebuild the Solution.
   * on the Mac, reset the iOS Simulator
   * in Visual Studio start debugging on the iOS Simulator
+
+The iOS Simulator will attempt to run even when there are errors in the code. In this case 
+the app will be unstable, and may force-close. One method for determining if there is something 
+wrong is to check for the presence of the XML files. Typically if the app can make it far enough 
+to write the files, it will run.
+
+ * on the Mac
+ * open a new Finder window
+ * browse to /Users/macmini/Library/Application Support/iPhone Simulator
+ * select the iOS version number that is being simulated (usually the latest one)
+ * beneath the version_number folder open the Applications folder
+ * several built-in apps are listed by their GUID (apps like iOS Safari)
+ * the mobile app will be stored in the folder with the most recent 'date modified'
+ * open the mobile app's folder and browse to Documents/Data/
+ * if the four XML files -- Identity, CallTypes, ReasonCodes, and EmailRecipients -- are listed
+   then the current test of the mobile app is (generally) stable
+ * if any of the four files are missing, stop debugging in Visual Studio and reset the iOS Simulator

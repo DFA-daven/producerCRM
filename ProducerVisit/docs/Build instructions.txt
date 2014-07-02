@@ -1,0 +1,17 @@
+﻿Because of the Project dependencies, Builds must be done in a specific manner.
+
+Changes to CallForm.Core and/or BackEnd:
+ * Clean Solution
+ * Build CallForm.Core
+ * Build BackEnd
+
+ At this point the BackEnd Project can be published.
+
+
+ Changes to CallForm.iOS:
+  * reset the iOS Simulator if it is running
+  * Clean CallForm.iOS
+  * Build CallForm.iOS
+  * Build Solution
+
+At this point the CallForm.iOS Project can be run on the iOS Simulator, or Deployed to an iPad.
