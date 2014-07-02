@@ -448,7 +448,6 @@
 
         public override int RowsInSection(UITableView tableview, int section)
         {
-            // FixMe: why aren't the parameters being used here?
             return _viewModel.Reports == null ? 0 : _viewModel.Reports.Count;
         }
 

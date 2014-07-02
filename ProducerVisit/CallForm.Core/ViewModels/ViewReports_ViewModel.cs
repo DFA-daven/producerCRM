@@ -114,7 +114,7 @@
 
         /// <summary>Runs before this view Overlays <see cref="UserIdentity_ViewModel"/> if no identity exists.
         /// </summary>
-        /// <remarks>This model is the <see cref="App.Initialize">RegisterAppStart</see>/> of <see cref="App"/>.</remarks>
+        /// <remarks>This model is the <see cref="App.Initialize">RegisterAppStart</see> of <see cref="App"/>.</remarks>
         public override void Start()
         {
             // note: CallForm.Core starts here!

@@ -45,7 +45,7 @@
             return View();
         }
 
-        /// <summary>Get the 100 most recent <see cref="StoredProducerVisitReport">ProducerVisitReports</see>/> for a given member number.
+        /// <summary>Get the 100 most recent <see cref="StoredProducerVisitReport">ProducerVisitReports</see> for a given member number.
         /// </summary>
         /// <param name="id">The 8 digit Member Number.</param>
         /// <returns>A <see cref="ReportListItem"/> object representing the set of records.</returns>
