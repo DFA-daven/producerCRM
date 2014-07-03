@@ -13,10 +13,15 @@
         /// <returns>A <see cref="List&lt;T>"/> of type <see cref="CallType"/>.</returns>
         List<string> GetCallTypesAsList();
 
-        /// <summary>Gets the <see cref="EmailRecipient"/>(s) from the <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
+        /// <summary>Gets the "DisplayName" of the <see cref="EmailRecipient"/>(s) from the <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
         /// </summary>
-        /// <returns>A <see cref="List&lt;T>"/> of type <see cref="EmailRecipient"/>.</returns>
-        List<string> GetEmailRecipientsAsList();
+        /// <returns>A <see cref="List&lt;T>"/> of <see cref="EmailRecipient"/> "DisplayName".</returns>
+        List<string> GetEmailDisplayNamesAsList();
+
+        /// <summary>Gets the "Address" of the <see cref="EmailRecipient"/>(s) from the <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
+        /// </summary>
+        /// <returns>A <see cref="List&lt;T>"/> of <see cref="EmailRecipient"/> "Address".</returns>
+        List<string> GetEmailAddressesAsList();
 
         /// <summary>Gets the <see cref="ReasonCode"/>(s) from the <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
         /// </summary>

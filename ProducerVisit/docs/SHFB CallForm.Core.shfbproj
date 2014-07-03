@@ -131,6 +131,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="App Deployment Checklist.mkd" />
     <Content Include="Build instructions.txt" />
     <Content Include="Deploy instructions.txt" />
     <Content Include="Simulator instructions.txt" />

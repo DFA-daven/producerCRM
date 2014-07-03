@@ -120,15 +120,15 @@
         //}
 
         /// <inheritdoc/>
-        public List<string> GetEmailRecipientsAsList()
+        public List<string> GetEmailDisplayNamesAsList()
         {
             List<EmailRecipient> objectList = _localDatabaseService.GetSQLiteEmailRecipients();
-            List<string> stringList = objectList.Select(i => i.ToString()).ToList();
+            List<string> stringList = objectList.Select(i => i.DisplayName).ToList();
 
             return stringList;
         }
 
-        //public List<string> GetEmailRecipientsAsList()
+        //public List<string> GetEmailDisplayNamesAsList()
         //{
         //    List<string> stringList = new List<string>(new[] { "initialized" } );
                     
@@ -160,6 +160,24 @@
 
         //    return stringList;
         //}
+
+        ///// <inheritdoc/>
+        //public List<string> GetEmailAddressesAsList()
+        //{
+        //    List<EmailRecipient> objectList = _localDatabaseService.GetSQLiteEmailAddresses();
+        //    List<string> stringList = objectList.Select(i => i.ToString()).ToList();
+
+        //    return stringList;
+        //}
+
+        /// <inheritdoc/>
+        public List<string> GetEmailAddressesAsList()
+        {
+            List<EmailRecipient> objectList = _localDatabaseService.GetSQLiteEmailRecipients();
+            List<string> stringList = objectList.Select(i => i.Address).ToList();
+
+            return stringList;
+        }
 
         /// <inheritdoc/>
         public void UpdateModels()

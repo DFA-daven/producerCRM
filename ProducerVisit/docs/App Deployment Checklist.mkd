@@ -1,0 +1,11 @@
+﻿# Mobile App Deployment Checklist #
+## Tests
+* Install the app, run the app. Check that the files CallTypes.xml, 
+  ReasonCodes.xml, and EmailRecipients.xml have been created (refer to 
+  "Simulator Instructions" for details).
+ * **Expected:** the files exist, _and have content_.
+* Install the app, run the app, setup the user. 
+  Uninstall/delete the app. Install the app, run the app.
+ * **Expected:** the app will not require user setup. 
+* Install the app, run the app, setup the user, then upgrade iOS. Open the app.
+ * **Expected:** app will open, and will not require user setup.

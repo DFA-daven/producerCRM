@@ -75,7 +75,7 @@ namespace CallForm.Core.ViewModels
             ListOfCallTypes = semiStaticWebDataService.GetCallTypesAsList();
             SelectedCallType = ListOfCallTypes.First();
 
-            ListOfEmailRecipients = semiStaticWebDataService.GetEmailRecipientsAsList();
+            ListOfEmailDisplayNames = semiStaticWebDataService.GetEmailDisplayNamesAsList();
             SelectedEmailRecipients = new List<string>();
 
             Date = DateTime.Now.Date;
@@ -438,10 +438,9 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-
-        /// <summary>Holds the list of potential Email Recipients.
+        /// <summary>Holds the "DisplayName" of potential Email Recipients.
         /// </summary>
-        public List<string> ListOfEmailRecipients;
+        public List<string> ListOfEmailDisplayNames;
 
         public event EventHandler SendEmail;
         #endregion

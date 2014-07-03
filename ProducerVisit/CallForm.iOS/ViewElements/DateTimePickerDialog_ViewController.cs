@@ -37,8 +37,7 @@ namespace CallForm.iOS.ViewElements
             doneButton.TouchUpInside += (sender, args) => { source.DismissPopover(); };
             doneButton.Frame = new RectangleF(0, _picker.Frame.Height, _picker.Frame.Width, 50);
 
-            // Hack: hide doneButton
-            //View.AddSubview(doneButton);
+            View.AddSubview(doneButton);
 
             View.BackgroundColor = UIColor.White;
 

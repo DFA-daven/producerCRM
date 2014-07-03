@@ -12,11 +12,11 @@
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
-        /// <summary>Gets/sets the e-mail address for this instance.
+        /// <summary>Gets/sets the e-mail Address for this instance.
         /// </summary>
         public string Address { get; set; }
 
-        /// <summary>Gets/sets the e-mail address for this instance.
+        /// <summary>Gets/sets the DisplayName for this instance.
         /// </summary>
         public string DisplayName 
         { 
