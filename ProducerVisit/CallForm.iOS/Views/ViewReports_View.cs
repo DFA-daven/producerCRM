@@ -468,11 +468,21 @@
             return 50;
         }
 
+        /// <summary>The number of rows (cells) in this section of <see cref="ViewReportsTableSource"/>.
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView"/>/control that contains the section.</param>
+        /// <param name="section">The index number of the section that contains the rows (cells).</param>
+        /// <remarks><paramref name="section"/> is included as part of the override -- it is not used in this method.</remarks>
+        /// <returns>A row count.</returns>
         public override int RowsInSection(UITableView tableview, int section)
         {
             return _viewModel.Reports == null ? 0 : _viewModel.Reports.Count;
         }
 
+        /// <summary>Handles the selected row (cell) in <see cref="ViewReportsTableSource"/>.
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView"/>/control that contains the selected row.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> of the selected row in the control.</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
             _viewModel.SelectedReport = _viewModel.Reports[indexPath.Row];
@@ -481,6 +491,11 @@
             tableView.ReloadData();
         }
 
+        /// <summary>Gets a cell based on the selected <see cref="NSIndexPath">Row</see>.
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
+        /// <returns>The requested <see cref="TableViewCell" /> from the <see cref="ViewReportsTableSource"/>.</returns>
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             TableViewCell cell = tableView.DequeueReusableCell(CellIdentifier) as TableViewCell ?? new TableViewCell();

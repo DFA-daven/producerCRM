@@ -100,10 +100,10 @@ namespace CallForm.iOS.ViewElements
             _source = source;
         }
 
-        /// <summary>The number of rows to be displayed.
+        /// <summary>The number of rows (cells) in this section of <see cref="EmailRecipientsTableSource"/>.
         /// </summary>
-        /// <param name="tableview"></param>
-        /// <param name="section"></param>
+        /// <param name="tableView">The <see cref="UITableView"/>/control that contains the section.</param>
+        /// <param name="section">The index number of the section that contains the rows (cells).</param>
         /// <remarks><paramref name="section"/> is included as part of the override -- it is not used in this method.</remarks>
         /// <returns>A row count.</returns>
         public override int RowsInSection(UITableView tableview, int section)
@@ -126,7 +126,7 @@ namespace CallForm.iOS.ViewElements
             return doneButton;
         }
 
-        /// <summary>Toggles selected email recipients.
+        /// <summary>Toggles the selected row (cell) in <see cref="EmailRecipientsTableSource"/>.
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView"/>/control that contains the selected row.</param>
         /// <param name="indexPath">The <see cref="NSIndexPath"/> of the selected row in the control.</param>
@@ -154,11 +154,11 @@ namespace CallForm.iOS.ViewElements
             return 5f;
         }
 
-        /// <summary>Find the currently selected cell (row) in the <see cref="UITableView"/>.
+        /// <summary>Gets a cell based on the selected <see cref="NSIndexPath">Row</see>.
         /// </summary>
         /// <param name="tableView">The active <see cref="UITableView"/>.</param>
         /// <param name="indexPath">The <see cref="NSIndexPath"/> with the selected row (cell).</param>
-        /// <returns></returns>
+        /// <returns>The requested <see cref="UITableViewCell" /> from the <see cref="EmailRecipientsTableSource"/>.</returns>
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier) ??

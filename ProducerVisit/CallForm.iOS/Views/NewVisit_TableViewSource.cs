@@ -16,12 +16,13 @@
         private readonly Image_TableViewCell _takePictureCell;
         private readonly TextView_TableViewCell _notesCell;
 
+        /// <summary>The popover controller.
+        /// </summary>
         UIPopoverController _popover;
 
-        public UIViewController DatePickerPopover;
-        public UIViewController CallTypePickerPopover;
-        public UIViewController ReasonPickerPopover;
-        public UIViewController EmailPickerPopover;
+        /// <summary>A container for the popover controller.
+        /// </summary>
+        public UIViewController DatePickerPopover, CallTypePickerPopover, ReasonPickerPopover, EmailPickerPopover;
 
         public NewVisit_TableViewSource(NewVisit_ViewModel viewModel, UITableView tableView)
         {
@@ -196,16 +197,23 @@
             #endregion
         }
 
+        /// <summary>The number of rows (cells) in this section of <see cref="NewVisit_TableViewSource"/>.
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView"/>/control that contains the section.</param>
+        /// <param name="section">The index number of the section that contains the rows (cells).</param>
+        /// <remarks><paramref name="section"/> is included as part of the override -- it is not used in this method.</remarks>
+        /// <returns>A row count.</returns>
         public override int RowsInSection(UITableView tableview, int section)
         {
             // Review: find a way to get this automatically
+            // return _viewModel.Reports == null ? 0 : _viewModel.Reports.Count;
             return 8;
         }
 
-        /// <summary>Handles the user clicking on a row (cell).
+        /// <summary>Handles the selected row (cell) in <see cref="NewVisit_TableViewSource"/>.
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
-        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the row (cell) that the user selected.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
             if (_viewModel.Editing)
@@ -309,11 +317,10 @@
             return presentationBoundary;
         }
 
-
         /// <summary>Gets the height (in points) for a given row (cell).
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
-        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the row (cell) that the user selected.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
         /// <returns></returns>
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
@@ -334,6 +341,13 @@
             return 50;
         }
 
+        /// <summary>Gets a cell based on the selected <see cref="NSIndexPath">Row</see>.
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
+        /// <returns>The requested cell (of type <see cref="Image_TableViewCell"/>, <see cref="TextField_TableViewCell"/>, 
+        /// <see cref="TextView_TableViewCell"/>, or <see cref="UITableViewCell"/>) 
+        /// from the <see cref="NewVisit_TableViewSource"/>.</returns>
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             switch (indexPath.Row)
