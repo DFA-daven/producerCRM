@@ -37,7 +37,10 @@ namespace CallForm.Core.ViewModels
         /// <summary>The list of possible visit Call Types.</summary>
         private List<string> _callTypes;
         /// <summary>the email recipients selected by the user</summary>
-        private List<string> _nvvmemailRecipients; 
+        private List<string> _emailAddresses;
+
+        /// <summary>the display names selected by the user</summary>
+        private List<string> _emailDisplayNames; 
 
         private MvxCommand _saveCommand;
         
@@ -75,8 +78,10 @@ namespace CallForm.Core.ViewModels
             ListOfCallTypes = semiStaticWebDataService.GetCallTypesAsList();
             SelectedCallType = ListOfCallTypes.First();
 
+            ListOfEmailAddresses = semiStaticWebDataService.GetEmailAddressesAsList();
+            SelectedEmailAddresses = new List<string>();
             ListOfEmailDisplayNames = semiStaticWebDataService.GetEmailDisplayNamesAsList();
-            SelectedEmailRecipients = new List<string>();
+            SelectedEmailDisplayNames = new List<string>();
 
             Date = DateTime.Now.Date;
             ActualTime = DateTime.Now;
@@ -121,15 +126,17 @@ namespace CallForm.Core.ViewModels
             Notes = report.Notes;
             if (report.EmailRecipients == null)
             {
-                SelectedEmailRecipients = new List<string>();
+                SelectedEmailAddresses = new List<string>();
             }
             else
             {
-                SelectedEmailRecipients =
+                SelectedEmailAddresses =
                     new List<string>(report.EmailRecipients.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries));
             }
             PictureBytes = (byte[]) (report.PictureBytes ?? new byte[0]).Clone();
         }
+
+        //internal List<string> 
 
         private void GetInitialLocation()
         {
@@ -354,7 +361,7 @@ namespace CallForm.Core.ViewModels
             else if (Editing)
             {
                 _localDatabaseService.Insert(NewVisitAsProducerVisitReport());
-                if (SelectedEmailRecipients == null || SelectedEmailRecipients.Count <= 0)
+                if (SelectedEmailAddresses == null || SelectedEmailAddresses.Count <= 0)
                 {
                     Close(this);
                 }
@@ -384,7 +391,7 @@ namespace CallForm.Core.ViewModels
                 CallType      = SelectedCallType,
                 ReasonCodes   = SelectedReasonCodes.ToArray(),
                 Notes         = Notes,
-                EmailRecipients = string.Join(", ", SelectedEmailRecipients),
+                EmailRecipients = string.Join(", ", SelectedEmailAddresses),
                 PictureBytes  = (byte[]) (PictureBytes ?? new byte[0]).Clone(),
             };
         }
@@ -425,22 +432,51 @@ namespace CallForm.Core.ViewModels
         #endregion
 
         #region Email
-        /// <summary>The list of <see cref="EmailRecipient"/> display names for the user to select from.
+        /// <summary>The list of <see cref="EmailRecipient"/> Addresses for the user to select from.
         /// </summary>
-        /// <remarks><see cref="ListOfCallTypes"/> is handled by <see cref="CallForm.iOS.ViewElements.StringPickerDialog_ViewController"/></remarks>
-        public List<string> SelectedEmailRecipients
+        public List<string> SelectedEmailAddresses
         {
-            get { return _nvvmemailRecipients; }
+            get { return _emailAddresses; }
             set
             {
-                _nvvmemailRecipients = value;
-                RaisePropertyChanged(() => SelectedEmailRecipients);
+                _emailAddresses = value;
+                RaisePropertyChanged(() => SelectedEmailAddresses);
             }
         }
+
+        /// <summary>The list of <see cref="EmailRecipient"/> DisplayNames for the user to select from.
+        /// </summary>
+        public List<string> SelectedEmailDisplayNames
+        {
+            get { return _emailDisplayNames; }
+            set
+            {
+                _emailDisplayNames = value;
+                RaisePropertyChanged(() => SelectedEmailDisplayNames);
+            }
+        }
+
+        /// <summary>Holds the "Address" of potential Email Recipients.
+        /// </summary>
+        public List<string> ListOfEmailAddresses;
 
         /// <summary>Holds the "DisplayName" of potential Email Recipients.
         /// </summary>
         public List<string> ListOfEmailDisplayNames;
+
+        internal List<string> AddressToDisplayName (List<string> emailAddresses) 
+        {
+            List<string> displayNames = emailAddresses;
+
+            return displayNames;
+        }
+
+        internal List<string> DisplayNameToAddress (List<string> displayNames) 
+        {
+            List<string> emailAddresses = displayNames;
+
+            return emailAddresses;
+        }
 
         public event EventHandler SendEmail;
         #endregion

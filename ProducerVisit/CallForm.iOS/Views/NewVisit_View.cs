@@ -171,7 +171,7 @@ namespace CallForm.iOS.Views
             if (MFMailComposeViewController.CanSendMail)
             {
                 MFMailComposeViewController mailView = new MFMailComposeViewController();
-                List<string> recipientList = viewModel.SelectedEmailRecipients.Where(x =>  x != "Recipients Not Listed" ).ToList();
+                List<string> recipientList = viewModel.SelectedEmailAddresses.Where(x =>  x != "Recipients Not Listed" ).ToList();
                 if (recipientList.Count > 0)
                 {
                     mailView.SetToRecipients(recipientList.ToArray());

@@ -51,7 +51,8 @@ namespace CallForm.iOS.ViewElements
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
-            _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailRecipients));
+            _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailAddresses));
+            _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailDisplayNames));
         }
 
         
@@ -132,17 +133,23 @@ namespace CallForm.iOS.ViewElements
         /// <param name="indexPath">The <see cref="NSIndexPath"/> of the selected row in the control.</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-            string currentlySelectedRow = _viewModel.ListOfEmailDisplayNames[indexPath.Row];
-            if (_viewModel.SelectedEmailRecipients.Contains(currentlySelectedRow))
+            // FixMe: SelectedEmailAddresses
+            string currentlySelectedAddress = _viewModel.ListOfEmailAddresses[indexPath.Row];
+            string currentlySelectedDisplayName = _viewModel.ListOfEmailDisplayNames[indexPath.Row];
+
+            if (_viewModel.SelectedEmailDisplayNames.Contains(currentlySelectedDisplayName))
             {
-                _viewModel.SelectedEmailRecipients.Remove(currentlySelectedRow);
+                _viewModel.SelectedEmailAddresses.Remove(currentlySelectedAddress);
+                _viewModel.SelectedEmailDisplayNames.Remove(currentlySelectedDisplayName);
             }
             else
             {
-                _viewModel.SelectedEmailRecipients.Add(currentlySelectedRow);
+                _viewModel.SelectedEmailAddresses.Add(currentlySelectedAddress);
+                _viewModel.SelectedEmailDisplayNames.Add(currentlySelectedDisplayName);
             }
 
-            _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailRecipients));
+            _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailAddresses));
+            _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailDisplayNames));
             tableView.DeselectRow(indexPath, true);
             tableView.ReloadData();
         }
@@ -159,13 +166,14 @@ namespace CallForm.iOS.ViewElements
         /// <param name="tableView">The active <see cref="UITableView"/>.</param>
         /// <param name="indexPath">The <see cref="NSIndexPath"/> with the selected row (cell).</param>
         /// <returns>The requested <see cref="UITableViewCell" /> from the <see cref="EmailRecipientsTableSource"/>.</returns>
+        /// <remarks>This method is strictly viewable information -- it doesn't change any content.</remarks>
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             UITableViewCell cell = tableView.DequeueReusableCell(CellIdentifier) ??
                                    new UITableViewCell(UITableViewCellStyle.Default, CellIdentifier);
-            string email = _viewModel.ListOfEmailDisplayNames[indexPath.Row];
-            cell.TextLabel.Text = email;
-            cell.Accessory = _viewModel.SelectedEmailRecipients.Contains(email) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
+            string selectedDisplayName = _viewModel.ListOfEmailDisplayNames[indexPath.Row];
+            cell.TextLabel.Text = selectedDisplayName;
+            cell.Accessory = _viewModel.SelectedEmailDisplayNames.Contains(selectedDisplayName) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
             return cell;
         }
 

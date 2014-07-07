@@ -47,7 +47,9 @@
                     { switchNumber = 5; }
                 else if (args.PropertyName == GetPropertyName(() => _viewModel.PictureBytes))
                     { switchNumber = 6; }
-                else if (args.PropertyName == GetPropertyName(() => _viewModel.SelectedEmailRecipients))
+                else if (args.PropertyName == GetPropertyName(() => _viewModel.SelectedEmailAddresses))
+                    { switchNumber = 7; }
+                else if (args.PropertyName == GetPropertyName(() => _viewModel.SelectedEmailDisplayNames))
                     { switchNumber = 7; }
 
 
@@ -79,9 +81,9 @@
                         tableView.ReloadData();
                         break;
                     case 7:
-                        _emailRecipientsCell.DetailTextLabel.Text = _viewModel.SelectedEmailRecipients == null
+                        _emailRecipientsCell.DetailTextLabel.Text = _viewModel.SelectedEmailAddresses == null
                             ? string.Empty
-                            : string.Join(", ", _viewModel.SelectedEmailRecipients);
+                            : string.Join(", ", _viewModel.SelectedEmailAddresses);
                         tableView.ReloadData();
                         break;
                 }
@@ -190,9 +192,9 @@
             #region emailRecipients
             _emailRecipientsCell = new UITableViewCell(UITableViewCellStyle.Value1, "emailRecipients");
             _emailRecipientsCell.TextLabel.Text = "Email Recipients";
-            _emailRecipientsCell.DetailTextLabel.Text = _viewModel.SelectedEmailRecipients == null
+            _emailRecipientsCell.DetailTextLabel.Text = _viewModel.SelectedEmailAddresses == null
                 ? string.Empty
-                : string.Join(", ", _viewModel.SelectedEmailRecipients);
+                : string.Join(", ", _viewModel.SelectedEmailAddresses);
             _emailRecipientsCell.DetailTextLabel.TextColor = UIColor.Black;
             #endregion
         }
