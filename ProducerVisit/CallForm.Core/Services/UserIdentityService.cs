@@ -15,8 +15,12 @@
         /// </summary>
         private readonly IMvxFileStore _fileStore;
 
+        /// <summary>Was the User Identity stored?</summary>
         private bool _identityRecorded = false;
+
+        /// <summary>Was the User Identity uploaded?</summary>
         private bool _identityUploaded = false;
+
         private static string _dataFolderPathName = "Data";
         private static string _userIdentityFileName = "Identity.xml";
         private string _request;
@@ -101,6 +105,10 @@
             return savedUser;
         }
 
+        /// <summary>Attempts to save the <paramref name="identity"/> to an XML file.
+        /// </summary>
+        /// <param name="identity">The <see cref="UserIdentity"/> to be recorded.</param>
+        /// <remarks>Sets the "IdentityRecorded" flag.</remarks>
         private void SaveIdentityToFile(UserIdentity identity)
         {
             //identity.AssetTag = "UserIdentitySvc SaveIdentityToFile() 1";
@@ -133,7 +141,7 @@
                         Body = identity
                     };
 
-                // review: add error handling here
+                // review: is the "IdentityUploaded" flag getting set?
                 _restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, (Action<Exception>)RestException);
             }
             catch
@@ -145,10 +153,14 @@
 
         private void RestException(Exception exception)
         {
+            // TodO; this instance of RestException is for a single call -- it can be customized.
             Debug.WriteLine("Original request: " + Request);
             Debug.WriteLine("Exception message: " + exception.Message);
         }
 
+        /// <summary>Creates an "empty" <see cref="UserIdentity"/>, and 
+        /// </summary>
+        /// <returns></returns>
         private UserIdentity CreateIdentity()
         {
             UserIdentity newUser = new UserIdentity();

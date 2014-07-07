@@ -9,6 +9,7 @@ namespace CallForm.Core.Services
     {
         /// <summary>Indicates if the XML file exists in the <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
         /// </summary>
+        /// <value>Was the User Identity recorded?</value>
         bool IdentityRecorded { get; set; }
 
         /// <summary>Updates <paramref name="identity"/> to the XML file on-device, and to the web service.
