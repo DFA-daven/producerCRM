@@ -10,15 +10,25 @@
     using System.Drawing;
     using XibFree;
 
-    // notes: see _Touch UI.txt for design details.
+    /// <summary>The project's initial view controller. 
+    /// </summary>
+    /// <remarks>
+    /// <para>This view inherits from <see cref="MvxViewController"/>. The main over-ridable methods 
+    /// here handle the view's life-cycle.</para></remarks>
     class ViewReports_View : MvxViewController
     {
-        private UIView _logos;
+        /// <summary>Store for the logo property.</summary>
+        private UIView _logoView;
+        /// <summary>Store for the logo button property.</summary>
         private UIButton _logoButton;
-        private UITextField _filter;
-        private UIButton _find, _new;
-        private UITableView _table;
-        private LinearLayout _logoLayout;
+        /// <summary>Store for the search filter property.</summary>
+        private UITextField _filterField;
+        /// <summary>Store for the button property.</summary>
+        private UIButton _findButton, _newButton;
+        /// <summary>Store for the report table property.</summary>
+        private UITableView _reportTableView;
+        /// <summary>Store for the logo orientation property.</summary>
+        private LinearLayout _logoLinearLayout;
 
         // hard-coded values
         /// <summary>The space reserved for the status-bar in iOS 7 and later.
@@ -64,8 +74,8 @@
             logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
             logoButton.BackgroundColor = UIColor.White;
 
-            var logoView = _logos = new UIView();
-            //var logoView = _logos = new UIImageView
+            var logoView = _logoView = new UIView();
+            //var logoView = _logoView = new UIImageView
             //{
             //    //Image = UIImage.FromBundle("DFA-DMS-Banner.png"),
                 
@@ -78,7 +88,7 @@
             //logoView.Add(logoButton);
             //logoView.BackgroundColor = UIColor.White;
 
-            var logoLayout = _logoLayout = new LinearLayout(Orientation.Vertical)
+            var logoLayout = _logoLinearLayout = new LinearLayout(Orientation.Vertical)
             {
                 Gravity = Gravity.TopCenter,
                 SubViews = new View[]
@@ -107,7 +117,7 @@
             // var layout = new LinearLayout(Orientation.Horizontal)
             // SubViews = new View[]
             
-            var filterField = _filter = new UITextField
+            var filterField = _filterField = new UITextField
             {
                 TextAlignment = UITextAlignment.Center,
                 KeyboardType = UIKeyboardType.NumberPad,
@@ -123,12 +133,12 @@
             };
             filterField.VerticalAlignment = UIControlContentVerticalAlignment.Center;
 
-            var findButton = _find = new UIButton(UIButtonType.Custom);
+            var findButton = _findButton = new UIButton(UIButtonType.Custom);
             findButton.Frame = new RectangleF(percentWidth(middleControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             findButton.SetTitle("Refresh", UIControlState.Normal);
             findButton.BackgroundColor = Common.viewBackgroundColor;
 
-            var newButton = _new = new UIButton(UIButtonType.Custom);
+            var newButton = _newButton = new UIButton(UIButtonType.Custom);
             newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             newButton.SetTitle("New", UIControlState.Normal);
             // ToDo: scale the image so it fits in the control
@@ -137,8 +147,8 @@
             newButton.SetImage(UIImage.FromBundle("Add.png"), UIControlState.Normal);
             newButton.BackgroundColor = Common.viewBackgroundColor;
 
-            //var tableView = _table = new UITableView(new RectangleF(percentWidth(leftControlOriginPercent), tableTop(), percentWidth(98), screenHeight() - tableTop()));
-            var tableView = _table = new UITableView(new RectangleF(0, tableTop(), screenWidth(), screenHeight() - tableTop()));
+            //var tableView = _reportTableView = new UITableView(new RectangleF(percentWidth(leftControlOriginPercent), tableTop(), percentWidth(98), screenHeight() - tableTop()));
+            var tableView = _reportTableView = new UITableView(new RectangleF(0, tableTop(), screenWidth(), screenHeight() - tableTop()));
             tableView.BackgroundView = null;
             tableView.BackgroundColor = Common.viewBackgroundColor;
 
@@ -406,23 +416,23 @@
             {
                 case UIInterfaceOrientation.Portrait:
                 case UIInterfaceOrientation.PortraitUpsideDown:
-                    //SetFrameX(_logos, 0);
+                    //SetFrameX(_logoView, 0);
                     SetFrameX(_logoButton, 0);
-                    SetFrameX(_filter, percentWidth(leftControlOriginPercent));
-                    SetFrameX(_find, percentWidth(middleControlOriginPercent));
-                    SetFrameX(_new, percentWidth(rightControlOriginPercent));
-                    _table.Frame = new RectangleF(percentWidth(1), tableTop(), percentWidth(98), screenHeight() - tableTop());
+                    SetFrameX(_filterField, percentWidth(leftControlOriginPercent));
+                    SetFrameX(_findButton, percentWidth(middleControlOriginPercent));
+                    SetFrameX(_newButton, percentWidth(rightControlOriginPercent));
+                    _reportTableView.Frame = new RectangleF(percentWidth(1), tableTop(), percentWidth(98), screenHeight() - tableTop());
                     break;
                 case UIInterfaceOrientation.LandscapeLeft:
                 case UIInterfaceOrientation.LandscapeRight:
                     float difference = Math.Abs(screenHeight() - screenWidth());
                     float offset = (difference / 2) + percentHeight(1);
-                    //SetFrameX(_logos, percentWidth(leftControlOriginPercent) + offset);
+                    //SetFrameX(_logoView, percentWidth(leftControlOriginPercent) + offset);
                     SetFrameX(_logoButton, percentWidth(leftControlOriginPercent) + offset);
-                    SetFrameX(_filter, percentWidth(leftControlOriginPercent) + offset);
-                    SetFrameX(_find, percentWidth(middleControlOriginPercent) + offset);
-                    SetFrameX(_new, percentWidth(rightControlOriginPercent) + offset);
-                    _table.Frame = new RectangleF(percentHeight(1), tableTop(), percentHeight(98), screenWidth() - tableTop());
+                    SetFrameX(_filterField, percentWidth(leftControlOriginPercent) + offset);
+                    SetFrameX(_findButton, percentWidth(middleControlOriginPercent) + offset);
+                    SetFrameX(_newButton, percentWidth(rightControlOriginPercent) + offset);
+                    _reportTableView.Frame = new RectangleF(percentHeight(1), tableTop(), percentHeight(98), screenWidth() - tableTop());
 
 
                     break;
