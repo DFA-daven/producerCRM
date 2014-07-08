@@ -16,6 +16,8 @@ using System.Linq;
 
 namespace CallForm.iOS
 {
+    /// <summary>Defines the application's entry point.
+    /// </summary>
     public class Application
     {
         // This is the main entry point of the application. Control moves from here to AppDelegate.

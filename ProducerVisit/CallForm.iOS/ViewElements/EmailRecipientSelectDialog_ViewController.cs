@@ -31,8 +31,8 @@ namespace CallForm.iOS.ViewElements
             _viewModel = viewModel;
             _table = new UITableView();
             _table.Source = new EmailRecipientsTableSource(_viewModel, source);
-            //_table.BackgroundColor = UIColor.LightGray;
-            //_table.Alpha = 0.5f;
+            //_reportTableView.BackgroundColor = UIColor.LightGray;
+            //_reportTableView.Alpha = 0.5f;
             _table.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
 
             float maxTableHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);  // the Y value

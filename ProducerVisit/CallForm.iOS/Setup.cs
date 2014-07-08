@@ -9,9 +9,8 @@ using Cirrious.MvvmCross.Touch.Platform;
 
 namespace CallForm.iOS
 {
-    /// <summary>
-    /// </summary>
-    /// <remarks>This Class is called from AppDelegate.cs, and in turn calls CallForm.Core.App.</remarks>
+
+    /// <remarks>This Class is called from AppDelegate.cs (via FinishedLoading), and in turn calls CallForm.Core.App.</remarks>
 	public class Setup : MvxTouchSetup
 	{
 
@@ -46,6 +45,9 @@ namespace CallForm.iOS
         {
         }
 
+        /// <summary>Show the view (but if it's <see cref="NewVisit_View"/> turn animation off).
+        /// </summary>
+        /// <param name="view">The view to be displayed.</param>
         public override void Show(IMvxTouchView view)
         {
 

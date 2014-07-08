@@ -34,9 +34,9 @@ namespace CallForm.Core.ViewModels
         private string _memberNumber;
         private string _notes;
         private List<ReasonCode> _selectReasonCodes;
-        /// <summary>The list of possible visit Call Types.</summary>
+        /// <summary>Store for the list of possible visit CallTypes.</summary>
         private List<string> _callTypes;
-        /// <summary>the email recipients selected by the user</summary>
+        /// <summary>Store for the email recipients selected by the user</summary>
         private List<string> _emailAddresses;
 
         /// <summary>the display names selected by the user</summary>
@@ -47,6 +47,7 @@ namespace CallForm.Core.ViewModels
         // FixMe: re-factor userID to DeviceID
         private string _userID;
 
+        /// <summary>Store for Height.</summary>
         private float _height;
         private float _width;
 

@@ -153,7 +153,7 @@ namespace CallForm.iOS.Views
             {
                 case UIInterfaceOrientation.Portrait:
                 case UIInterfaceOrientation.PortraitUpsideDown:
-                    // _table.Frame = UIScreen.MainScreen.Bounds;
+                    // _reportTableView.Frame = UIScreen.MainScreen.Bounds;
                     _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
                     break;
                 case UIInterfaceOrientation.LandscapeLeft:

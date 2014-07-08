@@ -11,40 +11,50 @@ using System;
 namespace CallForm.iOS
 {
     /// <summary>Creates an AppDelegate for CallForm.iOS.</summary>
-    /// <remarks>This Class is called from Main.cs, and in turn calls Setup.cs.</remarks>
+    /// <remarks>
+    /// <para>This is the heart of the project.</para>
+    /// <para>This Class is called from Main.cs, and in turn calls Setup.cs.</para>
+    /// <para>The <see cref="AppDelegate"/> type inherits from <see cref="UIApplicationDelegate"/> 
+    /// (via <see cref="MvxApplicationDelegate"/>), which provides application life-cycle events 
+    /// such as FinishedLaunching and WillTerminate.</para>
+    /// </remarks>
     [Register("AppDelegate")]
     public partial class AppDelegate : MvxApplicationDelegate
     {
         UIWindow _window;
 
-        /// <summary>Define FinishedLaunching actions for the AppDelegate (including initializing, and starting the App).
+        /// <summary>Defines actions to occur after FinishedLaunching.
         /// </summary>
         /// <param name="app"></param>
         /// <param name="options"></param>
-        /// <returns></returns>
+        /// <returns>True</returns>
+        /// <remarks>The critical piece is the call to <see cref="Setup"/>.</remarks>
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            // System.Console.WriteLine("App entered FinishedLaunching.");
-            _window = new UIWindow(UIScreen.MainScreen.Bounds);
-            bool started = true;
-
-            // initialize the app for single single screen display
-            var presenter = new MvxModalSupportTouchViewPresenter(this, _window);
+            _window = new UIWindow(UIScreen.MainScreen.Bounds);     // required
 
             // FixMe: use this after fixing UserIdentityView.cs
+            // initialize the app for single screen display
+            //var presenter = new MvxModalSupportTouchViewPresenter(this, _window);
+            //// Note: this is a call to the custom Setup.cs
             //var setup = new Setup(this, presenter);
-            var setup = new Setup(this, _window);
+            //setup.Initialize();
+
+
+            // Note: this is a call to the custom Setup.cs
+            var setup = new Setup(this, _window);                   // required
             setup.Initialize();
+
 
             // start the app
             //var start = this.GetService<ImvxStartNavigation>();
-            var startup = Mvx.Resolve<IMvxAppStart>();
 
             // launch the App via the IMvxAppStart interface -- CallForm.Core.ViewModels.ViewReports_ViewModel.Start
-            startup.Start();
+            var startup = Mvx.Resolve<IMvxAppStart>();              // required
+            startup.Start();                                        // required
             
 
-            _window.MakeKeyAndVisible();
+            _window.MakeKeyAndVisible();                            // required
 
             //if (!Reachability.IsHostReachable("dl-backend-02.azurewebsites.net"))
             //{
@@ -58,7 +68,8 @@ namespace CallForm.iOS
             //    Mvx.Error("Host is reachable.");
             //}
 
-            return started;
+            bool started = true;
+            return started;                                         // required
         }
 
         public override void OnActivated(UIApplication application)

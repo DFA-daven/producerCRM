@@ -101,7 +101,8 @@ namespace BackEnd
             {
                 // NewEmailRecipients
                 //context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "loaded via global", DisplayName = "loaded via global" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "info@agri-maxfinancial.com", DisplayName = "info@agri-maxfinancial.com" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "info@agri-maxfinancial.com", 
+                                                                                      DisplayName = "info@agri-maxfinancial.com" });
                 context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "info@agri-servicesagency.com", DisplayName = "info@agri-servicesagency.com" });
                 context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "communications@dairylea.com", DisplayName = "Member Communications" });
                 context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-DairyOne@DairyOne.com", DisplayName = "FieldStaffNotification-DairyOne@DairyOne.com" });

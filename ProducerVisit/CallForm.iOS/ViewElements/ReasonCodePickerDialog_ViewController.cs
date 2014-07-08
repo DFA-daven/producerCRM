@@ -39,13 +39,13 @@ namespace CallForm.iOS.ViewElements
             _table.Source = new ReasonCodeTableSource(_viewModel, source);
 
             // ToDo: Gray with no direction-arrow looks pretty good!
-            //_table.BackgroundColor = UIColor.Gray;
+            //_reportTableView.BackgroundColor = UIColor.Gray;
             _table.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
 
             // Note: using cell height won't work -- the cell's don't exist yet
             //int sectionNumber = 0;
-            //int count = _table.Source.RowsInSection(_table, sectionNumber);
-            //UITableViewCell aCell = _table.VisibleCells[0];
+            //int count = _reportTableView.Source.RowsInSection(_reportTableView, sectionNumber);
+            //UITableViewCell aCell = _reportTableView.VisibleCells[0];
             //float aCellHeight = aCell.Frame.Height;
             //float preferredHeight = count * aCellHeight;
 
@@ -129,7 +129,7 @@ namespace CallForm.iOS.ViewElements
         ///// <returns>The product of (<see cref="UIView.Frame"/> * <paramref name="percent"/>)</returns>
         //internal float PercentOfFrameHeight(double percent)
         //{
-        //    float value = (float)Math.Round( PercentOfRectangleHeight(_table.Frame, percent), 0);
+        //    float value = (float)Math.Round( PercentOfRectangleHeight(_reportTableView.Frame, percent), 0);
         //    return value;
         //}
 
@@ -151,7 +151,7 @@ namespace CallForm.iOS.ViewElements
         ///// <returns>The product of (<see cref="UIView.Frame"/> * <paramref name="percent"/>)</returns>
         //internal float PercentOfFrameWidth(double percent)
         //{
-        //    float value = (float)Math.Round( PercentOfRectangleWidth(_table.Frame, percent), 0);
+        //    float value = (float)Math.Round( PercentOfRectangleWidth(_reportTableView.Frame, percent), 0);
         //    return value;
         //}
 
