@@ -24,40 +24,51 @@ namespace CallForm.Core.ViewModels
         private readonly IMvxJsonConverter _jsonConverter;
 
         #region backing fields
+        /// <summary>Store for the latitude property.</summary>
         private double _lat;
+        /// <summary>Store for the longitude property.</summary>
         private double _lng;
+        /// <summary>Store for the selected <c>CallType</c> property.</summary>
         private string _selectedCallType;
+        /// <summary>Store for the date property.</summary>
         private DateTime _date;
+        /// <summary>Store for the visit duration property.</summary>
         private decimal _duration;
+        /// <summary>Store for the (string) visit duration property.</summary>
         private string _durationString;
+        /// <summary>Store for the <c>ActualTime</c> property.</summary>
         private DateTime _actualTime;
+        /// <summary>Store for the member number property.</summary>
         private string _memberNumber;
+        /// <summary>Store for the notes property.</summary>
         private string _notes;
+        /// <summary>Store for the selected <c>ReasonCode</c> property.</summary>
         private List<ReasonCode> _selectReasonCodes;
-        /// <summary>Store for the list of possible visit CallTypes.</summary>
+        /// <summary>Store for the list of possible visit <c>CallType</c>s.</summary>
         private List<string> _callTypes;
-        /// <summary>Store for the email recipients selected by the user</summary>
+        /// <summary>Store for the email addresses selected by the user</summary>
         private List<string> _emailAddresses;
-
-        /// <summary>the display names selected by the user</summary>
-        private List<string> _emailDisplayNames; 
-
+        /// <summary>Store for the email display names selected by the user</summary>
+        private List<string> _emailDisplayNames;
+        /// <summary>Store for the <c>SaveCommand</c> property.</summary>
         private MvxCommand _saveCommand;
         
         // FixMe: re-factor userID to DeviceID
         private string _userID;
 
-        /// <summary>Store for Height.</summary>
+        /// <summary>Store for the <c>Height</c> property.</summary>
         private float _height;
+        /// <summary>Store for the <c>Width</c> property.</summary>
         private float _width;
-
+        /// <summary>Store for the <c>Editing</c> property.</summary>
         private bool _editing;
-
+        /// <summary>Store for the <c>PictureBytes[]</c> property.</summary>
         private byte[] _pictureBytes;
+        /// <summary>Store for the <c>TakePictureCommand</c> property.</summary>
         private MvxCommand _takePictureCommand;
         #endregion
 
-        /// <summary>Creates an instance of <see cref="NewVisit_ViewModel"/>.
+        /// <summary>Creates an instance of <c>NewVisit_ViewModel</c>.
         /// </summary>
         /// <param name="locationService"></param>
         /// <param name="messenger"></param>
@@ -77,7 +88,9 @@ namespace CallForm.Core.ViewModels
             SelectedReasonCodes = new List<ReasonCode>();
 
             ListOfCallTypes = semiStaticWebDataService.GetCallTypesAsList();
-            SelectedCallType = ListOfCallTypes.First();
+            SelectedCallType = ListOfCallTypes.Contains("Farm Visit") 
+                ? ListOfCallTypes[ListOfCallTypes.IndexOf("Farm Visit")] 
+                : ListOfCallTypes.FirstOrDefault();
 
             ListOfEmailAddresses = semiStaticWebDataService.GetEmailAddressesAsList();
             SelectedEmailAddresses = new List<string>();
@@ -297,7 +310,7 @@ namespace CallForm.Core.ViewModels
 
         /// <summary>The list of <see cref="ReasonCode"/>s for the user to select from.
         /// </summary>
-        /// <remarks><see cref="ListOfReasonCodes"/> is handled by <see cref="CallForm.iOS.ViewElements.ReasonCodePickerDialogViewController"/></remarks>
+        /// <remarks><c>ListOfReasonCodes</c> is handled by <see cref="CallForm.iOS.ViewElements.ReasonCodePickerDialogViewController"/></remarks>
         public readonly List<ReasonCode> ListOfReasonCodes;
 
         /// <summary>The name of the visit <see cref="CallType"/> selected by the user.

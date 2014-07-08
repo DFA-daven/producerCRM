@@ -19,29 +19,17 @@ namespace BackEnd
     public class MvcApplication : System.Web.HttpApplication
     {
         public string EntityType { get; set;}
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
 
-            // broken: this line must be commented out on the initial Publish/Deploy. can this be automated?
-            // Doing so enables the tables (schema) to be established in the database.
-            // After the first run, the uncommented line allows everything to work.
-            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VisitContext>());
-
-            // The following implementations are provided: 
-            // DropCreateDatabaseIfModelChanges<TContext>, DropCreateDatabaseAlways<TContext>, CreateDatabaseIfNotExists<TContext>.
-            // this seems safer, but still must be commented out on first run:
-            // Database.SetInitializer(new CreateDatabaseIfNotExists<VisitContext>());
-
+            // Note: this is where the "line that must be commented out" used to be. That action is no longer necessary.
             Database.SetInitializer<VisitContext>(new SeededSiteDBInitialize());
             using (var myContext = new VisitContext())
             {
                 var x = myContext.Database.Exists(); // hack
             }
-
-            // FixMe: the issue seems to be that later on, if the empty table(s) exist, the code
-            // will not populate them with the default values. It should be possible to move the database
-            // seeding here, and never comment out "CreateDatabaseIfNotExists".
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -49,14 +37,27 @@ namespace BackEnd
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        // Note: Visual Studio does not do anything with the database during the deployment process. However, when 
-        // the deployed application accesses the database for the first time after deployment, Code First 
-        // automatically creates the database or updates the database schema to the latest version. If the 
-        // application implements a Migrations Seed method, the method runs after the database is created or the schema is updated.
-
         /// <summary>Create a new instance of type <see cref="VisitContext"/>
         /// </summary>
-        /// <remarks>On the first connection to the server, if the specified database does not exist it will be created.</remarks>
+        /// <remarks>
+        /// <para>On the first connection to the server, if the specified database does not exist it will be created.</para>
+        /// 
+        /// <para>Visual Studio does not do anything with the database during the deployment process. However, when 
+        /// the deployed application tries to access the database for the first time after deployment, Code First 
+        /// automatically creates the database or updates the database schema to the latest version. If the 
+        /// application implements a Migrations Seed method, the method runs after the database is created or the schema is updated.</para>
+        /// 
+        /// <para>The Seed method has been overloaded so that it supplies default data.</para>
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// Database.SetInitializer&lt;VisitContext>(new SeededSiteDBInitialize());
+        /// using (var myContext = new VisitContext())
+        /// {
+        ///     var x = myContext.Database.Exists(); // hack
+        /// }
+        /// </code>
+        /// </example>
         public class SiteDBInitialize : CreateDatabaseIfNotExists<VisitContext>
         {
             // Note: the Seed (override) method below is used to initially populate the database.
@@ -102,17 +103,27 @@ namespace BackEnd
                 // NewEmailRecipients
                 //context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "loaded via global", DisplayName = "loaded via global" });
                 context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "info@agri-maxfinancial.com", 
-                                                                                      DisplayName = "info@agri-maxfinancial.com" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "info@agri-servicesagency.com", DisplayName = "info@agri-servicesagency.com" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "communications@dairylea.com", DisplayName = "Member Communications" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-DairyOne@DairyOne.com", DisplayName = "FieldStaffNotification-DairyOne@DairyOne.com" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-DMS@dairylea.com", DisplayName = "FieldStaffNotification-DMS@dairylea.com" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "drms@dairylea.com", DisplayName = "DRMS" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-Eagle@dairylea.com", DisplayName = "FieldStaffNotification-Eagle@dairylea.com" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-HR@dairylea.com", DisplayName = "FieldStaffNotification-HR@dairylea.com" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "TechnicalSupport-brittonfield@dairylea.com", DisplayName = "Technical Support" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-Membership@dairylea.com", DisplayName = "FieldStaffNotification-Membership@dairylea.com" });
-                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-Payroll@dairylea.com", DisplayName = "FieldStaffNotification-Payroll@dairylea.com" });
+                                                                                      DisplayName = "AgriMax" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "info@agri-servicesagency.com", 
+                                                                                      DisplayName = "ASA" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "communications@dairylea.com",
+                                                                                      DisplayName = "Communications" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-DairyOne@DairyOne.com",
+                                                                                      DisplayName = "DairyOne" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-DMS@dairylea.com", 
+                                                                                      DisplayName = "DMS" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "drms@dairylea.com", 
+                                                                                      DisplayName = "DRMS" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-Eagle@dairylea.com", 
+                                                                                      DisplayName = "Eagle" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-HR@dairylea.com", 
+                                                                                      DisplayName = "Human Resources" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "TechnicalSupport-brittonfield@dairylea.com", 
+                                                                                      DisplayName = "Technical Support" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-Membership@dairylea.com", 
+                                                                                      DisplayName = "Membership" });
+                context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "FieldStaffNotification-Payroll@dairylea.com", 
+                                                                                      DisplayName = "Producer Payments" });
 
                 // CallTypes
                 //context.CallTypes.Add(new CallForm.Core.Models.CallType { Name = "Global" });
