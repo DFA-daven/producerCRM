@@ -131,7 +131,7 @@
             }
         }
 
-        // FixMe: TaskCompletionSource
+        // Broken: using TaskCompletionSource, wrap this method with async/await. 
         private void SaveIdentityToWebService(UserIdentity identity)
         {
             try
@@ -145,6 +145,7 @@
 
                 // review: is the "IdentityUploaded" flag getting set?
                 // MakeRequest(MvxRestRequest restRequest, Action<MvxStreamRestResponse> successAction, Action<Exception> errorAction);
+                // _restClient.MakeRequest(request, (Action<MvxRestResponse>) ParseResponse, exception => { });
                 _restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, (Action<Exception>)RestException);
             }
             catch
