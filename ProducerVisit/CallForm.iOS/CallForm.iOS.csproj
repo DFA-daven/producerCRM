@@ -11,7 +11,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>CallForm.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>CallFormiOS</AssemblyName>
+    <AssemblyName>CallForm.iOS</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -152,7 +152,7 @@
     <CodesignEntitlements />
     <CodesignResourceRules />
     <CodesignExtraArgs />
-    <DocumentationFile>bin\iPhone\Release\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>bin\iPhone\Release\CallForm.iOS.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -165,7 +165,7 @@
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>False</MtouchDebug>
-    <DocumentationFile>CallFormiOS.xml</DocumentationFile>
+    <DocumentationFile>doc\CallForm.iOS.XML</DocumentationFile>
     <MtouchSdkVersion>Default</MtouchSdkVersion>
     <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs />
@@ -270,7 +270,6 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Reachability.cs" />
-    <Compile Include="Screens\ConnectionScreen.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="ViewElements\Image_TableViewCell.cs" />
     <Compile Include="ViewElements\EmailRecipientSelectDialog_ViewController.cs" />

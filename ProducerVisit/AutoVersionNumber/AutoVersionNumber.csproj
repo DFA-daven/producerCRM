@@ -40,7 +40,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>AutoVersionNumber.xml</DocumentationFile>
+    <DocumentationFile>doc\AutoVersionNumber.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Alpha|AnyCPU'">
     <DebugType>pdbonly</DebugType>
@@ -157,8 +157,14 @@
   <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v12.0\TextTemplating\Microsoft.TextTemplating.targets" Condition="false" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\GlobalAssemblyVersion.tt"
+    <PostBuildEvent>REM apply TextTransform.exe to the .tt files
+"C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\GlobalAssemblyVersion.tt"
 "C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\info.tt"
+
+REM if VS has a lock on the files, try the following
+REM (1. dump the handles to a file, 2) kill the handles):
+REM handle.exe -p devenv [Path to the folder with locked files] &gt; handles.txt
+REM FOR /F "skip=5 tokens=3,4 delims=: " %25%25i IN (handles.txt) DO handle -p %25%25i -c
 copy /Y "$(ProjectDir)Info.plist" "$(ProjectDir)..\CallForm.iOS\Info.plist.previous"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
