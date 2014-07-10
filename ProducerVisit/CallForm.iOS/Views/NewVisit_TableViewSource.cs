@@ -10,6 +10,7 @@
 
     public class NewVisit_TableViewSource : UITableViewSource
     {
+        #region Properties
         private readonly NewVisit_ViewModel _viewModel;
         private readonly TextField_TableViewCell _memberNumberCell, _durationCell;
         private readonly UITableViewCell _callTypeCell, _dateCell, _reasonCell, _emailRecipientsCell;
@@ -19,6 +20,7 @@
         /// <summary>The popover controller.
         /// </summary>
         UIPopoverController _popover;
+        #endregion
 
         /// <summary>A container for the popover controller.
         /// </summary>
@@ -199,6 +201,31 @@
             #endregion
         }
 
+        #region Overrides
+        /// <summary>Gets the height (in points) for a given row (cell).
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
+        /// <returns></returns>
+        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+        {
+            // FixMe: hard-coded values
+            // the _noteCell
+            if (indexPath.Row == 5)
+            {
+                return 110;
+            }
+
+            // the _takePictureCell
+            if (indexPath.Row == 6)
+            {
+                return 160;
+            }
+
+            // otherwise...
+            return 50;
+        }
+
         /// <summary>The number of rows (cells) in this section of <see cref="NewVisit_TableViewSource"/>.
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView"/>/control that contains the section.</param>
@@ -286,6 +313,48 @@
             tableView.DeselectRow(indexPath, true);
         }
 
+        /// <summary>Gets a cell based on the selected <see cref="NSIndexPath">Row</see>.
+        /// </summary>
+        /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
+        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
+        /// <returns>The requested cell (of type <see cref="Image_TableViewCell"/>, <see cref="TextField_TableViewCell"/>, 
+        /// <see cref="TextView_TableViewCell"/>, or <see cref="UITableViewCell"/>) 
+        /// from the <see cref="NewVisit_TableViewSource"/>.</returns>
+        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+        {
+            switch (indexPath.Row)
+            {
+                case 0:
+                    return _memberNumberCell;
+                case 1:
+                    return _callTypeCell;
+                case 2:
+                    return _dateCell;
+                case 3:
+                    return _durationCell;
+                case 4:
+                    return _reasonCell;
+                case 5:
+                    return _notesCell;
+                case 6:
+                    return _takePictureCell;
+                case 7:
+                    return _emailRecipientsCell;
+            }
+            var rVal = new UITableViewCell(UITableViewCellStyle.Value1, string.Empty);
+            rVal.TextLabel.Text = indexPath.Row.ToString();
+            return rVal;
+        }
+        #endregion
+
+        public void DismissPopover()
+        {
+            if (_popover != null && _popover.PopoverVisible)
+            {
+                _popover.Dismiss(true);
+            }
+        }
+
         /// <summary>Get the rectangle bounding a specific cell.
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
@@ -319,70 +388,10 @@
             return presentationBoundary;
         }
 
-        /// <summary>Gets the height (in points) for a given row (cell).
-        /// </summary>
-        /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
-        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
-        /// <returns></returns>
-        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
-        {
-            // FixMe: hard-coded values
-            // the _noteCell
-            if (indexPath.Row == 5)
-            {
-                return 110;
-            }
 
-            // the _takePictureCell
-            if (indexPath.Row == 6)
-            {
-                return 160;
-            }
 
-            // otherwise...
-            return 50;
-        }
 
-        /// <summary>Gets a cell based on the selected <see cref="NSIndexPath">Row</see>.
-        /// </summary>
-        /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
-        /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
-        /// <returns>The requested cell (of type <see cref="Image_TableViewCell"/>, <see cref="TextField_TableViewCell"/>, 
-        /// <see cref="TextView_TableViewCell"/>, or <see cref="UITableViewCell"/>) 
-        /// from the <see cref="NewVisit_TableViewSource"/>.</returns>
-        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-        {
-            switch (indexPath.Row)
-            {
-                case 0:
-                    return _memberNumberCell;
-                case 1:
-                    return _callTypeCell;
-                case 2:
-                    return _dateCell;
-                case 3:
-                    return _durationCell;
-                case 4:
-                    return _reasonCell;
-                case 5:
-                    return _notesCell;
-                case 6:
-                    return _takePictureCell;
-                case 7:
-                    return _emailRecipientsCell;
-            }
-            var rVal = new UITableViewCell(UITableViewCellStyle.Value1, string.Empty);
-            rVal.TextLabel.Text = indexPath.Row.ToString();
-            return rVal;
-        }
 
-        public void DismissPopover()
-        {
-            if (_popover != null && _popover.PopoverVisible)
-            {
-                _popover.Dismiss(true);
-            }
-        }
 
         /// <summary>Get the name of a static or instance property from a property access lambda.
         /// </summary>

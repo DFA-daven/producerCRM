@@ -88,6 +88,11 @@
 
         public event EventHandler<ErrorEventArgs> Error;
 
+        /// <summary>Uploads each <see cref="ProducerVisitReport">visit report</see> that is flagged 
+        /// <see cref="DataService.ToUpLoad()">ToUpLoad()</see> in the on-device
+        /// database to the web service.
+        /// </summary>
+        /// <remarks></remarks>
         public void UploadReports()
         {
             foreach (var producerVisitReport in _localSQLiteDataService.ToUpload().ToList())

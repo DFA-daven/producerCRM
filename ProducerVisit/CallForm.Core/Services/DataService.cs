@@ -150,7 +150,6 @@
             _localSQLiteConnection.Update(report);
         }
 
-
         /// <inheritdoc/>
         public List<ReasonCode> GetSQLiteReasonCodes()
         {
@@ -198,8 +197,6 @@
             _localSQLiteConnection.CreateTable<EmailRecipient>();
             _localSQLiteConnection.InsertAll(newObjects);
         }
-
-
         #endregion
     }
 }

@@ -139,6 +139,10 @@
             return storedProducerVisitReport.Hydrate(rcs);
         }
 
+        /// <summary>Creates a new <see cref="StoredProducerVisitReport"/> on the web service.
+        /// </summary>
+        /// <param name="report">A <see cref="ProducerVisitReport">visit report</see>.</param>
+        /// <returns>A "Success" message.</returns>
         [HttpPost]
         public ActionResult Log(ProducerVisitReport report)
         {
@@ -168,7 +172,7 @@
         /// <summary>Gets the list of Reason Codes from the web service.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>A <see cref="List&lt;T>"/> of the Reason Codes.</returns>
+        /// <returns>A List&lt;<see cref="ReasonCode"/>>.</returns>
         public ActionResult Reasons(string id)
         {
             List<ReasonCode> reasonCodeList = new List<ReasonCode>(new[]
@@ -203,7 +207,7 @@
         /// <summary>Gets the list of Call Types from the web service.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns><see cref="List&lt;T>"/> of <see cref="CallType"/>.</returns>
+        /// <returns>List&lt;<see cref="CallType"/>>.</returns>
         public ActionResult CallTypes(string id)
         {
             List<CallType> callTypeList = new List<CallType>(new[]
@@ -227,7 +231,7 @@
         /// <summary>Gets the list of Email Recipients from the web service.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns><see cref="List&lt;T>"/> of <see cref="EmailRecipient"/>.</returns>
+        /// <returns>List&lt;<see cref="EmailRecipient"/>>.</returns>
         public ActionResult EmailRecipients(string id)
         {
             List<EmailRecipient> objectList = new List<EmailRecipient>(new[]

@@ -13,11 +13,15 @@ namespace CallForm.iOS.Views
     using System.Linq;
 
     // notes: see _Touch UI.txt for design details.
+    /// <summary>An object representing a <c>NewVisit_View</c> view controller.
+    /// </summary>
     [Register("NewVisit_View")]
     public class NewVisit_View : MvxViewController
     {
+        #region Properties
         private UITableView _table;
         private float _frameWidth;
+        #endregion
 
         public override void ViewDidLoad()
         {
@@ -232,7 +236,6 @@ namespace CallForm.iOS.Views
             InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );
         }
 
-
         internal float ButtonHeight()
         {
             float height = UIFont.SystemFontSize * 3f;
@@ -278,5 +281,4 @@ namespace CallForm.iOS.Views
             return value;
         }
     }
-
 }

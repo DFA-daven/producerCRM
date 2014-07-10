@@ -17,6 +17,7 @@
     /// here handle the view's life-cycle.</para></remarks>
     class ViewReports_View : MvxViewController
     {
+        #region Properties
         /// <summary>Store for the logo property.</summary>
         private UIView _logoView;
         /// <summary>Store for the logo button property.</summary>
@@ -29,8 +30,9 @@
         private UITableView _reportTableView;
         /// <summary>Store for the logo orientation property.</summary>
         private LinearLayout _logoLinearLayout;
+        #endregion
 
-        // hard-coded values
+        #region Hard-coded values 
         /// <summary>The space reserved for the status-bar in iOS 7 and later.
         /// </summary>
         private static float topMarginPixels = 65;
@@ -57,7 +59,7 @@
         /// <summary>The percentage of the horizontal width to indent this control's origin.
         /// </summary>
         private static double rightControlOriginPercent = 66;
-
+        #endregion
 
         public override void ViewDidLoad()
         {
@@ -455,9 +457,10 @@
 
     public class ViewReportsTableSource : UITableViewSource
     {
+        #region Properties
         private readonly ViewReports_ViewModel _viewModel;
         private const string CellIdentifier = "tableViewCell";
-
+        #endregion
 
         public ViewReportsTableSource(ViewReports_ViewModel viewModel, UITableView tableView)
         {
@@ -472,6 +475,7 @@
             };
         }
 
+        #region Overrides
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
             // FixMe: remove hard-coded values (or add XML entry)
@@ -521,6 +525,7 @@
 
             return cell;
         }
+        #endregion
     }
 
     public class TableViewCell : UITableViewCell
@@ -529,6 +534,8 @@
         public UILayoutHost Host;
 
         // FixMe: plenty of hard-coded values in this one
+        /// <summary>The class constructor.
+        /// </summary>
         public TableViewCell() : base(UITableViewCellStyle.Default, "tableViewCell")
         {
             var layout = new LinearLayout(Orientation.Horizontal)
