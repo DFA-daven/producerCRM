@@ -522,7 +522,7 @@ namespace CallForm.Core.ViewModels
             get { return Editing ? "New Contact Report" : "Contact Report"; }
         }
 
-        /// <summary>Error handling for this View.
+        /// <summary>An error event to communicate to the <c>View</c>.
         /// </summary>
         public event EventHandler<ErrorEventArgs> Error;
         #endregion

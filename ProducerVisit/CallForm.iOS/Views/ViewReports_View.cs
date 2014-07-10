@@ -387,6 +387,10 @@
             return (float)value;
         }
 
+        /// <summary>Displays the error issued by the <c>ViewModel</c> .
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="errorEventArgs"></param>
         private void OnError(object sender, ErrorEventArgs errorEventArgs)
         {
             InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );

@@ -182,6 +182,7 @@
         /// <inheritdoc/>
         public void UpdateModels()
         {
+            // FixMe: switch this to three separate methods, each with an async/await
             string filename = string.Empty;
 
             try
@@ -242,6 +243,7 @@
             _fileStore.EnsureFolderExists(folderPath);
         }
 
+        // remove - unused
         private void ParseResponse(MvxRestResponse response)
         {
             _localDatabaseService.ReportUploaded(int.Parse(response.Tag));

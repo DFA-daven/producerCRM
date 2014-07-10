@@ -187,8 +187,11 @@
 
         private void ParseResponse(MvxRestResponse obj)
         {
+            // FixMe: use the response to update the local UserIdentity
         }
 
+        /// <summary>An error event to communicate to the <c>View</c>.
+        /// </summary>
         public event EventHandler<ErrorEventArgs> Error;
     }
 }

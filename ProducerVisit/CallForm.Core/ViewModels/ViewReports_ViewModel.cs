@@ -16,6 +16,7 @@
     /// <remarks>This is the primary page for the App.</remarks>
     public class ViewReports_ViewModel : MvxViewModel
     {
+        #region Properties
         private readonly IMvxJsonRestClient _jsonRestClient;
         private readonly IMvxJsonConverter _jsonConverter;
         private readonly IDataService _localSQLiteDataService;
@@ -38,7 +39,48 @@
         private bool _loading;
         private ReportListItem _selectedReport;
         private MvxCommand _viewReportCommand;
-        
+        #endregion
+
+        /// <summary>Runs before this view Overlays <see cref="UserIdentity_ViewModel"/> if no identity exists.
+        /// </summary>
+        /// <remarks>This model is the <see cref="App.Initialize">RegisterAppStart</see> of <see cref="App"/>.</remarks>
+        public override void Start()
+        {
+            // note: CallForm.Core starts here!
+            // note: this creates a new instance of ViewReports_ViewModel.
+            base.Start();
+
+            if (string.IsNullOrWhiteSpace(_userIdentityService.GetIdentity().UserEmail) == true)
+            {
+                // open the User Identity page (to capture the missing information)
+                ShowViewModel<UserIdentity_ViewModel>();
+            }
+
+            Loading = false;
+        }
+
+        public bool Loading
+        {
+            get { return _loading; }
+            set
+            {
+                _loading = value;
+                RaisePropertyChanged(() => Loading);
+            }
+        }
+
+        /// <summary>Holds the REST request string.
+        /// </summary>
+        /// <remarks>This is mostly for debugging -- so if the request fails there's an easy way to see the contents.</remarks>
+        public string Request
+        {
+            get { return _request; }
+            set
+            {
+                _request = value;
+            }
+        }
+
         /// <summary>Creates an instance of <see cref="ViewReports_ViewModel"/>.
         /// </summary>
         /// <param name="jsonRestClient"></param>
@@ -64,7 +106,7 @@
                 _userIdentityService = userIdentityService;
                 _semiStaticWebDataService = semiStaticWebDataService;
 
-                // Review: Recent() must only query if UserIdentity is valid (that is, no query on first run).
+                // Review: Recent() must only query if UserIdentity is valid (that is, no query on first run). async/await?
                 // Note: on first-run, there will be no UserIdentity. This method will ask try to get the user's email address, which will result in an empty UserIdentity being created.
                 //Reports = localDataService.Recent();
 
@@ -86,77 +128,9 @@
             }
         }
 
-        public event EventHandler<ErrorEventArgs> Error;
-
-        /// <summary>Uploads each <see cref="ProducerVisitReport">visit report</see> that is flagged 
-        /// <see cref="DataService.ToUpLoad()">ToUpLoad()</see> in the on-device
-        /// database to the web service.
+        #region Get report
+        /// <summary>The value the user would like to search for.
         /// </summary>
-        /// <remarks></remarks>
-        public void UploadReports()
-        {
-            foreach (var producerVisitReport in _localSQLiteDataService.ToUpload().ToList())
-            {
-                Request = _targetURL + "/Visit/Log/";
-                var request =
-                    new MvxJsonRestRequest<ProducerVisitReport>(Request)
-                    {
-                        Body = producerVisitReport,
-                        Tag = producerVisitReport.ID.ToString()
-                    };
-                // note: example of handling the response/error with a call to a method.
-                // make the request: if OK, pass the response to ParseResponse; else it's an error
-                //_restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
-                _restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, (Action<Exception>)RestException);
-            }
-            }
-
-        private void RestException(Exception exception)
-        {
-            Debug.WriteLine("Original request: " + Request);
-            Debug.WriteLine("Exception message: " + exception.Message);
-        }
-
-        /// <summary>Runs before this view Overlays <see cref="UserIdentity_ViewModel"/> if no identity exists.
-        /// </summary>
-        /// <remarks>This model is the <see cref="App.Initialize">RegisterAppStart</see> of <see cref="App"/>.</remarks>
-        public override void Start()
-        {
-            // note: CallForm.Core starts here!
-            // note: this creates a new instance of ViewReports_ViewModel.
-            base.Start();
-
-            if (string.IsNullOrWhiteSpace(_userIdentityService.GetIdentity().UserEmail) == true)
-            {
-                // open the User Identity page (to capture the missing information)
-                ShowViewModel<UserIdentity_ViewModel>();
-            }
-
-            Loading = false;
-        }
-
-        private void ParseResponse(MvxRestResponse response)
-        {
-            _localSQLiteDataService.ReportUploaded(int.Parse(response.Tag));
-        }
-
-        public ICommand NewVisitCommand
-        {
-            get
-            {
-                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
-                _newVisitCommand = _newVisitCommand ?? new MvxCommand(DoNewVisitCommand);
-                return _newVisitCommand;
-            }
-        }
-
-        /// <summary>Open the <see cref="NewVisit_ViewModel"/> view.
-        /// </summary>
-        protected void DoNewVisitCommand()
-        {
-            ShowViewModel<NewVisit_ViewModel>(new NewVisitInit {MemberNumber = string.Empty});
-        }
-
         public string Filter
         {
             get { return _filter; }
@@ -166,26 +140,7 @@
                 RaisePropertyChanged(() => Filter);
             }
         }
-
-        public string Request
-        {
-            get { return _request; }
-            set
-            {
-                _request = value;
-            }
-        }
-
-        public List<ReportListItem> Reports
-        {
-            get { return _reports; }
-            set
-            {
-                _reports = value;
-                RaisePropertyChanged(() => Reports);
-            }
-        }
-
+        
         /// <summary>Gets the Reports Command.
         /// </summary>
         public ICommand GetReportsCommand
@@ -239,14 +194,60 @@
                 // if a row (cell) is selected, query it
             }
         }
+        #endregion
 
-        public bool Loading
+        #region New Visit
+        public ICommand NewVisitCommand
         {
-            get { return _loading; }
+            get
+            {
+                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
+                _newVisitCommand = _newVisitCommand ?? new MvxCommand(DoNewVisitCommand);
+                return _newVisitCommand;
+            }
+        }
+
+        /// <summary>Open the <see cref="NewVisit_ViewModel"/> view.
+        /// </summary>
+        protected void DoNewVisitCommand()
+        {
+            ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { MemberNumber = string.Empty });
+        }
+
+        /// <summary>Uploads each <see cref="ProducerVisitReport">visit report</see> that is flagged 
+        /// <see cref="DataService.ToUpLoad()">ToUpLoad()</see> in the on-device
+        /// database to the web service.
+        /// </summary>
+        /// <remarks>This is called each time the <c>ViewReport</c>'s <c>ViewDidAppear()</c> event occurs.</remarks>
+        public void UploadReports()
+        {
+            foreach (var producerVisitReport in _localSQLiteDataService.ToUpload().ToList())
+            {
+                Request = _targetURL + "/Visit/Log/";
+                var request =
+                    new MvxJsonRestRequest<ProducerVisitReport>(Request)
+                    {
+                        Body = producerVisitReport,
+                        Tag = producerVisitReport.ID.ToString()
+                    };
+                // note: example of handling the response/error with a call to a method.
+                // make the request: if OK, pass the response to ParseResponse; else it's an error
+                //_restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, exception => { Error(this, new ErrorEventArgs { Message = exception.Message }); });
+                _restClient.MakeRequest(request, (Action<MvxRestResponse>)ParseResponse, (Action<Exception>)RestException);
+            }
+        }
+        #endregion
+
+        #region Report List
+        /// <summary>The "visit reports" are listed in the <c>TableView</c>.
+        /// </summary>
+        public List<ReportListItem> Reports
+        {
+            get { return _reports; }
             set
             {
-                _loading = value;
-                RaisePropertyChanged(() => Loading);
+                _reports = value;
+                RaisePropertyChanged(() => Reports);
             }
         }
 
@@ -292,9 +293,27 @@
                 }
             }
         }
+        #endregion
+
+        /// <summary>Parse the response from the web service for a <see cref="StoredProducerVisitReport"/> ID, 
+        /// and mark the visit report as uploaded.
+        /// </summary>
+        /// <param name="response">The REST response from the web service.</param>
+        private void ParseResponse(MvxRestResponse response)
+        {
+            _localSQLiteDataService.ReportUploaded(int.Parse(response.Tag));
+        }
+
+        private void RestException(Exception exception)
+        {
+            Debug.WriteLine("Original request: " + Request);
+            Debug.WriteLine("Exception message: " + exception.Message);
+        }
+
+        public event EventHandler<ErrorEventArgs> Error;
     }
 
-    /// <summary>An instance of an error event.
+    /// <summary>An error event to communicate to the <c>View</c>.
     /// </summary>
     public class ErrorEventArgs : EventArgs
     {

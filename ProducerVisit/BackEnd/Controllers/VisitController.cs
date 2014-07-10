@@ -143,6 +143,8 @@
         /// </summary>
         /// <param name="report">A <see cref="ProducerVisitReport">visit report</see>.</param>
         /// <returns>A "Success" message.</returns>
+        /// <remarks>The <c>ToUpLoad()</c> flag is set in <c>ReportUploaded()</c>, which is 
+        /// passed the new <see cref="StoredProducerVisitReport"/> ID by <c>ParseResponse</c>.</remarks>
         [HttpPost]
         public ActionResult Log(ProducerVisitReport report)
         {
