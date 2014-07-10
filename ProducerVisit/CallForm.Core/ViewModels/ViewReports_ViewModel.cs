@@ -201,7 +201,7 @@
 
             if (string.IsNullOrEmpty(Filter))       // is there something to search for?
             {
-                Reports = _localSQLiteDataService.Recent();
+                Reports = _localSQLiteDataService.Recent();     // ...so this is a 'refresh'.
                 Loading = false;
             }
             else if (Int32.TryParse(Filter, out memberNumberFilter)) // is it a number?
@@ -228,6 +228,10 @@
             else
             {
                 // todo: add new service to check for member name
+                // we've got a string to use as a filter, but it's not a member number
+                // make a call to the "other" web service, and request a short list (10?) of members
+                // open an new (sub)view with the member's info
+                // if a row (cell) is selected, query it
             }
         }
 

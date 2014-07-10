@@ -11,7 +11,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>CallForm.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>CallForm.iOS</AssemblyName>
+    <AssemblyName>CallFormiOS</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -64,6 +64,8 @@
     <CodesignExtraArgs />
     <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
     <MtouchI18n />
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -132,7 +134,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Distribution</CodesignKey>
-    <MtouchSdkVersion>Default</MtouchSdkVersion>
+    <MtouchSdkVersion>7.1</MtouchSdkVersion>
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchDebug>False</MtouchDebug>
     <MtouchProfiling>False</MtouchProfiling>
@@ -153,6 +155,8 @@
     <CodesignResourceRules />
     <CodesignExtraArgs />
     <DocumentationFile>bin\iPhone\Release\CallForm.iOS.xml</DocumentationFile>
+    <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
+    <MtouchI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -165,7 +169,7 @@
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>False</MtouchDebug>
-    <DocumentationFile>doc\CallForm.iOS.XML</DocumentationFile>
+    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
     <MtouchSdkVersion>Default</MtouchSdkVersion>
     <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs />
@@ -189,7 +193,7 @@
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>False</MtouchDebug>
-    <DocumentationFile>CallFormiOS.xml</DocumentationFile>
+    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
     <MtouchSdkVersion>7.1</MtouchSdkVersion>
     <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs />
@@ -212,7 +216,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <DocumentationFile>CallFormiOS.xml</DocumentationFile>
+    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
     <MtouchSdkVersion>7.1</MtouchSdkVersion>
     <MtouchDebug>False</MtouchDebug>
     <MtouchProfiling>False</MtouchProfiling>
@@ -235,7 +239,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <DocumentationFile>CallFormiOS.xml</DocumentationFile>
+    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
     <BuildIpa>False</BuildIpa>
     <IpaMetadata />
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
@@ -457,8 +461,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\iPhone\Alpha\CallFormiOS.XML</DocumentationFile>
     <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
     <MtouchI18n />
   </PropertyGroup>
@@ -469,8 +472,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\iPhone\Beta\CallFormiOS.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>CallForm.iOS.Application</StartupObject>

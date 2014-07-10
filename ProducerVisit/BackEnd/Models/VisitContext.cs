@@ -7,6 +7,8 @@
     using System.Web;
     using CallForm.Core.Models;
 
+    /// <summary>Class for creating a new <c>VisitContext</c>, inherits from <see cref="DbContext"/>.
+    /// </summary>
     public class VisitContext : DbContext
     {
         // Note: Web.*.config will automatically assign the database connection for the web service 
