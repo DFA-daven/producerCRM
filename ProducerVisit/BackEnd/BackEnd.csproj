@@ -60,6 +60,9 @@
     <DocumentationFile>BackEnd.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DairyleaDataAccessLayer">
+      <HintPath>..\..\Libraries\dlDataAccessLayer\Trunk\DairyleaDataAccessLayer\DairyleaDataAccessLayer\bin\Release\DairyleaDataAccessLayer.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
@@ -157,10 +160,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\VisitController.cs" />
+    <Compile Include="EntitySearch\EntitySearch.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\EntityContext.cs" />
     <Compile Include="Models\VisitContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

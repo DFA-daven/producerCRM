@@ -2,7 +2,10 @@
 {
     using BackEnd.Models;
     using CallForm.Core.Models;
+    using System;
     using System.Collections.Generic;
+    using System.Configuration;
+    using System.Data.Common;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -39,6 +42,11 @@
             ViewBag.DatabaseSource = source.Split('.')[0]; // just the left-most part of the address
             ViewBag.DatabaseSource = source.Split(',')[0]; // drop the port number, in case the address was only the machine name
             ViewBag.Database = _webProducerCrmDatabaseConnection.Database.Connection.Database;
+
+            string connectionString = GetConnectionStringByProvider("System.Data.SqlClient");
+            DbConnection connection = CreateDbConnection("System.Data.SqlClient", connectionString);
+            
+            //DbCommand command =  { CommandType = System.Data.CommandType.StoredProcedure, CommandText = "myStoredProcedure", Parameters = new object[] { "22222222" } };
 
             // ToDo: add more reports elements here
 
@@ -252,6 +260,84 @@
             }
 
             return Json(objectList, JsonRequestBehavior.AllowGet);
+        }
+
+        static DbConnection CreateDbConnection(string providerName, string connectionString)
+        {
+            DbConnection connection = null;
+
+            if (connectionString != null)
+            {
+                try
+                {
+                    DbProviderFactory factory = DbProviderFactories.GetFactory(providerName);
+
+                    connection = factory.CreateConnection();
+                    connection.ConnectionString = connectionString;
+                }
+                catch (Exception ex)
+                {
+                    if (connection != null)
+                    {
+                        connection = null;
+                    }
+
+                    //Console.Writeline(ex.Message);
+                }
+            }
+
+            return connection;
+        }
+
+        static string GetConnectionStringByProvider(string providerName)
+        {
+            string returnValue = null;
+
+            ConnectionStringSettingsCollection settings = ConfigurationManager.ConnectionStrings;
+
+            if (settings != null)
+            {
+                foreach (ConnectionStringSettings cs in settings)
+                {
+                    if (cs.ProviderName == providerName)
+                    {
+                        returnValue = cs.ConnectionString;
+                        break;
+                    }
+                }
+            }
+
+            return returnValue;
+        }
+
+        static void ExecuteDbCommand(DbConnection connection)
+        {
+            if (connection != null)
+            {
+                using (connection)
+                {
+                    try
+                    {
+                        connection.Open();
+                        DbCommand command = connection.CreateCommand();
+                        command.CommandText = "Select * ";
+                        int rows = command.ExecuteNonQuery();
+
+                    }
+                    catch (DbException exDb)
+                    {
+
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
+                }
+            }
+            else
+            {
+                // connection was null
+            }
         }
 
         protected override void Dispose(bool disposing)

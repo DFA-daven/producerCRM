@@ -98,8 +98,8 @@ namespace CallForm.iOS.Views
             (ViewModel as NewVisit_ViewModel).Height = FrameHeight();
 
             (ViewModel as NewVisit_ViewModel).Width = FrameWidth();
-
-
+            
+            // Review: should this be moved up before the Height and Width are set?
             SetTableFrameForOrientation(InterfaceOrientation);
         }
 
@@ -231,6 +231,10 @@ namespace CallForm.iOS.Views
             });
         }
 
+        /// <summary>Displays the error issued by the <c>ViewModel</c> .
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="errorEventArgs"></param>
         private void OnError(object sender, ErrorEventArgs errorEventArgs)
         {
             InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );
