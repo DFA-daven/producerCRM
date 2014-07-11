@@ -95,12 +95,12 @@ namespace CallForm.iOS.Views
             // ToDo:  replace with the advertisingIdentifier property of the ASIdentifierManager class.
             (ViewModel as NewVisit_ViewModel).UserID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 
+            // Review: is it ok for this to be before the Height and Width are set?
+            SetTableFrameForOrientation(InterfaceOrientation);
+
             (ViewModel as NewVisit_ViewModel).Height = FrameHeight();
 
             (ViewModel as NewVisit_ViewModel).Width = FrameWidth();
-            
-            // Review: should this be moved up before the Height and Width are set?
-            SetTableFrameForOrientation(InterfaceOrientation);
         }
 
         private void ReSendEmail(object sender, EventArgs eventArgs)

@@ -19,8 +19,8 @@ using System.Runtime.InteropServices;
 // Major and minor version are hard-coded.
 // Build number is: [two-digit year][three-digit day-of-year]
 // Revision is: the number of seconds since midnight (divided by 5)
-[assembly: AssemblyVersion("1.4.14191.13739")]
-[assembly: AssemblyFileVersion("1.4.14191.13739")]
+[assembly: AssemblyVersion("1.4.14192.12653")]
+[assembly: AssemblyFileVersion("1.4.14192.12653")]
 
 [assembly: AssemblyProduct("ProducerCRM")]
 [assembly: AssemblyCompany("Dairylea Cooperative, Inc.")]

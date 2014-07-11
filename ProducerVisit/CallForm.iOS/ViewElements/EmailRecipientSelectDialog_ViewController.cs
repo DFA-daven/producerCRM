@@ -34,10 +34,11 @@ namespace CallForm.iOS.ViewElements
             //_reportTableView.BackgroundColor = UIColor.LightGray;
             //_reportTableView.Alpha = 0.5f;
             _table.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
-
+            
+            // Review: would _table.EstimatedRowHeight be a better value?
             float maxTableHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);  // the Y value
             float maxTableWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.5, 0);    // the X value
-
+            
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
             _table.Frame = new RectangleF(0, 0, maxTableWidth, maxTableHeight);
 

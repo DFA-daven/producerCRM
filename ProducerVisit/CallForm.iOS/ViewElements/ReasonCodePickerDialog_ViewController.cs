@@ -33,7 +33,6 @@ namespace CallForm.iOS.ViewElements
         /// <param name="source">The parent <see cref="UITableViewSource"/>.</param>
         public ReasonCodePickerDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
-            //View.BackgroundColor = UIColor.Blue;
             _viewModel = viewModel;
             _table = new UITableView();
             _table.Source = new ReasonCodeTableSource(_viewModel, source);
@@ -56,9 +55,9 @@ namespace CallForm.iOS.ViewElements
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
             _table.Frame = new RectangleF(0, 0, reasonCodeWidth, reasonCodeHeight);
 
-            _table.ScrollEnabled = true;
+            _table.ScrollEnabled = true; // scrolling in the ReasonCode table -- not the container...
 
-            View.Add(_table);
+            View.Add(_table); // an alias for AddSubView()
             View.SizeToFit();
         }
 

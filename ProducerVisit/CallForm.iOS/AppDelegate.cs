@@ -54,6 +54,7 @@ namespace CallForm.iOS
             startup.Start();                                        // required
             
 
+
             _window.MakeKeyAndVisible();                            // required
 
             //if (!Reachability.IsHostReachable("dl-backend-02.azurewebsites.net"))

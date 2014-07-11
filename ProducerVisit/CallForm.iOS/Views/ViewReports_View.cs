@@ -35,7 +35,8 @@
         #region Hard-coded values 
         /// <summary>The space reserved for the status-bar in iOS 7 and later.
         /// </summary>
-        private static float topMarginPixels = 65;
+        //private static float topMarginPixels = 65;
+
         // FixMe: until we get a new banner, just hiding the old one
         private static double bannerHeightPercent = 10;
         //private static double bannerHeightPercent = 0.5;
@@ -63,12 +64,14 @@
 
         public override void ViewDidLoad()
         {
+            // FixMe: this is incorrect: the Nav Bar isn't sahown on this view.
             float topMargin = 0;
+            topMargin = NavigationController.NavigationBar.Frame.Height;
 
-            if (isOS7())
-            {
-                topMargin += topMarginPixels;  
-            }
+            //if (isOS7())
+            //{
+            //    topMargin += topMarginPixels;  
+            //}
 
             var logoButton = _logoButton = new UIButton(UIButtonType.Custom);
             logoButton.Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, bannerWidth(), bannerHeight());
@@ -170,6 +173,12 @@
 
             base.ViewDidLoad();
 
+            // Note: this is where the ViewReports_View view controller is created.
+            // It's similar to having
+            //   controller = new ViewReports_View();
+            //   window.RootViewController = controller;
+            // in AppDelegate.cs.
+
             var set = this.CreateBindingSet<ViewReports_View, ViewReports_ViewModel>();
             set.Bind(filterField).To(vm => vm.Filter);
             set.Bind(findButton).To(vm => vm.GetReportsCommand);
@@ -210,6 +219,8 @@
             // FixMe: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
             Title = appName + " " + appVersion;
             //Title = appName + " (VFRVBETA); " + appVersion;
+            //this.AddChildViewController
+            //this.availableHeight
         }
 
         // ToDo: manipulate base image? 
@@ -245,7 +256,8 @@
         /// <returns>The screen height measured in points.</returns>
         internal float screenHeight()
         {
-            float screenHeight = UIScreen.MainScreen.Bounds.Height;
+            //float screenHeight = UIScreen.MainScreen.Bounds.Height;
+            float screenHeight = View.Frame.Height;
             return screenHeight;
         }
 
@@ -255,6 +267,7 @@
         internal float screenWidth()
         {
             float screenWidth = UIScreen.MainScreen.Bounds.Width;
+            //float screenWidth = View.Frame.Width;
             return screenWidth;
         }
 
@@ -266,12 +279,13 @@
         internal float availableHeight()
         {
             float availableHeight = screenHeight();
+            availableHeight = screenHeight() - NavigationController.NavigationBar.Frame.Height;
 
-            if (isOS7())
-            {
-                availableHeight -= topMarginPixels;
-            }
-            
+            //if (isOS7())
+            //{
+            //    availableHeight -= topMarginPixels;
+            //}
+
             return availableHeight;
         }
 
@@ -317,11 +331,12 @@
         private float bannerBottom()
         {
             float bannerBottom = bannerHeight();
+            bannerBottom = bannerHeight() - NavigationController.NavigationBar.Frame.Height;
 
-            if (isOS7())
-            {
-                bannerBottom += topMarginPixels;
-            }
+            //if (isOS7())
+            //{
+            //    bannerBottom += topMarginPixels;
+            //}
             
             return bannerBottom;
         }
@@ -331,8 +346,8 @@
         /// <returns>The pixel-heighth of controls.</returns>
         internal float controlHeight()
         {
-            float controlHeight = calculatePercent(availableHeight(), controlHeightPercent);
-            controlHeight = UIFont.ButtonFontSize * 3f;
+            //float controlHeight = calculatePercent(availableHeight(), controlHeightPercent);
+            float controlHeight = UIFont.ButtonFontSize * 3f;
 
             return controlHeight;
         }

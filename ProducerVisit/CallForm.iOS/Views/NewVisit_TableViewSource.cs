@@ -310,6 +310,7 @@
                         break;
                 }
             }
+
             tableView.DeselectRow(indexPath, true);
         }
 
@@ -347,6 +348,8 @@
         }
         #endregion
 
+        /// <summary>Close the <c>_popover</c>.
+        /// </summary>
         public void DismissPopover()
         {
             if (_popover != null && _popover.PopoverVisible)
