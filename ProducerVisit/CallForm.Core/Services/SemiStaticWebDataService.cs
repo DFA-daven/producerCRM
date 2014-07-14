@@ -57,6 +57,15 @@
         private static string _emailRecipientFileName = "EmailRecipients.xml";
         private static string _reasonCodeFileName = "ReasonCodes.xml";
 
+        public string Request
+        {
+            get { return _request; }
+            set
+            {
+                _request = value;
+            }
+        }
+
         /// <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="localSQLiteDataService"/>.
         /// </summary>
         /// <param name="fileStore">The target <see cref="Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/></param>
@@ -195,15 +204,16 @@
                 var request = new MvxRestRequest(Request);
                 // (Action<MvxRestResponse>)ParseResponse
 
-                _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
-                    response =>
-                    {
-                        _localDatabaseService.UpdateSQLiteReasonCodes(response.Result);
+                UpdateReasonCodeModel(request);
+                //_jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
+                //    response =>
+                //    {
+                //        _localDatabaseService.UpdateSQLiteReasonCodes(response.Result);
 
-                        filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
-                        _fileStore.WriteFile(filename, Serialize(response.Result));
-                    },
-                    (Action<Exception>)RestException);
+                //        filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
+                //        _fileStore.WriteFile(filename, Serialize(response.Result));
+                //    },
+                //    (Action<Exception>)RestException);
 
                 // request Call Types from the web service
                 Request = _targetURL + "/Visit/CallTypes/";
@@ -236,7 +246,45 @@
                 Debug.WriteLine(e.Message);
             }
         }
+
+
         #endregion
+
+        #region Model Support
+        private void UpdateReasonCodeModel(MvxRestRequest request)
+        {
+            Request = _targetURL + "/Visit/Reasons/";
+
+            try
+            {
+                _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
+                    (Action<MvxDecodedRestResponse<List<ReasonCode>>>)ReasonCodeRestResponse,
+                    (Action<Exception>)RestException);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+        }
+
+        private void ReasonCodeRestResponse(MvxDecodedRestResponse<List<ReasonCode>> response)
+        {
+            string filename = string.Empty;
+            filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
+
+            try
+            {
+                //RunOnUiThread(() => { 
+                    _localDatabaseService.UpdateSQLiteReasonCodes(response.Result);
+                    _fileStore.WriteFile(filename, Serialize(response.Result));
+                //});
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+        }
+
 
         private void CheckFolder(string folderPath)
         {
@@ -254,15 +302,8 @@
             Debug.WriteLine("Original request: " + Request);
             Debug.WriteLine("Exception message: " + exception.Message);
         }
+        #endregion
 
-        public string Request
-        {
-            get { return _request; }
-            set
-            {
-                _request = value;
-            }
-        }
 
         public event EventHandler<ErrorEventArgs> Error;
 

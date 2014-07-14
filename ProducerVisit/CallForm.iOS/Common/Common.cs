@@ -17,11 +17,11 @@ namespace CallForm.iOS
         public static UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
 
         // review: assigned but not used?
-        public static float topMarginPixels = 70;
-        public static double bannerHeightPercent = 12.5;
-        public static double controlHeightPercent = 5;
-        public static double controlWidthPercent = 31;
-        public static double leftControlOriginPercent = 1;
+        //public static float topMarginPixels = 70;
+        //public static double bannerHeightPercent = 12.5;
+        //public static double controlHeightPercent = 5;
+        //public static double controlWidthPercent = 31;
+        //public static double leftControlOriginPercent = 1;
 
 
 

@@ -277,6 +277,7 @@
     <Compile Include="Setup.cs" />
     <Compile Include="ViewElements\Image_TableViewCell.cs" />
     <Compile Include="ViewElements\EmailRecipientSelectDialog_ViewController.cs" />
+    <Compile Include="ViewElements\LoadingOverlay.cs" />
     <Compile Include="ViewElements\ReasonCodePickerDialog_ViewController.cs" />
     <Compile Include="ViewElements\StringPickerDialog_ViewController.cs" />
     <Compile Include="ViewElements\TextView_TableViewCell.cs" />

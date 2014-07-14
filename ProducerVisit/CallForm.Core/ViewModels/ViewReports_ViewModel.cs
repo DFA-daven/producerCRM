@@ -113,13 +113,15 @@
                 // Note: on first run GetIdentity() must instantiate a UserIdentity.
                 userIdentityService.GetIdentity();
 
-                Loading = false;
+                //Loading = false;
 
                 // Hack: update this to the current back-end target
                 // _targetURL = "http://dl-websvcs-test.dairydata.local:480";
                 _targetURL = "http://DL-WebSvcs-03:480";
 
+                Loading = true;
                 semiStaticWebDataService.UpdateModels();
+                Loading = false;
             }
             catch (Exception exc)
             {
@@ -157,22 +159,23 @@
         /// </summary>
         private void DoGetReportsCommand()
         {
+            Loading = true;
+
             int memberNumberFilter = 0;
 
             if (string.IsNullOrEmpty(Filter))       // is there something to search for?
             {
                 Reports = _localSQLiteDataService.Recent();     // ...so this is a 'refresh'.
-                Loading = false;
             }
             else if (Int32.TryParse(Filter, out memberNumberFilter)) // is it a number?
             {
                 if (Filter.Length != 8)
                 {
+                    Loading = false;
                     Error(this, new ErrorEventArgs { Message = "Member Number must be eight characters"});
                 }
                 else
                 {
-                    Loading = true;
                     Request = _targetURL + "/Visit/Recent/" + Filter;
                     var request = new MvxRestRequest(Request);
                     // note: example of handling the response/error in-line
@@ -180,7 +183,6 @@
                         response =>
                         {
                             Reports = response.Result;
-                            Loading = false;
                         },
                         (Action<Exception>)RestException);
                 }
@@ -193,6 +195,8 @@
                 // open an new (sub)view with the member's info
                 // if a row (cell) is selected, query it
             }
+
+            Loading = false;
         }
         #endregion
 
@@ -289,7 +293,7 @@
                             ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { ReportData = _jsonConverter.SerializeObject(response.Result) });
                         },
                         (Action<Exception>)RestException);
-                            Loading = false;
+                    Loading = false;
                 }
             }
         }

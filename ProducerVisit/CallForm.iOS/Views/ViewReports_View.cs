@@ -2,6 +2,7 @@
 {
     using CallForm.Core.Models;
     using CallForm.Core.ViewModels;
+    using CallForm.iOS.ViewElements;
     using Cirrious.MvvmCross.Binding.BindingContext;
     using Cirrious.MvvmCross.Touch.Views;
     using MonoTouch.Foundation;
@@ -30,6 +31,9 @@
         private UITableView _reportTableView;
         /// <summary>Store for the logo orientation property.</summary>
         private LinearLayout _logoLinearLayout;
+        /// <summary>Store for the loading overlay property.</summary>
+        LoadingOverlay _loadingOverlay;
+
         #endregion
 
         #region Hard-coded values 
@@ -64,7 +68,7 @@
 
         public override void ViewDidLoad()
         {
-            // FixMe: this is incorrect: the Nav Bar isn't sahown on this view.
+            // FixMe: this is incorrect: the Nav Bar isn't shown on this view.
             float topMargin = 0;
             topMargin = NavigationController.NavigationBar.Frame.Height;
 
@@ -72,6 +76,9 @@
             //{
             //    topMargin += topMarginPixels;  
             //}
+
+            var loadingOverlay = _loadingOverlay = new LoadingOverlay(UIScreen.MainScreen.Bounds);
+
 
             var logoButton = _logoButton = new UIButton(UIButtonType.Custom);
             logoButton.Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, bannerWidth(), bannerHeight());
@@ -157,7 +164,9 @@
             tableView.BackgroundView = null;
             tableView.BackgroundColor = Common.viewBackgroundColor;
 
+            // assemble view
             View.BackgroundColor = UIColor.White;
+            //View.Add(loadingOverlay);
             View.Add(logoButton);
             //View.Add(logoView);
             //View.Add(logoLayout);
@@ -170,7 +179,7 @@
             loading.Center = View.Center;
             loading.StartAnimating();
             View.Add(loading);
-
+            
             base.ViewDidLoad();
 
             // Note: this is where the ViewReports_View view controller is created.
@@ -183,6 +192,8 @@
             set.Bind(filterField).To(vm => vm.Filter);
             set.Bind(findButton).To(vm => vm.GetReportsCommand);
             set.Bind(loading).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
+            //set.Bind(loadingOverlay).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
+            
             set.Bind(tableView).For("Visibility").To(vm => vm.Loading).WithConversion("InvertedVisibility");
             set.Bind(newButton).To(vm => vm.NewVisitCommand);
             set.Apply();
