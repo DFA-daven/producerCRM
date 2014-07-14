@@ -255,6 +255,7 @@
     <MtouchUseRefCounting>False</MtouchUseRefCounting>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <MtouchI18n />
+    <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AutoVersionNumber\GlobalAssemblyVersion.cs">

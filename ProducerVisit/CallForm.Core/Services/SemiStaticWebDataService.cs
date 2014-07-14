@@ -204,42 +204,59 @@
                 var request = new MvxRestRequest(Request);
                 // (Action<MvxRestResponse>)ParseResponse
 
-                UpdateReasonCodeModel(request);
-                //_jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
-                //    response =>
-                //    {
-                //        _localDatabaseService.UpdateSQLiteReasonCodes(response.Result);
+                int i = 0;
 
-                //        filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
-                //        _fileStore.WriteFile(filename, Serialize(response.Result));
-                //    },
-                //    (Action<Exception>)RestException);
-
-                // request Call Types from the web service
-                Request = _targetURL + "/Visit/CallTypes/";
-                request = new MvxRestRequest(Request);
-                _jsonRestClient.MakeRequestFor<List<CallType>>(request,
-                    response =>
+                do
+                {
+                    if (!ReasonCodeFileExists())
                     {
-                        _localDatabaseService.UpdateSQLiteCallTypes(response.Result);
+                        UpdateReasonCodeModel(request);
 
-                        filename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
-                        _fileStore.WriteFile(filename, Serialize(response.Result));
-                    },
-                    (Action<Exception>)RestException);
+                        //_jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
+                        //    response =>
+                        //    {
+                        //        _localDatabaseService.UpdateSQLiteReasonCodes(response.Result);
 
-                // request Email Recipients from the web service
-                Request = _targetURL + "/Visit/EmailRecipients/";
-                request = new MvxRestRequest(Request);
-                _jsonRestClient.MakeRequestFor<List<EmailRecipient>>(request,
-                    response =>
+                        //        filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
+                        //        _fileStore.WriteFile(filename, Serialize(response.Result));
+                        //    },
+                        //    (Action<Exception>)RestException);
+                    }
+
+                    if (!CallTypeFileExists())
                     {
-                        _localDatabaseService.UpdateSQLiteEmailRecipients(response.Result);
+                        // request Call Types from the web service
+                        Request = _targetURL + "/Visit/CallTypes/";
+                        request = new MvxRestRequest(Request);
+                        _jsonRestClient.MakeRequestFor<List<CallType>>(request,
+                            response =>
+                            {
+                                _localDatabaseService.UpdateSQLiteCallTypes(response.Result);
 
-                        filename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
-                        _fileStore.WriteFile(filename, Serialize(response.Result));
-                    },
-                    (Action<Exception>)RestException);
+                                filename = _fileStore.PathCombine(_dataFolderPathName, _callTypeFileName);
+                                _fileStore.WriteFile(filename, Serialize(response.Result));
+                            },
+                            (Action<Exception>)RestException);
+                    }
+
+                    if (!EmailRecipientFileExists())
+                    {
+                        // request Email Recipients from the web service
+                        Request = _targetURL + "/Visit/EmailRecipients/";
+                        request = new MvxRestRequest(Request);
+                        _jsonRestClient.MakeRequestFor<List<EmailRecipient>>(request,
+                            response =>
+                            {
+                                _localDatabaseService.UpdateSQLiteEmailRecipients(response.Result);
+
+                                filename = _fileStore.PathCombine(_dataFolderPathName, _emailRecipientFileName);
+                                _fileStore.WriteFile(filename, Serialize(response.Result));
+                            },
+                            (Action<Exception>)RestException);
+                    }
+
+                    i++;
+                } while (i < 5);
             }
             catch (Exception e)
             {
@@ -251,7 +268,7 @@
         #endregion
 
         #region Model Support
-        private void UpdateReasonCodeModel(MvxRestRequest request)
+        public void UpdateReasonCodeModel(MvxRestRequest request)
         {
             Request = _targetURL + "/Visit/Reasons/";
 
@@ -289,6 +306,27 @@
         private void CheckFolder(string folderPath)
         {
             _fileStore.EnsureFolderExists(folderPath);
+        }
+
+        private bool XmlFileExists(string filePath)
+        {
+            string filename = _fileStore.PathCombine(_dataFolderPathName, filePath);
+            return _fileStore.Exists(filename);
+        }
+
+        public bool CallTypeFileExists()
+        {
+            return XmlFileExists(_callTypeFileName);
+        }
+
+        public bool EmailRecipientFileExists()
+        {
+            return XmlFileExists(_emailRecipientFileName);
+        }
+
+        public bool ReasonCodeFileExists()
+        {
+            return XmlFileExists(_reasonCodeFileName);
         }
 
         // remove - unused
