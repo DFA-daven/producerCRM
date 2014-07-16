@@ -2,6 +2,7 @@
 {
     using CallForm.Core.Models;
     using Cirrious.MvvmCross.Plugins.Sqlite;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -192,11 +193,30 @@
         /// <inheritdoc/>
         public void UpdateSQLiteEmailRecipients(List<EmailRecipient> newObjects)
         {
-            // drop the existing table
-            _localSQLiteConnection.DropTable<EmailRecipient>();
-            _localSQLiteConnection.CreateTable<EmailRecipient>();
-            _localSQLiteConnection.InsertAll(newObjects);
+            try
+            {
+                // drop the existing table
+                _localSQLiteConnection.DropTable<EmailRecipient>();
+                _localSQLiteConnection.CreateTable<EmailRecipient>();
+                _localSQLiteConnection.InsertAll(newObjects);
+            }
+            catch (Exception exc)
+            {
+                // FixMe: add proper error handling
+                Error(this, new ErrorEventArgs { Message = exc.Message });
+            }
         }
         #endregion
+
+        public event EventHandler<ErrorEventArgs> Error;
+    }
+
+    /// <summary>An error event to communicate to the <c>View</c>.
+    /// </summary>
+    public class ErrorEventArgs : EventArgs
+    {
+        /// <summary>The message to display on the error pop-up.
+        /// </summary>
+        public string Message { get; set; }
     }
 }

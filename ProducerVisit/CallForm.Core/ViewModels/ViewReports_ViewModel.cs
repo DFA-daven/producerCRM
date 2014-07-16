@@ -46,6 +46,12 @@
         /// <remarks>This model is the <see cref="App.Initialize">RegisterAppStart</see> of <see cref="App"/>.</remarks>
         public override void Start()
         {
+            string message = "ViewReports_ViewModel.Start(): starting up.";
+            //System.Console.WriteLine(message);
+            Debug.WriteLine(message);
+
+            Loading = true;
+
             // note: CallForm.Core starts here!
             // note: this creates a new instance of ViewReports_ViewModel.
             base.Start();
@@ -310,6 +316,7 @@
 
         private void RestException(Exception exception)
         {
+            Debug.WriteLine("ViewReports_ViewModel.RestException()");
             Debug.WriteLine("Original request: " + Request);
             Debug.WriteLine("Exception message: " + exception.Message);
         }

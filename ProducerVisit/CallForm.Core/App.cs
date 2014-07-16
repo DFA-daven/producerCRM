@@ -1,6 +1,7 @@
 namespace CallForm.Core
 {
     using Cirrious.CrossCore.IoC;
+    using System.Diagnostics;
 
     /// <summary>Creates an instance of the App. This is the "Core" Project.
     /// </summary>
@@ -11,6 +12,10 @@ namespace CallForm.Core
         /// </summary>
         public override void Initialize()
         {
+            string message = "App.Initialize(): RegisterAppStart<ViewModels.ViewReports_ViewModel>().";
+            //System.Console.WriteLine(message);
+            Debug.WriteLine(message);
+
             CreatableTypes()
                 .EndingWith("Service")
                 .AsInterfaces()

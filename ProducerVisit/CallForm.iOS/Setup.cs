@@ -6,6 +6,7 @@ using MonoTouch.UIKit;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.Touch.Platform;
+using System.Diagnostics;
 
 namespace CallForm.iOS
 {
@@ -29,6 +30,10 @@ namespace CallForm.iOS
         /// <returns></returns>
 	    protected override IMvxApplication CreateApp ()
 		{
+            string message = "Setup.CreateApp(): return new Core.App().";
+            System.Console.WriteLine(message);
+            Debug.WriteLine(message);
+
 			return new Core.App();
 		}
 		
@@ -53,11 +58,24 @@ namespace CallForm.iOS
 
             if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {
+                string message = "MvxProducerVisitTouchViewPresenter.Show(NewVisit_ViewModel): showing view.";
+                System.Console.WriteLine(message);
+                Debug.WriteLine(message);
+
                 if (MasterNavigationController.TopViewController is NewVisit_View)
                 {
                     MasterNavigationController.PopViewControllerAnimated(false);
                 }
             }
+
+            if (view.Request.ViewModelType == typeof(UserIdentity_View))
+            {
+                // ToDo: hide status bar (and the 'back' button)
+                string message = "MvxProducerVisitTouchViewPresenter.Show(UserIdentity_View): ToDo - hide status bar (and the 'back' button)";
+                System.Console.WriteLine(message);
+                Debug.WriteLine(message);
+            }
+
             base.Show(view);
         }
     }

@@ -189,6 +189,7 @@
         }
 
         /// <inheritdoc/>
+//        [DebuggerStepThrough]
         public void UpdateModels()
         {
             // FixMe: switch this to three separate methods, each with an async/await
@@ -302,6 +303,38 @@
             }
         }
 
+        //// Note: requires 'using System.Uri'
+        //[DebuggerStepThrough]
+        //public static async Task<string> SendAndReceiveJsonRequest(MvxRestRequest request)
+        //{
+        //    string responseStr = null;
+        //    //string uri = "uri-to-send-the-data-to";
+        //    string uri = request.ToString();
+
+        //    // Create a json string with a single key/value pair.
+        //    var json = new JObject(new JProperty("Reasons", "NA")).ToString();
+
+        //    using (var httpClient = new HttpClient())
+        //    {
+        //        //create the HTTP request content
+        //        HttpContent content = new StringContent(json);
+
+        //        try
+        //        {
+        //            // Send the json to the server using POST
+        //            Task<HttpResponseMessage> getResponse = httpClient.PostAsync(uri, content);
+
+        //            // Wait for the response and read it to a string var
+        //            HttpResponseMessage response = await getResponse;
+        //            responseStr = await response.Content.ReadAsStringAsync();
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            Debug.WriteLine("Error communicating with the server: " + e.Message);
+        //        }
+        //    }
+        //    return responseStr;
+        //}
 
         private void CheckFolder(string folderPath)
         {
@@ -337,6 +370,7 @@
 
         private void RestException(Exception exception)
         {
+            Debug.WriteLine("SemiStaticWebDataService.RestException()");
             Debug.WriteLine("Original request: " + Request);
             Debug.WriteLine("Exception message: " + exception.Message);
         }

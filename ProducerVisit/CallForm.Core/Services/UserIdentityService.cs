@@ -157,7 +157,8 @@
 
         private void RestException(Exception exception)
         {
-            // TodO; this instance of RestException is for a single call -- it can be customized.
+            // ToDo: this instance of RestException is for a single call -- it can be customized.
+            Debug.WriteLine("UserIdentityService.RestException()");
             Debug.WriteLine("Original request: " + Request);
             Debug.WriteLine("Exception message: " + exception.Message);
         }

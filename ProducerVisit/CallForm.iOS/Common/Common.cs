@@ -16,6 +16,23 @@ namespace CallForm.iOS
         /// </summary>
         public static UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
 
+        /// <summary>Is this device running iOS 7.0.
+        /// </summary>
+        /// <returns>True if this is iOS 7.0.</returns>
+        public bool isOS7()
+        {
+            bool thisIsOS7 = false;
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
+            {
+                //float displacement_y = this.TopLayoutGuide.Length;
+
+                thisIsOS7 = true;
+            }
+
+            return thisIsOS7;
+        }
+
         // review: assigned but not used?
         //public static float topMarginPixels = 70;
         //public static double bannerHeightPercent = 12.5;

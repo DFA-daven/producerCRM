@@ -194,7 +194,7 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>False</MtouchDebug>
     <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
+    <MtouchSdkVersion>Default</MtouchSdkVersion>
     <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs />
     <MtouchFastDev>False</MtouchFastDev>
@@ -217,7 +217,7 @@
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
     <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
+    <MtouchSdkVersion>Default</MtouchSdkVersion>
     <MtouchDebug>False</MtouchDebug>
     <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs />
@@ -243,7 +243,7 @@
     <BuildIpa>False</BuildIpa>
     <IpaMetadata />
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
+    <MtouchSdkVersion>Default</MtouchSdkVersion>
     <MtouchDebug>False</MtouchDebug>
     <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs />
@@ -292,13 +292,19 @@
     <None Include="App.config" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <ITunesArtwork Include="iTunesArtwork" />
-    <ITunesArtwork Include="iTunesArtwork%402x" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-640x960.png" />
     <BundleResource Include="Resources\Default-640x1136.png" />
+    <BundleResource Include="Resources\Icon%402x.png" />
+    <BundleResource Include="Resources\Icon-60%402x.png" />
+    <BundleResource Include="Resources\Icon-72.png" />
+    <BundleResource Include="Resources\Icon-76.png" />
+    <BundleResource Include="Resources\Icon-Small-40.png" />
+    <BundleResource Include="Resources\Icon-Small-50.png" />
+    <BundleResource Include="Resources\Icon-Small.png" />
+    <BundleResource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CallForm.Core\CallForm.Core.csproj">
@@ -428,12 +434,11 @@
     <BundleResource Include="Resources\Camera_icon.gif" />
     <Content Include="Resources\DFA-DMS-Banner.png" />
     <Content Include="Resources\icon design guidelines.txt" />
-    <BundleResource Include="Resources\Icon-72.png" />
-    <BundleResource Include="Resources\Icon-76.png" />
-    <BundleResource Include="Resources\Icon-Small-50.png" />
-    <BundleResource Include="Resources\Icon.png" />
-    <BundleResource Include="Resources\Icon-Small.png" />
-    <BundleResource Include="Resources\Icon-Small-40.png" />
+    <BundleResource Include="Resources\Icon-72%402x.png" />
+    <BundleResource Include="Resources\Icon-76%402x.png" />
+    <BundleResource Include="Resources\Icon-Small%402x.png" />
+    <BundleResource Include="Resources\Icon-Small-50%402x.png" />
+    <BundleResource Include="Resources\Icon-Small-40%402x.png" />
     <Content Include="ToDo-MvvmCross\_ Touch UI.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -450,6 +455,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ITunesArtwork Include="iTunesArtwork" />
+    <ITunesArtwork Include="iTunesArtwork%402x" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>

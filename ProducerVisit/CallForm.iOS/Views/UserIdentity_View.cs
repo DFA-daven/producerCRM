@@ -48,8 +48,70 @@
                 //button.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleBottomMargin;
                 button.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
 
-            // this view has an array of subviews
-            var layout = new LinearLayout(Orientation.Vertical)
+            var file1 = new UIButton(UIButtonType.System);
+            file1.SetTitle("CallType", UIControlState.Normal);
+            file1.SetTitle("CallType", UIControlState.Disabled);
+            file1.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+
+            var file2 = new UIButton(UIButtonType.System);
+            file2.SetTitle("EmailRecipient", UIControlState.Normal);
+            file2.SetTitle("EmailRecipient", UIControlState.Disabled);
+            file2.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+
+            var file3 = new UIButton(UIButtonType.System);
+            file3.SetTitle("ReasonCode", UIControlState.Normal);
+            file3.SetTitle("ReasonCode", UIControlState.Disabled);
+            file3.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+
+            #region file status
+            var fileStatusLayout = new LinearLayout(Orientation.Horizontal)
+            {
+                Gravity = Gravity.TopLeft,
+                Spacing = 20,
+                SubViews = new View[]
+                {
+                    new NativeView
+                    {
+                        View = file1,
+                        LayoutParameters = new LayoutParameters
+                        {
+                            Weight = 3,
+                            Gravity = Gravity.TopLeft ,
+                        }
+                    },
+                    new NativeView
+                    {
+                        View = file2,
+                        LayoutParameters = new LayoutParameters
+                        {
+                            Weight = 2,
+                            Gravity = Gravity.TopLeft ,
+                        }
+                    },
+                    new NativeView
+                    {
+                        View = file3,
+                        LayoutParameters = new LayoutParameters
+                        {
+                            Weight = 1,
+                            Gravity = Gravity.TopLeft ,
+                        }
+                    },
+                }
+            };
+
+            // wrap the LinearLayout in a UIView
+            var fileStatusView = new UIView();
+            fileStatusView = new UILayoutHost(fileStatusLayout)
+            {
+                BackgroundColor = UIColor.White,
+            };
+
+            fileStatusView.SizeToFit();   // tightly enclose the sub-views
+            #endregion
+
+            // this view has an array of sub-views
+            var pageLayout = new LinearLayout(Orientation.Vertical)
             {
                 Gravity = Gravity.TopCenter,
                 Spacing = 20,
@@ -66,6 +128,16 @@
                             Gravity = Gravity.TopCenter,
                         }
                     },
+
+                    new NativeView
+                    {
+                        View = fileStatusView,
+                        LayoutParameters = new LayoutParameters()
+                        {
+                            Gravity = Gravity.TopLeft,
+                        },
+                    },
+
                     new NativeView
                     {
                         View = instructions,
@@ -133,7 +205,7 @@
                 }
             };
 
-            View = new UILayoutHost(layout)
+            View = new UILayoutHost(pageLayout)
             {
                 BackgroundColor = Common.viewBackgroundColor,
             };

@@ -18,19 +18,28 @@
     /// here handle the view's life-cycle.</para></remarks>
     class ViewReports_View : MvxViewController
     {
+        #region declarations        
+        // class-level declarations
         #region Properties
-        /// <summary>Store for the logo property.</summary>
-        private UIView _logoView;
         /// <summary>Store for the logo button property.</summary>
         private UIButton _logoButton;
+        /// <summary>Store for the logo orientation property.</summary>
+        private LinearLayout _logoLinearLayout;
+        /// <summary>Store for the logo property.</summary>
+        private UIView _logoView;
+
         /// <summary>Store for the search filter property.</summary>
         private UITextField _filterField;
         /// <summary>Store for the button property.</summary>
         private UIButton _findButton, _newButton;
+        /// <summary>Store for the logo orientation property.</summary>
+        private LinearLayout _buttonLinearLayout;
+        /// <summary>Store for the logo property.</summary>
+        private UIView _buttonView;
+
         /// <summary>Store for the report table property.</summary>
         private UITableView _reportTableView;
-        /// <summary>Store for the logo orientation property.</summary>
-        private LinearLayout _logoLinearLayout;
+
         /// <summary>Store for the loading overlay property.</summary>
         LoadingOverlay _loadingOverlay;
 
@@ -65,44 +74,35 @@
         /// </summary>
         private static double rightControlOriginPercent = 66;
         #endregion
+        #endregion
 
         public override void ViewDidLoad()
         {
-            // FixMe: this is incorrect: the Nav Bar isn't shown on this view.
+            #region pageLayout
             float topMargin = 0;
-            topMargin = NavigationController.NavigationBar.Frame.Height;
+            topMargin = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
 
-            //if (isOS7())
-            //{
-            //    topMargin += topMarginPixels;  
-            //}
+            //var loading = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            //loading.Center = View.Center;
+            //loading.StartAnimating();
 
             var loadingOverlay = _loadingOverlay = new LoadingOverlay(UIScreen.MainScreen.Bounds);
+            #endregion
 
+            #region logo
+            //var logoButton = _logoButton = new UIButton(UIButtonType.Custom);
+            var logoButton = _logoButton = new UIButton(UIButtonType.System);
 
-            var logoButton = _logoButton = new UIButton(UIButtonType.Custom);
             logoButton.Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, bannerWidth(), bannerHeight());
             logoButton.SetTitle("DFA & DMS", UIControlState.Normal);
             logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
             logoButton.BackgroundColor = UIColor.White;
 
-            var logoView = _logoView = new UIView();
-            //var logoView = _logoView = new UIImageView
-            //{
-            //    //Image = UIImage.FromBundle("DFA-DMS-Banner.png"),
-                
-            //    ////Frame = new RectangleF(0, 70, 768, 128),
-            //    Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, bannerWidth(), bannerHeight())
-                
-
-            //};
-
-            //logoView.Add(logoButton);
-            //logoView.BackgroundColor = UIColor.White;
-
+            // place a little white space below the logo(s)
             var logoLayout = _logoLinearLayout = new LinearLayout(Orientation.Vertical)
             {
                 Gravity = Gravity.TopCenter,
+
                 SubViews = new View[]
                 {
                     new NativeView
@@ -110,23 +110,36 @@
                         View = logoButton,
                         LayoutParameters = new LayoutParameters()
                         {
+                            Weight = 1,
                             Gravity = Gravity.TopCenter,
                         }
-                    }
+                    },
+                    new NativeView
+                    {
+                        View = new UIView(),
+                        LayoutParameters = new LayoutParameters
+                        {
+                            Weight = 1,
+                            Height = percentHeight(10),
+                            Gravity = Gravity.TopCenter,
+                        }
+                    },
                 }
             };
 
-            
-
+            // wrap the LinearLayout in a UIView
+            var logoView = _logoView = new UIView();
             logoView = new UILayoutHost(logoLayout)
             {
                 BackgroundColor = UIColor.White,
             };
 
-            logoView.SizeToFit();
+            logoView.SizeToFit();   // tightly enclose the sub-views
+            #endregion
 
-            // ToDo: place the 3 controls in a horizontal view with something like
-            // var layout = new LinearLayout(Orientation.Horizontal)
+            #region search and new
+            // ToDo: place filterField, findButton, and newButton in a horizontal view with something like
+            // var pageLayout = new LinearLayout(Orientation.Horizontal)
             // SubViews = new View[]
             
             var filterField = _filterField = new UITextField
@@ -140,18 +153,18 @@
                     return replacementString.Length <= 0 || int.TryParse(replacementString, out i);
                 },
                 //Font = UIFont.SystemFontOfSize(20),
-                Frame = new RectangleF(percentWidth(leftControlOriginPercent), bannerBottom(), controlWidth(), controlHeight()),
+                //Frame = new RectangleF(percentWidth(leftControlOriginPercent), bannerBottom(), controlWidth(), controlHeight()),
                 BackgroundColor = Common.controlBackgroundColor,
             };
             filterField.VerticalAlignment = UIControlContentVerticalAlignment.Center;
 
             var findButton = _findButton = new UIButton(UIButtonType.Custom);
-            findButton.Frame = new RectangleF(percentWidth(middleControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
+            //findButton.Frame = new RectangleF(percentWidth(middleControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             findButton.SetTitle("Refresh", UIControlState.Normal);
             findButton.BackgroundColor = Common.viewBackgroundColor;
 
             var newButton = _newButton = new UIButton(UIButtonType.Custom);
-            newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
+            //newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             newButton.SetTitle("New", UIControlState.Normal);
             // ToDo: scale the image so it fits in the control
             var plusSign = UIImage.FromBundle("Add.png");
@@ -159,40 +172,91 @@
             newButton.SetImage(UIImage.FromBundle("Add.png"), UIControlState.Normal);
             newButton.BackgroundColor = Common.viewBackgroundColor;
 
+            var buttonLayout = _buttonLinearLayout = new LinearLayout(Orientation.Horizontal)
+            {
+                Gravity = Gravity.TopLeft ,
+
+                SubViews = new View[]
+                {
+                    new NativeView
+                    {
+                        View = filterField,
+                        LayoutParameters = new LayoutParameters()
+                        {
+                            Weight = 1,
+                            Gravity = Gravity.TopLeft ,
+                        }
+                    },
+                    new NativeView
+                    {
+                        View = findButton,
+                        LayoutParameters = new LayoutParameters()
+                        {
+                            Weight = 1,
+                            Gravity = Gravity.TopCenter  ,
+                        }
+
+                    },
+                    new NativeView
+                    {
+                        View = newButton,
+                        LayoutParameters = new LayoutParameters()
+                        {
+                            Weight = 1,
+                            Gravity = Gravity.TopRight,
+                        }
+                    },
+                }
+            };
+
+            // wrap the LinearLayout in a UIView
+            var buttonView = _buttonView = new UIView();
+            buttonView = new UILayoutHost(buttonLayout)
+            {
+                BackgroundColor = UIColor.White,
+            };
+
+            buttonView.SizeToFit();   // tightly enclose the sub-views
+            #endregion
+
+            #region table
             //var tableView = _reportTableView = new UITableView(new RectangleF(percentWidth(leftControlOriginPercent), tableTop(), percentWidth(98), screenHeight() - tableTop()));
             var tableView = _reportTableView = new UITableView(new RectangleF(0, tableTop(), screenWidth(), screenHeight() - tableTop()));
             tableView.BackgroundView = null;
             tableView.BackgroundColor = Common.viewBackgroundColor;
+            #endregion
 
-            // assemble view
+            #region assemble view
+            // Note: the specific order shouldn't matter (b/c frames determine pageLayout)
             View.BackgroundColor = UIColor.White;
-            //View.Add(loadingOverlay);
+
+            //View.Add(loading);
+            View.Add(loadingOverlay);
+
             View.Add(logoButton);
             //View.Add(logoView);
             //View.Add(logoLayout);
-            View.Add(tableView);
-            View.Add(findButton);
+
             View.Add(filterField);
+            View.Add(findButton);
             View.Add(newButton);
 
-            var loading = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
-            loading.Center = View.Center;
-            loading.StartAnimating();
-            View.Add(loading);
-            
+            View.Add(tableView);
+           
             base.ViewDidLoad();
+            #endregion
 
+            #region bind content to view
             // Note: this is where the ViewReports_View view controller is created.
             // It's similar to having
             //   controller = new ViewReports_View();
             //   window.RootViewController = controller;
             // in AppDelegate.cs.
-
             var set = this.CreateBindingSet<ViewReports_View, ViewReports_ViewModel>();
             set.Bind(filterField).To(vm => vm.Filter);
             set.Bind(findButton).To(vm => vm.GetReportsCommand);
-            set.Bind(loading).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
-            //set.Bind(loadingOverlay).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
+            //set.Bind(loading).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
+            set.Bind(loadingOverlay).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
             
             set.Bind(tableView).For("Visibility").To(vm => vm.Loading).WithConversion("InvertedVisibility");
             set.Bind(newButton).To(vm => vm.NewVisitCommand);
@@ -232,34 +296,12 @@
             //Title = appName + " (VFRVBETA); " + appVersion;
             //this.AddChildViewController
             //this.availableHeight
+            #endregion
         }
 
-        // ToDo: manipulate base image? 
         public override void ViewDidLayoutSubviews()
         {
             base.ViewDidLayoutSubviews();
-
-            // ToDo: use boolean method here
-            if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
-            {
-                float displacement_y = this.TopLayoutGuide.Length;
-
-                // load sub-views with displacement
-            }
-        }
-
-        private bool isOS7()
-        {
-            bool thisIsOS7 = false;
-
-            if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
-            {
-                float displacement_y = this.TopLayoutGuide.Length;
-
-                thisIsOS7 = true;
-            }
-
-            return thisIsOS7;
         }
 
         /// <summary>The height of the device's screen.
@@ -430,6 +472,7 @@
 
         public override void ViewDidAppear(bool animated)
         {
+            // Note: each time ViewReports is displayed/appears UploadReports() is triggered.
             base.ViewDidAppear(animated);
             (ViewModel as ViewReports_ViewModel).UploadReports();
             (ViewModel as ViewReports_ViewModel).Loading = false;
@@ -444,6 +487,7 @@
 
         private void SetFramesForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
+            // Hack: this should be handled automatically with .gravity.
             switch (toInterfaceOrientation)
             {
                 case UIInterfaceOrientation.Portrait:
@@ -479,6 +523,7 @@
         /// <param name="x">The new "X" coordinate for the View.</param>
         internal void SetFrameX(UIView view, float x)
         {
+            // Hack: this should be handled automatically with .gravity.
             var frame = view.Frame;
             frame.X = x;
             view.Frame = frame;
