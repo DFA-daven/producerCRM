@@ -8,30 +8,46 @@
 		<integer>2</integer>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
-	<array/>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array/>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
 	<key>MinimumOSVersion</key>
 	<string>6.0</string>
 	<key>NSMainNibFile</key>
 	<string></string>
 	<key>NSMainNibFile~ipad</key>
 	<string></string>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>Icon-72.png</string>
-		<string>Icon.png</string>
-		<string>Icon-76.png</string>
-		<string>Icon-Small-50.png</string>
-		<string>Icon-Small-40.png</string>
-		<string>Icon-Small.png</string>
-	</array>
+  <key>CFBundleIconFiles</key>
+  <array>
+    <string>Icon-72@2x.png</string>
+    <string>Icon-72.png</string>
+    <string>Icon@2x.png</string>
+    <string>Icon.png</string>
+    <string>Icon-60@2x.png</string>
+    <string>Icon-76.png</string>
+    <string>Icon-76@2x.png</string>
+    <string>Icon-Small-50@2x.png</string>
+    <string>Icon-Small-50.png</string>
+    <string>Icon-Small-40.png</string>
+    <string>Icon-Small-40@2x.png</string>
+    <string>Icon-Small.png</string>
+  </array>
 	<key>CFBundleDisplayName</key>
 	<string>ProducerCRM</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.dairylea.producercrm</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.14195.13498</string>
+	<string>1.4.14197.8163</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -40,8 +56,19 @@
 			<string>UIBarStyleDefault</string>
 			<key>Translucent</key>
 			<false/>
+			<key>TintColor</key>
+			<dict>
+				<key>Red</key>
+				<real>0.725490196078431</real>
+				<key>Green</key>
+				<real>0.819607843137255</real>
+				<key>Blue</key>
+				<real>0.917647058823529</real>
+			</dict>
 		</dict>
 	</dict>
+	<key>CFBundleShortVersionString</key>
+	<string>1.4</string>
 </dict>
 </plist>
 
