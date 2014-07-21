@@ -5,6 +5,7 @@
     using Cirrious.MvvmCross.Touch.Views;
     using MonoTouch.UIKit;
     using System;
+    using System.Reflection;
     using XibFree;
 
     // notes: see _Touch UI.txt for design details.
@@ -13,8 +14,15 @@
     // visit http://stackoverflow.com/questions/14518876/integrating-google-mobile-analytics-with-mvvmcross for examples of getting this to work.
     public class UserIdentity_View : MvxViewController, IMvxModalTouchView
     {
+        #region Properties
+        string _nameSpace = "CallForm.iOS.";
+        #endregion
+
         public override void ViewDidLoad()
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > starting method...");
+
             // instructions for the inputs
             var instructions = new UILabel
             {
@@ -73,27 +81,36 @@
                     new NativeView
                     {
                         View = file1,
-                        LayoutParameters = new LayoutParameters
+                        LayoutParameters = new LayoutParameters()
                         {
+                            Width = button.Frame.Width,
+                            Height = button.Frame.Height,
                             Weight = 3,
+
                             Gravity = Gravity.TopLeft ,
                         }
                     },
                     new NativeView
                     {
                         View = file2,
-                        LayoutParameters = new LayoutParameters
+                        LayoutParameters = new LayoutParameters()
                         {
+                            Width = button.Frame.Width,
+                            Height = button.Frame.Height,
                             Weight = 2,
+
                             Gravity = Gravity.TopLeft ,
                         }
                     },
                     new NativeView
                     {
                         View = file3,
-                        LayoutParameters = new LayoutParameters
+                        LayoutParameters = new LayoutParameters()
                         {
+                            Width = button.Frame.Width,
+                            Height = button.Frame.Height,
                             Weight = 1,
+
                             Gravity = Gravity.TopLeft ,
                         }
                     },
@@ -121,10 +138,12 @@
                     new NativeView
                     {
                         View = new UIView(),
-                        LayoutParameters = new LayoutParameters
+                        LayoutParameters = new LayoutParameters()
                         {
-                            Weight = 1,
+                            Width = fileStatusView.Frame.Width,
                             Height = percentHeight(10),
+                            Weight = 7,
+
                             Gravity = Gravity.TopCenter,
                         }
                     },
@@ -134,7 +153,11 @@
                         View = fileStatusView,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Gravity = Gravity.TopLeft,
+                            Width = fileStatusView.Frame.Width,
+                            Height = fileStatusView.Frame.Height,
+                            Weight = 6,
+
+                            Gravity = Gravity.TopCenter ,
                         },
                     },
 
@@ -148,6 +171,8 @@
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = View.Frame.Width * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
+                            Weight = 5,
+
                             Gravity = Gravity.TopCenter,
                         },
                     },
@@ -161,6 +186,8 @@
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = screenWidth() * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
+                            Weight = 4,
+
                             Gravity = Gravity.TopCenter,
                         },
                     },
@@ -174,6 +201,8 @@
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = percentWidth(5),
                             //MarginTop = View.Frame.Height * 0.05f,
+                            Weight = 3,
+
                             Gravity = Gravity.TopCenter,
                         },
                     },
@@ -186,6 +215,8 @@
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = View.Frame.Width * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
+                            Weight = 2,
+
                             Gravity = Gravity.TopCenter,
                         },
                         
@@ -195,10 +226,11 @@
                     new NativeView
                     {
                         View = new UIView(),
-                        LayoutParameters = new LayoutParameters
+                        LayoutParameters = new LayoutParameters()
                         {
-                            Weight = 1,
                             Height = percentHeight(5),
+                            Weight = 1,
+
                             Gravity = Gravity.TopCenter,
                         }
                     },
@@ -238,6 +270,9 @@
             set.Bind(assetTag).To(vm => vm.AssetTag);
             set.Bind(button).To(vm => vm.SaveCommand);
             set.Apply();
+
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > ...finished method.");
         }
 
         private float screenWidth()

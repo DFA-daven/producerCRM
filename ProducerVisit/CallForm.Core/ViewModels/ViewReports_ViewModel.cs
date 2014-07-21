@@ -62,6 +62,10 @@
                 // open the User Identity page (to capture the missing information)
                 ShowViewModel<UserIdentity_ViewModel>();
             }
+            else
+            {
+                CommonCore.DebugMessage(" > decided NOT to ShowViewModel<UserIdentity_ViewModel>() ");
+            }
 
             Loading = false;
         }

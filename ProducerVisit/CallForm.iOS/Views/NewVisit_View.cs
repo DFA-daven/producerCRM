@@ -11,6 +11,7 @@ namespace CallForm.iOS.Views
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
+    using System.Reflection;
 
     // notes: see _Touch UI.txt for design details.
     /// <summary>An object representing a <c>NewVisit_View</c> view controller.
@@ -21,10 +22,15 @@ namespace CallForm.iOS.Views
         #region Properties
         private UITableView _table;
         private float _frameWidth;
+        string _nameSpace = "CallForm.iOS.";
+
         #endregion
 
         public override void ViewDidLoad()
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > starting method...");
+
             View = new UIView { BackgroundColor = Common.viewBackgroundColor };
             base.ViewDidLoad();
 
@@ -101,6 +107,9 @@ namespace CallForm.iOS.Views
             (ViewModel as NewVisit_ViewModel).Height = FrameHeight();
 
             (ViewModel as NewVisit_ViewModel).Width = FrameWidth();
+
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > ...finished method.");
         }
 
         private void ReSendEmail(object sender, EventArgs eventArgs)
@@ -140,6 +149,8 @@ namespace CallForm.iOS.Views
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             base.WillAnimateRotation(toInterfaceOrientation, duration);
 
             SetTableFrameForOrientation(toInterfaceOrientation);
@@ -147,12 +158,16 @@ namespace CallForm.iOS.Views
 
         public override void ViewWillAppear(bool animated)
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             base.ViewWillAppear(animated);
             SetTableFrameForOrientation(InterfaceOrientation);
         }
 
         private void SetTableFrameForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             switch (toInterfaceOrientation)
             {
                 case UIInterfaceOrientation.Portrait:

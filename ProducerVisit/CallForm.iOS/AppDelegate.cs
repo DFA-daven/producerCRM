@@ -78,7 +78,7 @@ namespace CallForm.iOS
             // AppDelegate by grabbing it off the window and casting:
             _navController = (UINavigationController)_window.RootViewController;
             _navigationBar = _navController.NavigationBar;
-            _navigationBar.BackgroundColor = UIColor.Red;
+            _navigationBar.BackgroundColor = UIColor.Green;
             //navigationBar.BarTintColor = UIColor.Black;
             //navigationBar.TintColor = UIColor.White;
 

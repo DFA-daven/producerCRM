@@ -9,6 +9,7 @@
     using MonoTouch.UIKit;
     using System;
     using System.Drawing;
+    using System.Reflection;
     using XibFree;
 
     /// <summary>The project's initial view controller. 
@@ -73,11 +74,16 @@
         /// <summary>The percentage of the horizontal width to indent this control's origin.
         /// </summary>
         private static double rightControlOriginPercent = 66;
+
+        string _nameSpace = "CallForm.iOS.";
         #endregion
         #endregion
 
         public override void ViewDidLoad()
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > starting method...");
+
             #region pageLayout
             float topMargin = 0;
             topMargin = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
@@ -93,16 +99,22 @@
             //var logoButton = _logoButton = new UIButton(UIButtonType.Custom);
             var logoButton = _logoButton = new UIButton(UIButtonType.System);
 
+            Common.DebugMessage(" > ** bannerHorizontalOrigin() = " + bannerHorizontalOrigin());
+            Common.DebugMessage(" > ** topMargin = " + topMargin);
+            Common.DebugMessage(" > ** bannerWidth() = " + bannerWidth());
+            Common.DebugMessage(" > ** bannerHeight() = " + bannerHeight());
+
             logoButton.Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, bannerWidth(), bannerHeight());
             logoButton.SetTitle("DFA & DMS", UIControlState.Normal);
             logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
             logoButton.BackgroundColor = UIColor.White;
 
             // place a little white space below the logo(s)
+            // this layout is composed of "rows"
             var logoLayout = _logoLinearLayout = new LinearLayout(Orientation.Vertical)
             {
-                Gravity = Gravity.TopCenter,
-
+                Gravity = Gravity.CenterVertical,
+                Spacing = 20,
                 SubViews = new View[]
                 {
                     new NativeView
@@ -110,18 +122,23 @@
                         View = logoButton,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Weight = 1,
-                            Gravity = Gravity.TopCenter,
+                            Width = logoButton.Frame.Width,
+                            Height = logoButton.Frame.Height, 
+                            Weight = 3,
+
+                            //Gravity = Gravity.TopCenter,
                         }
                     },
                     new NativeView
                     {
                         View = new UIView(),
-                        LayoutParameters = new LayoutParameters
+                        LayoutParameters = new LayoutParameters()
                         {
-                            Weight = 1,
+                            Width = logoButton.Frame.Width,
                             Height = percentHeight(10),
-                            Gravity = Gravity.TopCenter,
+                            Weight = 1,
+
+                            //Gravity = Gravity.TopCenter,
                         }
                     },
                 }
@@ -172,10 +189,10 @@
             newButton.SetImage(UIImage.FromBundle("Add.png"), UIControlState.Normal);
             newButton.BackgroundColor = Common.viewBackgroundColor;
 
-            var buttonLayout = _buttonLinearLayout = new LinearLayout(Orientation.Horizontal)
+            var buttonLayout = _buttonLinearLayout = new LinearLayout(Orientation.Vertical)
             {
-                Gravity = Gravity.TopLeft ,
-
+                Gravity = Gravity.CenterHorizontal ,
+                Spacing = 20,
                 SubViews = new View[]
                 {
                     new NativeView
@@ -183,7 +200,8 @@
                         View = filterField,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Weight = 1,
+                            Weight = 3,
+
                             Gravity = Gravity.TopLeft ,
                         }
                     },
@@ -192,8 +210,9 @@
                         View = findButton,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Weight = 1,
-                            Gravity = Gravity.TopCenter  ,
+                            Weight = 2,
+
+                            Gravity = Gravity.TopCenter ,
                         }
 
                     },
@@ -203,6 +222,7 @@
                         LayoutParameters = new LayoutParameters()
                         {
                             Weight = 1,
+
                             Gravity = Gravity.TopRight,
                         }
                     },
@@ -231,15 +251,28 @@
             View.BackgroundColor = UIColor.White;
 
             //View.Add(loading);
-            View.Add(loadingOverlay);
+            //View.Add(loadingOverlay);
+
+
+
+
+
+
+            // ToDo: add another layout to hold logo, buttons, and table
+
+
+
+
+
 
             View.Add(logoButton);
-            //View.Add(logoView);
             //View.Add(logoLayout);
+            //View.Add(logoView);
 
             View.Add(filterField);
             View.Add(findButton);
             View.Add(newButton);
+            //View.Add(buttonView);
 
             View.Add(tableView);
            
@@ -297,10 +330,15 @@
             //this.AddChildViewController
             //this.availableHeight
             #endregion
+
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > ...finished method.");
         }
 
         public override void ViewDidLayoutSubviews()
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             base.ViewDidLayoutSubviews();
         }
 
@@ -346,6 +384,8 @@
         {
             float maxAllowedBannerHeight = calculatePercent(availableHeight(), bannerHeightPercent);
 
+            maxAllowedBannerHeight = (float)Math.Round(maxAllowedBannerHeight, 0);
+
             return maxAllowedBannerHeight;
         }
 
@@ -366,6 +406,7 @@
                 desiredBannerWidth = maxAllowedBannerWidth;
             }
 
+            desiredBannerWidth = (float)Math.Round(desiredBannerWidth, 0);
             return desiredBannerWidth;
         }
 
@@ -375,7 +416,7 @@
 
             if (bannerWidth() < screenWidth())
             {
-                bannerHorizontalOrigin = (screenWidth() - bannerWidth()) / 2;
+                bannerHorizontalOrigin = (float)Math.Round((screenWidth() - bannerWidth()) / 2, 0);
             }
 
             return bannerHorizontalOrigin;
@@ -401,6 +442,7 @@
         {
             //float controlHeight = calculatePercent(availableHeight(), controlHeightPercent);
             float controlHeight = UIFont.ButtonFontSize * 3f;
+            controlHeight = (float)Math.Round(controlHeight, 0);
 
             return controlHeight;
         }
@@ -411,6 +453,7 @@
         internal float controlWidth()
         {
             float controlWidth = percentWidth(controlWidthPercent);
+            controlWidth = (float)Math.Round(controlWidth, 0);
             return controlWidth;
         }
 
@@ -429,7 +472,10 @@
         /// <returns>A value representing a percent of the current screen height.</returns>
         private float percentHeight(double percent)
         {
-            return calculatePercent(UIScreen.MainScreen.Bounds.Height, percent);
+            float height = calculatePercent(UIScreen.MainScreen.Bounds.Height, percent);
+            height = (float)Math.Round(height, 0);
+
+            return height;
         }
 
         /// <summary>Calculates the product of the current screen width and a percent.
@@ -439,6 +485,7 @@
         private float percentWidth(double percent)
         {
             float width = calculatePercent(UIScreen.MainScreen.Bounds.Width, percent);
+            width = (float)Math.Round(width, 0);
             return width;
         }
 
@@ -466,12 +513,16 @@
 
         public override void ViewWillAppear(bool animated)
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             base.ViewWillAppear(animated);
             SetFramesForOrientation(InterfaceOrientation);
         }
 
         public override void ViewDidAppear(bool animated)
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            
             // Note: each time ViewReports is displayed/appears UploadReports() is triggered.
             base.ViewDidAppear(animated);
             (ViewModel as ViewReports_ViewModel).UploadReports();
@@ -480,6 +531,8 @@
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             base.WillAnimateRotation(toInterfaceOrientation, duration);
 
             SetFramesForOrientation(toInterfaceOrientation);
@@ -487,6 +540,8 @@
 
         private void SetFramesForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             // Hack: this should be handled automatically with .gravity.
             switch (toInterfaceOrientation)
             {
@@ -503,6 +558,7 @@
                 case UIInterfaceOrientation.LandscapeRight:
                     float difference = Math.Abs(screenHeight() - screenWidth());
                     float offset = (difference / 2) + percentHeight(1);
+                    offset = (float)Math.Round(offset, 0);
                     //SetFrameX(_logoView, percentWidth(leftControlOriginPercent) + offset);
                     SetFrameX(_logoButton, percentWidth(leftControlOriginPercent) + offset);
                     SetFrameX(_filterField, percentWidth(leftControlOriginPercent) + offset);
@@ -613,27 +669,31 @@
         /// </summary>
         public TableViewCell() : base(UITableViewCellStyle.Default, "tableViewCell")
         {
+            // this layout is composed of "columns"
             var layout = new LinearLayout(Orientation.Horizontal)
             {
                 //Padding = new UIEdgeInsets(5, 5, 5, 5),
                 Spacing = 20,
                 Gravity = Gravity.CenterVertical,
-                LayoutParameters = new LayoutParameters
+                LayoutParameters = new LayoutParameters()
                 {
                     Width = AutoSize.FillParent,
                     Height = AutoSize.FillParent,
                 },
                 SubViews = new View[]
                 {
+                    // date "column"
                     new TextNativeView(Date = new UILabel
                     {
                         //Font = UIFont.SystemFontOfSize(18)
                         Font = UIFont.SystemFontOfSize(UIFont.LabelFontSize)
                     }),
+                    // the member number/source "column"
+                    // this layout (column) is composed of "rows"
                     new LinearLayout(Orientation.Vertical)
                     {
                         Gravity = Gravity.Left,
-                        LayoutParameters = new LayoutParameters
+                        LayoutParameters = new LayoutParameters()
                         {
                             Width = AutoSize.WrapContent,
                             Height = AutoSize.FillParent,
@@ -653,6 +713,7 @@
                             }),
                         }
                     },
+                    // the reason "column
                     new TextNativeView(Reasons = new UILabel
                     {
                         Font = UIFont.SystemFontOfSize(UIFont.SystemFontSize)
@@ -670,7 +731,7 @@
         {
             View = view;
             view.UserInteractionEnabled = false;
-            LayoutParameters = new LayoutParameters
+            LayoutParameters = new LayoutParameters()
             {
                 Width = AutoSize.WrapContent,
                 Height = AutoSize.WrapContent,
