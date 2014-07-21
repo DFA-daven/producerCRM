@@ -7,6 +7,7 @@
     using System;
     using System.Threading.Tasks;
     using System.Diagnostics;
+    using System.Reflection;
 
     /// <summary>Implements the <see cref="IUserIdentityService"/> interface.
     /// </summary>
@@ -25,7 +26,7 @@
         private static string _dataFolderPathName = "Data";
         private static string _userIdentityFileName = "Identity.xml";
         private string _request;
-
+        string _className = "CallForm.Core.Services.UserIdentityService";
 
         /// <summary>An instance of the <see cref="IMvxRestClient"/>.
         /// </summary>
@@ -158,9 +159,9 @@
         private void RestException(Exception exception)
         {
             // ToDo: this instance of RestException is for a single call -- it can be customized.
-            Debug.WriteLine("UserIdentityService.RestException()");
-            Debug.WriteLine("Original request: " + Request);
-            Debug.WriteLine("Exception message: " + exception.Message);
+            CommonCore.DebugMessage(_className, "RestException()");
+            CommonCore.DebugMessage(" > Original request: " + Request);
+            CommonCore.DebugMessage(" > Exception message: " + exception.Message);
         }
 
         /// <summary>Creates an "empty" <see cref="UserIdentity"/>, and 

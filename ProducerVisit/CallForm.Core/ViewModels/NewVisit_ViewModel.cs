@@ -11,6 +11,7 @@ namespace CallForm.Core.ViewModels
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Windows.Input;
 
     /// <summary>Class definition of the New Visit ViewModel.
@@ -66,6 +67,8 @@ namespace CallForm.Core.ViewModels
         private byte[] _pictureBytes;
         /// <summary>Store for the <c>TakePictureCommand</c> property.</summary>
         private MvxCommand _takePictureCommand;
+
+        string _className = "CallForm.Core.ViewModels.NewVisit_ViewModel";
         #endregion
 
         /// <summary>Creates an instance of <c>NewVisit_ViewModel</c>.
@@ -155,6 +158,9 @@ namespace CallForm.Core.ViewModels
         private void GetInitialLocation()
         {
             //System.Console.WriteLine("Attempting to GetInitialLocation");
+            CommonCore.DebugMessage(_className, "GetInitialLocation");
+            CommonCore.DebugMessage(" > Attempting TryGetLatestLocation()");
+
             double lat, lng;
             if (_locationService.TryGetLatestLocation(out lat, out lng))
             {

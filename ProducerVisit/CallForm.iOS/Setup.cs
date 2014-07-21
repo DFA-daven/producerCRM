@@ -7,6 +7,7 @@ using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.Touch.Platform;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace CallForm.iOS
 {
@@ -14,6 +15,7 @@ namespace CallForm.iOS
     /// <remarks>This Class is called from AppDelegate.cs (via FinishedLoading), and in turn calls CallForm.Core.App.</remarks>
 	public class Setup : MvxTouchSetup
 	{
+        string _nameSpace = "CallForm.iOS.";
 
 		public Setup(MvxApplicationDelegate applicationDelegate, UIWindow window)
             : base(applicationDelegate, window)
@@ -30,9 +32,8 @@ namespace CallForm.iOS
         /// <returns></returns>
 	    protected override IMvxApplication CreateApp ()
 		{
-            string message = "Setup.CreateApp(): return new Core.App().";
-            System.Console.WriteLine(message);
-            Debug.WriteLine(message);
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > return new Core.App().");
 
 			return new Core.App();
 		}
@@ -46,6 +47,8 @@ namespace CallForm.iOS
 
     public class MvxProducerVisitTouchViewPresenter : MvxTouchViewPresenter
     {
+        string _nameSpace = "CallForm.iOS.";
+
         public MvxProducerVisitTouchViewPresenter(UIApplicationDelegate applicationDelegate, UIWindow window) : base(applicationDelegate, window)
         {
         }
@@ -58,9 +61,8 @@ namespace CallForm.iOS
 
             if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {
-                string message = "MvxProducerVisitTouchViewPresenter.Show(NewVisit_ViewModel): showing view.";
-                System.Console.WriteLine(message);
-                Debug.WriteLine(message);
+                Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+                Common.DebugMessage(" > showing view.");
 
                 if (MasterNavigationController.TopViewController is NewVisit_View)
                 {
@@ -71,9 +73,8 @@ namespace CallForm.iOS
             if (view.Request.ViewModelType == typeof(UserIdentity_View))
             {
                 // ToDo: hide status bar (and the 'back' button)
-                string message = "MvxProducerVisitTouchViewPresenter.Show(UserIdentity_View): ToDo - hide status bar (and the 'back' button)";
-                System.Console.WriteLine(message);
-                Debug.WriteLine(message);
+                Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+                Common.DebugMessage(" > ToDo - hide status bar (and the 'back' button).");
             }
 
             base.Show(view);

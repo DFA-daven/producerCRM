@@ -2,6 +2,7 @@ namespace CallForm.iOS
 {
     using MonoTouch.UIKit;
     using System;
+    using System.Diagnostics;
     using System.Drawing;
     using System.Linq.Expressions;
     using System.Resources;
@@ -40,7 +41,52 @@ namespace CallForm.iOS
         //public static double controlWidthPercent = 31;
         //public static double leftControlOriginPercent = 1;
 
+        /// <summary>Take the given information and write it to the iOS app's err.log.
+        /// </summary>
+        /// <param name="message">The message to write to the log.</param>
+        private static void DebugMessage(string message)
+        {
+            Debug.WriteLine(message);
+        }
 
+        /// <summary>Take the given information and write it to the iOS app's err.log.
+        /// </summary>
+        /// <param name="message">The message to write to the log.</param>
+        /// <param name="writeToConsole">If <c>True</c>, also write <paramref name="message"/> to the <c>System.Console</c>.</param>
+        public static void DebugMessage(string message, bool writeToConsole = false)
+        {
+            if (writeToConsole)
+            { 
+                System.Console.WriteLine(message); 
+            }
+            
+            DebugMessage(message);
+        }
+
+        /// <summary>Take the given information and write it to the iOS app's err.log.
+        /// </summary>
+        /// <param name="declaringName">The name of the file that threw the error</param>
+        /// <param name="methodName">The name of the method that threw the error.
+        /// This is useful for things like the Master page.</param>
+        /// <param name="writeToConsole">If <c>True</c>, also write <paramref name="message"/> to the <c>System.Console</c>.</param>
+        public static void DebugMessage(string declaringName, string methodName, bool writeToConsole = false)
+        {
+            string message = "Class: " + declaringName + ", Method: " + methodName + "()";
+            DebugMessage(message, writeToConsole);
+        }
+
+        /// <summary>Take the given information and write it to the iOS app's err.log.
+        /// </summary>
+        /// <param name="declaringName">The name of the file that threw the error</param>
+        /// <param name="methodName">The name of the method that threw the error</param>
+        /// <param name="parentName">The URL of the page that threw the exception. 
+        /// This is useful for things like the Master page.</param>
+        /// <param name="writeToConsole">If <c>True</c>, also write <paramref name="message"/> to the <c>System.Console</c>.</param>
+        public static void DebugMessage(string declaringName, string methodName, string parentName, bool writeToConsole = false)
+        {
+            string message = "Class: " + declaringName + ", Method: " + methodName + "(), Parent: " + parentName;
+            DebugMessage(message, writeToConsole);
+        }
 
     }
 

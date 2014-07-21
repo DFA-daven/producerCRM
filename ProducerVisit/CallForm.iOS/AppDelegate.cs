@@ -6,6 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System;
 using System.Diagnostics;
+using System.Reflection;
 //using CallForm.Core.ViewModels;
 
 
@@ -14,7 +15,7 @@ namespace CallForm.iOS
     /// <summary>Creates an AppDelegate for CallForm.iOS.</summary>
     /// <remarks>
     /// <para>This is the heart of the project.</para>
-    /// <para>This Class is called from Main.cs, and in turn calls Setup.cs.</para>
+    /// <para>This Class is called from <c>CallForm.iOS.Main.cs</c>, and in turn calls <c>CallForm.iOS.Setup.cs</c>.</para>
     /// <para>The <see cref="AppDelegate"/> type inherits from <see cref="UIApplicationDelegate"/> 
     /// (via <see cref="MvxApplicationDelegate"/>), which provides application life-cycle events 
     /// such as FinishedLaunching and WillTerminate.</para>
@@ -26,6 +27,7 @@ namespace CallForm.iOS
         UIWindow _window;
         UINavigationController _navController;
         UINavigationBar _navigationBar;
+        string _nameSpace = "CallForm.iOS.";
         #endregion
 
         /// <summary>Defines actions to occur after FinishedLaunching.
@@ -44,9 +46,9 @@ namespace CallForm.iOS
         /// </remarks>
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            string message = "AddDelegate.FinishedLaunching(): starting method.";
-            System.Console.WriteLine(message);
-            Debug.WriteLine(message);
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > Assembly info:" + System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
+            Common.DebugMessage(" > starting method...");
 
             _window = new UIWindow(UIScreen.MainScreen.Bounds);     // required
 
@@ -101,9 +103,8 @@ namespace CallForm.iOS
             //    Mvx.Error("Host is reachable.");
             //}
 
-            message = "AddDelegate.FinishedLaunching(): finished method.";
-            System.Console.WriteLine(message);
-            Debug.WriteLine(message);
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > ...finished method.");
 
             bool started = true;
             return started;                                         // required
@@ -111,45 +112,39 @@ namespace CallForm.iOS
 
         public override void OnActivated(UIApplication application)
         {
-            string message = "AddDelegate.OnActivated(): App is active.";
-            System.Console.WriteLine(message);
-            Debug.WriteLine(message);
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > App is active.");
         }
 
         public override void WillEnterForeground(UIApplication application)
         {
-            string message = "AddDelegate.WillEnterForeground(): App will enter foreground.";
-            System.Console.WriteLine(message);
-            Debug.WriteLine(message);
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > App will enter foreground.");
         }
 
         public override void OnResignActivation(UIApplication application)
         {
-            string message = "AddDelegate.OnResignActivation(): App moving to inactive state.";
-            System.Console.WriteLine(message);
-            Debug.WriteLine(message);
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > App moving to inactive state.");
         }
 
         public override void DidEnterBackground(UIApplication application)
         {
-            string message = "AddDelegate.DidEnterBackground(): App entering background state.";
-            System.Console.WriteLine(message);
-            Debug.WriteLine(message);
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > App entering background state.");
         }
 
         public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
         {
-            string message = "AddDelegate.ReceivedLocalNotification(): " + notification.Description;
-            System.Console.WriteLine(message);
-            Debug.WriteLine(message);
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > " + notification.Description);
         }
 
         // not guaranteed that this will run
         public override void WillTerminate(UIApplication application)
         {
-            string message = "AddDelegate.WillTerminate(): App is terminating.";
-            System.Console.WriteLine(message);
-            Debug.WriteLine(message);
+            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > App is terminating.");
         }
 
         //public event EventHandler<ErrorEventArgs> Error;

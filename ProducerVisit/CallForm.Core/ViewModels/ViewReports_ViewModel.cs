@@ -9,6 +9,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Reflection;
     using System.Windows.Input;
 
     /// <summary>Class definition of the View Reports ViewModel.
@@ -26,6 +27,7 @@
 
         //private readonly string _targetURL;
         private string _request;
+        string _className = "CallForm.Core.ViewModels.ViewReports_ViewModel";
 
         //private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
         //private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
@@ -46,9 +48,8 @@
         /// <remarks>This model is the <see cref="App.Initialize">RegisterAppStart</see> of <see cref="App"/>.</remarks>
         public override void Start()
         {
-            string message = "ViewReports_ViewModel.Start(): starting up.";
-            //System.Console.WriteLine(message);
-            Debug.WriteLine(message);
+            CommonCore.DebugMessage(_className, "Start");
+            CommonCore.DebugMessage(" > starting up.");
 
             Loading = true;
 
@@ -316,9 +317,9 @@
 
         private void RestException(Exception exception)
         {
-            Debug.WriteLine("ViewReports_ViewModel.RestException()");
-            Debug.WriteLine("Original request: " + Request);
-            Debug.WriteLine("Exception message: " + exception.Message);
+            CommonCore.DebugMessage(_className, "RestException");
+            CommonCore.DebugMessage(" > Original request: " + Request);
+            CommonCore.DebugMessage(" > Exception message: " + exception.Message);
         }
 
         public event EventHandler<ErrorEventArgs> Error;

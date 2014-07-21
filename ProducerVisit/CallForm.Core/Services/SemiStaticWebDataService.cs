@@ -10,6 +10,7 @@
     using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Reflection;
     using System.Xml.Serialization;
 
     /// <summary>Implements the <see cref="ISemiStaticWebDataService"/> interface.
@@ -21,6 +22,7 @@
         private readonly IDataService _localDatabaseService;
         
         private string _request;
+        string _className = "CallForm.Core.Services.SemiStaticWebDataService";
 
         // hack: fix the _targetURL definitions to match web.*.config
         // temporary config:
@@ -261,7 +263,8 @@
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                CommonCore.DebugMessage(_className, "UpdateModels");
+                CommonCore.DebugMessage(" > " + e.Message);
             }
         }
 
@@ -281,7 +284,9 @@
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                CommonCore.DebugMessage(_className, "UpdateReasonCodeModel");
+                CommonCore.DebugMessage(" > " + e.Message);
+
             }
         }
 
@@ -299,7 +304,8 @@
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                CommonCore.DebugMessage(_className, "ReasonCodeRestResponse");
+                CommonCore.DebugMessage(" > " + e.Message);
             }
         }
 
@@ -370,9 +376,9 @@
 
         private void RestException(Exception exception)
         {
-            Debug.WriteLine("SemiStaticWebDataService.RestException()");
-            Debug.WriteLine("Original request: " + Request);
-            Debug.WriteLine("Exception message: " + exception.Message);
+            CommonCore.DebugMessage(_className, "RestException");
+            CommonCore.DebugMessage(" > Original request: " + Request);
+            CommonCore.DebugMessage(" > Exception message: " + exception.Message);
         }
         #endregion
 
