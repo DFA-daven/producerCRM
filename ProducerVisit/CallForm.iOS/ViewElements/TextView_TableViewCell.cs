@@ -20,6 +20,7 @@ namespace CallForm.iOS.ViewElements
             _textField.Changed += didChange;
             //_textField.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize + 2);
             _textField.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize);
+            // ToDo: replace AddSubview() with Add()
             ContentView.AddSubview(_textField);
         }
 

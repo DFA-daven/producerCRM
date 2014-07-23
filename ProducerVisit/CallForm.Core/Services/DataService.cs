@@ -5,11 +5,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
     /// <summary>Implements the <see cref="IDataService"/> interface.
     /// </summary>
     public class DataService : IDataService
     {
+        string _className = "CallForm.Core.Services.DataService";
+        
         /// <inheritdoc/>
         private readonly IUserIdentityService _userIdentityService;
         
@@ -154,13 +157,53 @@
         /// <inheritdoc/>
         public List<ReasonCode> GetSQLiteReasonCodes()
         {
-            var objectList = _localSQLiteConnection.Table<ReasonCode>().ToList();
+            string methodName = "GetSQLiteReasonCodes";
+
+            List<ReasonCode> objectList = new List<ReasonCode>();
+
+            if (_localSQLiteConnection.Table<ReasonCode>().Count() > 0)
+            {
+                try
+                {
+                    objectList = _localSQLiteConnection.Table<ReasonCode>().ToList();
+                }
+                catch (ArgumentNullException e)
+                {
+                    CommonCore.DebugMessage(_className, methodName);
+                    CommonCore.DebugMessage(" > Table<T>() is NULL.");
+                }
+            }
+            else
+            {
+                CommonCore.DebugMessage(_className, methodName);
+                CommonCore.DebugMessage(" > Table<T>().Count() = 0");
+            }
+
             return objectList;
         }
 
         /// <inheritdoc/>
         public void UpdateSQLiteReasonCodes(List<ReasonCode> newObjects)
         {
+            string methodName = "UpdateSQLiteReasonCodes";
+
+            // ToDo: replace DropTable with something like cmdText = @IF OBJECT_ID('ProducerCRM'.'ReasonCode', 'U') IS NOT NULL DROP TABLE 'ProducerCRM'.'ReasonCode'"
+            try
+            {
+                string targetTableName = "ReasonCode";
+                string cmdText = @"SELECT name FROM sqlite_master WHERE type='table' AND name='" + targetTableName + "'";
+
+                var command = _localSQLiteConnection.CreateCommand(cmdText, new ParamArrayAttribute());
+
+                // if response = targetTableName then O.K. to delete
+                 
+            }
+            catch
+            {
+                CommonCore.DebugMessage(_className, methodName);
+                CommonCore.DebugMessage(" > Unhandled exception.");
+            }
+
             // drop the existing table
             _localSQLiteConnection.DropTable<ReasonCode>();
             _localSQLiteConnection.CreateTable<ReasonCode>();
@@ -170,7 +213,28 @@
         /// <inheritdoc/>
         public List<CallType> GetSQLiteCallTypes()
         {
-            var objectList = _localSQLiteConnection.Table<CallType>().ToList();
+            string methodName = "GetSQLiteCallTypes";
+
+            List<CallType> objectList = new List<CallType>();
+
+            if (_localSQLiteConnection.Table<CallType>().Count() > 0)
+            {
+                try
+                {
+                    objectList = _localSQLiteConnection.Table<CallType>().ToList();
+                }
+                catch (ArgumentNullException e)
+                {
+                    CommonCore.DebugMessage(_className, methodName);
+                    CommonCore.DebugMessage(" > Table<T>() is NULL.");
+                }
+            }
+            else
+            {
+                CommonCore.DebugMessage(_className, methodName);
+                CommonCore.DebugMessage(" > Table<T>().Count() = 0");
+            }
+
             return objectList;
         }
 
@@ -186,7 +250,28 @@
         /// <inheritdoc/>
         public List<EmailRecipient> GetSQLiteEmailRecipients()
         {
-            var objectList = _localSQLiteConnection.Table<EmailRecipient>().ToList();
+            string methodName = "GetSQLiteEmailRecipients";
+
+            List<EmailRecipient> objectList = new List<EmailRecipient>();
+
+            if (_localSQLiteConnection.Table<EmailRecipient>().Count() > 0)
+            {
+                try
+                {
+                    objectList = _localSQLiteConnection.Table<EmailRecipient>().ToList();
+                }
+                catch (ArgumentNullException e)
+                {
+                    CommonCore.DebugMessage(_className, methodName);
+                    CommonCore.DebugMessage(" > Table<T>() is NULL.");
+                }
+            }
+            else
+            {
+                CommonCore.DebugMessage(_className, methodName);
+                CommonCore.DebugMessage(" > Table<T>().Count() = 0");
+            }
+
             return objectList;
         }
 

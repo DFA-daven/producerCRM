@@ -103,6 +103,10 @@
                     _viewModel.MemberNumber = (sender as UITextField).Text;
                 });
 
+            /*
+             * ToDo: indent the cells (rows)
+             * cell.SeparatorInset = new UIEdgeInsets(0, 50, 0, 0);
+             */
             _memberNumberCell.TextLabel.Text = "Member Number";
 
             if (!_viewModel.Editing)
@@ -284,7 +288,7 @@
                         _popover = new UIPopoverController(ReasonPickerPopover);
                         _popover.PopoverContentSize = ReasonPickerPopover.PreferredContentSize;
 
-                        //_popover.use empty? ToString get iPhone working?
+                        //_popover.use empty? ToString get iPhone Working?
                         // using RectangleF.Empty sets the popover origin to the NW corner
                         //_popover.PresentFromRect(RectangleF.Empty, tableView.Superview, UIPopoverArrowDirection.Any, true);
 

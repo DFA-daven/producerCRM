@@ -6,8 +6,11 @@ namespace BackEnd
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
+    using System.Diagnostics;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
+    using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Optimization;
@@ -18,6 +21,8 @@ namespace BackEnd
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        string _nameSpace = "BackEnd";
+
         public string EntityType { get; set;}
 
         protected void Application_Start()
@@ -158,6 +163,149 @@ namespace BackEnd
                 // write changes
                 context.SaveChanges();
             }
+        }
+
+        void Session_Start(object sender, EventArgs e)
+        {
+            // Redirect mobile users to the mobile home page
+            HttpRequest httpRequest = HttpContext.Current.Request;
+
+            if (IsPrivateIpAddress(httpRequest.UserHostAddress))
+            {
+                if (httpRequest.Browser.IsMobileDevice)
+                {
+                    string path = httpRequest.Url.PathAndQuery;
+                    bool isOnMobilePage = path.StartsWith("/Mobile/",
+                                           StringComparison.OrdinalIgnoreCase);
+                    if (!isOnMobilePage)
+                    {
+                        string redirectTo = "~/Mobile/";
+
+                        // Could also add special logic to redirect from certain 
+                        // recognized pages to the mobile equivalents of those 
+                        // pages (where they exist). For example,
+                        // if (HttpContext.Current.Handler is UserRegistration)
+                        //     redirectTo = "~/Mobile/Register.aspx";
+
+                        HttpContext.Current.Response.Redirect(redirectTo);
+                    }
+                }
+            }
+            else
+            {
+                // ToDo: implement separate info pages for internal/external visitors.
+            }
+        }
+
+        bool IsPrivateIpAddress(string userHostAddress)
+        {
+            bool privateRange = false;
+
+            string[] octet;
+            char[] charSeparators = new char[] { '.' };
+
+            CommonCore.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, true);
+            CommonCore.DebugMessage(" > The IP host address of the remote client is " + userHostAddress, true);
+
+            octet = userHostAddress.Split(charSeparators, StringSplitOptions.None);
+
+            if (octet[0] == "10")
+            {
+                // private class A network
+                privateRange = true;
+            }
+
+            if (octet[0] == "172")
+            {
+                int secondOctet = 0;
+
+                // ToInt32 can throw FormatException or OverflowException. 
+                try
+                {
+                    secondOctet = Convert.ToInt32(octet[1]);
+                }
+                catch (FormatException e)
+                {
+                    CommonCore.DebugMessage(" > Input string is not a sequence of digits.");
+                }
+                catch (OverflowException e)
+                {
+                    CommonCore.DebugMessage(" > The number cannot fit in an Int32.");
+                }
+                finally
+                {
+                    if ((secondOctet > 15) && (secondOctet < 32))
+                    {
+                        // private class B network
+
+                        privateRange = true;
+                    }
+                }
+            }
+
+            if (octet[0] == "192" && octet[1] == "168")
+            {
+                // private class C network
+                privateRange = true;
+            }
+
+            if (octet[0] == "100" && octet[1] == "64")
+            {
+                // private Carrier Grade NAT deployment
+                privateRange = true;
+            }
+                
+            return false;
+        }
+    }
+
+    public class CommonCore
+    {
+        /// <summary>Take the given information and write it to the iOS app's err.log.
+        /// </summary>
+        /// <param name="message">The message to write to the log.</param>
+        private static void DebugMessage(string message)
+        {
+            Debug.WriteLine(message);
+        }
+
+        /// <summary>Take the given information and write it to the iOS app's err.log.
+        /// </summary>
+        /// <param name="message">The message to write to the log.</param>
+        /// <param name="writeToConsole">If <c>True</c>, also write <paramref name="message"/> to the <c>System.Console</c>.</param>
+        public static void DebugMessage(string message, bool writeToConsole = false)
+        {
+            if (writeToConsole)
+            {
+                System.Console.WriteLine(message);
+            }
+
+            DebugMessage(message);
+        }
+
+        /// <summary>Take the given information and write it to the iOS app's err.log.
+        /// </summary>
+        /// <param name="declaringName">The name of the file that threw the error</param>
+        /// <param name="methodName">The name of the method that threw the error.
+        /// This is useful for things like the Master page.</param>
+        /// <param name="writeToConsole">If <c>True</c>, also write the message to the <c>System.Console</c>.</param>
+        public static void DebugMessage(string declaringName, string methodName, bool writeToConsole = false)
+        {
+            string message = "Class: " + declaringName + ", Method: " + methodName + "()";
+            DebugMessage(message, writeToConsole);
+        }
+
+        /// <summary>Take the given information and write it to the iOS app's err.log.
+        /// </summary>
+        /// <param name="declaringName">The name of the file that threw the error</param>
+        /// <param name="methodName">The name of the method that threw the error</param>
+        /// <param name="parentName">The URL of the page that threw the exception. 
+        /// This is useful for things like the Master page.</param>
+        /// <param name="writeToConsole">If <c>True</c>, also write the message to the <c>System.Console</c>.</param>
+        public static void DebugMessage(string declaringName, string methodName, string parentName, bool writeToConsole = false)
+        {
+            string message = "Class: " + declaringName + ", Method: " + methodName + "(), Parent: " + parentName;
+            DebugMessage(message, writeToConsole);
         }
     }
 }

@@ -79,6 +79,17 @@
         #endregion
         #endregion
 
+        /// <summary>Specify that this View should *not* be displayed beneath the
+        /// Status Bar (or the Navigation Bar, if present).
+        /// </summary>
+        public override UIRectEdge EdgesForExtendedLayout
+        {
+            get
+            {
+                return UIRectEdge.None;
+            }
+        }
+
         public override void ViewDidLoad()
         {
             Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
@@ -159,6 +170,13 @@
             // var pageLayout = new LinearLayout(Orientation.Horizontal)
             // SubViews = new View[]
             
+            // ToDo: re-factor the filterField as a UISearchDisplayController
+            /*
+             * Note: the search bar is now shown inside the navigation bar when the 
+             * UISearchDisplayController.DisplaySearchBarInNavigation property is set
+             * to TRUE. When set to FALSE - the default - the navigation bar is hidden 
+             * when the search controller is displayed.
+             */
             var filterField = _filterField = new UITextField
             {
                 TextAlignment = UITextAlignment.Center,
@@ -180,6 +198,7 @@
             findButton.SetTitle("Refresh", UIControlState.Normal);
             findButton.BackgroundColor = Common.viewBackgroundColor;
 
+            // ToDo: move the newButton up onto the bar using UIBarButtonItemStyle
             var newButton = _newButton = new UIButton(UIButtonType.Custom);
             //newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             newButton.SetTitle("New", UIControlState.Normal);
@@ -338,8 +357,19 @@
         public override void ViewDidLayoutSubviews()
         {
             Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(" > System version: " + UIDevice.CurrentDevice.SystemVersion);
 
             base.ViewDidLayoutSubviews();
+
+            /*
+             * Note: the TopLayoutGuide and BottomLayoutGuide values are generated dynamically AFTER
+             * the View has been added to the hierarchy, so attempting to read them in ViewDidLoad will return 0. 
+             * So, calculate the value after the View has loaded, for example here in ViewDidLoadSubviews.
+             */
+            /*
+             * Note: EdgesForExtendedLayout may allow this app to display, but using TopLayoutGuide
+             * and BottomLayoutGuide are preferred since they allow the app to meet the iOS 7 design goals.
+             */
         }
 
         /// <summary>The height of the device's screen.
@@ -647,6 +677,10 @@
 
             ReportListItem reportListItem = _viewModel.Reports[indexPath.Row];
 
+            /*
+             * ToDo: indent the cells (rows)
+             * cell.SeparatorInset = new UIEdgeInsets(0, 50, 0, 0);
+             */
             cell.Date.Text = reportListItem.VisitDate.ToShortDateString();
             cell.MemberNumber.Text = reportListItem.MemberNumber;
             cell.Source.Text = reportListItem.UserEmail;

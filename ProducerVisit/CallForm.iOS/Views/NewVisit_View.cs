@@ -26,6 +26,17 @@ namespace CallForm.iOS.Views
 
         #endregion
 
+        /// <summary>Specify that this View should *not* be displayed beneath the
+        /// Status Bar (or the Navigation Bar, if present).
+        /// </summary>
+        public override UIRectEdge EdgesForExtendedLayout
+        {
+            get
+            {
+                return UIRectEdge.None;
+            }
+        }
+
         public override void ViewDidLoad()
         {
             Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
@@ -43,6 +54,13 @@ namespace CallForm.iOS.Views
 
             var source = new NewVisit_TableViewSource(ViewModel as NewVisit_ViewModel, _table);
 
+            /* 
+             * ToDo: iOS 7 design guidelines state that picker views should be presented in-line 
+             * rather than as input views animated from the bottom of the screen of via a new 
+             * controller pushed onto a navigation controller's stack, as in previous iOS versions. 
+             * 
+             * The system calendar app shows how this should now be implemented.
+             */
             source.DatePickerPopover = new DateTimePickerDialog_ViewController(
                 val => (ViewModel as NewVisit_ViewModel).Date = val, 
                 (ViewModel as NewVisit_ViewModel).Date, 
@@ -77,10 +95,13 @@ namespace CallForm.iOS.Views
                 reSendButton.SetTitle("Forward via Email", UIControlState.Normal);
                 reSendButton.TouchUpInside += ReSendEmail;
                 reSendButton.Frame = new RectangleF(PercentOfFrameWidth(20), 0, PercentOfFrameWidth(25), ButtonHeight());
+                // ToDo: replace AddSubview() with Add()
                 wrapper.AddSubview(reSendButton);
+                //wrapper.Add(reSendButton);
                 saveButton.Frame = new RectangleF(PercentOfFrameWidth(60), 0, PercentOfFrameWidth(25), ButtonHeight());
             }
 
+            // ToDo: replace AddSubview() with Add()
             wrapper.AddSubview(saveButton);
 
             var set = this.CreateBindingSet<NewVisit_View, NewVisit_ViewModel>();

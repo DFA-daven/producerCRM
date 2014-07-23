@@ -22,13 +22,14 @@ namespace CallForm.iOS.ViewElements
             {
                 Date = initialValue,
                 Mode = mode,
-                TimeZone = NSTimeZone.FromAbbreviation("GMT")
+                TimeZone = NSTimeZone.FromAbbreviation("GMT"),
             };
 
             //_picker.BackgroundColor = UIColor.Gray;
             //_picker.Alpha = 0.75f;
             _picker.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
 
+            // ToDo: replace AddSubview() with Add()
             View.AddSubview(_picker);
             View.SizeToFit();
 
@@ -37,11 +38,23 @@ namespace CallForm.iOS.ViewElements
             doneButton.TouchUpInside += (sender, args) => { source.DismissPopover(); };
             doneButton.Frame = new RectangleF(0, _picker.Frame.Height, _picker.Frame.Width, 50);
 
+            // ToDo: replace AddSubview() with Add()
             View.AddSubview(doneButton);
 
             View.BackgroundColor = UIColor.White;
 
             _setValue += setValue;
+        }
+
+        /// <summary>Specify that this View should *not* be displayed beneath the
+        /// Status Bar (or the Navigation Bar, if present).
+        /// </summary>
+        public override UIRectEdge EdgesForExtendedLayout
+        {
+            get
+            {
+                return UIRectEdge.None;
+            }
         }
 
         public override void ViewWillDisappear(bool animated)

@@ -38,6 +38,7 @@ namespace CallForm.iOS.ViewElements
                 activitySpinner.Frame.Width,
                 activitySpinner.Frame.Height);
             activitySpinner.AutoresizingMask = UIViewAutoresizing.FlexibleMargins;
+            // ToDo: replace AddSubview() with Add()
             AddSubview(activitySpinner);
             activitySpinner.StartAnimating();
 
@@ -53,6 +54,7 @@ namespace CallForm.iOS.ViewElements
             loadingLabel.Text = "Loading Data...";
             loadingLabel.TextAlignment = UITextAlignment.Center;
             loadingLabel.AutoresizingMask = UIViewAutoresizing.FlexibleMargins;
+            // ToDo: replace AddSubview() with Add()
             AddSubview(loadingLabel);
         }
 

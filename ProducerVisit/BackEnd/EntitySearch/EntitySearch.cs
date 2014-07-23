@@ -44,7 +44,7 @@ namespace BackEnd.EntitySearch
     /// </summary>
     public partial class EntitySearch : System.Web.UI.Page
     {   
-        // Hack: empty controls to get this class working
+        // Hack: empty controls to get this class Working
         internal GridView gdvProducer = new GridView();
         internal GridView gdvFieldPerson = new GridView();
         internal string lblProducers = "";

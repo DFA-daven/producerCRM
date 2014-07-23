@@ -49,6 +49,17 @@ namespace CallForm.iOS.ViewElements
 
         }
 
+        /// <summary>Specify that this View should *not* be displayed beneath the
+        /// Status Bar (or the Navigation Bar, if present).
+        /// </summary>
+        public override UIRectEdge EdgesForExtendedLayout
+        {
+            get
+            {
+                return UIRectEdge.None;
+            }
+        }
+
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -56,7 +67,6 @@ namespace CallForm.iOS.ViewElements
             _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailDisplayNames));
         }
 
-        
         public override SizeF PreferredContentSize
         {
             get

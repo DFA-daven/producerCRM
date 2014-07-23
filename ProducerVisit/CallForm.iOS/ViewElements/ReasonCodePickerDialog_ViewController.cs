@@ -57,8 +57,19 @@ namespace CallForm.iOS.ViewElements
 
             _table.ScrollEnabled = true; // scrolling in the ReasonCode table -- not the container...
 
-            View.Add(_table); // an alias for AddSubView()
+            View.Add(_table); 
             View.SizeToFit();
+        }
+
+        /// <summary>Specify that this View should *not* be displayed beneath the
+        /// Status Bar (or the Navigation Bar, if present).
+        /// </summary>
+        public override UIRectEdge EdgesForExtendedLayout
+        {
+            get
+            {
+                return UIRectEdge.None;
+            }
         }
 
         public override void ViewDidDisappear(bool animated)

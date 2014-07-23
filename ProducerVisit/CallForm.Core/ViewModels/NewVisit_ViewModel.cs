@@ -119,7 +119,7 @@ namespace CallForm.Core.ViewModels
 
         public void Init(NewVisitInit data)
         {
-            // broken: not sure if this is working correctly -- seems to crash app
+            // broken: not sure if this is Working correctly -- seems to crash app
             //Mvx.Trace(MvxTraceLevel.Diagnostic, "Init: Report Data", data.ReportData);
             if (string.IsNullOrEmpty(data.ReportData))
             {
