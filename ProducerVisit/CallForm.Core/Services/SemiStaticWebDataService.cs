@@ -24,6 +24,9 @@
         private string _request;
         private string _className = "CallForm.Core.Services.SemiStaticWebDataService";
         private bool _working = false;
+        private bool _gettingReasonCodes = false;
+        private bool _gettingCallTypes = false;
+        private bool _gettingEmailRecipients = false;
 
         // hack: fix the _targetURL definitions to match web.*.config
         // temporary config:
@@ -69,18 +72,14 @@
             }
         }
 
-        public bool Working
-        {
-            get { return _working; }
-            set
-            {
-                _working = value;
-            }
-        }
-
         public bool NotBusy()
         {
-            return !Working;
+            return !_gettingCallTypes && !_gettingEmailRecipients && !_gettingReasonCodes;
+        }
+
+        public bool FilesExist()
+        {
+            return (!CallTypeFileMissing() && !EmailRecipientFileMissing() && !ReasonCodeFileMissing());
         }
 
         /// <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="localSQLiteDataService"/>.
@@ -238,9 +237,11 @@
                     {
                         CommonCore.DebugMessage("UpdateModels > ReasonCode > trying...");
 
-                        if (ReasonCodeFileMissing() && NotBusy())
+                        if (!_gettingReasonCodes & ReasonCodeFileMissing())
                         {
-                            Working = true;
+                            _gettingReasonCodes = true;
+                            Request = _targetURL + "/Visit/Reasons/";
+
                             CommonCore.DebugMessage("UpdateModels > Request: " + Request);
 
                             UpdateReasonCodeModel(request);
@@ -255,7 +256,7 @@
                             //    },
                             //    (Action<Exception>)RestException);
                         }
-                        CommonCore.DebugMessage("UpdateModels > ReasonCode > done trying.");
+                        //CommonCore.DebugMessage("UpdateModels > ReasonCode > done trying.");
 
                     }
                     catch (Exception e)
@@ -264,17 +265,16 @@
                     }
                     finally
                     {
-                        Working = false;
-                        CommonCore.DebugMessage("UpdateModels > ReasonCode > finally.");
+                        //CommonCore.DebugMessage("UpdateModels > ReasonCode > finally.");
                     }
                     
                     try
                     {
                         CommonCore.DebugMessage("UpdateModels > CallType > trying...");
 
-                        if (CallTypeFileMissing() && NotBusy())
+                        if (!_gettingCallTypes & CallTypeFileMissing())
                         {
-                            Working = true;
+                            _gettingCallTypes = true;
                             // request Call Types from the web service
                             Request = _targetURL + "/Visit/CallTypes/";
 
@@ -291,7 +291,7 @@
                                 },
                                 (Action<Exception>)RestException);
                         }
-                        CommonCore.DebugMessage("UpdateModels > CallType > done trying.");
+                        //CommonCore.DebugMessage("UpdateModels > CallType > done trying.");
 
                     }
                     catch (Exception e)
@@ -300,17 +300,17 @@
                     }
                     finally
                     {
-                        Working = false;
-                        CommonCore.DebugMessage("UpdateModels > CallType > finally.");
+                        //CommonCore.DebugMessage("UpdateModels > CallType > finally.");
                     }
 
                     try
                     {
                         CommonCore.DebugMessage("UpdateModels > EmailRecipient > trying...");
 
-                        if (EmailRecipientFileMissing() && NotBusy())
+                        if (!_gettingEmailRecipients & EmailRecipientFileMissing())
                         {
-                            Working = true;
+                            _gettingEmailRecipients = true;
+
                             // request Email Recipients from the web service
                             Request = _targetURL + "/Visit/EmailRecipients/";
                             CommonCore.DebugMessage("UpdateModels > Request: " + Request);
@@ -326,7 +326,7 @@
                                 },
                                 (Action<Exception>)RestException);
                         }
-                        CommonCore.DebugMessage("UpdateModels > EmailRecipient > done trying.");
+                        //CommonCore.DebugMessage("UpdateModels > EmailRecipient > done trying.");
 
                     }
                     catch (Exception e)
@@ -335,13 +335,13 @@
                     }
                     finally
                     {
-                        Working = false;
-                        CommonCore.DebugMessage("UpdateModels > EmailRecipient > finally.");
+                        //CommonCore.DebugMessage("UpdateModels > EmailRecipient > finally.");
                     }
 
-                    CommonCore.DebugMessage("UpdateModels > i = " + i +", Working = " + Working.ToString());
+                    CommonCore.DebugMessage("UpdateModels > i = " + i +", NotBusy = " + NotBusy().ToString());
 
-                } while (i < 5);
+                    // Broken: does the '50' make a difference, or does it always wait for AppDelegate FinishedLaunching to do the rest?
+                } while (i < 50 && !FilesExist());
 
                 CommonCore.DebugMessage("UpdateModels > do/while > done trying.");
 
@@ -352,7 +352,6 @@
             }
             finally
             {
-                Working = false;
                 CommonCore.DebugMessage("UpdateModels > do/while > finally.");
 
             }
@@ -367,31 +366,37 @@
         #region Model Support
         public void UpdateReasonCodeModel(MvxRestRequest request)
         {
-            CommonCore.DebugMessage(_className, "UpdateReasonCodeModel");
+            CommonCore.DebugMessage(_className, "UpdateReasonCodeModel > starting...");
 
             Request = _targetURL + "/Visit/Reasons/";
 
             try
             {
-                CommonCore.DebugMessage(" > starting...");
+                CommonCore.DebugMessage("UpdateReasonCodeModel > ...trying...");
 
                 _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
                     (Action<MvxDecodedRestResponse<List<ReasonCode>>>)ReasonCodeRestResponse,
                     (Action<Exception>)RestException);
+                CommonCore.DebugMessage("UpdateReasonCodeModel > ...done trying...");                
             }
             catch (Exception e)
             {
-                CommonCore.DebugMessage(" > " + e.Message);
+                CommonCore.DebugMessage("UpdateReasonCodeModel > " + e.Message);
+
             }
             finally
             {
-                CommonCore.DebugMessage(" > ...finishing.");
+                CommonCore.DebugMessage("UpdateReasonCodeModel > ...finally...");
+
             }
+
+            CommonCore.DebugMessage("UpdateReasonCodeModel > finished.");
+
         }
 
         private void ReasonCodeRestResponse(MvxDecodedRestResponse<List<ReasonCode>> response)
         {
-            CommonCore.DebugMessage(_className, "ReasonCodeRestResponse");
+            CommonCore.DebugMessage(_className, "ReasonCodeRestResponse > starting...");
 
             // Broken: if the response can't be converted (ie it is the word "locked" or something ) don't try the conversion
             // ToDo: might even need to change this so it is accepting an object, so the object can be evaluated to see if it is the correct type before proceeding
@@ -401,20 +406,21 @@
             try
             {
                 //RunOnUiThread(() => { 
-                CommonCore.DebugMessage(" > trying UpdateSQLiteReasonCodes()...");
+                CommonCore.DebugMessage("ReasonCodeRestResponse > ...trying UpdateSQLiteReasonCodes()...");
                     _localDatabaseService.UpdateSQLiteReasonCodes(response.Result);
-                    CommonCore.DebugMessage(" > trying WriteFile()...");
+                    CommonCore.DebugMessage("ReasonCodeRestResponse > ...trying WriteFile()...");
                     _fileStore.WriteFile(filename, Serialize(response.Result));
                 //});
 
-                CommonCore.DebugMessage(" > complete.");
-
+                _gettingReasonCodes = false;
+                CommonCore.DebugMessage("ReasonCodeRestResponse > ...done trying....");
             }
             catch (Exception e)
             {
-                CommonCore.DebugMessage(_className, "ReasonCodeRestResponse");
-                CommonCore.DebugMessage(" > " + e.Message);
+                CommonCore.DebugMessage(_className, "ReasonCodeRestResponse > " + e.Message);
             }
+
+            CommonCore.DebugMessage("ReasonCodeRestResponse > ...finished.");
         }
 
         //// Note: requires 'using System.Uri'
