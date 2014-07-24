@@ -9,6 +9,8 @@ namespace CallForm.iOS
 
     public class Common
     {
+        static int _numberOfCallsToSetVisible = 0;
+
         /// <summary>Use for the background of controls: 230, 230, 255
         /// </summary>
         public static UIColor controlBackgroundColor = UIColor.FromRGB(230, 230, 255);
@@ -88,6 +90,25 @@ namespace CallForm.iOS
             DebugMessage(message, writeToConsole);
         }
 
+        public void SetNetworkActivityIndicatorVisible(bool setVisible)
+        {
+            if (setVisible)
+            {
+                _numberOfCallsToSetVisible++;
+            }
+            else
+            {
+                _numberOfCallsToSetVisible--;
+            }
+
+            if (_numberOfCallsToSetVisible < 0)
+            {
+                _numberOfCallsToSetVisible = 0;
+                Common.DebugMessage("SetNetworkActivityIndicatorVisible() was asked to hide more often than shown.");
+            }
+
+            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = (_numberOfCallsToSetVisible > 0);
+        }
     }
 
 

@@ -157,7 +157,7 @@
         /// <inheritdoc/>
         public List<ReasonCode> GetSQLiteReasonCodes()
         {
-            string methodName = "GetSQLiteReasonCodes";
+            string methodName = _className + " > GetSQLiteReasonCodes";
 
             List<ReasonCode> objectList = new List<ReasonCode>();
 
@@ -169,14 +169,12 @@
                 }
                 catch (ArgumentNullException e)
                 {
-                    CommonCore.DebugMessage(_className, methodName);
-                    CommonCore.DebugMessage(" > Table<T>() is NULL.");
+                    CommonCore.DebugMessage(methodName + " > Table<T>() is NULL.");
                 }
             }
             else
             {
-                CommonCore.DebugMessage(_className, methodName);
-                CommonCore.DebugMessage(" > Table<T>().Count() = 0");
+                CommonCore.DebugMessage(methodName + " > Table<T>().Count() = 0");
             }
 
             return objectList;
@@ -185,35 +183,69 @@
         /// <inheritdoc/>
         public void UpdateSQLiteReasonCodes(List<ReasonCode> newObjects)
         {
-            string methodName = "UpdateSQLiteReasonCodes";
+            string methodName = _className + " > UpdateSQLiteReasonCodes";
 
             // ToDo: replace DropTable with something like cmdText = @IF OBJECT_ID('ProducerCRM'.'ReasonCode', 'U') IS NOT NULL DROP TABLE 'ProducerCRM'.'ReasonCode'"
-            try
-            {
-                string targetTableName = "ReasonCode";
-                string cmdText = @"SELECT name FROM sqlite_master WHERE type='table' AND name='" + targetTableName + "'";
+            //try
+            //{
+            //    string targetTableName = "ReasonCode";
+            //    string cmdText = @"SELECT name FROM sqlite_master WHERE type='table' AND name='" + targetTableName + "'";
 
-                var command = _localSQLiteConnection.CreateCommand(cmdText, new ParamArrayAttribute());
+            //    var command = _localSQLiteConnection.CreateCommand(cmdText, new ParamArrayAttribute());
 
-                // if response = targetTableName then O.K. to delete
+            //    // if response = targetTableName then O.K. to delete
                  
-            }
-            catch
+            //}
+            //catch (Exception exc)
+            //{
+            //    CommonCore.DebugMessage(_className + " > " + methodName + " > Unhandled exception: " + exc.Message);
+            //}
+
+            // create nullable-ints
+            int? dropResult = null;
+            int? createResult = null;
+            int? insertResult = null;
+
+            while (!dropResult.HasValue || !createResult.HasValue || !insertResult.HasValue)
             {
-                CommonCore.DebugMessage(_className, methodName);
-                CommonCore.DebugMessage(" > Unhandled exception.");
+                try
+                {
+                    if (!dropResult.HasValue)
+                    {
+                        // drop the existing table
+                        dropResult = _localSQLiteConnection.DropTable<ReasonCode>();
+                        //_localSQLiteConnection.Commit();
+                        CommonCore.DebugMessage(methodName + " > dropped table");
+                    }
+
+                    if (dropResult.HasValue && !createResult.HasValue)
+                    {
+                        createResult = _localSQLiteConnection.CreateTable<ReasonCode>();
+                        //_localSQLiteConnection.Commit();
+                        CommonCore.DebugMessage(methodName + " > created table");
+                    }
+
+                    if (dropResult.HasValue && createResult.HasValue && !insertResult.HasValue)
+                    {
+                        insertResult = _localSQLiteConnection.InsertAll(newObjects);
+                        //_localSQLiteConnection.Commit();
+                        CommonCore.DebugMessage(methodName + " > inserted table");
+                    }
+                }
+                catch (Exception exc)
+                {
+                    CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
+                }
             }
 
-            // drop the existing table
-            _localSQLiteConnection.DropTable<ReasonCode>();
-            _localSQLiteConnection.CreateTable<ReasonCode>();
-            _localSQLiteConnection.InsertAll(newObjects); 
+            string message = "*** ReasonCode drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
+            CommonCore.DebugMessage(message);
         }
 
         /// <inheritdoc/>
         public List<CallType> GetSQLiteCallTypes()
         {
-            string methodName = "GetSQLiteCallTypes";
+            string methodName = _className + " > GetSQLiteCallTypes";
 
             List<CallType> objectList = new List<CallType>();
 
@@ -225,14 +257,12 @@
                 }
                 catch (ArgumentNullException e)
                 {
-                    CommonCore.DebugMessage(_className, methodName);
-                    CommonCore.DebugMessage(" > Table<T>() is NULL.");
+                    CommonCore.DebugMessage(methodName+ " > Table<T>() is NULL.");
                 }
             }
             else
             {
-                CommonCore.DebugMessage(_className, methodName);
-                CommonCore.DebugMessage(" > Table<T>().Count() = 0");
+                CommonCore.DebugMessage(methodName +" > Table<T>().Count() = 0");
             }
 
             return objectList;
@@ -241,16 +271,37 @@
         /// <inheritdoc/>
         public void UpdateSQLiteCallTypes(List<CallType> newObjects)
         {
-            // drop the existing table
-            _localSQLiteConnection.DropTable<CallType>();
-            _localSQLiteConnection.CreateTable<CallType>();
-            _localSQLiteConnection.InsertAll(newObjects);
+            string methodName = _className + " > UpdateSQLiteCallTypes";
+
+            try
+            {
+                // drop the existing table
+                int? dropResult = _localSQLiteConnection.DropTable<CallType>();
+                _localSQLiteConnection.Commit();
+                CommonCore.DebugMessage(methodName + " > dropped table");
+
+                int? createResult = _localSQLiteConnection.CreateTable<CallType>();
+                _localSQLiteConnection.Commit();
+                CommonCore.DebugMessage(methodName + " > created table");
+
+                int? insertResult = _localSQLiteConnection.InsertAll(newObjects);
+                _localSQLiteConnection.Commit();
+                CommonCore.DebugMessage(methodName + " > inserted table");
+
+                string message = "*** CallType drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
+                CommonCore.DebugMessage(message);
+            }
+            catch (Exception exc)
+            {
+                CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
+            }
         }
 
         /// <inheritdoc/>
         public List<EmailRecipient> GetSQLiteEmailRecipients()
         {
-            string methodName = "GetSQLiteEmailRecipients";
+            string methodName = _className + " > UpdateSQLiteEmailRecipients";
+
 
             List<EmailRecipient> objectList = new List<EmailRecipient>();
 
@@ -262,14 +313,12 @@
                 }
                 catch (ArgumentNullException e)
                 {
-                    CommonCore.DebugMessage(_className, methodName);
-                    CommonCore.DebugMessage(" > Table<T>() is NULL.");
+                    CommonCore.DebugMessage(methodName + " > Table<T>() is NULL.");
                 }
             }
             else
             {
-                CommonCore.DebugMessage(_className, methodName);
-                CommonCore.DebugMessage(" > Table<T>().Count() = 0");
+                CommonCore.DebugMessage(methodName + " > Table<T>().Count() = 0");
             }
 
             return objectList;
@@ -278,20 +327,47 @@
         /// <inheritdoc/>
         public void UpdateSQLiteEmailRecipients(List<EmailRecipient> newObjects)
         {
+            string methodName = _className + " > UpdateSQLiteEmailRecipients";
+
             try
             {
                 // drop the existing table
-                _localSQLiteConnection.DropTable<EmailRecipient>();
-                _localSQLiteConnection.CreateTable<EmailRecipient>();
-                _localSQLiteConnection.InsertAll(newObjects);
+                int? dropResult = _localSQLiteConnection.DropTable<EmailRecipient>();
+                _localSQLiteConnection.Commit();
+                CommonCore.DebugMessage(methodName + " > dropped table");
+
+                int? createResult = _localSQLiteConnection.CreateTable<EmailRecipient>();
+                _localSQLiteConnection.Commit();
+                CommonCore.DebugMessage(methodName + " > created table");
+
+                int? insertResult = _localSQLiteConnection.InsertAll(newObjects);
+                _localSQLiteConnection.Commit();
+                CommonCore.DebugMessage(methodName + " > inserted table");
+
+                string message = "*** EmailRecipient drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
+                CommonCore.DebugMessage(message);
+
             }
             catch (Exception exc)
             {
-                // FixMe: add proper error handling
-                Error(this, new ErrorEventArgs { Message = exc.Message });
+                CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
             }
         }
         #endregion
+
+        //public static bool TableExists(this ISQLiteConnection connection, string tableName)
+        //{
+        //    //string commandText = @"SELECT name FROM sqlite_master WHERE type='table' AND name='" + targetTableName + "'";
+        //    string commandText = @"SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='" + tableName + "'";
+        //    object[] ps = new object[0];
+
+        //    var cmd = connection.CreateCommand(commandText, ps);
+            
+
+        //    int tableCount = 0;
+        //    //tableCount = connection.Query()
+        //    return false;
+        //}
 
         public event EventHandler<ErrorEventArgs> Error;
     }

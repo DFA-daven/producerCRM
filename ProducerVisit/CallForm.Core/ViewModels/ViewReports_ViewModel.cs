@@ -130,12 +130,19 @@
                 // _targetURL = "http://dl-websvcs-test.dairydata.local:480";
                 _targetURL = "http://DL-WebSvcs-03:480";
 
+                
+
                 Loading = true;
                 semiStaticWebDataService.UpdateModels();
+
+                bool check = semiStaticWebDataService.FilesExist();
+                
                 Loading = false;
             }
             catch (Exception exc)
             {
+                CommonCore.DebugMessage(_className, exc.Message);
+
                 // FixMe: add proper error handling
                 Error(this, new ErrorEventArgs { Message = exc.Message });
             }

@@ -42,5 +42,7 @@
         /// <summary>Gets the object (model) tables from the web service, and updates the SQLite an/or XML file as required.
         /// </summary>
         void UpdateModels();
+
+        bool FilesExist();
     }
 }
