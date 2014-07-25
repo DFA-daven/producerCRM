@@ -59,6 +59,7 @@
             {
                 Placeholder = "enter asset tag information here...",
                 BackgroundColor = Common.controlBackgroundColor,
+                KeyboardType = UIKeyboardType.Default,
             };
 
             // ok button
@@ -84,11 +85,13 @@
             file3.SetTitle("ReasonCode", UIControlState.Disabled);
             file3.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
 
+            float space = 20;
+
             #region file status
             var fileStatusLayout = new LinearLayout(Orientation.Horizontal)
             {
-                Gravity = Gravity.TopLeft,
-                Spacing = 20,
+                Gravity = Gravity.TopCenter,
+                Spacing = space, 
                 SubViews = new View[]
                 {
                     new NativeView
@@ -96,11 +99,11 @@
                         View = file1,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = button.Frame.Width,
-                            Height = button.Frame.Height,
+                            Width = percentWidth(10),
+                            Height = space,
                             Weight = 3,
 
-                            Gravity = Gravity.TopLeft ,
+                            Gravity = Gravity.TopCenter ,
                         }
                     },
                     new NativeView
@@ -108,11 +111,11 @@
                         View = file2,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = button.Frame.Width,
-                            Height = button.Frame.Height,
+                            Width = percentWidth(10),
+                            Height = space,
                             Weight = 2,
 
-                            Gravity = Gravity.TopLeft ,
+                            Gravity = Gravity.TopCenter ,
                         }
                     },
                     new NativeView
@@ -120,13 +123,19 @@
                         View = file3,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = button.Frame.Width,
-                            Height = button.Frame.Height,
+                            Width = percentWidth(10),
+                            Height = space,
                             Weight = 1,
 
-                            Gravity = Gravity.TopLeft ,
+                            Gravity = Gravity.TopCenter ,
                         }
                     },
+                },
+                LayoutParameters = new LayoutParameters()
+                {
+                    Height = space + space,
+                    Gravity = Gravity.TopCenter,
+                    MaxHeight = space + space + space,
                 }
             };
 
@@ -134,27 +143,27 @@
             var fileStatusView = new UIView();
             fileStatusView = new UILayoutHost(fileStatusLayout)
             {
-                BackgroundColor = UIColor.White,
+                BackgroundColor = UIColor.LightGray, 
             };
 
-            fileStatusView.SizeToFit();   // tightly enclose the sub-views
+            //fileStatusView.SizeToFit();   // tightly enclose the sub-views
             #endregion
 
             // this view has an array of sub-views
             var pageLayout = new LinearLayout(Orientation.Vertical)
             {
                 Gravity = Gravity.TopCenter,
-                Spacing = 20,
+                Spacing = space,
                 SubViews = new View[]
                 {
                     // this "view" pushes the others down the page
                     new NativeView
                     {
-                        View = new UIView(),
+                        View = new UIView(){BackgroundColor = UIColor.Yellow},
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = fileStatusView.Frame.Width,
-                            Height = percentHeight(10),
+                            Width = space,
+                            Height = percentHeight(5),
                             Weight = 7,
 
                             Gravity = Gravity.TopCenter,
@@ -166,8 +175,8 @@
                         View = fileStatusView,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = fileStatusView.Frame.Width,
-                            Height = fileStatusView.Frame.Height,
+                            //Width = fileStatusView.Frame.Width,
+                            Height = space + space,
                             Weight = 6,
 
                             Gravity = Gravity.TopCenter ,
@@ -184,7 +193,7 @@
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = View.Frame.Width * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
-                            Weight = 5,
+                            Weight = 7,
 
                             Gravity = Gravity.TopCenter,
                         },
@@ -298,7 +307,6 @@
         {
             return calculatePercent(UIScreen.MainScreen.Bounds.Height, percent);
         }
-
 
         private float percentWidth(double percent)
         {
