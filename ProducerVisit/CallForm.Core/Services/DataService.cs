@@ -12,6 +12,44 @@
     public class DataService : IDataService
     {
         string _className = "CallForm.Core.Services.DataService";
+
+        private bool _callTypesTableIsBusy = false;
+        private bool _emailRecipientsTableIsBusy = false;
+        private bool _reasonCodesTableIsBusy = false;
+
+        //private bool _databaseIsAvailable = true;
+        //private bool _databaseIsBusy = false;
+
+        public bool DatabaseIsAvailable
+        {
+            get 
+            { 
+                return (!_callTypesTableIsBusy && !_emailRecipientsTableIsBusy && !_reasonCodesTableIsBusy); 
+            }
+        }
+
+        public bool DatabaseIsBusy
+        {
+            get { return (_callTypesTableIsBusy || _emailRecipientsTableIsBusy || _reasonCodesTableIsBusy); }
+        }
+
+        public bool CallTypesTableIsBusy
+        {
+            get { return _callTypesTableIsBusy; }
+            set { _callTypesTableIsBusy = value; }
+        }
+
+        public bool EmailRecipientsTableIsBusy
+        {
+            get { return _emailRecipientsTableIsBusy; }
+            set { _emailRecipientsTableIsBusy = value; }
+        }
+
+        public bool ReasonCodesTableIsBusy
+        {
+            get { return _reasonCodesTableIsBusy; }
+            set { _reasonCodesTableIsBusy = value; }
+        }
         
         /// <inheritdoc/>
         private readonly IUserIdentityService _userIdentityService;
@@ -181,7 +219,7 @@
         }
 
         /// <inheritdoc/>
-        public void UpdateSQLiteReasonCodes(List<ReasonCode> newObjects)
+        public int? UpdateSQLiteReasonCodes(List<ReasonCode> newObjects)
         {
             string methodName = _className + " > UpdateSQLiteReasonCodes";
 
@@ -206,40 +244,54 @@
             int? createResult = null;
             int? insertResult = null;
 
-            while (!dropResult.HasValue || !createResult.HasValue || !insertResult.HasValue)
+            while (!insertResult.HasValue || !createResult.HasValue || !dropResult.HasValue)
             {
-                try
+                if (DatabaseIsAvailable)
                 {
-                    if (!dropResult.HasValue)
+                    try
                     {
-                        // drop the existing table
-                        dropResult = _localSQLiteConnection.DropTable<ReasonCode>();
-                        //_localSQLiteConnection.Commit();
-                        CommonCore.DebugMessage(methodName + " > dropped table");
+                        if (!dropResult.HasValue)               // drop the existing table
+                        {
+                            ReasonCodesTableIsBusy = true;
+                            dropResult = _localSQLiteConnection.DropTable<ReasonCode>();
+                            // Review: does SQLite need Commit statements?
+                            //_localSQLiteConnection.Commit(); 
+                            CommonCore.DebugMessage(methodName + " > dropped table");
+                            ReasonCodesTableIsBusy = false;
+                        }
+                        else                                // table has been dropped
+                        {
+                            if (!createResult.HasValue)         // create new table
+                            {
+                                ReasonCodesTableIsBusy = true;
+                                createResult = _localSQLiteConnection.CreateTable<ReasonCode>();
+                                CommonCore.DebugMessage(methodName + " > created table");
+                                ReasonCodesTableIsBusy = false;
+                            }
+                            else                            // table was created
+                            {
+                                if (!insertResult.HasValue)     // insert rows
+                                {
+                                    ReasonCodesTableIsBusy = true;
+                                    insertResult = _localSQLiteConnection.InsertAll(newObjects);
+                                    CommonCore.DebugMessage(methodName + " > inserted table");
+                                    ReasonCodesTableIsBusy = false;
+                                }
+                            }
+                        }
                     }
-
-                    if (dropResult.HasValue && !createResult.HasValue)
+                    catch (Exception exc)
                     {
-                        createResult = _localSQLiteConnection.CreateTable<ReasonCode>();
-                        //_localSQLiteConnection.Commit();
-                        CommonCore.DebugMessage(methodName + " > created table");
+                        CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
                     }
-
-                    if (dropResult.HasValue && createResult.HasValue && !insertResult.HasValue)
-                    {
-                        insertResult = _localSQLiteConnection.InsertAll(newObjects);
-                        //_localSQLiteConnection.Commit();
-                        CommonCore.DebugMessage(methodName + " > inserted table");
-                    }
-                }
-                catch (Exception exc)
-                {
-                    CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
                 }
             }
 
-            string message = "*** ReasonCode drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
+            string message = methodName + " >  drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
             CommonCore.DebugMessage(message);
+
+            //int result = insertResult.HasValue ? (int)insertResult : -1;
+            return insertResult;
         }
 
         /// <inheritdoc/>
@@ -269,32 +321,60 @@
         }
 
         /// <inheritdoc/>
-        public void UpdateSQLiteCallTypes(List<CallType> newObjects)
+        public int? UpdateSQLiteCallTypes(List<CallType> newObjects)
         {
             string methodName = _className + " > UpdateSQLiteCallTypes";
 
-            try
+            // create nullable-ints
+            int? dropResult = null;
+            int? createResult = null;
+            int? insertResult = null;
+
+            while (!insertResult.HasValue || !createResult.HasValue || !dropResult.HasValue)
             {
-                // drop the existing table
-                int? dropResult = _localSQLiteConnection.DropTable<CallType>();
-                _localSQLiteConnection.Commit();
-                CommonCore.DebugMessage(methodName + " > dropped table");
-
-                int? createResult = _localSQLiteConnection.CreateTable<CallType>();
-                _localSQLiteConnection.Commit();
-                CommonCore.DebugMessage(methodName + " > created table");
-
-                int? insertResult = _localSQLiteConnection.InsertAll(newObjects);
-                _localSQLiteConnection.Commit();
-                CommonCore.DebugMessage(methodName + " > inserted table");
-
-                string message = "*** CallType drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
-                CommonCore.DebugMessage(message);
+                if (DatabaseIsAvailable)
+                {
+                    try
+                    {
+                        if (!dropResult.HasValue)               // drop the existing table
+                        {
+                            CallTypesTableIsBusy = true;
+                            dropResult = _localSQLiteConnection.DropTable<CallType>();
+                            CommonCore.DebugMessage(methodName + " > dropped table");
+                            CallTypesTableIsBusy = false;
+                        }
+                        else                                // table has been dropped
+                        {
+                            if (!createResult.HasValue)         // create new table
+                            {
+                                CallTypesTableIsBusy = true;
+                                createResult = _localSQLiteConnection.CreateTable<CallType>();
+                                CommonCore.DebugMessage(methodName + " > created table");
+                                CallTypesTableIsBusy = false;
+                            }
+                            else                            // table was created
+                            {
+                                if (!insertResult.HasValue)     // insert rows
+                                {
+                                    CallTypesTableIsBusy = true;
+                                    insertResult = _localSQLiteConnection.InsertAll(newObjects);
+                                    CommonCore.DebugMessage(methodName + " > inserted table");
+                                    CallTypesTableIsBusy = false;
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception exc)
+                    {
+                        CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
+                    }
+                }
             }
-            catch (Exception exc)
-            {
-                CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
-            }
+
+            string message = methodName + " >  drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
+            CommonCore.DebugMessage(message);
+
+            return insertResult;
         }
 
         /// <inheritdoc/>
@@ -325,33 +405,60 @@
         }
 
         /// <inheritdoc/>
-        public void UpdateSQLiteEmailRecipients(List<EmailRecipient> newObjects)
+        public int? UpdateSQLiteEmailRecipients(List<EmailRecipient> newObjects)
         {
             string methodName = _className + " > UpdateSQLiteEmailRecipients";
 
-            try
+            // create nullable-ints
+            int? dropResult = null;
+            int? createResult = null;
+            int? insertResult = null;
+
+            while (!insertResult.HasValue || !createResult.HasValue || !dropResult.HasValue)
             {
-                // drop the existing table
-                int? dropResult = _localSQLiteConnection.DropTable<EmailRecipient>();
-                _localSQLiteConnection.Commit();
-                CommonCore.DebugMessage(methodName + " > dropped table");
-
-                int? createResult = _localSQLiteConnection.CreateTable<EmailRecipient>();
-                _localSQLiteConnection.Commit();
-                CommonCore.DebugMessage(methodName + " > created table");
-
-                int? insertResult = _localSQLiteConnection.InsertAll(newObjects);
-                _localSQLiteConnection.Commit();
-                CommonCore.DebugMessage(methodName + " > inserted table");
-
-                string message = "*** EmailRecipient drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
-                CommonCore.DebugMessage(message);
-
+                if (DatabaseIsAvailable)
+                {
+                    try
+                    {
+                        if (!dropResult.HasValue)               // drop the existing table
+                        {
+                            EmailRecipientsTableIsBusy = true;
+                            dropResult = _localSQLiteConnection.DropTable<EmailRecipient>();
+                            CommonCore.DebugMessage(methodName + " > dropped table");
+                            EmailRecipientsTableIsBusy = false;
+                        }
+                        else                                // table has been dropped
+                        {
+                            if (!createResult.HasValue)         // create new table
+                            {
+                                EmailRecipientsTableIsBusy = true;
+                                createResult = _localSQLiteConnection.CreateTable<EmailRecipient>();
+                                CommonCore.DebugMessage(methodName + " > created table");
+                                EmailRecipientsTableIsBusy = false;
+                            }
+                            else                            // table was created
+                            {
+                                if (!insertResult.HasValue)     // insert rows
+                                {
+                                    EmailRecipientsTableIsBusy = true;
+                                    insertResult = _localSQLiteConnection.InsertAll(newObjects);
+                                    CommonCore.DebugMessage(methodName + " > inserted table");
+                                    EmailRecipientsTableIsBusy = false;
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception exc)
+                    {
+                        CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
+                    }
+                }
             }
-            catch (Exception exc)
-            {
-                CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
-            }
+
+            string message = methodName + " >  drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
+            CommonCore.DebugMessage(message);
+
+            return insertResult;
         }
         #endregion
 

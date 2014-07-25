@@ -328,7 +328,7 @@
 
         private void RestException(Exception exception)
         {
-            CommonCore.DebugMessage(_className, "RestException");
+            CommonCore.DebugMessage(_className, "RestExceptionMessage");
             CommonCore.DebugMessage(" > Original request: " + Request);
             CommonCore.DebugMessage(" > Exception message: " + exception.Message);
         }

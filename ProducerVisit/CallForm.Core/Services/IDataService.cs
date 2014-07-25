@@ -49,7 +49,7 @@ namespace CallForm.Core.Services
         /// <summary>Opens the SQLite database, and replaces the <see cref="ReasonCode"/> table.
         /// </summary>
         /// <param name="newObjects">A new List&lt;<see cref="ReasonCode"/>>.</param>
-        void UpdateSQLiteReasonCodes(List<ReasonCode> newObjects);
+        int? UpdateSQLiteReasonCodes(List<ReasonCode> newObjects);
 
         /// <summary>Opens the SQLite database, gets all <see cref="CallType"/>.
         /// </summary>
@@ -59,7 +59,7 @@ namespace CallForm.Core.Services
         /// <summary>Opens the SQLite database, and replaces the <see cref="CallType"/> table.
         /// </summary>
         /// <param name="newObjects">A new List&lt;<see cref="CallType"/>>.</param>
-        void UpdateSQLiteCallTypes(List<CallType> newObjects);
+        int? UpdateSQLiteCallTypes(List<CallType> newObjects);
 
         /// <summary>Opens the SQLite database, gets all <see cref="EmailRecipient"/>.
         /// </summary>
@@ -69,6 +69,6 @@ namespace CallForm.Core.Services
         /// <summary>Opens the SQLite database, and replaces the <see cref="EmailRecipient"/> table.
         /// </summary>
         /// <param name="newObjects">A new List&lt;<see cref="EmailRecipient"/>>.</param>
-        void UpdateSQLiteEmailRecipients(List<EmailRecipient> newObjects);
+        int? UpdateSQLiteEmailRecipients(List<EmailRecipient> newObjects);
     }
 }

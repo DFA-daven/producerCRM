@@ -158,8 +158,8 @@
 
         private void RestException(Exception exception)
         {
-            // ToDo: this instance of RestException is for a single call -- it can be customized.
-            CommonCore.DebugMessage(_className, "RestException()");
+            // ToDo: this instance of RestExceptionMessage is for a single call -- it can be customized.
+            CommonCore.DebugMessage(_className, "RestExceptionMessage()");
             CommonCore.DebugMessage(" > Original request: " + Request);
             CommonCore.DebugMessage(" > Exception message: " + exception.Message);
         }
