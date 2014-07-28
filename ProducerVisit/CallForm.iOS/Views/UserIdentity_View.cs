@@ -36,6 +36,9 @@
 
             InvokeOnMainThread(() => { new UIAlertView("starting method...", MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name, null, "OK").Show(); });
 
+            float space = 20;
+
+            #region controls
             // instructions for the inputs
             var instructions = new UILabel
             {
@@ -51,7 +54,6 @@
                 Placeholder = "type email address here...",
                 BackgroundColor = Common.controlBackgroundColor,
                 KeyboardType = UIKeyboardType.EmailAddress,
-                
             };
 
             // asset tag field
@@ -64,12 +66,13 @@
 
             // ok button
             var button = new UIButton(UIButtonType.System);
-                button.SetTitle("OK", UIControlState.Normal);
-                button.SetTitle("OK", UIControlState.Disabled);
-                button.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-                //button.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleBottomMargin;
-                button.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-
+            button.SetTitle("OK", UIControlState.Normal);
+            button.SetTitle("OK", UIControlState.Disabled);
+            button.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            //button.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleBottomMargin;
+            button.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
+            
+            #region files
             var file1 = new UIButton(UIButtonType.System);
             file1.SetTitle("CallType", UIControlState.Normal);
             file1.SetTitle("CallType", UIControlState.Disabled);
@@ -84,8 +87,10 @@
             file3.SetTitle("ReasonCode", UIControlState.Normal);
             file3.SetTitle("ReasonCode", UIControlState.Disabled);
             file3.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            #endregion files
+            #endregion controls
 
-            float space = 20;
+
 
             #region file status
             var fileStatusLayout = new LinearLayout(Orientation.Horizontal)
@@ -143,7 +148,7 @@
             var fileStatusView = new UIView();
             fileStatusView = new UILayoutHost(fileStatusLayout)
             {
-                BackgroundColor = UIColor.LightGray, 
+                //BackgroundColor = UIColor.LightGray, 
             };
 
             //fileStatusView.SizeToFit();   // tightly enclose the sub-views
@@ -159,7 +164,10 @@
                     // this "view" pushes the others down the page
                     new NativeView
                     {
-                        View = new UIView(){BackgroundColor = UIColor.Yellow},
+                        View = new UIView()
+                        {
+                            //BackgroundColor = UIColor.Yellow,
+                        },
                         LayoutParameters = new LayoutParameters()
                         {
                             Width = space,
@@ -292,6 +300,24 @@
             set.Bind(assetTag).To(vm => vm.AssetTag);
             set.Bind(button).To(vm => vm.SaveCommand);
             set.Apply();
+
+            email.ShouldReturn = delegate
+            {
+                // keep keyboard open; shift input to the next field
+                assetTag.BecomeFirstResponder();
+                return true;
+            };
+
+            assetTag.ShouldReturn = delegate
+            {
+                // close the keyboard
+                assetTag.ResignFirstResponder();
+                return true;
+            };
+
+            // keyboard should disappear if user taps outside of a textbox
+            var goAway = new UITapGestureRecognizer(() => View.EndEditing(true));
+            View.AddGestureRecognizer(goAway);
 
             Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common.DebugMessage(" > ...finished method.");
