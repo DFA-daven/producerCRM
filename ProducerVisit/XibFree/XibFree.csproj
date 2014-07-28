@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;__IOS__;__MOBILE__;</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;__IOS__;__MOBILE__;__DEBUG__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -68,6 +68,7 @@
       </CustomCommands>
     </CustomCommands>
     <DocumentationFile>bin\Release\XibFree.XML</DocumentationFile>
+    <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;RELEASE;</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

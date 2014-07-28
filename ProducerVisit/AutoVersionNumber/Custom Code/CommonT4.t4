@@ -14,7 +14,6 @@
 	private static string bundleTitle = "producercrm";
 	private static string company = "Dairylea Cooperative, Inc.";
 
-
 // Assembly Identity Attributes
 // Three attributes, together with a strong name (if applicable), determine the
 // identity of an assembly: name, version, and culture. These attributes form 
@@ -93,6 +92,20 @@
 	{
 		int revisionNumber = (int)Math.Floor((DateTime.Now - DateTime.Today).TotalSeconds / 5);
 		return revisionNumber.ToString();
+	}
+
+	public string GetConfig() 
+	{
+		string config = "unknown";
+#if (__DEBUG__)
+  config = "__DEBUG__";
+#endif
+
+#if (DEBUG)
+  config = "DEBUG";
+#endif
+
+		return config;
 	}
 
 #>

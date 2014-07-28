@@ -1,0 +1,20 @@
+﻿**err.log**
+The iOS Simulator creates an error log at the following location:
+
+~/macmini/Library/Logs/Xamarin/MonoTouchVS/Simulator/CallFormiOS/[GUID]/err.log
+
+Output from System.Diagnostics.Debug.Writeline() is written to this file.
+
+**mtbserver.log**
+The MonoTouch Build server log is located at:
+
+~/macmini/Library/Logs/Xamarin/MonoTouchVS/mtbserver.log
+
+mtbserver.log lists communications with Visual Studio.
+
+**mtbservergui.log**
+The MonoTouch Build server GUI log is located at:
+
+~/macmini/Library/Logs/Xamarin/MonoTouchVS/mtbservergui.log
+
+mtbservergui.log is mostly concerned with build server license issues.

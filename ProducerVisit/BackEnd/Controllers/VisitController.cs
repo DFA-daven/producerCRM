@@ -31,17 +31,9 @@
             //ViewBag.EntityNumber = _webMemberDatabaseConnection.Database.SqlQuery<string>("mySpName {0}, {1}, {2}", new object[] { param1, param2, param3 });
             //ViewBag.EntityNumber = _webMemberDatabaseConnection.Database.SqlQuery<En>("SELECT TABLE_NAME FROM information_schema.tables WHERE TABLE_NAME LIKE '%{0}%'", new object[] { "Call" });
 
-            string source = string.Empty;
-            source = _webProducerCrmDatabaseConnection.Database.Connection.DataSource;
-            if (_webProducerCrmDatabaseConnection.Database.Connection.DataSource.Contains(":"))
-            {
-                // DataSource could be TCP:server.name.net,1433
-                source = _webProducerCrmDatabaseConnection.Database.Connection.DataSource.Split(':')[1];
-            }
+            ViewBag.DatabaseSource = DatabaseSource();
 
-            ViewBag.DatabaseSource = source.Split('.')[0]; // just the left-most part of the address
-            ViewBag.DatabaseSource = source.Split(',')[0]; // drop the port number, in case the address was only the machine name
-            ViewBag.Database = _webProducerCrmDatabaseConnection.Database.Connection.Database;
+            ViewBag.Database = DatabaseName();
 
             string connectionString = GetConnectionStringByProvider("System.Data.SqlClient");
             DbConnection connection = CreateDbConnection("System.Data.SqlClient", connectionString);
@@ -52,6 +44,53 @@
 
 
             return View();
+        }
+
+        private string DatabaseSource()
+        {
+            string source = string.Empty;
+
+            source = _webProducerCrmDatabaseConnection.Database.Connection.DataSource;
+
+            if (source.Contains(":"))
+            {
+                // DataSource could be TCP:server.name.net,1433
+                source = source.Split(':')[1];
+            }
+
+            source = source.Split('.')[0]; // just the left-most part of the address
+            source = source.Split(',')[0]; // drop the port number, in case the address was only the machine name
+
+#if ALPHA
+    source += " (ALPHA)";
+#elif BETA
+    source += " (BETA)";
+#elif RELEASE
+	source = "Production";
+#elif DEBUG
+            source += " (DEBUG)";
+#endif
+
+            return source;
+        }
+
+        private string DatabaseName()
+        {
+            string name = string.Empty;
+
+            name = _webProducerCrmDatabaseConnection.Database.Connection.Database;
+
+#if ALPHA
+    name += " (ALPHA)";
+#elif BETA
+    name += " (BETA)";
+#elif RELEASE
+            name = "Production";
+#elif DEBUG
+            name += " (DEBUG)";
+#endif
+
+            return name;
         }
 
         /// <summary>Composes the Summary (default) page.

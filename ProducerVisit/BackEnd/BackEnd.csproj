@@ -27,7 +27,7 @@
     <Optimize>false</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>doc\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;__DEBUG__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>doc\BackEnd.XML</DocumentationFile>
@@ -58,6 +58,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>BackEnd.xml</DocumentationFile>
+    <DefineConstants>RELEASE;__RELEASE__;</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DairyleaDataAccessLayer">

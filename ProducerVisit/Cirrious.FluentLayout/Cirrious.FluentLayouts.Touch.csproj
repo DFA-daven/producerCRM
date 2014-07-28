@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
-    <DefineConstants>TRACE;__IOS__;__MOBILE__;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;__IOS__;__MOBILE__;__DEBUG__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -35,6 +35,7 @@
     <MtouchLink>None</MtouchLink>
     <DocumentationFile>
     </DocumentationFile>
+    <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;RELEASE;</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AdvancedFluentLayoutExtensions.cs" />

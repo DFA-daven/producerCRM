@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>doc\</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>__DEBUG__;DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -51,8 +51,7 @@
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>doc\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>__RELEASE__;RELEASE;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>CallFormCore.xml</DocumentationFile>

@@ -19,17 +19,18 @@ using System.Runtime.InteropServices;
 // Major and minor version are hard-coded.
 // Build number is: [two-digit year][three-digit day-of-year]
 // Revision is: the number of seconds since midnight (divided by 5)
-[assembly: AssemblyVersion("1.4.14205.13293")]
-[assembly: AssemblyFileVersion("1.4.14205.13293")]
+[assembly: AssemblyVersion("1.4.14209.11005")]
+[assembly: AssemblyFileVersion("1.4.14209.11005")]
 
 [assembly: AssemblyProduct("ProducerCRM")]
 [assembly: AssemblyCompany("Dairylea Cooperative, Inc.")]
 [assembly: AssemblyCopyright("Copyright © 2013-2014 Dairylea Cooperative, Inc. All Rights Reserved.")]
 
-// did not find debug 
-// did not find trace
-// did not find beta 
-// did not find Alpha 
-// did not find AlphaConfig 
+// did not find DEBUG 
+// did not find __DEBUG__ 
+// did not find TRACE
+// did not find BETA 
+// did not find ALPHA 
+// did not find RELEASE 
 [assembly: AssemblyConfiguration("Release")]
 

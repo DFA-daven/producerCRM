@@ -37,36 +37,43 @@ using System.Runtime.InteropServices;
 <#
 // note: if debug is true in the t4 header, this will always evaluate to DEBUG
 #if DEBUG
-  WriteLine("// found debug ");
+  WriteLine("// found DEBUG ");
 #else
-  WriteLine("// did not find debug ");
+  WriteLine("// did not find DEBUG ");
+#endif
+
+#if __DEBUG__
+  WriteLine("// found __DEBUG__ ");
+#else
+  WriteLine("// did not find __DEBUG__ ");
 #endif
 
 #if (TRACE)
-  WriteLine("// found trace");
+  WriteLine("// found TRACE");
 #else
-  WriteLine("// did not find trace");
+  WriteLine("// did not find TRACE");
 #endif
 
 #if BETA
-  WriteLine("// found beta ");
+  WriteLine("// found BETA ");
 #else
-  WriteLine("// did not find beta ");
+  WriteLine("// did not find BETA ");
 #endif
 
 #if ALPHA
-  WriteLine("// found Alpha ");
+  WriteLine("// found ALPHA ");
 #else
-  WriteLine("// did not find Alpha ");
+  WriteLine("// did not find ALPHA ");
 #endif
 
-#if AlphaConfig
-  WriteLine("// found AlphaConfig ");
+#if (RELEASE)
+  WriteLine("// found RELEASE ");
 #else
-  WriteLine("// did not find AlphaConfig ");
+  WriteLine("// did not find RELEASE ");
 #endif
 
-#if (DEBUG)
+
+#if (__DEBUG__)
   #if (TRACE)
 	WriteLine("[assembly: AssemblyConfiguration(\"Testing\")]");
   #else

@@ -115,7 +115,6 @@ Global
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|Any CPU.Build.0 = Debug|iPhone
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|iPhone.Build.0 = Debug|iPhone
-		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|iPhone.Deploy.0 = Debug|iPhone
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{3E2D137A-0844-444E-9AD5-8888815EDDAD}.Debug|iPhoneSimulator.Deploy.0 = Debug|iPhoneSimulator

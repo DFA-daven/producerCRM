@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;__IOS__;__MOBILE__;</DefineConstants>
+    <DefineConstants>TRACE;__IOS__;__MOBILE__;__DEBUG__;DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -47,10 +47,10 @@
     <IpaMetadata />
     <IpaPackageName />
     <MtouchSdkVersion>7.1</MtouchSdkVersion>
-    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchLink>Full</MtouchLink>
     <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs />
-    <MtouchFastDev>True</MtouchFastDev>
+    <MtouchFastDev>False</MtouchFastDev>
     <MtouchArch>Default, ARMv7</MtouchArch>
     <MtouchUseLlvm>False</MtouchUseLlvm>
     <MtouchUseThumb>False</MtouchUseThumb>
@@ -157,13 +157,14 @@
     <DocumentationFile>bin\iPhone\Release\CallForm.iOS.xml</DocumentationFile>
     <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
     <MtouchI18n />
+    <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;RELEASE;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>doc\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;__IOS__;__MOBILE__;</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;__IOS__;__MOBILE__;__DEBUG__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -256,6 +257,7 @@
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <MtouchI18n />
     <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
+    <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AutoVersionNumber\GlobalAssemblyVersion.cs">

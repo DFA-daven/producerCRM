@@ -37,7 +37,7 @@
     <Optimize>false</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>doc\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;__DEBUG__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>doc\AutoVersionNumber.XML</DocumentationFile>
@@ -74,6 +74,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>AutoVersionNumber.xml</DocumentationFile>
+    <DefineConstants>__RELEASE__;RELEASE;</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -134,6 +134,7 @@
     <Content Include="App Deployment Checklist.mkd" />
     <Content Include="Build instructions.txt" />
     <Content Include="Deploy instructions.txt" />
+    <Content Include="Log file locations.txt" />
     <Content Include="Simulator instructions.txt" />
   </ItemGroup>
   <ItemGroup>
