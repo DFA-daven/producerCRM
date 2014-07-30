@@ -29,6 +29,7 @@ namespace CallForm.Core.Services
                 _latestLocation = location;
             }
 
+            // Review: https://github.com/rafaelsteil/MvvmCross-Wiki/blob/master/MvvmCross-plugins.md#location
             var message = new LocationMessage(this,
                                 location.Coordinates.Latitude,
                                 location.Coordinates.Longitude);
