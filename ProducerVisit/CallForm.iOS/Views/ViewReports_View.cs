@@ -124,7 +124,7 @@
             // this layout is composed of "rows"
             var logoLayout = _logoLinearLayout = new LinearLayout(Orientation.Vertical)
             {
-                Gravity = Gravity.CenterVertical,
+                Gravity = Gravity.TopCenter,
                 Spacing = 20,
                 SubViews = new View[]
                 {
@@ -133,11 +133,11 @@
                         View = logoButton,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = logoButton.Frame.Width,
-                            Height = logoButton.Frame.Height, 
-                            Weight = 3,
+                            //Width = logoButton.Frame.Width,
+                            //Height = logoButton.Frame.Height, 
+                            //Weight = 3,
 
-                            //Gravity = Gravity.TopCenter,
+                            Gravity = Gravity.TopCenter,
                         }
                     },
                     new NativeView
@@ -188,19 +188,19 @@
                     return replacementString.Length <= 0 || int.TryParse(replacementString, out i);
                 },
                 //Font = UIFont.SystemFontOfSize(20),
-                //Frame = new RectangleF(percentWidth(leftControlOriginPercent), bannerBottom(), controlWidth(), controlHeight()),
+                Frame = new RectangleF(percentWidth(leftControlOriginPercent), bannerBottom(), controlWidth(), controlHeight()),
                 BackgroundColor = Common.controlBackgroundColor,
             };
             filterField.VerticalAlignment = UIControlContentVerticalAlignment.Center;
 
             var findButton = _findButton = new UIButton(UIButtonType.Custom);
-            //findButton.Frame = new RectangleF(percentWidth(middleControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
+            findButton.Frame = new RectangleF(percentWidth(middleControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             findButton.SetTitle("Refresh", UIControlState.Normal);
             findButton.BackgroundColor = Common.viewBackgroundColor;
 
             // ToDo: move the newButton up onto the bar using UIBarButtonItemStyle
             var newButton = _newButton = new UIButton(UIButtonType.Custom);
-            //newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
+            newButton.Frame = new RectangleF(percentWidth(rightControlOriginPercent), bannerBottom(), controlWidth(), controlHeight());
             newButton.SetTitle("New", UIControlState.Normal);
             // ToDo: scale the image so it fits in the control
             var plusSign = UIImage.FromBundle("Add.png");
@@ -291,10 +291,10 @@
             //View.Add(logoLayout);
             //View.Add(logoView);
 
-            //View.Add(filterField);
-            //View.Add(findButton);
-            //View.Add(newButton);
-            View.Add(buttonView);
+            View.Add(filterField);
+            View.Add(findButton);
+            View.Add(newButton);
+            //View.Add(buttonView);
 
             View.Add(tableView);
            
@@ -308,19 +308,16 @@
             //   window.RootViewController = controller;
             // in AppDelegate.cs.
             var set = this.CreateBindingSet<ViewReports_View, ViewReports_ViewModel>();
-
-            findButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
-
             set.Bind(filterField).To(vm => vm.Filter);
             set.Bind(findButton).To(vm => vm.GetReportsCommand);
-            set.Bind(newButton).To(vm => vm.NewVisitCommand);
-
             //set.Bind(loading).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
             set.Bind(loadingOverlay).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
             
             set.Bind(tableView).For("Visibility").To(vm => vm.Loading).WithConversion("InvertedVisibility");
+            set.Bind(newButton).To(vm => vm.NewVisitCommand);
             set.Apply();
 
+            findButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
 
             (ViewModel as ViewReports_ViewModel).Error += OnError;
 
