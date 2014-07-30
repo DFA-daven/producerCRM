@@ -6,44 +6,44 @@ namespace CallForm.iOS.ViewElements
 {
     class TextView_TableViewCell : UITableViewCell
     {
-        private readonly UITextView _textField;
+        private readonly UITextView _textView;
 
         public TextView_TableViewCell(string cellID, bool editing, string text, EventHandler didChange)
             : base(UITableViewCellStyle.Value1, cellID)
         {
-            _textField = new UITextView
+            _textView = new UITextView
             {
                 Text = text,
                 TextColor = UIColor.Black,
                 Editable = editing,
             };
-            _textField.Changed += didChange;
-            //_textField.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize + 2);
-            _textField.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize);
+            _textView.Changed += didChange;
+            //_textView.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize + 2);
+            _textView.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize);
             // ToDo: replace AddSubview() with Add()
-            ContentView.AddSubview(_textField);
+            ContentView.AddSubview(_textView);
         }
 
         public void Edit()
         {
-            _textField.BecomeFirstResponder();
+            _textView.BecomeFirstResponder();
         }
 
         public void SetText(string text)
         {
-            _textField.Text = text;
+            _textView.Text = text;
         }
 
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
             DetailTextLabel.TextColor = UIColor.Clear;
-            _textField.Frame = new RectangleF(TextLabel.Bounds.Width + 20, 5, ContentView.Bounds.Width - TextLabel.Bounds.Width - 25, 100);
+            _textView.Frame = new RectangleF(TextLabel.Bounds.Width + 20, 5, ContentView.Bounds.Width - TextLabel.Bounds.Width - 25, 100);
         }
 
         public void HideKeyboard()
         {
-            _textField.ResignFirstResponder();
+            _textView.ResignFirstResponder();
         }
     }
 }
