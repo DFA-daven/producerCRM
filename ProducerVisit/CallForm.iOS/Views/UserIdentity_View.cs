@@ -15,7 +15,8 @@
     public class UserIdentity_View : MvxViewController, IMvxModalTouchView
     {
         #region Properties
-        string _nameSpace = "CallForm.iOS.";
+        string _namespace = "CallForm.iOS.";
+        //string _namespace = "CallForm.iOS.Views.UserIdentity_View";
         #endregion
 
         /// <summary>Specify that this View should *not* be displayed beneath the
@@ -31,10 +32,10 @@
 
         public override void ViewDidLoad()
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common.DebugMessage(" > starting method...");
 
-            InvokeOnMainThread(() => { new UIAlertView("starting method...", MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name, null, "OK").Show(); });
+            //InvokeOnMainThread(() => { new UIAlertView("starting method...", MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name, null, "OK").Show(); });
 
             float space = 20;
 
@@ -301,26 +302,43 @@
             set.Bind(button).To(vm => vm.SaveCommand);
             set.Apply();
 
-            email.ShouldReturn = delegate
-            {
-                // keep keyboard open; shift input to the next field
-                assetTag.BecomeFirstResponder();
-                return true;
-            };
+            //email.ShouldReturn = delegate
+            //{
+            //    // keep keyboard open; shift input to the next field
+            //    assetTag.BecomeFirstResponder();
+            //    return true;
+            //};
 
-            assetTag.ShouldReturn = delegate
-            {
-                // close the keyboard
-                assetTag.ResignFirstResponder();
-                return true;
-            };
+            //assetTag.ShouldReturn = delegate
+            //{
+            //    // close the ke757rd
+            //    assetTag.ResignFirstResponder();
+            //    return true;
+            //};
 
-            // keyboard should disappear if user taps outside of a textbox
-            var goAway = new UITapGestureRecognizer(() => View.EndEditing(true));
-            View.AddGestureRecognizer(goAway);
+            //// keyboard should disappear if user taps outside of a textbox
+            //var goAway = new UITapGestureRecognizer(() => View.EndEditing(true));
+            //View.AddGestureRecognizer(goAway);
 
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common.DebugMessage(" > ...finished method.");
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            Common.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
+            base.ViewDidLayoutSubviews();
+
+            /*
+             * Note: the TopLayoutGuide and BottomLayoutGuide values are generated dynamically AFTER
+             * the View has been added to the hierarchy, so attempting to read them in ViewDidLoad will return 0. 
+             * So, calculate the value after the View has loaded, for example here in ViewDidLoadSubviews.
+             */
+            /*
+             * Note: EdgesForExtendedLayout may allow this app to display, but using TopLayoutGuide
+             * and BottomLayoutGuide are preferred since they allow the app to meet the iOS 7 design goals.
+             */
         }
 
         private float screenWidth()

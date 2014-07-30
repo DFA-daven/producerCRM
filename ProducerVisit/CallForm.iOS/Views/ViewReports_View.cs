@@ -208,9 +208,9 @@
             newButton.SetImage(UIImage.FromBundle("Add.png"), UIControlState.Normal);
             newButton.BackgroundColor = Common.viewBackgroundColor;
 
-            var buttonLayout = _buttonLinearLayout = new LinearLayout(Orientation.Vertical)
+            var buttonLayout = _buttonLinearLayout = new LinearLayout(Orientation.Horizontal)
             {
-                Gravity = Gravity.CenterHorizontal ,
+                Gravity = Gravity.TopLeft ,
                 Spacing = 20,
                 SubViews = new View[]
                 {
@@ -219,7 +219,8 @@
                         View = filterField,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Weight = 3,
+                            Width = percentWidth(25),
+                            Weight = 1,
 
                             Gravity = Gravity.TopLeft ,
                         }
@@ -229,7 +230,8 @@
                         View = findButton,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Weight = 2,
+                            Width = percentWidth(25),
+                            Weight = 1,
 
                             Gravity = Gravity.TopCenter ,
                         }
@@ -240,6 +242,7 @@
                         View = newButton,
                         LayoutParameters = new LayoutParameters()
                         {
+                            Width = percentWidth(25),
                             Weight = 1,
 
                             Gravity = Gravity.TopRight,
@@ -255,7 +258,7 @@
                 BackgroundColor = UIColor.White,
             };
 
-            buttonView.SizeToFit();   // tightly enclose the sub-views
+            //buttonView.SizeToFit();   // tightly enclose the sub-views
             #endregion
 
             #region table
@@ -284,14 +287,14 @@
 
 
 
-            View.Add(logoButton);
+            //View.Add(logoButton);
             //View.Add(logoLayout);
             //View.Add(logoView);
 
-            View.Add(filterField);
-            View.Add(findButton);
-            View.Add(newButton);
-            //View.Add(buttonView);
+            //View.Add(filterField);
+            //View.Add(findButton);
+            //View.Add(newButton);
+            View.Add(buttonView);
 
             View.Add(tableView);
            
@@ -305,16 +308,19 @@
             //   window.RootViewController = controller;
             // in AppDelegate.cs.
             var set = this.CreateBindingSet<ViewReports_View, ViewReports_ViewModel>();
+
+            findButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
+
             set.Bind(filterField).To(vm => vm.Filter);
             set.Bind(findButton).To(vm => vm.GetReportsCommand);
+            set.Bind(newButton).To(vm => vm.NewVisitCommand);
+
             //set.Bind(loading).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
             set.Bind(loadingOverlay).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");
             
             set.Bind(tableView).For("Visibility").To(vm => vm.Loading).WithConversion("InvertedVisibility");
-            set.Bind(newButton).To(vm => vm.NewVisitCommand);
             set.Apply();
 
-            findButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
 
             (ViewModel as ViewReports_ViewModel).Error += OnError;
 
