@@ -273,10 +273,6 @@
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="DebugTrace.cs" />
-    <Compile Include="iPadViewController.cs" />
-    <Compile Include="iPadViewController.designer.cs">
-      <DependentUpon>iPadViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
@@ -298,7 +294,6 @@
     <None Include="App.config" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <InterfaceDefinition Include="iPadViewController.storyboard" />
     <None Include="packages.config" />
     <None Include="Views\UserIdentity_View.docx" />
   </ItemGroup>
