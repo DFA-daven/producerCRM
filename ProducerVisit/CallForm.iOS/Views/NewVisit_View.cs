@@ -244,6 +244,9 @@ namespace CallForm.iOS.Views
         {
             InvokeOnMainThread(() =>
             {
+                // Note: The Navigation Controller is a UI-less View Controller responsible for
+                // managing a stack of View Controllers and provides tools for navigation, such 
+                // as a navigation bar with a back button.
                 DismissViewController(true, null);
                 if (sender == null)
                 {

@@ -25,9 +25,25 @@ namespace CallForm.iOS
     {
         #region class-level declarations
         UIWindow _window;
+
+        // Note: The Navigation Controller is a UI-less View Controller responsible for
+        // managing a stack of View Controllers and provides tools for navigation, such 
+        // as a navigation bar with a back button.
         UINavigationController _navController;
         UINavigationBar _navigationBar;
         string _nameSpace = "CallForm.iOS.";
+
+        public override UIWindow Window
+        {
+            get
+            {
+                return base.Window;
+            }
+            set
+            {
+                base.Window = value;
+            }
+        }
         #endregion
 
         /// <summary>Defines actions to occur after FinishedLaunching.

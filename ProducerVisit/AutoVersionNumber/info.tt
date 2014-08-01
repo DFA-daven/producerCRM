@@ -11,47 +11,47 @@
 <plist version="1.0">
 <dict>
 	<key>UIDeviceFamily</key>
-	<array>
-		<integer>1</integer>
-		<integer>2</integer>
-	</array>
+		<array>
+			<integer>1</integer>
+			<integer>2</integer>
+		</array>
 	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationPortraitUpsideDown</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationPortraitUpsideDown</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
 	<key>MinimumOSVersion</key>
-	<string>6.0</string>
+		<string>6.0</string>
 	<key>NSMainNibFile</key>
-	<string></string>
+		<string>MainStoryboard</string>
 	<key>NSMainNibFile~ipad</key>
-	<string></string>
-  <key>CFBundleIconFiles</key>
-  <array>
-    <string>Icon-72@2x.png</string>
-    <string>Icon-72.png</string>
-    <string>Icon@2x.png</string>
-    <string>Icon.png</string>
-    <string>Icon-60@2x.png</string>
-    <string>Icon-76.png</string>
-    <string>Icon-76@2x.png</string>
-    <string>Icon-Small-50@2x.png</string>
-    <string>Icon-Small-50.png</string>
-    <string>Icon-Small-40.png</string>
-    <string>Icon-Small-40@2x.png</string>
-    <string>Icon-Small.png</string>
-  </array>
+		<string>MainStoryboard</string>
+	<key>CFBundleIconFiles</key>
+		<array>
+			<string>Icon-72@2x.png</string>
+			<string>Icon-72.png</string>
+			<string>Icon@2x.png</string>
+			<string>Icon.png</string>
+			<string>Icon-60@2x.png</string>
+			<string>Icon-76.png</string>
+			<string>Icon-76@2x.png</string>
+			<string>Icon-Small-50@2x.png</string>
+			<string>Icon-Small-50.png</string>
+			<string>Icon-Small-40.png</string>
+			<string>Icon-Small-40@2x.png</string>
+			<string>Icon-Small.png</string>
+		</array>
 	<key>CFBundleDisplayName</key>
-	<string><#= GetProjectTitle() #><#
+		<string><#= GetProjectTitle() #><#
 
 // this impacts the app's title on the iPad, not title bar inside the app
 // note: if debug is true in the t4 header, this will always evaluate to DEBUG
@@ -70,7 +70,7 @@
 
 #></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.dairylea.<#
+		<string>com.dairylea.<#
 
 // this impacts the bundle's internal name -- not the name of the .ipa
 // fixme: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
@@ -88,29 +88,20 @@
 
 #><#= bundleTitle #></string>
 	<key>CFBundleVersion</key>
-	<string><#= GetVersion() #>.<#= GetBuildNumber() #>.<#= GetRevisionNumber() #></string>
+		<string><#= GetVersion() #>.<#= GetBuildNumber() #>.<#= GetRevisionNumber() #></string>
 	<key>UIStatusBarTintParameters</key>
-	<dict>
-		<key>UINavigationBar</key>
 		<dict>
-			<key>Style</key>
-			<string>UIBarStyleDefault</string>
-			<key>Translucent</key>
-			<false/>
-			<key>TintColor</key>
+			<key>UINavigationBar</key>
 			<dict>
-				<key>Red</key>
-				<real>0.72</real>
-				<key>Green</key>
-				<real>0.72</real>
-				<key>Blue</key>
-				<real>0.72</real>
+				<key>Style</key>
+				<string>UIBarStyleDefault</string>
+				<key>Translucent</key>
+				<true/>
 			</dict>
 		</dict>
-	</dict>
 	<key>CFBundleShortVersionString</key>
-	<string><#= GetVersion() #></string>
-</dict>
+		<string><#= GetVersion() #></string>
+	</dict>
 </plist>
 
 

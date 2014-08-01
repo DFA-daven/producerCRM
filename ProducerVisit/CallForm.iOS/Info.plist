@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -22,32 +22,32 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>6.0</string>
+	<string></string>
 	<key>NSMainNibFile</key>
-	<string></string>
+	<string>MainStoryboard</string>
 	<key>NSMainNibFile~ipad</key>
-	<string></string>
-  <key>CFBundleIconFiles</key>
-  <array>
-    <string>Icon-72@2x.png</string>
-    <string>Icon-72.png</string>
-    <string>Icon@2x.png</string>
-    <string>Icon.png</string>
-    <string>Icon-60@2x.png</string>
-    <string>Icon-76.png</string>
-    <string>Icon-76@2x.png</string>
-    <string>Icon-Small-50@2x.png</string>
-    <string>Icon-Small-50.png</string>
-    <string>Icon-Small-40.png</string>
-    <string>Icon-Small-40@2x.png</string>
-    <string>Icon-Small.png</string>
-  </array>
+	<string>MainStoryboard</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Icon-72@2x.png</string>
+		<string>Icon-72.png</string>
+		<string>Icon@2x.png</string>
+		<string>Icon.png</string>
+		<string>Icon-60@2x.png</string>
+		<string>Icon-76.png</string>
+		<string>Icon-76@2x.png</string>
+		<string>Icon-Small-50@2x.png</string>
+		<string>Icon-Small-50.png</string>
+		<string>Icon-Small-40.png</string>
+		<string>Icon-Small-40@2x.png</string>
+		<string>Icon-Small.png</string>
+	</array>
 	<key>CFBundleDisplayName</key>
 	<string>ProducerCRM</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.dairylea.producercrm</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.14211.10892</string>
+	<string>1.4.14212.8464</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -56,20 +56,9 @@
 			<string>UIBarStyleDefault</string>
 			<key>Translucent</key>
 			<false/>
-			<key>TintColor</key>
-			<dict>
-				<key>Red</key>
-				<real>0.72</real>
-				<key>Green</key>
-				<real>0.72</real>
-				<key>Blue</key>
-				<real>0.72</real>
-			</dict>
 		</dict>
 	</dict>
 	<key>CFBundleShortVersionString</key>
 	<string>1.4</string>
 </dict>
 </plist>
-
-

@@ -97,6 +97,10 @@
 
             #region pageLayout
             float topMargin = 0;
+
+            // Note: The Navigation Controller is a UI-less View Controller responsible for
+            // managing a stack of View Controllers and provides tools for navigation, such 
+            // as a navigation bar with a back button.
             topMargin = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
 
             //var loading = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
@@ -115,10 +119,16 @@
             Common.DebugMessage(" > ** bannerWidth() = " + bannerWidth());
             Common.DebugMessage(" > ** bannerHeight() = " + bannerHeight());
 
-            logoButton.Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, bannerWidth(), bannerHeight());
+            var bannerView = new UIImageView(UIImage.FromBundle("DFA-DMS-Banner.png"));
+            bannerView.Frame = new RectangleF(0,0, bannerView.Image.CGImage.Width, bannerView.Image.CGImage.Height);
+
+            logoButton.Frame = new RectangleF(0, 0, screenWidth(), availableHeight());
+            //logoButton.Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, bannerWidth(), bannerHeight());
             logoButton.SetTitle("DFA & DMS", UIControlState.Normal);
             logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
-            logoButton.BackgroundColor = UIColor.White;
+            logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Disabled);
+            logoButton.Enabled = false;
+            //logoButton.BackgroundColor = UIColor.White;
 
             // place a little white space below the logo(s)
             // this layout is composed of "rows"
@@ -133,9 +143,9 @@
                         View = logoButton,
                         LayoutParameters = new LayoutParameters()
                         {
-                            //Width = logoButton.Frame.Width,
-                            //Height = logoButton.Frame.Height, 
-                            //Weight = 3,
+                            Width = logoButton.Frame.Width,
+                            Height = logoButton.Frame.Height, 
+                            Weight = 3,
 
                             Gravity = Gravity.TopCenter,
                         }
@@ -149,7 +159,7 @@
                             Height = percentHeight(10),
                             Weight = 1,
 
-                            //Gravity = Gravity.TopCenter,
+                            Gravity = Gravity.TopCenter,
                         }
                     },
                 }
@@ -162,7 +172,7 @@
                 BackgroundColor = UIColor.White,
             };
 
-            logoView.SizeToFit();   // tightly enclose the sub-views
+            //logoView.SizeToFit();   // tightly enclose the sub-views
             #endregion
 
             #region search and new
@@ -210,7 +220,7 @@
 
             var buttonLayout = _buttonLinearLayout = new LinearLayout(Orientation.Horizontal)
             {
-                Gravity = Gravity.TopLeft ,
+                Gravity = Gravity.Top ,
                 Spacing = 20,
                 SubViews = new View[]
                 {
@@ -222,7 +232,7 @@
                             Width = percentWidth(25),
                             Weight = 1,
 
-                            Gravity = Gravity.TopLeft ,
+                            Gravity = Gravity.Top ,
                         }
                     },
                     new NativeView
@@ -233,7 +243,7 @@
                             Width = percentWidth(25),
                             Weight = 1,
 
-                            Gravity = Gravity.TopCenter ,
+                            Gravity = Gravity.Top ,
                         }
 
                     },
@@ -245,7 +255,7 @@
                             Width = percentWidth(25),
                             Weight = 1,
 
-                            Gravity = Gravity.TopRight,
+                            Gravity = Gravity.Top,
                         }
                     },
                 }
@@ -273,7 +283,7 @@
             View.BackgroundColor = UIColor.White;
 
             //View.Add(loading);
-            //View.Add(loadingOverlay);
+            View.Add(loadingOverlay);
 
 
 
@@ -287,16 +297,16 @@
 
 
 
-            //View.Add(logoButton);
+            View.Add(logoButton);
             //View.Add(logoLayout);
             //View.Add(logoView);
 
-            View.Add(filterField);
-            View.Add(findButton);
-            View.Add(newButton);
+            //View.Add(filterField);
+            //View.Add(findButton);
+            //View.Add(newButton);
             //View.Add(buttonView);
 
-            View.Add(tableView);
+            //View.Add(tableView);
            
             base.ViewDidLoad();
             #endregion
