@@ -17,6 +17,7 @@
     /// <remarks>
     /// <para>This view inherits from <see cref="MvxViewController"/>. The main over-ridable methods 
     /// here handle the view's life-cycle.</para></remarks>
+    [Register ("ViewReports_View")]
     class ViewReports_View : MvxViewController
     {
         #region declarations        

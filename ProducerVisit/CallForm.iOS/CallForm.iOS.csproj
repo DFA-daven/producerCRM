@@ -276,6 +276,10 @@
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="MainStoryboard.cs" />
+    <Compile Include="MainStoryboard.designer.cs">
+      <DependentUpon>MainStoryboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reachability.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="ViewElements\Image_TableViewCell.cs" />
@@ -294,6 +298,7 @@
     <None Include="App.config" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <InterfaceDefinition Include="MainStoryboard.storyboard" />
     <None Include="packages.config" />
     <None Include="Views\UserIdentity_View.docx" />
   </ItemGroup>
