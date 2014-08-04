@@ -215,7 +215,7 @@
                         {
                             //Width = percentWidth(90), 
                             //MaxWidth = View.Frame.Width * 0.9f, 
-                            //MarginLeft = screenWidth() * 0.05f,
+                            //MarginLeft = viewWidth() * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
                             Weight = 4,
 

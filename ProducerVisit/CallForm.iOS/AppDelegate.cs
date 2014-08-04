@@ -26,9 +26,6 @@ namespace CallForm.iOS
         #region class-level declarations
         UIWindow _window;
 
-        public static UIStoryboard Storyboard = UIStoryboard.FromName("MainStoryboard", null);
-        public static UIViewController initialViewController;
-
         // Note: The Navigation Controller is a UI-less View Controller responsible for
         // managing a stack of View Controllers and provides tools for navigation, such 
         // as a navigation bar with a back button.
@@ -38,20 +35,15 @@ namespace CallForm.iOS
 
         public override UIWindow Window
         {
-            get;
-            set;
+            get
+            {
+                return base.Window;
+            }
+            set
+            {
+                base.Window = value;
+            }
         }
-        //public override UIWindow Window
-        //{
-        //    get
-        //    {
-        //        return base.Window;
-        //    }
-        //    set
-        //    {
-        //        base.Window = value;
-        //    }
-        //}
         #endregion
 
         /// <summary>Defines actions to occur after FinishedLaunching.
@@ -83,7 +75,6 @@ namespace CallForm.iOS
             //var setup = new Setup(this, presenter);
             //setup.Initialize();
 
-            initialViewController = Storyboard.InstantiateInitialViewController() as UIViewController;
 
             // Note: this is a call to the custom Setup.cs
             var setup = new Setup(this, _window);                   // required

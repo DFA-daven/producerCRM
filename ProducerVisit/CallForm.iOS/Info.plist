@@ -1,64 +1,66 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>UIDeviceFamily</key>
-	<array>
-		<integer>1</integer>
-		<integer>2</integer>
-	</array>
+		<array>
+			<integer>1</integer>
+			<integer>2</integer>
+		</array>
 	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationPortraitUpsideDown</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationPortraitUpsideDown</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
 	<key>MinimumOSVersion</key>
-	<string></string>
+		<string>6.0</string>
 	<key>NSMainNibFile</key>
-	<string>MainStoryboard</string>
+		<string/>
 	<key>NSMainNibFile~ipad</key>
-	<string>MainStoryboard</string>
+		<string/>
 	<key>CFBundleIconFiles</key>
-	<array>
-		<string>Icon-72@2x.png</string>
-		<string>Icon-72.png</string>
-		<string>Icon@2x.png</string>
-		<string>Icon.png</string>
-		<string>Icon-60@2x.png</string>
-		<string>Icon-76.png</string>
-		<string>Icon-76@2x.png</string>
-		<string>Icon-Small-50@2x.png</string>
-		<string>Icon-Small-50.png</string>
-		<string>Icon-Small-40.png</string>
-		<string>Icon-Small-40@2x.png</string>
-		<string>Icon-Small.png</string>
-	</array>
+		<array>
+			<string>Icon-72@2x.png</string>
+			<string>Icon-72.png</string>
+			<string>Icon@2x.png</string>
+			<string>Icon.png</string>
+			<string>Icon-60@2x.png</string>
+			<string>Icon-76.png</string>
+			<string>Icon-76@2x.png</string>
+			<string>Icon-Small-50@2x.png</string>
+			<string>Icon-Small-50.png</string>
+			<string>Icon-Small-40.png</string>
+			<string>Icon-Small-40@2x.png</string>
+			<string>Icon-Small.png</string>
+		</array>
 	<key>CFBundleDisplayName</key>
-	<string>ProducerCRM</string>
+		<string>ProducerCRM</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.dairylea.producercrm</string>
+		<string>com.dairylea.producercrm</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.14212.8464</string>
+		<string>1.4.14216.9318</string>
 	<key>UIStatusBarTintParameters</key>
-	<dict>
-		<key>UINavigationBar</key>
 		<dict>
-			<key>Style</key>
-			<string>UIBarStyleDefault</string>
-			<key>Translucent</key>
-			<false/>
+			<key>UINavigationBar</key>
+			<dict>
+				<key>Style</key>
+				<string>UIBarStyleDefault</string>
+				<key>Translucent</key>
+				<true/>
+			</dict>
 		</dict>
-	</dict>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4</string>
-</dict>
+		<string>1.4</string>
+	</dict>
 </plist>
+
+

@@ -17,9 +17,13 @@
     /// <remarks>
     /// <para>This view inherits from <see cref="MvxViewController"/>. The main over-ridable methods 
     /// here handle the view's life-cycle.</para></remarks>
-    [Register ("ViewReports_View")]
     class ViewReports_View : MvxViewController
     {
+        static bool UserInterfaceIdiomIsPhone
+        {
+            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
+        }
+
         #region declarations        
         // class-level declarations
         #region Properties
@@ -115,20 +119,20 @@
             //var logoButton = _logoButton = new UIButton(UIButtonType.Custom);
             var logoButton = _logoButton = new UIButton(UIButtonType.System);
 
-            Common.DebugMessage(" > ** bannerHorizontalOrigin() = " + bannerHorizontalOrigin());
+            Common.DebugMessage(" > ** bannerHorizontalOrigin() = 0");
             Common.DebugMessage(" > ** topMargin = " + topMargin);
-            Common.DebugMessage(" > ** bannerWidth() = " + bannerWidth());
-            Common.DebugMessage(" > ** bannerHeight() = " + bannerHeight());
+            Common.DebugMessage(" > ** maxBannerWidth() = " + maxBannerWidth());
+            Common.DebugMessage(" > ** maxDesiredBannerHeight() = " + maxBannerHeight());
 
             var bannerView = new UIImageView(UIImage.FromBundle("DFA-DMS-Banner.png"));
             bannerView.Frame = new RectangleF(0,0, bannerView.Image.CGImage.Width, bannerView.Image.CGImage.Height);
 
-            logoButton.Frame = new RectangleF(0, 0, screenWidth(), availableHeight());
-            //logoButton.Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, bannerWidth(), bannerHeight());
+            logoButton.Frame = new RectangleF(0, 0, viewWidth(), availableHeight());
+            //logoButton.Frame = new RectangleF(bannerHorizontalOrigin(), topMargin, maxBannerWidth(), maxDesiredBannerHeight());
             logoButton.SetTitle("DFA & DMS", UIControlState.Normal);
             logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
             logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Disabled);
-            logoButton.Enabled = false;
+            //logoButton.Enabled = false;
             //logoButton.BackgroundColor = UIColor.White;
 
             // place a little white space below the logo(s)
@@ -273,8 +277,8 @@
             #endregion
 
             #region table
-            //var tableView = _reportTableView = new UITableView(new RectangleF(percentWidth(leftControlOriginPercent), tableTop(), percentWidth(98), screenHeight() - tableTop()));
-            var tableView = _reportTableView = new UITableView(new RectangleF(0, tableTop(), screenWidth(), screenHeight() - tableTop()));
+            //var tableView = _reportTableView = new UITableView(new RectangleF(percentWidth(leftControlOriginPercent), tableTop(), percentWidth(98), viewHeight() - tableTop()));
+            var tableView = _reportTableView = new UITableView(new RectangleF(0, tableTop(), viewWidth(), viewHeight() - tableTop()));
             tableView.BackgroundView = null;
             tableView.BackgroundColor = Common.viewBackgroundColor;
             #endregion
@@ -296,9 +300,9 @@
 
 
 
+            View.Add(bannerView);
 
-
-            View.Add(logoButton);
+            //View.Add(logoButton);
             //View.Add(logoLayout);
             //View.Add(logoView);
 
@@ -389,11 +393,31 @@
         /// <summary>The height of the device's screen.
         /// </summary>
         /// <returns>The screen height measured in points.</returns>
+        internal float viewHeight()
+        {
+            //float viewHeight = UIScreen.MainScreen.Bounds.Height;
+            float viewHeight = View.Frame.Height;
+            return viewHeight;
+        }
+
+        /// <summary>The height of the device's screen.
+        /// </summary>
+        /// <returns>The screen height measured in points.</returns>
         internal float screenHeight()
         {
-            //float screenHeight = UIScreen.MainScreen.Bounds.Height;
-            float screenHeight = View.Frame.Height;
+            //float viewHeight = UIScreen.MainScreen.Bounds.Height;
+            float screenHeight = UIScreen.MainScreen.Bounds.Height;
             return screenHeight;
+        }
+
+        /// <summary>The width of the device's screen.
+        /// </summary>
+        /// <returns>The screen width measured in points.</returns>
+        internal float viewWidth()
+        {
+            float viewWidth = View.Frame.Width;
+            //float viewWidth = View.Frame.Width;
+            return viewWidth;
         }
 
         /// <summary>The width of the device's screen.
@@ -402,19 +426,20 @@
         internal float screenWidth()
         {
             float screenWidth = UIScreen.MainScreen.Bounds.Width;
-            //float screenWidth = View.Frame.Width;
+            //float viewWidth = View.Frame.Width;
             return screenWidth;
         }
 
         /// <summary>The height of the portion of the screen available for Views.
         /// </summary>
         /// <returns>The available height measured in points.</returns>
-        /// <remarks>For pre-iOS 7 devices, this value will be the same as <see cref="screenHeight"/>. For
+        /// <remarks>For pre-iOS 7 devices, this value will be the same as <see cref="viewHeight"/>. For
         /// iOS 7 and later, the <see cref="topMarginPixels"/> are reserved.</remarks>
         internal float availableHeight()
         {
-            float availableHeight = screenHeight();
-            availableHeight = screenHeight() - NavigationController.NavigationBar.Frame.Height;
+            float availableHeight = viewHeight();
+            //availableHeight = viewHeight() - NavigationController.NavigationBar.Frame.Height;
+            availableHeight = viewHeight();
 
             //if (isOS7())
             //{
@@ -424,7 +449,7 @@
             return availableHeight;
         }
 
-        private float bannerHeight()
+        private float maxDesiredBannerHeight()
         {
             float maxAllowedBannerHeight = calculatePercent(availableHeight(), bannerHeightPercent);
 
@@ -433,19 +458,50 @@
             return maxAllowedBannerHeight;
         }
 
-        private float bannerWidth()
+        private float bannerHeightRatio()
+        {
+            float actualBannerHeight = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Height;
+            float maxBannerHeight = maxDesiredBannerHeight();
+
+            float heightRatio = maxBannerHeight / actualBannerHeight;
+
+            return heightRatio;
+        }
+
+        private float maxBannerHeight()
+        {
+            float actualBannerHeight = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Height;
+            float maxBannerHeight = maxDesiredBannerHeight();
+
+            float desiredBannerHeight = actualBannerHeight * bannerHeightRatio();
+
+            if (bannerRatioLimit())
+            {
+                desiredBannerHeight = maxBannerHeight;
+            }
+
+            desiredBannerHeight = (float)Math.Round(desiredBannerHeight, 0);
+            return desiredBannerHeight;
+        }
+
+        private bool bannerRatioLimit()
         {
             float actualBannerWidth = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Width;
-            float actualBannerHeight = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Height;
+            float maxAllowedBannerWidth = viewWidth();
 
-            float maxAllowedBannerWidth = screenWidth();
-            float maxAllowedBannerHeight = bannerHeight();
+            float desiredBannerWidth = actualBannerWidth * bannerHeightRatio();
 
-            float heightRatio = maxAllowedBannerHeight / actualBannerHeight;
-            
-            float desiredBannerWidth = actualBannerWidth * heightRatio;
+            return (desiredBannerWidth >= maxAllowedBannerWidth);
+        }
 
-            if (desiredBannerWidth >= maxAllowedBannerWidth) 
+        private float maxBannerWidth()
+        {
+            float actualBannerWidth = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Width;
+            float maxAllowedBannerWidth = viewWidth();
+
+            float desiredBannerWidth = actualBannerWidth * bannerHeightRatio();
+
+            if (bannerRatioLimit()) 
             {
                 desiredBannerWidth = maxAllowedBannerWidth;
             }
@@ -454,22 +510,22 @@
             return desiredBannerWidth;
         }
 
-        private float bannerHorizontalOrigin()
-        {
-            float bannerHorizontalOrigin = 0;
+        //private float bannerHorizontalOrigin()
+        //{
+        //    float bannerHorizontalOrigin = 0;
 
-            if (bannerWidth() < screenWidth())
-            {
-                bannerHorizontalOrigin = (float)Math.Round((screenWidth() - bannerWidth()) / 2, 0);
-            }
+        //    if (maxBannerWidth() < viewWidth())
+        //    {
+        //        bannerHorizontalOrigin = (float)Math.Round((viewWidth() - maxBannerWidth()) / 2, 0);
+        //    }
 
-            return bannerHorizontalOrigin;
-        }
+        //    return bannerHorizontalOrigin;
+        //}
 
         private float bannerBottom()
         {
-            float bannerBottom = bannerHeight();
-            bannerBottom = bannerHeight() - NavigationController.NavigationBar.Frame.Height;
+            float bannerBottom = maxBannerHeight();
+            bannerBottom = maxBannerHeight() + NavigationController.NavigationBar.Frame.Height;
 
             //if (isOS7())
             //{
@@ -591,24 +647,24 @@
             {
                 case UIInterfaceOrientation.Portrait:
                 case UIInterfaceOrientation.PortraitUpsideDown:
-                    //SetFrameX(_logoView, 0);
-                    SetFrameX(_logoButton, 0);
+                    SetFrameX(_logoView, 0);
+                    //SetFrameX(_logoButton, 0);
                     SetFrameX(_filterField, percentWidth(leftControlOriginPercent));
                     SetFrameX(_findButton, percentWidth(middleControlOriginPercent));
                     SetFrameX(_newButton, percentWidth(rightControlOriginPercent));
-                    _reportTableView.Frame = new RectangleF(percentWidth(1), tableTop(), percentWidth(98), screenHeight() - tableTop());
+                    _reportTableView.Frame = new RectangleF(percentWidth(1), tableTop(), percentWidth(98), viewHeight() - tableTop());
                     break;
                 case UIInterfaceOrientation.LandscapeLeft:
                 case UIInterfaceOrientation.LandscapeRight:
-                    float difference = Math.Abs(screenHeight() - screenWidth());
+                    float difference = Math.Abs(viewHeight() - viewWidth());
                     float offset = (difference / 2) + percentHeight(1);
                     offset = (float)Math.Round(offset, 0);
-                    //SetFrameX(_logoView, percentWidth(leftControlOriginPercent) + offset);
-                    SetFrameX(_logoButton, percentWidth(leftControlOriginPercent) + offset);
+                    SetFrameX(_logoView, percentWidth(leftControlOriginPercent) + offset);
+                    //SetFrameX(_logoButton, percentWidth(leftControlOriginPercent) + offset);
                     SetFrameX(_filterField, percentWidth(leftControlOriginPercent) + offset);
                     SetFrameX(_findButton, percentWidth(middleControlOriginPercent) + offset);
                     SetFrameX(_newButton, percentWidth(rightControlOriginPercent) + offset);
-                    _reportTableView.Frame = new RectangleF(percentHeight(1), tableTop(), percentHeight(98), screenWidth() - tableTop());
+                    _reportTableView.Frame = new RectangleF(percentHeight(1), tableTop(), percentHeight(98), viewWidth() - tableTop());
 
 
                     break;

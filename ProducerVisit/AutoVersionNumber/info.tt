@@ -32,9 +32,9 @@
 	<key>MinimumOSVersion</key>
 		<string>6.0</string>
 	<key>NSMainNibFile</key>
-		<string>MainStoryboard</string>
+		<string/>
 	<key>NSMainNibFile~ipad</key>
-		<string>MainStoryboard</string>
+		<string/>
 	<key>CFBundleIconFiles</key>
 		<array>
 			<string>Icon-72@2x.png</string>
