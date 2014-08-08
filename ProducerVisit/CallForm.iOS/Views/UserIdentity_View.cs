@@ -32,8 +32,8 @@
 
         public override void ViewDidLoad()
         {
-            Common.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > starting method...");
+            CommonCore_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > starting method...");
 
             //InvokeOnMainThread(() => { new UIAlertView("starting method...", MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name, null, "OK").Show(); });
 
@@ -46,14 +46,14 @@
                 //Font = UIFont.SystemFontOfSize(UIFont.LabelFontSize * 1.1f),
                 Text = "Please Enter Your Email Address and Asset Tag (if any)",
                 TextColor = UIColor.White,
-                BackgroundColor = Common.viewBackgroundColor,
+                BackgroundColor = CommonCore_iOS.viewBackgroundColor,
             };
 
             // the email address field
             var email = new UITextField
             {
                 Placeholder = "type email address here...",
-                BackgroundColor = Common.controlBackgroundColor,
+                BackgroundColor = CommonCore_iOS.controlBackgroundColor,
                 KeyboardType = UIKeyboardType.EmailAddress,
             };
 
@@ -61,7 +61,7 @@
             var assetTag = new UITextField
             {
                 Placeholder = "enter asset tag information here...",
-                BackgroundColor = Common.controlBackgroundColor,
+                BackgroundColor = CommonCore_iOS.controlBackgroundColor,
                 KeyboardType = UIKeyboardType.Default,
             };
 
@@ -213,9 +213,9 @@
                         View = email,
                         LayoutParameters = new LayoutParameters()
                         {
-                            //Width = percentWidth(90), 
+                            //Width = PercentWidth(90), 
                             //MaxWidth = View.Frame.Width * 0.9f, 
-                            //MarginLeft = viewWidth() * 0.05f,
+                            //MarginLeft = ViewFrameWidth() * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
                             Weight = 4,
 
@@ -228,9 +228,9 @@
                         View = assetTag,
                         LayoutParameters = new LayoutParameters()
                         {
-                            //Width = percentWidth(90), 
+                            //Width = PercentWidth(90), 
                             //MaxWidth = View.Frame.Width * 0.9f, 
-                            //MarginLeft = percentWidth(5),
+                            //MarginLeft = PercentWidth(5),
                             //MarginTop = View.Frame.Height * 0.05f,
                             Weight = 3,
 
@@ -242,7 +242,7 @@
                         View = button,
                         LayoutParameters = new LayoutParameters()
                         {
-                            //Width = percentWidth(90), 
+                            //Width = PercentWidth(90), 
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = View.Frame.Width * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
@@ -270,7 +270,7 @@
 
             View = new UILayoutHost(pageLayout)
             {
-                BackgroundColor = Common.viewBackgroundColor,
+                BackgroundColor = CommonCore_iOS.viewBackgroundColor,
             };
 
             base.ViewDidLoad();
@@ -302,31 +302,33 @@
             set.Bind(button).To(vm => vm.SaveCommand);
             set.Apply();
 
-            //email.ShouldReturn = delegate
-            //{
-            //    // keep keyboard open; shift input to the next field
-            //    assetTag.BecomeFirstResponder();
-            //    return true;
-            //};
+            #region UI action
+            email.ShouldReturn = delegate
+            {
+                // keep keyboard open; shift input to the next field
+                assetTag.BecomeFirstResponder();
+                return true;
+            };
 
-            //assetTag.ShouldReturn = delegate
-            //{
-            //    // close the ke757rd
-            //    assetTag.ResignFirstResponder();
-            //    return true;
-            //};
+            assetTag.ShouldReturn = delegate
+            {
+                // close the ke757rd
+                assetTag.ResignFirstResponder();
+                return true;
+            };
 
-            //// keyboard should disappear if user taps outside of a textbox
-            //var goAway = new UITapGestureRecognizer(() => View.EndEditing(true));
-            //View.AddGestureRecognizer(goAway);
+            // keyboard should disappear if user taps outside of a textbox
+            var goAway = new UITapGestureRecognizer(() => View.EndEditing(true));
+            View.AddGestureRecognizer(goAway);
+            #endregion UI action
 
-            Common.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > ...finished method.");
+            CommonCore_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > ...finished method.");
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            Common.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             base.ViewDidLayoutSubviews();
 

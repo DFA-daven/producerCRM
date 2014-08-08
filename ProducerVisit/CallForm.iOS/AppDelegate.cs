@@ -62,9 +62,9 @@ namespace CallForm.iOS
         /// </remarks>
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > Assembly info:" + System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
-            Common.DebugMessage(" > starting method...");
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > Assembly info:" + System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
+            CommonCore_iOS.DebugMessage(" > starting method...");
 
             _window = new UIWindow(UIScreen.MainScreen.Bounds);     // required
 
@@ -119,8 +119,11 @@ namespace CallForm.iOS
             //    Mvx.Error("Host is reachable.");
             //}
 
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > ...finished method.");
+            // experimental:
+            UIApplication.SharedApplication.ApplicationSupportsShakeToEdit = true;
+
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > ...finished method.");
 
             bool started = true;
             return started;                                         // required
@@ -128,39 +131,39 @@ namespace CallForm.iOS
 
         public override void OnActivated(UIApplication application)
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > App is active.");
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > App is active.");
         }
 
         public override void WillEnterForeground(UIApplication application)
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > App will enter foreground.");
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > App will enter foreground.");
         }
 
         public override void OnResignActivation(UIApplication application)
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > App moving to inactive state.");
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > App moving to inactive state.");
         }
 
         public override void DidEnterBackground(UIApplication application)
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > App entering background state.");
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > App entering background state.");
         }
 
         public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > " + notification.Description);
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > " + notification.Description);
         }
 
         // not guaranteed that this will run
         public override void WillTerminate(UIApplication application)
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > App is terminating.");
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > App is terminating.");
         }
 
         //public event EventHandler<ErrorEventArgs> Error;

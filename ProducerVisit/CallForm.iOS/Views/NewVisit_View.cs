@@ -39,10 +39,10 @@ namespace CallForm.iOS.Views
 
         public override void ViewDidLoad()
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > starting method...");
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > starting method...");
 
-            View = new UIView { BackgroundColor = Common.viewBackgroundColor };
+            View = new UIView { BackgroundColor = CommonCore_iOS.viewBackgroundColor };
             base.ViewDidLoad();
 
             // Perform any additional setup after loading the view
@@ -129,8 +129,8 @@ namespace CallForm.iOS.Views
 
             (ViewModel as NewVisit_ViewModel).Width = FrameWidth();
 
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > ...finished method.");
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > ...finished method.");
         }
 
         private void ReSendEmail(object sender, EventArgs eventArgs)
@@ -170,7 +170,7 @@ namespace CallForm.iOS.Views
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             base.WillAnimateRotation(toInterfaceOrientation, duration);
 
@@ -179,7 +179,7 @@ namespace CallForm.iOS.Views
 
         public override void ViewWillAppear(bool animated)
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             base.ViewWillAppear(animated);
             SetTableFrameForOrientation(InterfaceOrientation);
@@ -187,7 +187,7 @@ namespace CallForm.iOS.Views
 
         private void SetTableFrameForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             switch (toInterfaceOrientation)
             {

@@ -204,8 +204,8 @@ namespace BackEnd
             string[] octet;
             char[] charSeparators = new char[] { '.' };
 
-            CommonCore.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, true);
-            CommonCore.DebugMessage(" > The IP host address of the remote client is " + userHostAddress, true);
+            CommonCore_BackEnd.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, true);
+            CommonCore_BackEnd.DebugMessage(" > The IP host address of the remote client is " + userHostAddress, true);
 
             octet = userHostAddress.Split(charSeparators, StringSplitOptions.None);
 
@@ -226,11 +226,11 @@ namespace BackEnd
                 }
                 catch (FormatException e)
                 {
-                    CommonCore.DebugMessage(" > Input string is not a sequence of digits.");
+                    CommonCore_BackEnd.DebugMessage(" > Input string is not a sequence of digits.");
                 }
                 catch (OverflowException e)
                 {
-                    CommonCore.DebugMessage(" > The number cannot fit in an Int32.");
+                    CommonCore_BackEnd.DebugMessage(" > The number cannot fit in an Int32.");
                 }
                 finally
                 {
@@ -259,7 +259,10 @@ namespace BackEnd
         }
     }
 
-    public class CommonCore
+    /// <summary>Commonly used methods.
+    /// </summary>
+    /// <remarks>This class may be (partially) duplicated in other Projects.</remarks>
+    public class CommonCore_BackEnd
     {
         /// <summary>Take the given information and write it to the iOS app's err.log.
         /// </summary>

@@ -48,8 +48,9 @@
         /// <remarks>This model is the <see cref="App.Initialize">RegisterAppStart</see> of <see cref="App"/>.</remarks>
         public override void Start()
         {
-            CommonCore.DebugMessage(_className, "Start");
-            CommonCore.DebugMessage(" > starting up.");
+            string methodName = _className + " > UpdateSQLiteReasonCodes";
+
+            CommonCore.DebugMessage(methodName, "Start > starting up.");
 
             Loading = true;
 
@@ -67,7 +68,7 @@
                 CommonCore.DebugMessage(" > decided NOT to ShowViewModel<UserIdentity_ViewModel>() ");
             }
 
-            Loading = false;
+            //Loading = false;
         }
 
         public bool Loading

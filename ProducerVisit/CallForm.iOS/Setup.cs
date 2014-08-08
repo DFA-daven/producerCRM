@@ -32,8 +32,8 @@ namespace CallForm.iOS
         /// <returns></returns>
 	    protected override IMvxApplication CreateApp ()
 		{
-            Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common.DebugMessage(" > return new Core.App().");
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > return new Core.App().");
 
 			return new Core.App();
 		}
@@ -61,8 +61,8 @@ namespace CallForm.iOS
 
             if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {
-                Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                Common.DebugMessage(" > showing view.");
+                CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+                CommonCore_iOS.DebugMessage(" > showing view.");
 
                 if (MasterNavigationController.TopViewController is NewVisit_View)
                 {
@@ -73,8 +73,8 @@ namespace CallForm.iOS
             if (view.Request.ViewModelType == typeof(UserIdentity_View))
             {
                 // ToDo: hide status bar (and the 'back' button)
-                Common.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                Common.DebugMessage(" > ToDo - hide status bar (and the 'back' button).");
+                CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+                CommonCore_iOS.DebugMessage(" > ToDo - hide status bar (and the 'back' button).");
             }
 
             base.Show(view);

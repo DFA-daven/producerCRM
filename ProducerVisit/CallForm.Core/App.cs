@@ -25,6 +25,9 @@ namespace CallForm.Core
         }
     }
 
+    /// <summary>Commonly used methods.
+    /// </summary>
+    /// <remarks>This class may be (partially) duplicated in other Projects.</remarks>
     public class CommonCore
     {
         /// <summary>Take the given information and write it to the iOS app's err.log.
