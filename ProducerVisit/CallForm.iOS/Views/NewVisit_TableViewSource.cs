@@ -7,9 +7,13 @@
     using System;
     using System.Drawing;
     using System.Linq.Expressions;
+    using System.Reflection;
+    using System.Threading.Tasks;
 
     public class NewVisit_TableViewSource : UITableViewSource
     {
+        string _nameSpace = "CallForm.iOS.";
+
         #region Properties
         private readonly NewVisit_ViewModel _viewModel;
         private readonly TextField_TableViewCell _memberNumberCell, _durationCell;
@@ -19,12 +23,19 @@
 
         /// <summary>The popover controller.
         /// </summary>
-        UIPopoverController _popover;
+        UIPopoverController _popoverController;
+        UIViewController _currentViewController;
+        SizeF _contollerPreferredSize;
         #endregion
 
         /// <summary>A container for the popover controller.
         /// </summary>
         public UIViewController DatePickerPopover, CallTypePickerPopover, ReasonPickerPopover, EmailPickerPopover;
+
+        public Task DismissPopover(UIViewController popover)
+        {
+            return popover.DismissViewControllerAsync(true);
+        } 
 
         public NewVisit_TableViewSource(NewVisit_ViewModel viewModel, UITableView tableView)
         {
@@ -255,13 +266,7 @@
                 _durationCell.HideKeyboard();
                 _notesCell.HideKeyboard();
 
-                // *********************************************************************************************
-                // *********************************************************************************************
-
-                // Review: the section numbers are off, maybe by one? Need to find where they are called and add 1
-
-                // *********************************************************************************************
-                // *********************************************************************************************
+                var baseCell = tableView.RectForRowAtIndexPath(indexPath);
 
                 // Note: the Row # here matches the position of the row in the UITableView.
                 switch (indexPath.Row)
@@ -271,32 +276,35 @@
                         break;
                     case 1:
                         // ToDo: seeing an un-handled exception here if debug on iPhoneSimulator
-                        _popover = new UIPopoverController(CallTypePickerPopover);
-                        _popover.PopoverContentSize = CallTypePickerPopover.PreferredContentSize;
-                        //_popover.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath ), tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popover.PresentFromRect(GetPresentationRectangleForCell(tableView, _callTypeCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _currentViewController = CallTypePickerPopover;
+                        _popoverController = new UIPopoverController(_currentViewController);
+                        _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
+                        //_popoverController.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath ), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        //_popoverController.PresentFromRect(GetPresentationRectangleForCell(tableView, _callTypeCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popoverController.PresentFromRect(baseCell, tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 2:
-                        _popover = new UIPopoverController(DatePickerPopover);
-                        _popover.PopoverContentSize = DatePickerPopover.PreferredContentSize;
-                        _popover.PresentFromRect(GetPresentationRectangleForCell(tableView, _dateCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _currentViewController = DatePickerPopover;
+                        _popoverController = new UIPopoverController(_currentViewController);
+                        _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
+                        //_popoverController.PresentFromRect(GetPresentationRectangleForCell(tableView, _dateCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popoverController.PresentFromRect(baseCell, tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 3:
                         _durationCell.Edit();
                         break;
                     case 4:
-                        _popover = new UIPopoverController(ReasonPickerPopover);
-                        _popover.PopoverContentSize = ReasonPickerPopover.PreferredContentSize;
+                        _currentViewController = ReasonPickerPopover;
+                        _popoverController = new UIPopoverController(_currentViewController);
+                        _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
 
-                        //_popover.use empty? ToString get iPhone Working?
-                        // using RectangleF.Empty sets the popover origin to the NW corner
-                        //_popover.PresentFromRect(RectangleF.Empty, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popoverController.PresentFromRect(baseCell, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popoverController.BackgroundColor = UIColor.Red; // this is the outer container
 
-                        // using GetRectangle() allows the popover to point to a specific cell
-                        //_popover.PresentFromRect(GetRectangle(tableView, _reasonCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                _contollerPreferredSize = _popoverController.ContentViewController.PreferredContentSize;
+                CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+                CommonCore_iOS.DebugMessage(" > _contollerPreferredSize Height = " + _contollerPreferredSize.Height.ToString() + ", Width = " + _contollerPreferredSize.Width.ToString());
 
-                        var reasonRect = tableView.RectForRowAtIndexPath(indexPath);
-                        _popover.PresentFromRect(GetPresentationRectangleForCell(tableView, _reasonCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 5:
                         _notesCell.Edit();
@@ -305,12 +313,12 @@
                         _viewModel.TakePictureCommand.Execute(_viewModel);
                         break;
                     case 7:
-                        _popover = new UIPopoverController(EmailPickerPopover);
-                        _popover.PopoverContentSize = EmailPickerPopover.PreferredContentSize;
-                        //var emailRect = tableView.RectForRowAtIndexPath(indexPath);
-                        //_popover.PresentFromRect(emailRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popover.PresentFromRect(GetPresentationRectangleForCell(tableView, _emailRecipientsCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _currentViewController = EmailPickerPopover;
+                        _popoverController = new UIPopoverController(_currentViewController);
+                        _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
 
+                        _popoverController.PresentFromRect(baseCell, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        
                         break;
                 }
             }
@@ -352,13 +360,17 @@
         }
         #endregion
 
-        /// <summary>Close the <c>_popover</c>.
+        /// <summary>Close the <c>_popoverController</c>.
         /// </summary>
-        public void DismissPopover()
+        public void SafeDismissPopover()
         {
-            if (_popover != null && _popover.PopoverVisible)
+            if (_popoverController != null)
             {
-                _popover.Dismiss(true);
+                if (_popoverController.PopoverVisible) 
+                {
+                    //_popoverController.Dismiss(true);
+                    DismissPopover(_currentViewController);
+                }
             }
         }
 
@@ -394,11 +406,6 @@
 
             return presentationBoundary;
         }
-
-
-
-
-
 
         /// <summary>Get the name of a static or instance property from a property access lambda.
         /// </summary>

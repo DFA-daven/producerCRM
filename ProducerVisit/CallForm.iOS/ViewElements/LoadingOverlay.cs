@@ -38,8 +38,8 @@ namespace CallForm.iOS.ViewElements
                 activitySpinner.Frame.Width,
                 activitySpinner.Frame.Height);
             activitySpinner.AutoresizingMask = UIViewAutoresizing.FlexibleMargins;
-            // ToDo: replace AddSubview() with Add()
-            AddSubview(activitySpinner);
+            
+            Add(activitySpinner);
             activitySpinner.StartAnimating();
 
             // create and configure the "Loading Data" label
@@ -54,8 +54,8 @@ namespace CallForm.iOS.ViewElements
             loadingLabel.Text = "Loading Data...";
             loadingLabel.TextAlignment = UITextAlignment.Center;
             loadingLabel.AutoresizingMask = UIViewAutoresizing.FlexibleMargins;
-            // ToDo: replace AddSubview() with Add()
-            AddSubview(loadingLabel);
+            
+            Add(loadingLabel);
         }
 
         /// <summary>Fades out the control and then removes it from the super view

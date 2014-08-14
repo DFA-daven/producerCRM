@@ -20,8 +20,8 @@ namespace CallForm.iOS.ViewElements
             _textView.Changed += didChange;
             //_textView.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize + 2);
             _textView.Font = UIFont.SystemFontOfSize(UIFont.SmallSystemFontSize);
-            // ToDo: replace AddSubview() with Add()
-            ContentView.AddSubview(_textView);
+            
+            ContentView.Add(_textView);
         }
 
         public void Edit()
@@ -38,6 +38,7 @@ namespace CallForm.iOS.ViewElements
         {
             base.LayoutSubviews();
             DetailTextLabel.TextColor = UIColor.Clear;
+            DetailTextLabel.TextColor = UIColor.Red;
             _textView.Frame = new RectangleF(TextLabel.Bounds.Width + 20, 5, ContentView.Bounds.Width - TextLabel.Bounds.Width - 25, 100);
         }
 

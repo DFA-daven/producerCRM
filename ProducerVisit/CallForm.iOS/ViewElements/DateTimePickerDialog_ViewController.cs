@@ -14,9 +14,11 @@ namespace CallForm.iOS.ViewElements
     {
         private Action<DateTime> _setValue = obj => { };
         private UIDatePicker _picker;
+        private float _doneButtonHeight = 50f;
 
         public DateTimePickerDialog_ViewController(Action<DateTime> setValue, DateTime initialValue, UIDatePickerMode mode, NewVisit_TableViewSource source)
         {
+            #region _picker
             // ToDo: select time-zone from user preferences
             _picker = new UIDatePicker
             {
@@ -29,18 +31,19 @@ namespace CallForm.iOS.ViewElements
             //_picker.Alpha = 0.75f;
             _picker.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
 
-            // ToDo: replace AddSubview() with Add()
-            View.AddSubview(_picker);
-            View.SizeToFit();
+            View.Add(_picker);
+            #endregion _picker
 
+            #region doneButton
             var doneButton = new UIButton(UIButtonType.System);
             doneButton.SetTitle("Done", UIControlState.Normal);
-            doneButton.TouchUpInside += (sender, args) => { source.DismissPopover(); };
-            doneButton.Frame = new RectangleF(0, _picker.Frame.Height, _picker.Frame.Width, 50);
+            doneButton.TouchUpInside += (sender, args) => { source.SafeDismissPopover(); };
+            doneButton.Frame = new RectangleF(0, _picker.Frame.Height, _picker.Frame.Width, _doneButtonHeight);
 
-            // ToDo: replace AddSubview() with Add()
-            View.AddSubview(doneButton);
+            View.Add(doneButton);
+            #endregion doneButton
 
+            View.SizeToFit();
             View.BackgroundColor = UIColor.White;
 
             _setValue += setValue;
@@ -68,8 +71,10 @@ namespace CallForm.iOS.ViewElements
             get
             {
                 SizeF size = _picker.Frame.Size;
-                // Hack: hide doneButton
-                //size.Height += 50;
+
+                // Hack: comment out to hide doneButton
+                //size.Height = _picker.Frame.Size.Height + _doneButtonHeight;
+
                 return size;
             }
             set { base.PreferredContentSize = value; }

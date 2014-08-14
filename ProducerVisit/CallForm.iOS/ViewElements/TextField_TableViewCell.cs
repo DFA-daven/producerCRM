@@ -24,8 +24,8 @@ namespace CallForm.iOS.ViewElements
             if (editing)
             {
                 DetailTextLabel.TextColor = UIColor.Clear;
-                // ToDo: replace AddSubview() with Add()
-                ContentView.AddSubview(_textField);
+                
+                ContentView.Add(_textField);
             }
         }
 

@@ -312,12 +312,13 @@
 
             assetTag.ShouldReturn = delegate
             {
-                // close the ke757rd
-                assetTag.ResignFirstResponder();
+                assetTag.ResignFirstResponder();    // close the keyboard
+                button.BecomeFirstResponder();
                 return true;
             };
 
-            // keyboard should disappear if user taps outside of a textbox
+            // keyboard should disappear if user taps outside of a text-box
+            // Note: this works on this view b/c 1) there is open space, and 2) the only controls are text-box or button.
             var goAway = new UITapGestureRecognizer(() => View.EndEditing(true));
             View.AddGestureRecognizer(goAway);
             #endregion UI action

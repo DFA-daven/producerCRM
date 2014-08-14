@@ -23,6 +23,7 @@ namespace CallForm.iOS.Views
         private UITableView _table;
         private float _frameWidth;
         string _nameSpace = "CallForm.iOS.";
+        public float _buttonHeight = 50f;
 
         #endregion
 
@@ -47,7 +48,8 @@ namespace CallForm.iOS.Views
 
             // Perform any additional setup after loading the view
 
-            _table = new UITableView(UIScreen.MainScreen.Bounds)
+            //_table = new UITableView(UIScreen.MainScreen.Bounds)
+            _table = new UITableView(View.Bounds)
             {
                 BackgroundView = null
             };
@@ -61,6 +63,7 @@ namespace CallForm.iOS.Views
              * 
              * The system calendar app shows how this should now be implemented.
              */
+
             source.DatePickerPopover = new DateTimePickerDialog_ViewController(
                 val => (ViewModel as NewVisit_ViewModel).Date = val, 
                 (ViewModel as NewVisit_ViewModel).Date, 
@@ -84,8 +87,9 @@ namespace CallForm.iOS.Views
             _table.Source = source;
 
             // define a sub-view for the saveButton and reSendButton
-            UIView wrapper = new UIView(new RectangleF(0, 0, FrameWidth(), 60));
+            UIView wrapper = new UIView(new RectangleF(0, 0, FrameWidth(), _buttonHeight));
 
+            #region saveButton
             UIButton saveButton = new UIButton(UIButtonType.System);
             saveButton.Frame = new RectangleF(PercentOfFrameWidth(25), 0, PercentOfFrameWidth(50), ButtonHeight());
 
@@ -95,20 +99,24 @@ namespace CallForm.iOS.Views
                 reSendButton.SetTitle("Forward via Email", UIControlState.Normal);
                 reSendButton.TouchUpInside += ReSendEmail;
                 reSendButton.Frame = new RectangleF(PercentOfFrameWidth(20), 0, PercentOfFrameWidth(25), ButtonHeight());
-                // ToDo: replace AddSubview() with Add()
-                wrapper.AddSubview(reSendButton);
-                //wrapper.Add(reSendButton);
+               
+                wrapper.Add(reSendButton);
                 saveButton.Frame = new RectangleF(PercentOfFrameWidth(60), 0, PercentOfFrameWidth(25), ButtonHeight());
             }
 
-            // ToDo: replace AddSubview() with Add()
-            wrapper.AddSubview(saveButton);
+            wrapper.Add(saveButton);
+            #endregion saveButton
 
             var set = this.CreateBindingSet<NewVisit_View, NewVisit_ViewModel>();
             set.Bind(saveButton).For("Title").To(vm => vm.SaveButtonText);
             set.Bind(saveButton).To(vm => vm.SaveCommand);
             set.Bind(this).For(o => o.Title).To(vm => vm.Title);
             set.Apply();
+
+            #region UI action
+
+            #endregion UI action
+
 
             _table.TableFooterView = wrapper;
             Add(_table);

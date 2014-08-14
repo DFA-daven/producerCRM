@@ -15,9 +15,11 @@ namespace CallForm.iOS.ViewElements
         private Action<string> _setValue = obj => { };
         private readonly UIPickerView _picker;
         private readonly StringListPickerViewModel _model;
+        private float _doneButtonHeight = 50f;
 
         public StringPickerDialog_ViewController(Action<string> setValue, string initialValue, NewVisit_TableViewSource source, params string[] values)
         {
+            #region _picker
             _model = new StringListPickerViewModel(values.ToList());
             _picker = new UIPickerView
             {
@@ -25,29 +27,26 @@ namespace CallForm.iOS.ViewElements
                 ShowSelectionIndicator = true
             };
             
-            //_picker.BackgroundColor = UIColor.Gray;
-            //_picker.Alpha = 0.25f;
-            
             _picker.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
             _picker.Select(values.ToList().IndexOf(initialValue), 0, true);
 
-            // ToDo: replace AddSubview() with Add()
-            View.AddSubview(_picker);
-            View.SizeToFit();
+            View.Add(_picker);
+            #endregion _picker
 
+            #region doneButton
             var doneButton = new UIButton(UIButtonType.System);
             doneButton.SetTitle("Done", UIControlState.Normal);
-            doneButton.TouchUpInside += (sender, args) => { source.DismissPopover(); };
+            doneButton.TouchUpInside += (sender, args) => { source.SafeDismissPopover(); };
 
             // Note: the _picker has already been added, so it has a Height. That Height is used as the vertical offset for the doneButton.
-            doneButton.Frame = new RectangleF(0, _picker.Frame.Height, _picker.Frame.Width, 50);
+            doneButton.Frame = new RectangleF(0, _picker.Frame.Height, _picker.Frame.Width, _doneButtonHeight);
 
             // Hack: hide doneButton
-            // ToDo: replace AddSubview() with Add()
-            //View.AddSubview(doneButton);
+            View.Add(doneButton);
+            #endregion doneButton
 
+            View.SizeToFit();
             View.BackgroundColor = UIColor.White;
-
 
             _setValue += setValue;
         }
@@ -75,8 +74,9 @@ namespace CallForm.iOS.ViewElements
             {
                 SizeF size = _picker.Frame.Size;
 
-                // Hack: hide doneButton
-                //size.Height += 50;
+                // Hack: comment out to hide doneButton
+                //size.Height = _picker.Frame.Size.Height + _doneButtonHeight;
+
                 return size;
             }
             set { base.PreferredContentSize = value; }

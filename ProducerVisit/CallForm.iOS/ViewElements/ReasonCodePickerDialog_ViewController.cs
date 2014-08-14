@@ -11,6 +11,7 @@ namespace CallForm.iOS.ViewElements
     using System;
     using System.Drawing;
     using System.Linq.Expressions;
+    using System.Reflection;
     using XibFree;
 
     /// <summary>The class that defines View Element (control) for displaying and 
@@ -18,6 +19,8 @@ namespace CallForm.iOS.ViewElements
     /// </summary>
     public class ReasonCodePickerDialog_ViewController : UIViewController
     {
+        string _nameSpace = "CallForm.iOS.";
+
         private readonly UITableView _table;
         private readonly NewVisit_ViewModel _viewModel;
         //private readonly float _heightFactor = 0.75f;
@@ -39,7 +42,7 @@ namespace CallForm.iOS.ViewElements
 
             // ToDo: Gray with no direction-arrow looks pretty good!
             //_reportTableView.BackgroundColor = UIColor.Gray;
-            _table.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
+            //_table.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
 
             // Note: using cell height won't work -- the cell's don't exist yet
             //int sectionNumber = 0;
@@ -49,14 +52,28 @@ namespace CallForm.iOS.ViewElements
             //float preferredHeight = count * aCellHeight;
 
             // 75% of the Height, rounded off to zero decimal places
-            float reasonCodeHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);  // the Y value
-            float reasonCodeWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.75, 0);    // the X value
+            float reasonCodeHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.50, 0);  // the Y value
+            float reasonCodeWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.50, 0);    // the X value
+
+            //reasonCodeHeight = _table.ContentSize.Height;
+            //reasonCodeHeight = View.Frame.Height;
+            //reasonCodeHeight = UIScreen.MainScreen.Bounds.Height;
+
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > reasonCodeHeight = " + reasonCodeHeight.ToString() + ", reasonCodeWidth = " + reasonCodeWidth.ToString());
+
+            //if (reasonCodeHeight < reasonCodeWidth)
+            //{
+            //    reasonCodeHeight = reasonCodeWidth;
+            //}
 
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
             _table.Frame = new RectangleF(0, 0, reasonCodeWidth, reasonCodeHeight);
+            _table.BackgroundColor = UIColor.Green;
 
             _table.ScrollEnabled = true; // scrolling in the ReasonCode table -- not the container...
 
+            //View.BackgroundColor = UIColor.Blue; // this is the inner view -- the cell rows
             View.Add(_table); 
             View.SizeToFit();
         }
@@ -106,10 +123,16 @@ namespace CallForm.iOS.ViewElements
         {
             get
             {
-                SizeF size = _table.Frame.Size;
+                SizeF size;
+                size = _table.Frame.Size;
+                size.Height = _table.Source.RowsInSection(_table, 1)  * 50f;
+
                 // leave space for "Done" button
                 //size.Height += 50;
                 //size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);
+
+                CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+                CommonCore_iOS.DebugMessage(" > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString());
 
                 return size;
             }
@@ -180,10 +203,12 @@ namespace CallForm.iOS.ViewElements
 
     public class ReasonCodeTableSource : UITableViewSource
     {
+        string _nameSpace = "CallForm.iOS.";
+
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;
         private const string CellIdentifier = "ReasonCodeTableCell";
-
+        private float _doneButtonHeight = 50f;
 
         public ReasonCodeTableSource(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
@@ -207,12 +232,15 @@ namespace CallForm.iOS.ViewElements
             var doneButton = new UIButton(UIButtonType.System);
             // Hack: hide Done button
 
-            //doneButton.SetTitle("Done", UIControlState.Normal);
-            //// review: is InvokeOnMainThread() correct?
-            //doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.DismissPopover); };
-            //doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, 50);
+            doneButton.SetTitle("Done", UIControlState.Normal);
+            // review: is InvokeOnMainThread() correct?
+            doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.SafeDismissPopover); };
+            //doneButton.TouchUpInside += (sender, args) => { Invoke(_source.SafeDismissPopover, 0); };
+            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, _doneButtonHeight);
 
-            //doneButton.Hidden = true;
+            // Hack: hide Done button.
+            _doneButtonHeight = 0f;
+            doneButton.Hidden = true;
 
             return doneButton;
         }
@@ -234,14 +262,15 @@ namespace CallForm.iOS.ViewElements
             }
             _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedReasonCodes));
             tableView.DeselectRow(indexPath, true);
+            // Review: will reloadData() work in other places?
             tableView.ReloadData();
         }
 
         public override float GetHeightForFooter(UITableView tableView, int section)
         {
-            // Hack: hide Done button.
-            //return 50f;
-            return 5f;
+            float heightToReport = _doneButtonHeight;
+
+            return heightToReport;
         }
 
         /// <summary>Gets a cell based on the selected <see cref="NSIndexPath">Row</see>.

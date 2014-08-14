@@ -250,7 +250,19 @@
             set.Bind(tableView).For("Visibility").To(vm => vm.Loading).WithConversion("InvertedVisibility");
             set.Apply();
 
+            #region UI action
             findButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
+
+            filterField.ShouldReturn = delegate
+            {
+                filterField.ResignFirstResponder();
+                return true;
+            };
+            
+            // keyboard should disappear if user taps outside of a text-box
+            //var goAway = new UITapGestureRecognizer(() => View.EndEditing(true));
+            //View.AddGestureRecognizer(goAway);
+            #endregion UI action
 
             (ViewModel as ViewReports_ViewModel).Error += OnError;
 
@@ -312,12 +324,8 @@
         {
             if (motion == UIEventSubtype.MotionShake)
             {
-                ShowLogo = !ShowLogo;
+                // ToDo: use this to refresh the view reports table
             }
-
-            // todo: change the frame offsets here.
-
-            // todo: trigger a view "refresh"
 
             base.MotionEnded(motion, evt);
         }
