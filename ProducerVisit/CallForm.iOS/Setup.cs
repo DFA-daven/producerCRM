@@ -62,11 +62,15 @@ namespace CallForm.iOS
             if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {
                 CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                CommonCore_iOS.DebugMessage(" > showing view.");
+                CommonCore_iOS.DebugMessage(" > ViewModelType is NewVisit_ViewModel.");
 
                 if (MasterNavigationController.TopViewController is NewVisit_View)
                 {
+                    CommonCore_iOS.DebugMessage(" > NewVisit_ViewModel is the TopViewController.");
+                    CommonCore_iOS.DebugMessage(" > about to 'PopViewController' NewVisit_ViewModel.");
+
                     MasterNavigationController.PopViewControllerAnimated(false);
+                    CommonCore_iOS.DebugMessage(" > NewVisit_ViewModel has been popped.");
                 }
             }
 

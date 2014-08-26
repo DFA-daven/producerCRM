@@ -20,10 +20,14 @@ namespace CallForm.iOS.Views
     public class NewVisit_View : MvxViewController
     {
         #region Properties
-        private UITableView _table;
+        /// <summary>The View that contains the data-entry controls (which are defined in <see cref="NewVisit_TableViewSource"/>).
+        /// </summary>
+        private UITableView _table; 
         private float _frameWidth;
         string _nameSpace = "CallForm.iOS.";
         public float _buttonHeight = 50f;
+        bool? _isOS7;
+
 
         #endregion
 
@@ -44,12 +48,13 @@ namespace CallForm.iOS.Views
             CommonCore_iOS.DebugMessage(" > starting method...");
 
             View = new UIView { BackgroundColor = CommonCore_iOS.viewBackgroundColor };
+
             base.ViewDidLoad();
 
             // Perform any additional setup after loading the view
 
             //_table = new UITableView(UIScreen.MainScreen.Bounds)
-            _table = new UITableView(View.Bounds)
+            _table = new UITableView(View.Bounds) // *****
             {
                 BackgroundView = null
             };
@@ -63,6 +68,19 @@ namespace CallForm.iOS.Views
              * 
              * The system calendar app shows how this should now be implemented.
              */
+            float navbarHeight = 11f;
+            //topMargin = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
+            // topMargin will probably be 44
+
+            float screenHeight = UIScreen.MainScreen.Bounds.Height;
+            //float viewFrameHeight = View.Frame.Height; // *****
+            float viewFrameHeight = LayoutHeight() ; // *****
+
+            float heightOfVisibleView = 22f;
+            //heightOfVisibleView = NavigationController.VisibleViewController.View.Frame.Height;
+
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" [1] > screenHeight: " + screenHeight.ToString() + ", viewFrameHeight: " + viewFrameHeight.ToString() + ", heightOfVisibleView: " + heightOfVisibleView.ToString() + " <======= ");
 
             source.DatePickerPopover = new DateTimePickerDialog_ViewController(
                 val => (ViewModel as NewVisit_ViewModel).Date = val, 
@@ -117,10 +135,14 @@ namespace CallForm.iOS.Views
 
             #endregion UI action
 
-
             _table.TableFooterView = wrapper;
             Add(_table);
             _table.ReloadData();
+
+            float tableFrameHeight = _table.Frame.Height;
+
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" [nv_v][vdl] > tableFrameHeight: " + tableFrameHeight.ToString() + " <======= ");
 
             (ViewModel as NewVisit_ViewModel).Error += OnError;
 
@@ -130,15 +152,148 @@ namespace CallForm.iOS.Views
             // ToDo:  replace with the advertisingIdentifier property of the ASIdentifierManager class.
             (ViewModel as NewVisit_ViewModel).UserID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 
-            // Review: is it ok for this to be before the Height and Width are set?
-            SetTableFrameForOrientation(InterfaceOrientation);
+            // Review: double-check -- this should be setting the height/width for the **table** that holds the model
+            SetTableFrameForOrientation(InterfaceOrientation); // use current orientation
 
-            (ViewModel as NewVisit_ViewModel).Height = FrameHeight();
+            //(ViewModel as NewVisit_ViewModel).Height = FrameHeight();
 
-            (ViewModel as NewVisit_ViewModel).Width = FrameWidth();
+            //(ViewModel as NewVisit_ViewModel).Width = FrameWidth();
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > ...finished method.");
+            CommonCore_iOS.DebugMessage(" [nv_v][vdl] > (ViewModel as NewVisit_ViewModel).Height: " + (ViewModel as NewVisit_ViewModel).Height.ToString() + " <= = = = = ");
+            CommonCore_iOS.DebugMessage(" [nv_v][vdl] > ...finished method.");
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            #region colorize subviews
+            UIView[] subviews = new UIView[] { };
+            int subviewsArrayLength = 0;
+            UIView[] subSubviews = new UIView[] { };
+            int subSubviewsArrayLength = 0;
+            
+            string subviewType = string.Empty;
+
+            //UIColor[] colors = new UIColor[] { UIColor.Cyan, UIColor.Black, UIColor.Blue, UIColor.Brown, UIColor.DarkGray, UIColor.Gray, UIColor.Green, UIColor.LightGray, UIColor.Magenta, UIColor.Orange, UIColor.Purple, UIColor.Red, UIColor.White, UIColor.Yellow };
+            UIColor[] colors = new UIColor[] { UIColor.Cyan, UIColor.Blue, UIColor.Brown, UIColor.Green, UIColor.Magenta, UIColor.Orange, UIColor.Purple, UIColor.Red };
+            UIColor[] grays = new UIColor[] { UIColor.White, UIColor.LightGray, UIColor.Gray, UIColor.DarkGray, UIColor.Black };
+
+            int colorArrayLength = colors.Length;
+            int grayArrayLength = grays.Length;
+            int colorIndex = 0;
+            int grayIndex = 0;
+
+            // Note: iOS 7 numbers Subviews differently from iOS 6.
+            // _table.Subviews[0]: iOS 6: the footer (which contains the saveButton).
+            //                     iOS 7: the foreground **below** the _table (on the same depth as the controls)
+            // _table.Subviews[1]: iOS 6: UNDEFINED
+            //                     iOS 7: the footer (which contains the saveButton).
+
+            // The _table is in the foreground -- color the (undefined) space **behind** the controls.
+            // Drag the entire page up or down to see the BackgroundColor.
+
+            _table.BackgroundColor = UIColor.Orange;
+            View.BackgroundColor = UIColor.Brown;
+
+            subviews = View.Subviews;
+
+            if (subviews == null)
+            {
+                CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[] is NULL. How can the subview be null?!?");
+            }
+            else 
+            {
+                subviewsArrayLength = subviews.Length;
+                CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString() + ", colorArrayLength = " + colorArrayLength.ToString());
+                // here
+
+#if (DEBUG || BETA)
+                for (int i = 0; i < subviewsArrayLength; i++)
+                {
+                    grayIndex = i % grayArrayLength; // use modulus to keep colorIndex from going out of range
+
+                    if (subviews[i].GetType() == typeof(UIView))
+                    {
+                        CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString() + ", grays[" + grayIndex.ToString() + "] = " + grays[grayIndex].ToString());
+                        subviews[i].BackgroundColor = grays[grayIndex]; // applying color should works here
+                    }
+                    else
+                    {
+                        subviewType = subviews[i].GetType().ToString();
+                        CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString() + ", grays[" + grayIndex.ToString() + "] = " + grays[grayIndex].ToString());
+                        // here
+                        subviews[i].BackgroundColor = grays[grayIndex]; // applying color should not work here
+
+                        subSubviews = subviews[i].Subviews;
+
+                        if (subSubviews == null)
+                        {
+                            CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "].Subviews[] is NULL. How can the subview be null?!?");
+                        }
+                        else
+                        {
+                            subSubviewsArrayLength = subSubviews.Length;
+                            CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "].Subviews[] is NOT null. subviewsArrayLength = " + subSubviewsArrayLength.ToString() + ", colorArrayLength = " + colorArrayLength.ToString());
+                            // here
+                            for (int j = 0; j < subSubviewsArrayLength; j++)
+                            {
+                                colorIndex = j % colorArrayLength; // use modulus to keep colorIndex from going out of range
+
+                                if (subSubviews[j].GetType() == typeof(UIView))
+                                {
+                                    // this is probably a header or footer
+                                    CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "] == typeof(UIView), Height = " + subSubviews[j].Frame.Height.ToString() + ", colors[" + colorIndex.ToString() + "] = " + colors[colorIndex].ToString());
+                                    subSubviews[j].BackgroundColor = colors[colorIndex]; 
+                                }
+                                else
+                                {
+                                    // Note: not sure why, but the height values indicate that these are listed 
+                                    // in reverse order. So, item [0] is the Email recipients, which is the 
+                                    // last/bottom member of the view. 
+                                    // this is a view that wraps something else
+                                    subviewType = subSubviews[j].GetType().ToString();
+                                    CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "] is wrapping something: Height = " + subSubviews[j].Frame.Height.ToString());
+                                    //string wrappedType = subSubviews[j].Subviews[0].GetType().ToString();
+                                    // this isn't getting down far enough to see the wrapped object
+                                    //CommonCore_iOS.DebugMessage(" [nv_v][vdls] > type of the wrapped object: " + wrappedType);
+                                }
+                            }
+                        }
+                    }
+                }
+#endif
+            }
+                
+            #endregion colorize subviews
+
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
+            base.ViewDidLayoutSubviews();
+            
+            float screenHeight = UIScreen.MainScreen.Bounds.Height;
+            CommonCore_iOS.DebugMessage(" [nv_v][vdls] > screenHeight: " + screenHeight.ToString() + ", viewFrameHeight: " + View.Frame.Height.ToString() + ", LayoutHeight(): " + LayoutHeight().ToString());
+
+            /*
+                * Note: the TopLayoutGuide and BottomLayoutGuide values are generated dynamically AFTER
+                * the View has been added to the hierarchy, so attempting to read them in ViewDidLoad will return 0. 
+                * So, calculate the value after the View has loaded, for example here in ViewDidLoadSubviews.
+                */
+            /*
+                * Note: EdgesForExtendedLayout may allow this app to display, but using TopLayoutGuide
+                * and BottomLayoutGuide are preferred since they allow the app to meet the iOS 7 design goals.
+                */
+            float displacement_y = 0f;
+            float bottomGuide = 0f;
+
+            bool isOS7orLater = IsOS7OrLater();
+            if (isOS7orLater)
+            {
+                displacement_y = this.TopLayoutGuide.Length;
+                bottomGuide = this.BottomLayoutGuide.Length;
+            }
+
+            CommonCore_iOS.DebugMessage(" [nv_v][vdls] > this.TopLayoutGuide.Length: " + displacement_y.ToString() + " this.BottomLayoutGuide.Length: " + bottomGuide.ToString() + " <======= ");
+            CommonCore_iOS.DebugMessage(" [nv_v][vdls] > ...finished");
         }
 
         private void ReSendEmail(object sender, EventArgs eventArgs)
@@ -182,7 +337,7 @@ namespace CallForm.iOS.Views
 
             base.WillAnimateRotation(toInterfaceOrientation, duration);
 
-            SetTableFrameForOrientation(toInterfaceOrientation);
+            SetTableFrameForOrientation(toInterfaceOrientation); // use next orientation
         }
 
         public override void ViewWillAppear(bool animated)
@@ -190,23 +345,29 @@ namespace CallForm.iOS.Views
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             base.ViewWillAppear(animated);
-            SetTableFrameForOrientation(InterfaceOrientation);
+
+            SetTableFrameForOrientation(InterfaceOrientation); // use current orientation
         }
 
         private void SetTableFrameForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            float usableHeight = 0f;
+            float usableWidth = 0f;
+            float topMarginHeight = TopMargin();
 
             switch (toInterfaceOrientation)
             {
                 case UIInterfaceOrientation.Portrait:
                 case UIInterfaceOrientation.PortraitUpsideDown:
                     // _reportTableView.Frame = UIScreen.MainScreen.Bounds;
-                    _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
+                    usableHeight = UIScreen.MainScreen.Bounds.Height - topMarginHeight;
+                    _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Width, usableHeight);
                     break;
                 case UIInterfaceOrientation.LandscapeLeft:
                 case UIInterfaceOrientation.LandscapeRight:
-                    _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Height, UIScreen.MainScreen.Bounds.Width);
+                    usableWidth = UIScreen.MainScreen.Bounds.Width - topMarginHeight;
+                    _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Height, usableWidth);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("toInterfaceOrientation");
@@ -297,9 +458,15 @@ namespace CallForm.iOS.Views
         /// <summary>The height of the current <see cref="UIView.Frame"/>.
         /// </summary>
         /// <returns>The Frame height.</returns>
-        public float FrameHeight()
+        public float FrameHeight()  // 1024 - (20 + 44) = 960
         {
-            return _table.Frame.Height;
+            float usableHeight = 0f;
+            float topMarginHeight = TopMargin();
+
+            usableHeight = _table.Frame.Height - topMarginHeight;
+
+
+            return usableHeight;
         }
 
         /// <summary>The width of the current <see cref="UIView.Frame"/>.
@@ -330,6 +497,215 @@ namespace CallForm.iOS.Views
             percent = percent / 100;
             float value = (float)Math.Round((rectangle.Width * percent), 0);
             return value;
+        }
+
+        /// <summary>The height of the device's screen.
+        /// </summary>
+        /// <returns>The screen height measured in points.</returns>
+        internal float ViewFrameHeight()  // 960 
+        {
+            float viewFrameHeight = 0;
+            //viewFrameHeight = UIScreen.MainScreen.Bounds.Height;
+            viewFrameHeight = View.Frame.Height;
+            
+            if (View.Frame.Height < 1)
+            {
+                CommonCore_iOS.DebugMessage(" [nv_v][vfh] > View not ready... " );
+                return viewFrameHeight;
+            }
+
+            switch (InterfaceOrientation)
+            {
+                case UIInterfaceOrientation.Portrait:
+                case UIInterfaceOrientation.PortraitUpsideDown:
+                    //viewFrameHeight = View.Frame.Height;
+                    break;
+
+                case UIInterfaceOrientation.LandscapeLeft:
+                case UIInterfaceOrientation.LandscapeRight:
+                    viewFrameHeight = View.Frame.Width;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException("ViewFrameHeight");
+            }
+            CommonCore_iOS.DebugMessage(" [nv_v][vfh] > iOS 7 = " + IsOS7OrLater().ToString() + " > ViewFrameHeight(): " + viewFrameHeight.ToString());
+
+            return viewFrameHeight;
+        }
+
+        private float TopMargin()
+        {
+            float topMargin = 0f;
+
+            topMargin = StatusBarHeight() + NavBarHeight();
+
+            if (View.Frame.Height < 1)
+            {
+                CommonCore_iOS.DebugMessage(" [nv_v][tm] > View not ready... ");
+                if (IsOS7OrLater())
+                {
+                    topMargin = 20f;
+                }
+                else
+                {
+                    topMargin = 64f;
+                }
+            }
+            
+            CommonCore_iOS.DebugMessage(" [nv_v][tm] > topMargin: " + topMargin.ToString());
+
+            return topMargin;
+        }
+
+        private float LayoutHeight()
+        {
+            float layoutHeight = 0f;
+            UIView[] subviews = View.Subviews;
+
+            CommonCore_iOS.DebugMessage(" [nv_v][lh] > Calculating layoutHeight....");
+            if (subviews == null)
+            {
+                CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[] is NULL.");
+            }
+            else
+            {
+                int subviewsArrayLength = subviews.Length;
+                CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString());
+                for (int i = 0; i < subviewsArrayLength; i++)
+                {
+                    if (subviews[i].GetType() == typeof(UIView))
+                    {
+                        CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString());
+                    }
+                    else
+                    {
+                        CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString());
+                        layoutHeight = subviews[i].Frame.Height;
+                    }
+                }
+            }
+
+            if (layoutHeight == 0)
+            {
+                CommonCore_iOS.DebugMessage(" [nv_v][lh] > layoutHeight was 0, substituting View.Frame.Height: " + View.Frame.Height.ToString());
+                layoutHeight = View.Frame.Height;
+            }
+
+            CommonCore_iOS.DebugMessage(" [nv_v][lh] > layoutHeight = " + layoutHeight.ToString() + " (finished).");
+
+            return layoutHeight;
+        }
+
+        private float NavBarHeight()  // 44
+        {
+            float screenHeight = UIScreen.MainScreen.Bounds.Height;
+            float layoutHeight = 0f;
+            float navbarHeight = 0f;
+            UIView[] subviews = View.Subviews;
+
+            if (IsOS7OrLater())
+            {
+                navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
+            }
+            else
+            {
+                navbarHeight = 44f;
+            }
+
+            CommonCore_iOS.DebugMessage(" [nv_v][nbh] > navbarHeight = " + navbarHeight.ToString() + " < = = = =");
+            return navbarHeight;
+
+            #region incomplete
+            // ToDo: this works in portrait, but after the first rotation it returns 300, 556, 
+            CommonCore_iOS.DebugMessage(" [nv_v][nbh] > Calculating navbarHeight....");
+            
+            // skip if we're not ready
+            if (View.Frame.Height < 1)
+            {
+                CommonCore_iOS.DebugMessage(" [nv_v][nbh] > View not ready... ");
+                if (IsOS7OrLater())
+                {
+                    return 44f;
+                }
+                else
+                {
+                    return 44f;
+                }
+            }
+
+            layoutHeight = LayoutHeight();
+
+            // Note: sometimes the layoutHeight will default to View.Frame.Height, which could equal the screenHeight.
+            // navbarHeight could = 0
+            navbarHeight = screenHeight - layoutHeight;
+
+            // Note: comparisons of floating point values (double and float) are problematic because of the imprecision of floating point arithmetic on binary computers.
+            if ((int)navbarHeight == (int)screenHeight)
+            {
+                CommonCore_iOS.DebugMessage(" [nv_v][nbh] > (int)navbarHeight == (int)screenHeight) == " + navbarHeight.ToString() + " < = =" );
+
+                navbarHeight = 0f;
+                return navbarHeight;
+            }
+
+            if (IsOS7OrLater())
+            {
+                CommonCore_iOS.DebugMessage(" [nv_v][nbh] > IsOS7OrLater() = true, navbarHeight = " + navbarHeight.ToString() + " < = = = " );
+                navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
+            }
+            else
+            {
+                CommonCore_iOS.DebugMessage(" [nv_v][nbh] > IsOS7OrLater() = FALSE, navbarHeight = " + navbarHeight.ToString() + " - " + StatusBarHeight().ToString() + " = " + (navbarHeight - StatusBarHeight()).ToString() + " < = = = =" );
+                navbarHeight = navbarHeight - StatusBarHeight();
+            }
+
+            return navbarHeight;
+            #endregion
+        }
+
+        private float StatusBarHeight()  // 20 
+        {
+            SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
+            float statusBarHeight = Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
+            CommonCore_iOS.DebugMessage(" > statusBarHeight: " + statusBarHeight.ToString() + " <= = = = = ");
+
+            return statusBarHeight;
+        }
+
+        /// <summary>Is this device running iOS 7.0.
+        /// </summary>
+        /// <returns>True if this is iOS 7.0.</returns>
+        public bool IsOS7OrLater()
+        {
+            bool thisIsOS7 = false;
+            
+            if (_isOS7 == null)
+            {
+                string version = UIDevice.CurrentDevice.SystemVersion;
+                string[] parts = version.Split('.');
+                string major = parts[0];
+                int majorVersion = CommonCore_iOS.SafeConvert(major, 0);
+
+                if (majorVersion > 6)
+                {
+                    //float displacement_y = this.TopLayoutGuide.Length;
+
+                    thisIsOS7 = true;
+                }
+
+                CommonCore_iOS.DebugMessage(" > major version (string): " + major);
+                CommonCore_iOS.DebugMessage(" > major version (int): " + majorVersion.ToString());
+                CommonCore_iOS.DebugMessage(" > version is higher than 6 = " + thisIsOS7.ToString());
+
+                _isOS7 = thisIsOS7;
+            }
+            else
+            {
+                thisIsOS7 = (bool)_isOS7;
+            }
+
+            return thisIsOS7;
         }
     }
 }

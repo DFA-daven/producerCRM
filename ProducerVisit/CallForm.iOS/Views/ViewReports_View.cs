@@ -24,6 +24,9 @@
             get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
         }
 
+        private bool _isOS7OrLater;
+
+
         #region declarations        
         // class-level declarations
         #region Properties
@@ -107,7 +110,9 @@
             // Note: The Navigation Controller is a UI-less View Controller responsible for
             // managing a stack of View Controllers and provides tools for navigation, such 
             // as a navigation bar with a back button.
-            topMargin = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
+            topMargin = StatusBarHeight() + NavBarHeight();
+            CommonCore_iOS.DebugMessage(" > topMargin = "+ topMargin.ToString() + " < <======= ");
+
 
             #region logo
             #region logoButton
@@ -213,8 +218,10 @@
             #endregion layout
 
             // Note: the order that Views are added determines their position in front of (or behind) other Views.
-    // the buttons must have some off-set that is causing the gap.
-            View.BackgroundColor = UIColor.Orange;
+            // the buttons must have some off-set that is causing the gap.
+#if (DEBUG || BETA)
+            View.BackgroundColor = UIColor.Brown;
+#endif
             View.Add(logoButton);
             //View.Add(logoView);
             //View.Add(logoLayout);
@@ -280,13 +287,13 @@
 
             // FixMe: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
             // need something like if this.config != release then appName = appName + this.config
-#if ALPHA
+#if (ALPHA)
     appName += " (ALPHA)";
-#elif BETA
+#elif (BETA)
     appName += " (BETA)";
-#elif RELEASE
+#elif (RELEASE)
 	appName = appName;
-#elif DEBUG
+#elif (DEBUG)
 	appName += " (DEBUG)";
 
 #endif
@@ -301,6 +308,7 @@
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             CommonCore_iOS.DebugMessage(" > ...finished method.");
         }
+
 
         public override void ViewDidLayoutSubviews()
         {
@@ -318,6 +326,14 @@
              * Note: EdgesForExtendedLayout may allow this app to display, but using TopLayoutGuide
              * and BottomLayoutGuide are preferred since they allow the app to meet the iOS 7 design goals.
              */
+            float displacement_y = 0f;
+            if (_isOS7OrLater)
+            {
+                //displacement_y = this.TopLayoutGuide.Length;
+            }
+
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" > Vr_v finished");
         }
 
         public override void MotionEnded(UIEventSubtype motion, UIEvent evt)
@@ -671,6 +687,58 @@
             var frame = view.Frame;
             frame.X = x;
             view.Frame = frame;
+        }
+
+        private float NavBarHeight()
+        {
+            float screenHeight = UIScreen.MainScreen.Bounds.Height;
+            float layoutHeight = 0f;
+            float navbarHeight = 0f;
+
+            layoutHeight = this.ViewFrameHeight(); 
+            navbarHeight = screenHeight - layoutHeight;
+
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage("> screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar height: " + navbarHeight.ToString() + " <=======");
+
+            if (IsOS7OrLater())
+            {
+                navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
+                layoutHeight = this.BottomLayoutGuide.Length - this.TopLayoutGuide.Length;
+                CommonCore_iOS.DebugMessage("> iOS 7 topMarginHeight: " + navbarHeight.ToString() + ", iOS7 layoutHeight = " + layoutHeight.ToString() + " <======= ");
+
+            }
+
+            return navbarHeight;
+        }
+
+        private float StatusBarHeight()
+        {
+            SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
+            return Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
+        }
+
+        /// <summary>Is this device running iOS 7.0.
+        /// </summary>
+        /// <returns>True if this is iOS 7.0.</returns>
+        public bool IsOS7OrLater()
+        {
+            bool thisIsOS7 = false;
+            string version = UIDevice.CurrentDevice.SystemVersion;
+            string[] parts = version.Split('.');
+            string major = parts[0];
+            CommonCore_iOS.DebugMessage(" > major version (string): " + major);
+            int majorVersion = CommonCore_iOS.SafeConvert(major, 0);
+            CommonCore_iOS.DebugMessage(" > major version (int): " + majorVersion.ToString());
+
+            if (majorVersion > 6)
+            {
+                thisIsOS7 = true;
+            }
+
+            CommonCore_iOS.DebugMessage(" > version is higher than 6 = " + thisIsOS7.ToString());
+
+            return thisIsOS7;
         }
     }
 

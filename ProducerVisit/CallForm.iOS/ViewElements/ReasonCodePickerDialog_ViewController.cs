@@ -51,16 +51,22 @@ namespace CallForm.iOS.ViewElements
             //float aCellHeight = aCell.Frame.Height;
             //float preferredHeight = count * aCellHeight;
 
-            // 75% of the Height, rounded off to zero decimal places
+            float safestMaxWidth = 0f;
+
+            // find the smaller dimension
+            safestMaxWidth = Math.Min(UIScreen.MainScreen.Bounds.Height, UIScreen.MainScreen.Bounds.Width);
+            // 75% of the dimension, rounded off to zero decimal places
+            safestMaxWidth = (float)Math.Round(safestMaxWidth * 0.75, 0);
+
             float reasonCodeHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.50, 0);  // the Y value
-            float reasonCodeWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.50, 0);    // the X value
+            //float reasonCodeWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.75, 0);    // the X value
 
             //reasonCodeHeight = _table.ContentSize.Height;
             //reasonCodeHeight = View.Frame.Height;
             //reasonCodeHeight = UIScreen.MainScreen.Bounds.Height;
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > reasonCodeHeight = " + reasonCodeHeight.ToString() + ", reasonCodeWidth = " + reasonCodeWidth.ToString());
+            CommonCore_iOS.DebugMessage(" > reasonCodeHeight = " + reasonCodeHeight.ToString() + ", safestMaxWidth = " + safestMaxWidth.ToString() + " < = = = = = =########" );
 
             //if (reasonCodeHeight < reasonCodeWidth)
             //{
@@ -68,8 +74,12 @@ namespace CallForm.iOS.ViewElements
             //}
 
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
-            _table.Frame = new RectangleF(0, 0, reasonCodeWidth, reasonCodeHeight);
+            _table.Frame = new RectangleF(0, 0, safestMaxWidth, reasonCodeHeight);
+#if (DEBUG || BETA)
             _table.BackgroundColor = UIColor.Green;
+#endif
+
+            // FixMe: the frame sizes are still not quite right -- problems when the screen is rotated.
 
             _table.ScrollEnabled = true; // scrolling in the ReasonCode table -- not the container...
 
@@ -125,14 +135,41 @@ namespace CallForm.iOS.ViewElements
             {
                 SizeF size;
                 size = _table.Frame.Size;
-                size.Height = _table.Source.RowsInSection(_table, 1)  * 50f;
+                //size.Height = _table.Source.RowsInSection(_table, 1)  * 50f;
+
+                float layoutHeight = 0f;
+                UIView[] subviews = View.Subviews;
+
+                CommonCore_iOS.DebugMessage(" [rcpd][pcs] > Calculating layoutHeight....");
+                if (subviews == null)
+                {
+                    CommonCore_iOS.DebugMessage(" [rcpd][pcs] > View.Subviews[] is NULL.");
+                }
+                else
+                {
+                    int subviewsArrayLength = subviews.Length;
+                    CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString());
+                    for (int i = 0; i < subviewsArrayLength; i++)
+                    {
+                        if (subviews[i].GetType() == typeof(UIView))
+                        {
+                            CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString());
+                        }
+                        else
+                        {
+                            CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString());
+                            layoutHeight = subviews[i].Frame.Height;
+                        }
+                    }
+                }
 
                 // leave space for "Done" button
                 //size.Height += 50;
                 //size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);
 
                 CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                CommonCore_iOS.DebugMessage(" > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString());
+                CommonCore_iOS.DebugMessage(" > PreferredContentSize, _table.Frame.Size.Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " <= = = = = = = ");
+                //CommonCore_iOS.DebugMessage(" > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " <= = = = = = = ");
 
                 return size;
             }

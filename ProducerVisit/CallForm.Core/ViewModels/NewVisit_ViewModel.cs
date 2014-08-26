@@ -23,6 +23,7 @@ namespace CallForm.Core.ViewModels
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDataService _localDatabaseService;
         private readonly IMvxJsonConverter _jsonConverter;
+        private MvxSubscriptionToken _subscriptionTag;
 
         #region backing fields
         /// <summary>Store for the latitude property.</summary>
@@ -105,7 +106,11 @@ namespace CallForm.Core.ViewModels
 
             // review: is the location being obtained twice? And is the second time even if the user answered "don't allow"?
             _locationService = locationService;
-            messenger.Subscribe<LocationMessage>(OnLocationMessage);
+            ////messenger.Subscribe<LocationMessage>(OnLocationMessage);
+            //messenger.SubscribeOnMainThread<LocationMessage>(OnLocationMessage);
+
+            _subscriptionTag = messenger.Subscribe<LocationMessage>(OnLocationMessage);
+            _subscriptionTag = messenger.SubscribeOnMainThread<LocationMessage>(OnLocationMessage);
             GetInitialLocation();
 
             _pictureChooserTask = pictureChooserTask;
@@ -113,8 +118,6 @@ namespace CallForm.Core.ViewModels
             _jsonConverter = jsonConverter;
 
             Editing = true;
-
-            
         }
 
         public void Init(NewVisitInit data)

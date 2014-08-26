@@ -91,6 +91,24 @@ namespace CallForm.iOS.ViewElements
             set { base.PreferredContentSize = value; }
         }
 
+#pragma warning disable 612,618
+        [Obsolete("Deprecated in iOS6. Replace it with both GetSupportedInterfaceOrientations and PreferredInterfaceOrientationForPresentation", false)]
+        public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)  // iOS4/iOS5 only
+        {
+            bool rotate = false;
+
+            if (toInterfaceOrientation == InterfaceOrientation)
+            {
+                rotate = true;
+            }
+
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage(" [ersd_vc][satio] > ShouldAutorotateToInterfaceOrientation = " + rotate.ToString() + " < [ersd_vc][satio]");
+
+            return rotate;
+        }
+#pragma warning restore 612,618
+
         // <summary>Get the name of a static or instance property from a property access lambda.
         // </summary>
         // <typeparam name="T">Type of the property.</typeparam>

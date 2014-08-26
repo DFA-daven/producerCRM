@@ -22,22 +22,7 @@ namespace CallForm.iOS
         /// </summary>
         public static UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
 
-        /// <summary>Is this device running iOS 7.0.
-        /// </summary>
-        /// <returns>True if this is iOS 7.0.</returns>
-        public bool isOS7()
-        {
-            bool thisIsOS7 = false;
-
-            if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
-            {
-                //float displacement_y = this.TopLayoutGuide.Length;
-
-                thisIsOS7 = true;
-            }
-
-            return thisIsOS7;
-        }
+        
 
         // review: assigned but not used?
         //public static float topMarginPixels = 70;
@@ -49,6 +34,7 @@ namespace CallForm.iOS
         /// <summary>Take the given information and write it to the iOS app's err.log.
         /// </summary>
         /// <param name="message">The message to write to the log.</param>
+        [System.Diagnostics.Conditional("DEBUG")]
         private static void DebugMessage(string message)
         {
             Debug.WriteLine(message);
@@ -58,6 +44,7 @@ namespace CallForm.iOS
         /// </summary>
         /// <param name="message">The message to write to the log.</param>
         /// <param name="writeToConsole">If <c>True</c>, also write <paramref name="message"/> to the <c>System.Console</c>.</param>
+        [System.Diagnostics.Conditional("DEBUG")]
         public static void DebugMessage(string message, bool writeToConsole = false)
         {
             if (writeToConsole)
@@ -74,6 +61,7 @@ namespace CallForm.iOS
         /// <param name="methodName">The name of the method that threw the error.
         /// This is useful for things like the Master page.</param>
         /// <param name="writeToConsole">If <c>True</c>, also write <paramref name="message"/> to the <c>System.Console</c>.</param>
+        [System.Diagnostics.Conditional("DEBUG")]
         public static void DebugMessage(string declaringName, string methodName, bool writeToConsole = false)
         {
             string message = "Class: " + declaringName + ", Method: " + methodName + "()";
@@ -87,6 +75,7 @@ namespace CallForm.iOS
         /// <param name="parentName">The URL of the page that threw the exception. 
         /// This is useful for things like the Master page.</param>
         /// <param name="writeToConsole">If <c>True</c>, also write <paramref name="message"/> to the <c>System.Console</c>.</param>
+        [System.Diagnostics.Conditional("DEBUG")]
         public static void DebugMessage(string declaringName, string methodName, string parentName, bool writeToConsole = false)
         {
             string message = "Class: " + declaringName + ", Method: " + methodName + "(), Parent: " + parentName;
@@ -111,6 +100,13 @@ namespace CallForm.iOS
             }
 
             UIApplication.SharedApplication.NetworkActivityIndicatorVisible = (_numberOfCallsToSetVisible > 0);
+        }
+
+        public static T SafeConvert<T>(string s, T defaultValue)
+        {
+            if (string.IsNullOrEmpty(s))
+                return defaultValue;
+            return (T)Convert.ChangeType(s, typeof(T));
         }
     }
 

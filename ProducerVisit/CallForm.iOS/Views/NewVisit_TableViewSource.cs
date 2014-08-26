@@ -260,13 +260,19 @@
         /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
+            SizeF availableSize = new SizeF();
+
+            float distanceToBottom = 0f;
+            float safeMaxHeight = 0f;
+
             if (_viewModel.Editing)
             {
                 _memberNumberCell.HideKeyboard();
                 _durationCell.HideKeyboard();
                 _notesCell.HideKeyboard();
 
-                var baseCell = tableView.RectForRowAtIndexPath(indexPath);
+                var baseCellRect = tableView.RectForRowAtIndexPath(indexPath);
+                
 
                 // Note: the Row # here matches the position of the row in the UITableView.
                 switch (indexPath.Row)
@@ -281,14 +287,14 @@
                         _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
                         //_popoverController.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath ), tableView.Superview, UIPopoverArrowDirection.Any, true);
                         //_popoverController.PresentFromRect(GetPresentationRectangleForCell(tableView, _callTypeCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popoverController.PresentFromRect(baseCell, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popoverController.PresentFromRect(baseCellRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 2:
                         _currentViewController = DatePickerPopover;
                         _popoverController = new UIPopoverController(_currentViewController);
                         _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
                         //_popoverController.PresentFromRect(GetPresentationRectangleForCell(tableView, _dateCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popoverController.PresentFromRect(baseCell, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popoverController.PresentFromRect(baseCellRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
                         break;
                     case 3:
                         _durationCell.Edit();
@@ -296,12 +302,32 @@
                     case 4:
                         _currentViewController = ReasonPickerPopover;
                         _popoverController = new UIPopoverController(_currentViewController);
-                        _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
+                        //_popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
 
-                        _popoverController.PresentFromRect(baseCell, tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popoverController.BackgroundColor = UIColor.Red; // this is the outer container
+                        CommonCore_iOS.DebugMessage("[nv_tvs][rs] > baseCellRect.bottom = " + baseCellRect.Bottom.ToString() + ", tableView.Superview.Frame.Bottom = " + tableView.Superview.Frame.Bottom.ToString() + " < @ @ @ @ @ @ @");
+                        distanceToBottom = tableView.Superview.Frame.Bottom - baseCellRect.Bottom;
 
-                _contollerPreferredSize = _popoverController.ContentViewController.PreferredContentSize;
+                        CommonCore_iOS.DebugMessage("[nv_tvs][rs] > _popoverController.ContentViewController.PreferredContentSize.Height = " + _popoverController.ContentViewController.PreferredContentSize.Height.ToString() + ", distanceToBottom = " + distanceToBottom.ToString() + " < @ @ @ @ @ @ @");
+                        //safeMaxHeight = Math.Min(distanceToBottom, _currentViewController.PreferredContentSize.Height);
+                        safeMaxHeight = Math.Min(distanceToBottom, _popoverController.ContentViewController.PreferredContentSize.Height);
+
+                        //availableSize = _popoverController.ContentViewController.ContentSizeForViewInPopover; // deprecated
+                        //availableSize = _popoverController.ContentViewController.PreferredContentSize; // null?
+                        availableSize = _currentViewController.PreferredContentSize;
+                        availableSize.Height = safeMaxHeight;
+                        CommonCore_iOS.DebugMessage("[nv_tvs][rs] > availableSize.Height = " + availableSize.Height.ToString() + ", distanceToBottom = " + distanceToBottom.ToString() + " < @ @ @ @ @ @ @");
+
+                        _popoverController.ContentViewController.PreferredContentSize = availableSize;
+
+                        _popoverController.PresentFromRect(baseCellRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
+#if (DEBUG || BETA)
+                        if (IsOS7OrLater())
+                        {
+                            _popoverController.BackgroundColor = UIColor.Red; // this is the outer container
+                        }
+#endif
+
+                
                 CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
                 CommonCore_iOS.DebugMessage(" > _contollerPreferredSize Height = " + _contollerPreferredSize.Height.ToString() + ", Width = " + _contollerPreferredSize.Width.ToString());
 
@@ -315,9 +341,9 @@
                     case 7:
                         _currentViewController = EmailPickerPopover;
                         _popoverController = new UIPopoverController(_currentViewController);
-                        _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
+                        //_popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
 
-                        _popoverController.PresentFromRect(baseCell, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        _popoverController.PresentFromRect(baseCellRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
                         
                         break;
                 }
@@ -422,6 +448,31 @@
             }
 
             return me.Member.Name;
+        }
+
+        /// <summary>Is this device running iOS 7.0.
+        /// </summary>
+        /// <returns>True if this is iOS 7.0.</returns>
+        public bool IsOS7OrLater()
+        {
+            bool thisIsOS7 = false;
+            string version = UIDevice.CurrentDevice.SystemVersion;
+            string[] parts = version.Split('.');
+            string major = parts[0];
+            CommonCore_iOS.DebugMessage(" > major version (string): " + major);
+            int majorVersion = CommonCore_iOS.SafeConvert(major, 0);
+            CommonCore_iOS.DebugMessage(" > major version (int): " + majorVersion.ToString());
+
+            if (majorVersion > 6)
+            {
+                //float displacement_y = this.TopLayoutGuide.Length;
+
+                thisIsOS7 = true;
+            }
+
+            CommonCore_iOS.DebugMessage(" > version is higher than 6 = " + thisIsOS7.ToString());
+
+            return thisIsOS7;
         }
     }
 }

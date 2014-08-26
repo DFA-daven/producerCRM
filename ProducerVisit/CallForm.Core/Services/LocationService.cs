@@ -8,8 +8,8 @@ namespace CallForm.Core.Services
     {
         // note: replaced deprecated IMvxGeoLocationWatcher with IMvxLocationWatcher
 
-        private readonly IMvxLocationWatcher _watcher;
-        private readonly IMvxMessenger _messenger;
+        private IMvxLocationWatcher _watcher;
+        private IMvxMessenger _messenger;
 
         public LocationService(IMvxLocationWatcher watcher, IMvxMessenger messenger)
         {
@@ -29,11 +29,11 @@ namespace CallForm.Core.Services
                 _latestLocation = location;
             }
 
+            //_messenger.Publish<LocationMessage>(new LocationMessage(this, 0, location.Coordinates.Latitude, location.Coordinates.Longitude));
             // Review: https://github.com/rafaelsteil/MvvmCross-Wiki/blob/master/MvvmCross-plugins.md#location
             var message = new LocationMessage(this,
                                 location.Coordinates.Latitude,
                                 location.Coordinates.Longitude);
-
             _messenger.Publish(message);
         }
 

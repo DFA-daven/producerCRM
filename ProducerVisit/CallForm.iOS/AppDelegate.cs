@@ -101,6 +101,9 @@ namespace CallForm.iOS
             //navigationBar.Hidden = true;
             //navController.NavigationBarHidden = true;
 
+            // Review: why won't this work? 
+            //_navigationBar.Delegate = new NavBarDelegate();
+
             app.SetStatusBarStyle(UIStatusBarStyle.LightContent, true);
             //app.SetStatusBarHidden(true, false);        // this makes the 'Back" button on NewVisit disappear
             #endregion
@@ -167,6 +170,14 @@ namespace CallForm.iOS
         }
 
         //public event EventHandler<ErrorEventArgs> Error;
+    }
+
+    class NavBarDelegate : UINavigationBarDelegate
+    {
+        public override UIBarPosition GetPositionForBar(IUIBarPositioning barPositioning)
+        {
+            return UIBarPosition.TopAttached;
+        }
     }
 }
 

@@ -61,13 +61,13 @@
             source = source.Split('.')[0]; // just the left-most part of the address
             source = source.Split(',')[0]; // drop the port number, in case the address was only the machine name
 
-#if ALPHA
+#if (ALPHA)
     source += " (ALPHA)";
-#elif BETA
+#elif (BETA)
     source += " (BETA)";
-#elif RELEASE
+#elif (RELEASE)
 	source = "Production";
-#elif DEBUG
+#elif (DEBUG)
             source += " (DEBUG)";
 #endif
 
@@ -80,13 +80,13 @@
 
             name = _webProducerCrmDatabaseConnection.Database.Connection.Database;
 
-#if ALPHA
+#if (ALPHA)
     name += " (ALPHA)";
-#elif BETA
+#elif (BETA)
     name += " (BETA)";
-#elif RELEASE
+#elif (RELEASE)
             name = "Production";
-#elif DEBUG
+#elif (DEBUG)
             name += " (DEBUG)";
 #endif
 
