@@ -330,8 +330,8 @@
         private void RestException(Exception exception)
         {
             CommonCore.DebugMessage(_className, "RestExceptionMessage");
-            CommonCore.DebugMessage(" > Original request: " + Request);
-            CommonCore.DebugMessage(" > Exception message: " + exception.Message);
+            CommonCore.DebugMessage("  core[vr_vm][re] > Original request: " + Request);
+            CommonCore.DebugMessage("  core[vr_vm][re] > Exception message: " + exception.Message);
         }
 
         public event EventHandler<ErrorEventArgs> Error;

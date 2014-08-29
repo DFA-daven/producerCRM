@@ -17,6 +17,12 @@ namespace CallForm.iOS.ViewElements
         private readonly StringListPickerViewModel _model;
         private float _doneButtonHeight = 50f;
 
+        /// <summary>Creates an instance of the <see cref="StringPickerDialog_ViewController"/> class.
+        /// This holds the "content" inside the _popoverController.
+        /// </summary>
+        /// <param name="viewModel">The parent <see cref="MvxViewModel"/>.</param>
+        /// <param name="source">The parent <see cref="UITableViewSource"/>.</param>
+        /// <remarks>This ViewController is created when NewVisit_View is loaded.</remarks>
         public StringPickerDialog_ViewController(Action<string> setValue, string initialValue, NewVisit_TableViewSource source, params string[] values)
         {
             #region _picker

@@ -32,6 +32,8 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "SHFB CallForm.Core", "docs\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2AC117AE-F884-46F4-A45E-059335BC8E42}"
 	ProjectSection(SolutionItems) = preProject
+		docs\Build instructions.txt = docs\Build instructions.txt
+		docs\Deploy instructions.txt = docs\Deploy instructions.txt
 		Summary.txt = Summary.txt
 	EndProjectSection
 EndProject

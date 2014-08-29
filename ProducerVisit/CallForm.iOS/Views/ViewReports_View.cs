@@ -102,7 +102,7 @@
         public override void ViewDidLoad()
         {
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > starting method...");
+            CommonCore_iOS.DebugMessage("  [vr_v][vdl] > starting method...");
 
             #region pageLayout
             float topMargin = 0;
@@ -111,7 +111,7 @@
             // managing a stack of View Controllers and provides tools for navigation, such 
             // as a navigation bar with a back button.
             topMargin = StatusBarHeight() + NavBarHeight();
-            CommonCore_iOS.DebugMessage(" > topMargin = "+ topMargin.ToString() + " < <======= ");
+            CommonCore_iOS.DebugMessage("  [vr_v][vdl] > topMargin = " + topMargin.ToString() + " < <======= ");
 
 
             #region logo
@@ -306,14 +306,14 @@
             #endregion
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > ...finished method.");
+            CommonCore_iOS.DebugMessage("  [vr_v][vdl] > ...finished method.");
         }
 
 
         public override void ViewDidLayoutSubviews()
         {
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > System version: " + UIDevice.CurrentDevice.SystemVersion);
+            CommonCore_iOS.DebugMessage("  [vr_v][vdls] > System version: " + UIDevice.CurrentDevice.SystemVersion);
 
             base.ViewDidLayoutSubviews();
 
@@ -333,7 +333,7 @@
             }
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > Vr_v finished");
+            CommonCore_iOS.DebugMessage("  [vr_v][vdls] > ...finished");
         }
 
         public override void MotionEnded(UIEventSubtype motion, UIEvent evt)
@@ -644,6 +644,7 @@
         private void SetFramesForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage("? [vr_v][sffo] > SetFramesForOrientation: make a note of when this runs");
 
             float difference = 0;
             float offset = 0;
@@ -699,13 +700,13 @@
             navbarHeight = screenHeight - layoutHeight;
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("> screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar height: " + navbarHeight.ToString() + " <=======");
+            CommonCore_iOS.DebugMessage("  [vr_v][nbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar height: " + navbarHeight.ToString() + " <=======");
 
             if (IsOS7OrLater())
             {
                 navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
                 layoutHeight = this.BottomLayoutGuide.Length - this.TopLayoutGuide.Length;
-                CommonCore_iOS.DebugMessage("> iOS 7 topMarginHeight: " + navbarHeight.ToString() + ", iOS7 layoutHeight = " + layoutHeight.ToString() + " <======= ");
+                CommonCore_iOS.DebugMessage("  [vr_v][nbh] > iOS 7 topMarginHeight: " + navbarHeight.ToString() + ", iOS7 layoutHeight = " + layoutHeight.ToString() + " <======= ");
 
             }
 
@@ -727,16 +728,16 @@
             string version = UIDevice.CurrentDevice.SystemVersion;
             string[] parts = version.Split('.');
             string major = parts[0];
-            CommonCore_iOS.DebugMessage(" > major version (string): " + major);
+            CommonCore_iOS.DebugMessage("  [vr_v][i7ol] > major version (string): " + major);
             int majorVersion = CommonCore_iOS.SafeConvert(major, 0);
-            CommonCore_iOS.DebugMessage(" > major version (int): " + majorVersion.ToString());
+            CommonCore_iOS.DebugMessage("  [vr_v][i7ol] > major version (int): " + majorVersion.ToString());
 
             if (majorVersion > 6)
             {
                 thisIsOS7 = true;
             }
 
-            CommonCore_iOS.DebugMessage(" > version is higher than 6 = " + thisIsOS7.ToString());
+            CommonCore_iOS.DebugMessage("  [vr_v][i7ol] > version is higher than 6 = " + thisIsOS7.ToString());
 
             return thisIsOS7;
         }

@@ -33,7 +33,7 @@ namespace CallForm.iOS
 	    protected override IMvxApplication CreateApp ()
 		{
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > return new Core.App().");
+            CommonCore_iOS.DebugMessage("  [Setup][CA] > return new Core.App().");
 
 			return new Core.App();
 		}
@@ -62,15 +62,15 @@ namespace CallForm.iOS
             if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {
                 CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                CommonCore_iOS.DebugMessage(" > ViewModelType is NewVisit_ViewModel.");
+                CommonCore_iOS.DebugMessage("  [Setup][S] > ViewModelType is NewVisit_ViewModel.");
 
                 if (MasterNavigationController.TopViewController is NewVisit_View)
                 {
-                    CommonCore_iOS.DebugMessage(" > NewVisit_ViewModel is the TopViewController.");
-                    CommonCore_iOS.DebugMessage(" > about to 'PopViewController' NewVisit_ViewModel.");
+                    CommonCore_iOS.DebugMessage("  [Setup][S] > NewVisit_ViewModel is the TopViewController.");
+                    CommonCore_iOS.DebugMessage("  [Setup][S] > about to 'PopViewController' NewVisit_ViewModel.");
 
                     MasterNavigationController.PopViewControllerAnimated(false);
-                    CommonCore_iOS.DebugMessage(" > NewVisit_ViewModel has been popped.");
+                    CommonCore_iOS.DebugMessage("  [Setup][S] > NewVisit_ViewModel has been popped.");
                 }
             }
 
@@ -78,7 +78,7 @@ namespace CallForm.iOS
             {
                 // ToDo: hide status bar (and the 'back' button)
                 CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                CommonCore_iOS.DebugMessage(" > ToDo - hide status bar (and the 'back' button).");
+                CommonCore_iOS.DebugMessage("  [Setup][S] > ToDo - hide status bar (and the 'back' button).");
             }
 
             base.Show(view);

@@ -26,9 +26,11 @@ namespace CallForm.iOS.ViewElements
         private readonly NewVisit_ViewModel _viewModel;
 
         /// <summary>Creates an instance of the <see cref="EmailRecipientSelectDialog_ViewController"/> class.
+        /// This holds the "content" inside the _popoverController.
         /// </summary>
         /// <param name="viewModel">The parent <see cref="MvxViewModel"/>.</param>
         /// <param name="source">The parent <see cref="UITableViewSource"/>.</param>
+        /// <remarks>This ViewController is created when NewVisit_View is loaded.</remarks> 
         public EmailRecipientSelectDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             //View.BackgroundColor = UIColor.Green;
@@ -44,12 +46,12 @@ namespace CallForm.iOS.ViewElements
             float maxTableWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.5, 0);    // the X value
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > maxTableHeight = " + maxTableHeight.ToString() + ", maxTableWidth = " + maxTableWidth.ToString());
+            CommonCore_iOS.DebugMessage("  [ersd_vc][ersd_vc] > maxTableHeight = " + maxTableHeight.ToString() + ", maxTableWidth = " + maxTableWidth.ToString());
 
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
             _table.Frame = new RectangleF(0, 0, maxTableWidth, maxTableHeight);
 
-            _table.ScrollEnabled = true;
+            _table.ScrollEnabled = true; // disabling locks the rows in the _popoverController
 
             View.Add(_table);
             View.SizeToFit();
@@ -84,30 +86,14 @@ namespace CallForm.iOS.ViewElements
                 //size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);
 
                 CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                CommonCore_iOS.DebugMessage(" > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString());
+                CommonCore_iOS.DebugMessage("  [ersd_vc][pcs] > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString());
 
                 return size;
             }
             set { base.PreferredContentSize = value; }
         }
 
-#pragma warning disable 612,618
-        [Obsolete("Deprecated in iOS6. Replace it with both GetSupportedInterfaceOrientations and PreferredInterfaceOrientationForPresentation", false)]
-        public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)  // iOS4/iOS5 only
-        {
-            bool rotate = false;
 
-            if (toInterfaceOrientation == InterfaceOrientation)
-            {
-                rotate = true;
-            }
-
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" [ersd_vc][satio] > ShouldAutorotateToInterfaceOrientation = " + rotate.ToString() + " < [ersd_vc][satio]");
-
-            return rotate;
-        }
-#pragma warning restore 612,618
 
         // <summary>Get the name of a static or instance property from a property access lambda.
         // </summary>

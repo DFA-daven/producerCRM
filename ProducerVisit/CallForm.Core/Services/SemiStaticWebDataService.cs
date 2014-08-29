@@ -275,7 +275,7 @@
         public void UpdateModels()
         {
             CommonCore.DebugMessage(_className, "UpdateModels");
-            CommonCore.DebugMessage("UpdateModels > starting...");
+            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > starting...");
 
             // FixMe: switch this to three separate methods, each with an async/await
             string filename = string.Empty;
@@ -296,7 +296,7 @@
 
             try
             {
-                CommonCore.DebugMessage("UpdateModels > do/while > trying...");
+                CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > trying...");
 
                 CheckFolder(_dataFolderPathName);
 
@@ -312,74 +312,74 @@
 
                     try
                     {
-                        //CommonCore.DebugMessage("UpdateModels > ReasonCode > trying...");
+                        //CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > trying...");
 
                         if (!GettingReasonCodes & ReasonCodeFileMissing)
                         {
-                            CommonCore.DebugMessage("UpdateModels > ReasonCode > getting Reasons...");
+                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > getting Reasons...");
 
                             GettingReasonCodes = true;
                             string requestURL = _targetURL + "/Visit/Reasons/";
                             var request = new MvxRestRequest(requestURL);
 
-                            CommonCore.DebugMessage("UpdateModels > Request: " + requestURL);
+                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > Request: " + requestURL);
 
                             UpdateReasonCodeModel(request);
                         }
-                        //CommonCore.DebugMessage("UpdateModels > ReasonCode > done trying.");
+                        //CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > done trying.");
 
                     }
                     catch (Exception e)
                     {
-                        CommonCore.DebugMessage("UpdateModels > ReasonCode > " + e.Message);
+                        CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > " + e.Message);
                     }
                     
                     try
                     {
-                        //CommonCore.DebugMessage("UpdateModels > CallType > trying...");
+                        //CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > trying...");
 
                         if (!GettingCallTypes & CallTypeFileMissing)
                         {
-                            CommonCore.DebugMessage("UpdateModels > CallType > getting CallTypes...");
+                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > getting CallTypes...");
 
                             GettingCallTypes = true;
                             string requestURL = _targetURL + "/Visit/CallTypes/";
                             var request = new MvxRestRequest(requestURL);
 
-                            CommonCore.DebugMessage("UpdateModels > Request: " + requestURL);
+                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > Request: " + requestURL);
 
                             UpdateCallTypeModel(request);
                         }
-                        //CommonCore.DebugMessage("UpdateModels > CallType > done trying.");
+                        //CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > done trying.");
 
                     }
                     catch (Exception e)
                     {
-                        CommonCore.DebugMessage("UpdateModels > CallType > " + e.Message);
+                        CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > " + e.Message);
                     }
 
                     try
                     {
-                        //CommonCore.DebugMessage("UpdateModels > EmailRecipient > trying...");
+                        //CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > EmailRecipient > trying...");
 
                         if (!GettingEmailRecipients & EmailRecipientFileMissing)
                         {
-                            CommonCore.DebugMessage("UpdateModels > EmailRecipient > getting EmailRecipients...");
+                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > EmailRecipient > getting EmailRecipients...");
 
                             GettingEmailRecipients = true;
                             string requestURL = _targetURL + "/Visit/EmailRecipients/";
                             var request = new MvxRestRequest(requestURL);
 
-                            CommonCore.DebugMessage("UpdateModels > Request: " + requestURL);
+                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > Request: " + requestURL);
 
                             UpdateEmailRecipientModel(request);
                         }
-                        //CommonCore.DebugMessage("UpdateModels > EmailRecipient > done trying.");
+                        //CommonCore.DebugMessage(  core[sswds][um] > "UpdateModels > EmailRecipient > done trying.");
 
                     }
                     catch (Exception e)
                     {
-                        CommonCore.DebugMessage("UpdateModels > EmailRecipient > " + e.Message);
+                        CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > EmailRecipient > " + e.Message);
                     }
 
                     difference = DateTime.Now - start;
@@ -388,7 +388,7 @@
 
                     if (remainder == 0)
                     {
-                        message = "UpdateModels > i = " + i + ", Getting = " + BusyGetting.ToString().Substring(0,1) + ", Updating = " + BusyUpdating.ToString().Substring(0,1) + ", Files = ";
+                        message = "  core[sswds][um] > UpdateModels > i = " + i + ", Getting = " + BusyGetting.ToString().Substring(0, 1) + ", Updating = " + BusyUpdating.ToString().Substring(0, 1) + ", Files = ";
                         message += (!CallTypeFileMissing).ToString().Substring(0, 1) + " " + (!EmailRecipientFileMissing).ToString().Substring(0, 1) + " " + (!ReasonCodeFileMissing).ToString().Substring(0, 1);
                         message += ", Time = " + differenceInSeconds.ToString();
                         CommonCore.DebugMessage(message);
@@ -397,20 +397,20 @@
                     // !FilesExist() && (differenceInSeconds < 0.1) && (i < 10)
                 } while (!FilesExist() & differenceInSeconds < 10);
 
-                CommonCore.DebugMessage("UpdateModels > do/while > done trying.");
+                CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > done trying.");
 
             }
             catch (Exception e)
             {
-                CommonCore.DebugMessage("UpdateModels > do/while > " + e.Message);
+                CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > " + e.Message);
             }
             finally
             {
-                CommonCore.DebugMessage("UpdateModels > do/while > finally.");
+                CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > finally.");
 
             }
 
-            CommonCore.DebugMessage("UpdateModels > do/while > completed.");
+            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > completed.");
 
         }
 
@@ -695,11 +695,11 @@
         private bool XmlFileMissing(string filePath)
         {
             string filename = _fileStore.PathCombine(_dataFolderPathName, filePath);
-            //CommonCore.DebugMessage("Checking for " + filename);
+            //CommonCore.DebugMessage("  core[sswds][xfm] > Checking for " + filename);
 
             bool fileExists = _fileStore.Exists(filename);
             bool fileMissing = !fileExists;
-            //CommonCore.DebugMessage(" > fileMissing = " + fileMissing.ToString());
+            //CommonCore.DebugMessage("  core[sswds][xfm] > fileMissing = " + fileMissing.ToString());
 
             return fileMissing;
         }

@@ -205,7 +205,7 @@ namespace BackEnd
             char[] charSeparators = new char[] { '.' };
 
             CommonCore_BackEnd.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, true);
-            CommonCore_BackEnd.DebugMessage(" > The IP host address of the remote client is " + userHostAddress, true);
+            CommonCore_BackEnd.DebugMessage("  [Global][ipia] > The IP host address of the remote client is " + userHostAddress, true);
 
             octet = userHostAddress.Split(charSeparators, StringSplitOptions.None);
 
@@ -226,11 +226,11 @@ namespace BackEnd
                 }
                 catch (FormatException e)
                 {
-                    CommonCore_BackEnd.DebugMessage(" > Input string is not a sequence of digits.");
+                    CommonCore_BackEnd.DebugMessage("  [Global][ipia] > Input string is not a sequence of digits.");
                 }
                 catch (OverflowException e)
                 {
-                    CommonCore_BackEnd.DebugMessage(" > The number cannot fit in an Int32.");
+                    CommonCore_BackEnd.DebugMessage("  [Global][ipia] > The number cannot fit in an Int32.");
                 }
                 finally
                 {

@@ -26,6 +26,10 @@
         UIPopoverController _popoverController;
         UIViewController _currentViewController;
         SizeF _contollerPreferredSize;
+
+        /// <summary>The maximum height to display the controller. Anything larger will not be honored.
+        /// </summary>
+        float _distanceToBottom = 0f;
         #endregion
 
         /// <summary>A container for the popover controller.
@@ -39,7 +43,10 @@
 
         public NewVisit_TableViewSource(NewVisit_ViewModel viewModel, UITableView tableView)
         {
-            _viewModel = viewModel; 
+            _viewModel = viewModel;
+
+
+            #region viewModel property changed
             _viewModel.PropertyChanged += (sender, args) =>
             {
                 // Review: Is switch/case the best way to handle this? What if a property name changes?
@@ -101,6 +108,7 @@
                         break;
                 }
             };
+            #endregion viewModel property changed
 
             #region memberNumber
             _memberNumberCell = new TextField_TableViewCell("memberNumber", _viewModel.Editing, _viewModel.MemberNumber,
@@ -262,8 +270,10 @@
         {
             SizeF availableSize = new SizeF();
 
-            float distanceToBottom = 0f;
-            float safeMaxHeight = 0f;
+            
+            float availableDisplayHeight = 0f;
+
+
 
             if (_viewModel.Editing)
             {
@@ -304,20 +314,26 @@
                         _popoverController = new UIPopoverController(_currentViewController);
                         //_popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
 
-                        CommonCore_iOS.DebugMessage("[nv_tvs][rs] > baseCellRect.bottom = " + baseCellRect.Bottom.ToString() + ", tableView.Superview.Frame.Bottom = " + tableView.Superview.Frame.Bottom.ToString() + " < @ @ @ @ @ @ @");
-                        distanceToBottom = tableView.Superview.Frame.Bottom - baseCellRect.Bottom;
+                        CommonCore_iOS.DebugMessage("  [nv_tvs][rs] > baseCellRect.bottom = " + baseCellRect.Bottom.ToString() + ", tableView.Superview.Frame.Bottom = " + tableView.Superview.Frame.Bottom.ToString() + " < @ @ @ @ @ @ @");
+                        _distanceToBottom = tableView.Superview.Frame.Bottom - baseCellRect.Bottom;
 
-                        CommonCore_iOS.DebugMessage("[nv_tvs][rs] > _popoverController.ContentViewController.PreferredContentSize.Height = " + _popoverController.ContentViewController.PreferredContentSize.Height.ToString() + ", distanceToBottom = " + distanceToBottom.ToString() + " < @ @ @ @ @ @ @");
-                        //safeMaxHeight = Math.Min(distanceToBottom, _currentViewController.PreferredContentSize.Height);
-                        safeMaxHeight = Math.Min(distanceToBottom, _popoverController.ContentViewController.PreferredContentSize.Height);
+                        CommonCore_iOS.DebugMessage("  [nv_tvs][rs] > _popoverController.ContentViewController.PreferredContentSize.Height = " + _popoverController.ContentViewController.PreferredContentSize.Height.ToString() + ", _distanceToBottom = " + _distanceToBottom.ToString() + " < @ @ @ @ @ @ @");
+                        //availableDisplayHeight = Math.Min(_distanceToBottom, _currentViewController.PreferredContentSize.Height);
+                        availableDisplayHeight = Math.Min(_distanceToBottom, _popoverController.ContentViewController.PreferredContentSize.Height);
+                        //availableDisplayHeight = Math.Max(_distanceToBottom, _popoverController.ContentViewController.PreferredContentSize.Height);
 
                         //availableSize = _popoverController.ContentViewController.ContentSizeForViewInPopover; // deprecated
                         //availableSize = _popoverController.ContentViewController.PreferredContentSize; // null?
                         availableSize = _currentViewController.PreferredContentSize;
-                        availableSize.Height = safeMaxHeight;
-                        CommonCore_iOS.DebugMessage("[nv_tvs][rs] > availableSize.Height = " + availableSize.Height.ToString() + ", distanceToBottom = " + distanceToBottom.ToString() + " < @ @ @ @ @ @ @");
+                        
+                        availableSize.Height = availableDisplayHeight;
+                        // Hack: just testing...
+                        availableSize.Height = Math.Min((float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.50, 0), (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.50, 0));
+                        
+                        CommonCore_iOS.DebugMessage("* [nv_tvs][rs] > availableDisplayHeight = " + availableDisplayHeight.ToString() + " < [nv_tvs][rs] @ @ @ @ @ @ @");
 
-                        _popoverController.ContentViewController.PreferredContentSize = availableSize;
+                        //_popoverController.ContentViewController.PreferredContentSize = availableSize;
+                        _popoverController.PopoverContentSize = availableSize;
 
                         _popoverController.PresentFromRect(baseCellRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
 #if (DEBUG || BETA)
@@ -329,7 +345,7 @@
 
                 
                 CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                CommonCore_iOS.DebugMessage(" > _contollerPreferredSize Height = " + _contollerPreferredSize.Height.ToString() + ", Width = " + _contollerPreferredSize.Width.ToString());
+                CommonCore_iOS.DebugMessage("  [nv_tvs][rs] > _contollerPreferredSize Height = " + _contollerPreferredSize.Height.ToString() + ", Width = " + _contollerPreferredSize.Width.ToString());
 
                         break;
                     case 5:
@@ -459,9 +475,9 @@
             string version = UIDevice.CurrentDevice.SystemVersion;
             string[] parts = version.Split('.');
             string major = parts[0];
-            CommonCore_iOS.DebugMessage(" > major version (string): " + major);
+            CommonCore_iOS.DebugMessage("  [nv_tvs][i7ol] > major version (string): " + major);
             int majorVersion = CommonCore_iOS.SafeConvert(major, 0);
-            CommonCore_iOS.DebugMessage(" > major version (int): " + majorVersion.ToString());
+            CommonCore_iOS.DebugMessage("  [nv_tvs][i7ol] > major version (int): " + majorVersion.ToString());
 
             if (majorVersion > 6)
             {
@@ -470,7 +486,7 @@
                 thisIsOS7 = true;
             }
 
-            CommonCore_iOS.DebugMessage(" > version is higher than 6 = " + thisIsOS7.ToString());
+            CommonCore_iOS.DebugMessage("  [nv_tvs][i7ol] > version is higher than 6 = " + thisIsOS7.ToString());
 
             return thisIsOS7;
         }

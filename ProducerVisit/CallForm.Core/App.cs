@@ -14,7 +14,7 @@ namespace CallForm.Core
         public override void Initialize()
         {
             CommonCore.DebugMessage("CallForm.Core.App", "Initialize");
-            CommonCore.DebugMessage(" > RegisterAppStart<ViewModels.ViewReports_ViewModel>()");
+            CommonCore.DebugMessage("  [App][App] > RegisterAppStart<ViewModels.ViewReports_ViewModel>()");
 
             CreatableTypes()
                 .EndingWith("Service")

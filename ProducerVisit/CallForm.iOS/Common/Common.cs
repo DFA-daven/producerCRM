@@ -96,7 +96,7 @@ namespace CallForm.iOS
             if (_numberOfCallsToSetVisible < 0)
             {
                 _numberOfCallsToSetVisible = 0;
-                CommonCore_iOS.DebugMessage("SetNetworkActivityIndicatorVisible() was asked to hide more often than shown.");
+                CommonCore_iOS.DebugMessage("  [Common][snaiv] > SetNetworkActivityIndicatorVisible() was asked to hide more often than shown.");
             }
 
             UIApplication.SharedApplication.NetworkActivityIndicatorVisible = (_numberOfCallsToSetVisible > 0);

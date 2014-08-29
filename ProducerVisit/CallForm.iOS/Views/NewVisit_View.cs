@@ -45,7 +45,7 @@ namespace CallForm.iOS.Views
         public override void ViewDidLoad()
         {
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > starting method...");
+            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > starting method...");
 
             View = new UIView { BackgroundColor = CommonCore_iOS.viewBackgroundColor };
 
@@ -80,7 +80,7 @@ namespace CallForm.iOS.Views
             //heightOfVisibleView = NavigationController.VisibleViewController.View.Frame.Height;
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" [1] > screenHeight: " + screenHeight.ToString() + ", viewFrameHeight: " + viewFrameHeight.ToString() + ", heightOfVisibleView: " + heightOfVisibleView.ToString() + " <======= ");
+            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > screenHeight: " + screenHeight.ToString() + ", viewFrameHeight: " + viewFrameHeight.ToString() + ", heightOfVisibleView: " + heightOfVisibleView.ToString() + " <======= ");
 
             source.DatePickerPopover = new DateTimePickerDialog_ViewController(
                 val => (ViewModel as NewVisit_ViewModel).Date = val, 
@@ -110,6 +110,7 @@ namespace CallForm.iOS.Views
             #region saveButton
             UIButton saveButton = new UIButton(UIButtonType.System);
             saveButton.Frame = new RectangleF(PercentOfFrameWidth(25), 0, PercentOfFrameWidth(50), ButtonHeight());
+            saveButton.BackgroundColor = UIColor.Red;
 
             if (!(ViewModel as NewVisit_ViewModel).Editing)
             {
@@ -142,7 +143,7 @@ namespace CallForm.iOS.Views
             float tableFrameHeight = _table.Frame.Height;
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" [nv_v][vdl] > tableFrameHeight: " + tableFrameHeight.ToString() + " <======= ");
+            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > tableFrameHeight: " + tableFrameHeight.ToString() + " <======= ");
 
             (ViewModel as NewVisit_ViewModel).Error += OnError;
 
@@ -160,12 +161,14 @@ namespace CallForm.iOS.Views
             //(ViewModel as NewVisit_ViewModel).Width = FrameWidth();
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" [nv_v][vdl] > (ViewModel as NewVisit_ViewModel).Height: " + (ViewModel as NewVisit_ViewModel).Height.ToString() + " <= = = = = ");
-            CommonCore_iOS.DebugMessage(" [nv_v][vdl] > ...finished method.");
+            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > (ViewModel as NewVisit_ViewModel).Height: " + (ViewModel as NewVisit_ViewModel).Height.ToString() + " <= = = = = ");
+            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > ...finished method.");
         }
 
         public override void ViewDidLayoutSubviews()
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             #region colorize subviews
             UIView[] subviews = new UIView[] { };
             int subviewsArrayLength = 0;
@@ -174,14 +177,12 @@ namespace CallForm.iOS.Views
             
             string subviewType = string.Empty;
 
-            //UIColor[] colors = new UIColor[] { UIColor.Cyan, UIColor.Black, UIColor.Blue, UIColor.Brown, UIColor.DarkGray, UIColor.Gray, UIColor.Green, UIColor.LightGray, UIColor.Magenta, UIColor.Orange, UIColor.Purple, UIColor.Red, UIColor.White, UIColor.Yellow };
             UIColor[] colors = new UIColor[] { UIColor.Cyan, UIColor.Blue, UIColor.Brown, UIColor.Green, UIColor.Magenta, UIColor.Orange, UIColor.Purple, UIColor.Red };
-            UIColor[] grays = new UIColor[] { UIColor.White, UIColor.LightGray, UIColor.Gray, UIColor.DarkGray, UIColor.Black };
+            UIColor[] rgbGrays = new UIColor[] { UIColor.FromRGB(223, 223, 223), UIColor.FromRGB(191, 191, 191), UIColor.FromRGB(159, 159, 159), UIColor.FromRGB(127, 127, 127), UIColor.FromRGB(95, 95, 95), UIColor.FromRGB(63, 63, 63), UIColor.FromRGB(31, 31, 31)};
 
             int colorArrayLength = colors.Length;
-            int grayArrayLength = grays.Length;
-            int colorIndex = 0;
-            int grayIndex = 0;
+            int grayArrayLength = rgbGrays.Length;
+            
 
             // Note: iOS 7 numbers Subviews differently from iOS 6.
             // _table.Subviews[0]: iOS 6: the footer (which contains the saveButton).
@@ -189,9 +190,12 @@ namespace CallForm.iOS.Views
             // _table.Subviews[1]: iOS 6: UNDEFINED
             //                     iOS 7: the footer (which contains the saveButton).
 
+#if (DEBUG)
+            int colorIndex = 0;
+            int grayIndex = 0;
+
             // The _table is in the foreground -- color the (undefined) space **behind** the controls.
             // Drag the entire page up or down to see the BackgroundColor.
-
             _table.BackgroundColor = UIColor.Orange;
             View.BackgroundColor = UIColor.Brown;
 
@@ -199,41 +203,40 @@ namespace CallForm.iOS.Views
 
             if (subviews == null)
             {
-                CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[] is NULL. How can the subview be null?!?");
+                CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[] is NULL. How can the subview be null?!?");
             }
             else 
             {
                 subviewsArrayLength = subviews.Length;
-                CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString() + ", colorArrayLength = " + colorArrayLength.ToString());
+                CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString() + ", colorArrayLength = " + colorArrayLength.ToString());
                 // here
 
-#if (DEBUG || BETA)
                 for (int i = 0; i < subviewsArrayLength; i++)
                 {
                     grayIndex = i % grayArrayLength; // use modulus to keep colorIndex from going out of range
 
                     if (subviews[i].GetType() == typeof(UIView))
                     {
-                        CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString() + ", grays[" + grayIndex.ToString() + "] = " + grays[grayIndex].ToString());
-                        subviews[i].BackgroundColor = grays[grayIndex]; // applying color should works here
+                        CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString() + ", rgbGrays[" + grayIndex.ToString() + "] = " + rgbGrays[grayIndex].ToString());
+                        subviews[i].BackgroundColor = rgbGrays[grayIndex]; // applying color should works here
                     }
                     else
                     {
                         subviewType = subviews[i].GetType().ToString();
-                        CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString() + ", grays[" + grayIndex.ToString() + "] = " + grays[grayIndex].ToString());
+                        CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString() + ", rgbGrays[" + grayIndex.ToString() + "] = " + rgbGrays[grayIndex].ToString());
                         // here
-                        subviews[i].BackgroundColor = grays[grayIndex]; // applying color should not work here
+                        subviews[i].BackgroundColor = rgbGrays[grayIndex]; // applying color should not work here
 
                         subSubviews = subviews[i].Subviews;
 
                         if (subSubviews == null)
                         {
-                            CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "].Subviews[] is NULL. How can the subview be null?!?");
+                            CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "].Subviews[] is NULL. How can the subview be null?!?");
                         }
                         else
                         {
                             subSubviewsArrayLength = subSubviews.Length;
-                            CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "].Subviews[] is NOT null. subviewsArrayLength = " + subSubviewsArrayLength.ToString() + ", colorArrayLength = " + colorArrayLength.ToString());
+                            CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "].Subviews[] is NOT null. subviewsArrayLength = " + subSubviewsArrayLength.ToString() + ", colorArrayLength = " + colorArrayLength.ToString());
                             // here
                             for (int j = 0; j < subSubviewsArrayLength; j++)
                             {
@@ -242,7 +245,7 @@ namespace CallForm.iOS.Views
                                 if (subSubviews[j].GetType() == typeof(UIView))
                                 {
                                     // this is probably a header or footer
-                                    CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "] == typeof(UIView), Height = " + subSubviews[j].Frame.Height.ToString() + ", colors[" + colorIndex.ToString() + "] = " + colors[colorIndex].ToString());
+                                    CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "] == typeof(UIView), Height = " + subSubviews[j].Frame.Height.ToString() + ", colors[" + colorIndex.ToString() + "] = " + colors[colorIndex].ToString());
                                     subSubviews[j].BackgroundColor = colors[colorIndex]; 
                                 }
                                 else
@@ -252,26 +255,23 @@ namespace CallForm.iOS.Views
                                     // last/bottom member of the view. 
                                     // this is a view that wraps something else
                                     subviewType = subSubviews[j].GetType().ToString();
-                                    CommonCore_iOS.DebugMessage(" [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "] is wrapping something: Height = " + subSubviews[j].Frame.Height.ToString());
+                                    CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "] is wrapping something: Height = " + subSubviews[j].Frame.Height.ToString());
                                     //string wrappedType = subSubviews[j].Subviews[0].GetType().ToString();
                                     // this isn't getting down far enough to see the wrapped object
-                                    //CommonCore_iOS.DebugMessage(" [nv_v][vdls] > type of the wrapped object: " + wrappedType);
+                                    //CommonCore_iOS.DebugMessage("  [nv_v][vdls] > type of the wrapped object: " + wrappedType);
                                 }
                             }
                         }
                     }
                 }
-#endif
             }
-                
+#endif
             #endregion colorize subviews
-
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             base.ViewDidLayoutSubviews();
             
             float screenHeight = UIScreen.MainScreen.Bounds.Height;
-            CommonCore_iOS.DebugMessage(" [nv_v][vdls] > screenHeight: " + screenHeight.ToString() + ", viewFrameHeight: " + View.Frame.Height.ToString() + ", LayoutHeight(): " + LayoutHeight().ToString());
+            CommonCore_iOS.DebugMessage("  [nv_v][vdls] > screenHeight: " + screenHeight.ToString() + ", viewFrameHeight: " + View.Frame.Height.ToString() + ", LayoutHeight(): " + LayoutHeight().ToString());
 
             /*
                 * Note: the TopLayoutGuide and BottomLayoutGuide values are generated dynamically AFTER
@@ -292,8 +292,8 @@ namespace CallForm.iOS.Views
                 bottomGuide = this.BottomLayoutGuide.Length;
             }
 
-            CommonCore_iOS.DebugMessage(" [nv_v][vdls] > this.TopLayoutGuide.Length: " + displacement_y.ToString() + " this.BottomLayoutGuide.Length: " + bottomGuide.ToString() + " <======= ");
-            CommonCore_iOS.DebugMessage(" [nv_v][vdls] > ...finished");
+            CommonCore_iOS.DebugMessage("  [nv_v][vdls] > this.TopLayoutGuide.Length: " + displacement_y.ToString() + " this.BottomLayoutGuide.Length: " + bottomGuide.ToString() + " <======= ");
+            CommonCore_iOS.DebugMessage("  [nv_v][vdls] > ...finished");
         }
 
         private void ReSendEmail(object sender, EventArgs eventArgs)
@@ -348,6 +348,24 @@ namespace CallForm.iOS.Views
 
             SetTableFrameForOrientation(InterfaceOrientation); // use current orientation
         }
+
+#pragma warning disable 612,618
+        [Obsolete("Deprecated in iOS6. Replace it with both GetSupportedInterfaceOrientations and PreferredInterfaceOrientationForPresentation", false)]
+        public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)  // iOS4/iOS5 only
+        {
+            bool rotate = false;
+
+            if (toInterfaceOrientation == InterfaceOrientation)
+            {
+                rotate = true;
+            }
+
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage("  [nv_v][satio] > ShouldAutorotateToInterfaceOrientation = " + rotate.ToString() + " < [ersd_vc][satio]");
+
+            return rotate;
+        }
+#pragma warning restore 612,618
 
         private void SetTableFrameForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
@@ -451,6 +469,7 @@ namespace CallForm.iOS.Views
         internal float ButtonHeight()
         {
             float height = UIFont.SystemFontSize * 3f;
+            CommonCore_iOS.DebugMessage("  [nv_v][bh] > ButtonHeight() = " + height.ToString() + " < ");
             //return 50;
             return height;
         }
@@ -464,7 +483,7 @@ namespace CallForm.iOS.Views
             float topMarginHeight = TopMargin();
 
             usableHeight = _table.Frame.Height - topMarginHeight;
-
+            CommonCore_iOS.DebugMessage("  [nv_v][fh] > FrameHeight() = " + usableHeight.ToString() + " < ");
 
             return usableHeight;
         }
@@ -474,6 +493,8 @@ namespace CallForm.iOS.Views
         /// <returns>The Frame width.</returns>
         public float FrameWidth()
         {
+            CommonCore_iOS.DebugMessage("  [nv_v][fw] > FrameWidth() = " + _table.Frame.Width.ToString() + " < ");
+
             return _table.Frame.Width;
         }
 
@@ -484,6 +505,8 @@ namespace CallForm.iOS.Views
         internal float PercentOfFrameWidth(double percent)
         {
             float value = (float)Math.Round( PercentOfRectangleWidth(_table.Frame, percent), 0);
+            CommonCore_iOS.DebugMessage("  [nv_v][%fw] > PercentOfFrameWidth() = " + value.ToString() + " < ");
+
             return value;
         }
 
@@ -496,6 +519,8 @@ namespace CallForm.iOS.Views
         {
             percent = percent / 100;
             float value = (float)Math.Round((rectangle.Width * percent), 0);
+            CommonCore_iOS.DebugMessage("  [nv_v][%rw] > PercentOfRectangleWidth() = " + value.ToString() + " < ");
+
             return value;
         }
 
@@ -510,7 +535,7 @@ namespace CallForm.iOS.Views
             
             if (View.Frame.Height < 1)
             {
-                CommonCore_iOS.DebugMessage(" [nv_v][vfh] > View not ready... " );
+                CommonCore_iOS.DebugMessage("  [nv_v][vfh] > View not ready... " );
                 return viewFrameHeight;
             }
 
@@ -529,7 +554,7 @@ namespace CallForm.iOS.Views
                 default:
                     throw new ArgumentOutOfRangeException("ViewFrameHeight");
             }
-            CommonCore_iOS.DebugMessage(" [nv_v][vfh] > iOS 7 = " + IsOS7OrLater().ToString() + " > ViewFrameHeight(): " + viewFrameHeight.ToString());
+            CommonCore_iOS.DebugMessage("  [nv_v][vfh] > iOS 7 = " + IsOS7OrLater().ToString() + " > ViewFrameHeight(): " + viewFrameHeight.ToString());
 
             return viewFrameHeight;
         }
@@ -542,7 +567,7 @@ namespace CallForm.iOS.Views
 
             if (View.Frame.Height < 1)
             {
-                CommonCore_iOS.DebugMessage(" [nv_v][tm] > View not ready... ");
+                CommonCore_iOS.DebugMessage("  [nv_v][tm] > View not ready... ");
                 if (IsOS7OrLater())
                 {
                     topMargin = 20f;
@@ -553,7 +578,7 @@ namespace CallForm.iOS.Views
                 }
             }
             
-            CommonCore_iOS.DebugMessage(" [nv_v][tm] > topMargin: " + topMargin.ToString());
+            CommonCore_iOS.DebugMessage("  [nv_v][tm] > topMargin: " + topMargin.ToString());
 
             return topMargin;
         }
@@ -563,24 +588,24 @@ namespace CallForm.iOS.Views
             float layoutHeight = 0f;
             UIView[] subviews = View.Subviews;
 
-            CommonCore_iOS.DebugMessage(" [nv_v][lh] > Calculating layoutHeight....");
+            CommonCore_iOS.DebugMessage("  [nv_v][lh] > Calculating layoutHeight....");
             if (subviews == null)
             {
-                CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[] is NULL.");
+                CommonCore_iOS.DebugMessage("  [nv_v][lh] > View.Subviews[] is NULL.");
             }
             else
             {
                 int subviewsArrayLength = subviews.Length;
-                CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString());
+                CommonCore_iOS.DebugMessage("  [nv_v][lh] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString());
                 for (int i = 0; i < subviewsArrayLength; i++)
                 {
                     if (subviews[i].GetType() == typeof(UIView))
                     {
-                        CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString());
+                        CommonCore_iOS.DebugMessage("  [nv_v][lh] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString());
                     }
                     else
                     {
-                        CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString());
+                        CommonCore_iOS.DebugMessage("  [nv_v][lh] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString());
                         layoutHeight = subviews[i].Frame.Height;
                     }
                 }
@@ -588,11 +613,11 @@ namespace CallForm.iOS.Views
 
             if (layoutHeight == 0)
             {
-                CommonCore_iOS.DebugMessage(" [nv_v][lh] > layoutHeight was 0, substituting View.Frame.Height: " + View.Frame.Height.ToString());
+                CommonCore_iOS.DebugMessage("  [nv_v][lh] > layoutHeight was 0, substituting View.Frame.Height: " + View.Frame.Height.ToString());
                 layoutHeight = View.Frame.Height;
             }
 
-            CommonCore_iOS.DebugMessage(" [nv_v][lh] > layoutHeight = " + layoutHeight.ToString() + " (finished).");
+            CommonCore_iOS.DebugMessage("  [nv_v][lh] > layoutHeight = " + layoutHeight.ToString() + " (finished).");
 
             return layoutHeight;
         }
@@ -613,17 +638,17 @@ namespace CallForm.iOS.Views
                 navbarHeight = 44f;
             }
 
-            CommonCore_iOS.DebugMessage(" [nv_v][nbh] > navbarHeight = " + navbarHeight.ToString() + " < = = = =");
+            CommonCore_iOS.DebugMessage("  [nv_v][nbh] > navbarHeight = " + navbarHeight.ToString() + " < = = = =");
             return navbarHeight;
 
             #region incomplete
             // ToDo: this works in portrait, but after the first rotation it returns 300, 556, 
-            CommonCore_iOS.DebugMessage(" [nv_v][nbh] > Calculating navbarHeight....");
+            CommonCore_iOS.DebugMessage("  [nv_v][nbh] > Calculating navbarHeight....");
             
             // skip if we're not ready
             if (View.Frame.Height < 1)
             {
-                CommonCore_iOS.DebugMessage(" [nv_v][nbh] > View not ready... ");
+                CommonCore_iOS.DebugMessage("  [nv_v][nbh] > View not ready... ");
                 if (IsOS7OrLater())
                 {
                     return 44f;
@@ -643,7 +668,7 @@ namespace CallForm.iOS.Views
             // Note: comparisons of floating point values (double and float) are problematic because of the imprecision of floating point arithmetic on binary computers.
             if ((int)navbarHeight == (int)screenHeight)
             {
-                CommonCore_iOS.DebugMessage(" [nv_v][nbh] > (int)navbarHeight == (int)screenHeight) == " + navbarHeight.ToString() + " < = =" );
+                CommonCore_iOS.DebugMessage("  [nv_v][nbh] > (int)navbarHeight == (int)screenHeight) == " + navbarHeight.ToString() + " < = =" );
 
                 navbarHeight = 0f;
                 return navbarHeight;
@@ -651,12 +676,12 @@ namespace CallForm.iOS.Views
 
             if (IsOS7OrLater())
             {
-                CommonCore_iOS.DebugMessage(" [nv_v][nbh] > IsOS7OrLater() = true, navbarHeight = " + navbarHeight.ToString() + " < = = = " );
+                CommonCore_iOS.DebugMessage("  [nv_v][nbh] > IsOS7OrLater() = true, navbarHeight = " + navbarHeight.ToString() + " < = = = " );
                 navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
             }
             else
             {
-                CommonCore_iOS.DebugMessage(" [nv_v][nbh] > IsOS7OrLater() = FALSE, navbarHeight = " + navbarHeight.ToString() + " - " + StatusBarHeight().ToString() + " = " + (navbarHeight - StatusBarHeight()).ToString() + " < = = = =" );
+                CommonCore_iOS.DebugMessage("  [nv_v][nbh] > IsOS7OrLater() = FALSE, navbarHeight = " + navbarHeight.ToString() + " - " + StatusBarHeight().ToString() + " = " + (navbarHeight - StatusBarHeight()).ToString() + " < = = = =" );
                 navbarHeight = navbarHeight - StatusBarHeight();
             }
 
@@ -668,7 +693,7 @@ namespace CallForm.iOS.Views
         {
             SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
             float statusBarHeight = Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
-            CommonCore_iOS.DebugMessage(" > statusBarHeight: " + statusBarHeight.ToString() + " <= = = = = ");
+            CommonCore_iOS.DebugMessage("  [nv_v][sbh] > statusBarHeight: " + statusBarHeight.ToString() + " <= = = = = ");
 
             return statusBarHeight;
         }
@@ -694,9 +719,9 @@ namespace CallForm.iOS.Views
                     thisIsOS7 = true;
                 }
 
-                CommonCore_iOS.DebugMessage(" > major version (string): " + major);
-                CommonCore_iOS.DebugMessage(" > major version (int): " + majorVersion.ToString());
-                CommonCore_iOS.DebugMessage(" > version is higher than 6 = " + thisIsOS7.ToString());
+                CommonCore_iOS.DebugMessage("  [nv_v][i7ol] > major version (string): " + major);
+                CommonCore_iOS.DebugMessage("  [nv_v][i7ol] > major version (int): " + majorVersion.ToString());
+                CommonCore_iOS.DebugMessage("  [nv_v][i7ol] > version is higher than 6 = " + thisIsOS7.ToString());
 
                 _isOS7 = thisIsOS7;
             }

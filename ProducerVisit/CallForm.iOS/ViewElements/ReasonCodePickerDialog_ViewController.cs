@@ -23,67 +23,56 @@ namespace CallForm.iOS.ViewElements
 
         private readonly UITableView _table;
         private readonly NewVisit_ViewModel _viewModel;
-        //private readonly float _heightFactor = 0.75f;
-        //private readonly float _widthFactor = 0.75f;
 
-        //private SizeF _size;
-        //private float _reasonCodeHeight;
-        //private float _reasonCodeWidth;
-
-        /// <summary>Creates an instance of the <see cref="ReasonCodePickerDialog_ViewController"/> class.
+        /// <summary>Creates an instance of the <see cref="ReasonCodePickerDialog_ViewController"/> class. This holds the "content" inside the _popoverController.
         /// </summary>
         /// <param name="viewModel">The parent <see cref="MvxViewModel"/>.</param>
         /// <param name="source">The parent <see cref="UITableViewSource"/>.</param>
+        /// <remarks>This ViewController is created when NewVisit_View is loaded.</remarks>
         public ReasonCodePickerDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             _viewModel = viewModel;
             _table = new UITableView();
             _table.Source = new ReasonCodeTableSource(_viewModel, source);
 
-            // ToDo: Gray with no direction-arrow looks pretty good!
-            //_reportTableView.BackgroundColor = UIColor.Gray;
-            //_table.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
+            // Note: using cell height won't work -- the cell's don't exist yet                       
 
-            // Note: using cell height won't work -- the cell's don't exist yet
-            //int sectionNumber = 0;
-            //int count = _reportTableView.Source.RowsInSection(_reportTableView, sectionNumber);
-            //UITableViewCell aCell = _reportTableView.VisibleCells[0];
-            //float aCellHeight = aCell.Frame.Height;
-            //float preferredHeight = count * aCellHeight;
-
-            float safestMaxWidth = 0f;
-
+            // x% of the dimension, rounded off to zero decimal places
+            float halfScreenHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.50, 0);  // the Y value
+            float halfScreenWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.50, 0);    // the X value
             // find the smaller dimension
-            safestMaxWidth = Math.Min(UIScreen.MainScreen.Bounds.Height, UIScreen.MainScreen.Bounds.Width);
-            // 75% of the dimension, rounded off to zero decimal places
-            safestMaxWidth = (float)Math.Round(safestMaxWidth * 0.75, 0);
+            float safeContentHeight = Math.Min(halfScreenHeight, halfScreenWidth);
 
-            float reasonCodeHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.50, 0);  // the Y value
-            //float reasonCodeWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.75, 0);    // the X value
+            float threeQuarterScreenHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);  // the Y value
+            float threeQuarterScreenWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.75, 0);    // the X value
+            float safeContentWidth = Math.Min(threeQuarterScreenHeight, threeQuarterScreenWidth);
 
-            //reasonCodeHeight = _table.ContentSize.Height;
-            //reasonCodeHeight = View.Frame.Height;
-            //reasonCodeHeight = UIScreen.MainScreen.Bounds.Height;
+            // Note: don't attempt to call base in this method
+            //float rowHeight = _table.EstimatedRowHeight; 
+            float rowHeight = _table.RowHeight;
+            int rowCount = _viewModel.ListOfReasonCodes.Count;
+            rowCount = rowCount + 2; // add two to take into account the footer and header
+            
+            float estimatedContentHeight = (float)Math.Round(rowHeight * rowCount, 0);
+            CommonCore_iOS.DebugMessage("  [rcpd_vc][rcpd_vc] > estimatedContentHeight = " + estimatedContentHeight.ToString() + ", safeContentHeight = " + safeContentHeight.ToString() + ", _viewModel.Height = " + _viewModel.Height.ToString() + " < [rcpd_vc][rcpd_vc] @ @ @ @");
 
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > reasonCodeHeight = " + reasonCodeHeight.ToString() + ", safestMaxWidth = " + safestMaxWidth.ToString() + " < = = = = = =########" );
-
-            //if (reasonCodeHeight < reasonCodeWidth)
-            //{
-            //    reasonCodeHeight = reasonCodeWidth;
-            //}
-
+            // Note: safeContentHeight defines the height of the "content". If it's larger than NewVisit_TableViewSource.availableDisplayHeight rows will be un-clickable.
+            safeContentHeight = Math.Min(safeContentHeight, estimatedContentHeight);
+            CommonCore_iOS.DebugMessage("* [rcpd_vc][rcpd_vc] > safeContentHeight = " + safeContentHeight.ToString() + " < [rcpd_vc][rcpd_vc] @ @ @ @ @ @ @");
+            
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
-            _table.Frame = new RectangleF(0, 0, safestMaxWidth, reasonCodeHeight);
+            _table.Frame = new RectangleF(0, 0, safeContentWidth, safeContentHeight);
 #if (DEBUG || BETA)
-            _table.BackgroundColor = UIColor.Green;
+            _table.BackgroundColor = UIColor.Green; // this is the background of the _table -- the color behind the rows.
+            View.BackgroundColor = UIColor.Blue; // this is the background of the _popoverController -- the space beneath/behind the _table.
 #endif
+            // Review: does this line make any difference?
+            _table.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
 
-            // FixMe: the frame sizes are still not quite right -- problems when the screen is rotated.
+            _table.ScrollEnabled = true; // disabling locks the rows in the _popoverController
 
-            _table.ScrollEnabled = true; // scrolling in the ReasonCode table -- not the container...
-
-            //View.BackgroundColor = UIColor.Blue; // this is the inner view -- the cell rows
             View.Add(_table); 
             View.SizeToFit();
         }
@@ -103,6 +92,18 @@ namespace CallForm.iOS.ViewElements
         {
             base.ViewDidDisappear(animated);
             _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedReasonCodes));
+        }
+
+        public override void ViewDidLoad()
+        {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage("? [rcpd_vc][vdl] > make a note of when this is being run");
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            CommonCore_iOS.DebugMessage("? [rcpd_vc][vdls] > make a note of when this is being run");
         }
 
         //internal float ReasonCodeHeight
@@ -137,27 +138,31 @@ namespace CallForm.iOS.ViewElements
                 size = _table.Frame.Size;
                 //size.Height = _table.Source.RowsInSection(_table, 1)  * 50f;
 
+                float rowHeight = _table.RowHeight;
+                int rowCount = _viewModel.ListOfReasonCodes.Count;
+                float preferredHeight = (float)Math.Round(rowHeight * rowCount, 0);
+
                 float layoutHeight = 0f;
                 UIView[] subviews = View.Subviews;
 
-                CommonCore_iOS.DebugMessage(" [rcpd][pcs] > Calculating layoutHeight....");
+                CommonCore_iOS.DebugMessage("  [rcpd][pcs][g] > rowHeight = " + rowHeight.ToString() + ", Calculating layoutHeight....");
                 if (subviews == null)
                 {
-                    CommonCore_iOS.DebugMessage(" [rcpd][pcs] > View.Subviews[] is NULL.");
+                    CommonCore_iOS.DebugMessage("  [rcpd][pcs][g] > View.Subviews[] is NULL.");
                 }
                 else
                 {
                     int subviewsArrayLength = subviews.Length;
-                    CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString());
+                    CommonCore_iOS.DebugMessage("  [rcpd][pcs][g] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString());
                     for (int i = 0; i < subviewsArrayLength; i++)
                     {
                         if (subviews[i].GetType() == typeof(UIView))
                         {
-                            CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString());
+                            CommonCore_iOS.DebugMessage("  [rcpd][pcs][g] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString());
                         }
                         else
                         {
-                            CommonCore_iOS.DebugMessage(" [nv_v][lh] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString());
+                            CommonCore_iOS.DebugMessage("  [rcpd][pcs][g] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString());
                             layoutHeight = subviews[i].Frame.Height;
                         }
                     }
@@ -166,14 +171,18 @@ namespace CallForm.iOS.ViewElements
                 // leave space for "Done" button
                 //size.Height += 50;
                 //size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);
+                size.Height = Math.Max(preferredHeight, layoutHeight);
 
-                CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                CommonCore_iOS.DebugMessage(" > PreferredContentSize, _table.Frame.Size.Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " <= = = = = = = ");
-                //CommonCore_iOS.DebugMessage(" > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " <= = = = = = = ");
+                //CommonCore_iOS.DebugMessage("  [rcpd][pcs][g] > _table.Frame.Size.Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd][pcs][g] <= = = = = = = ");
+                CommonCore_iOS.DebugMessage("  [rcpd][pcs][g] > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd][pcs][g] <= = = = = = = ");
 
                 return size;
             }
-            set { base.PreferredContentSize = value; }
+            set 
+            {
+                CommonCore_iOS.DebugMessage("  [rcpd][pcs][s] > value.Height = " + value.Height.ToString() + ", Width = " + value.Width.ToString() + " [rcpd][pcs][s] <= = = = = = = ");
+                base.PreferredContentSize = value; 
+            }
         }
 
         // <summary>Get the name of a static or instance property from a property access lambda.

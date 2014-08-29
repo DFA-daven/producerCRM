@@ -33,7 +33,7 @@
         public override void ViewDidLoad()
         {
             CommonCore_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > starting method...");
+            CommonCore_iOS.DebugMessage("  [ui_v][vdl] > starting method...");
 
             //InvokeOnMainThread(() => { new UIAlertView("starting method...", MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name, null, "OK").Show(); });
 
@@ -324,7 +324,7 @@
             #endregion UI action
 
             CommonCore_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage(" > ...finished method.");
+            CommonCore_iOS.DebugMessage("  [ui_v][vdl] > ...finished method.");
         }
 
         public override void ViewDidLayoutSubviews()

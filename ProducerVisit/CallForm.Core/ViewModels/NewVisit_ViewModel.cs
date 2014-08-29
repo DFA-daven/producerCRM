@@ -162,7 +162,7 @@ namespace CallForm.Core.ViewModels
         {
             //System.Console.WriteLine("Attempting to GetInitialLocation");
             CommonCore.DebugMessage(_className, "GetInitialLocation");
-            CommonCore.DebugMessage(" > Attempting TryGetLatestLocation()");
+            CommonCore.DebugMessage("  core[nv_vm][gil] > Attempting TryGetLatestLocation()");
 
             double lat, lng;
             if (_locationService.TryGetLatestLocation(out lat, out lng))

@@ -16,6 +16,12 @@ namespace CallForm.iOS.ViewElements
         private UIDatePicker _picker;
         private float _doneButtonHeight = 50f;
 
+        /// <summary>Creates an instance of the <see cref="DateTimePickerDialog_ViewController"/> class.
+        /// This holds the "content" inside the _popoverController.
+        /// </summary>
+        /// <param name="viewModel">The parent <see cref="MvxViewModel"/>.</param>
+        /// <param name="source">The parent <see cref="UITableViewSource"/>.</param>
+        /// <remarks>This ViewController is created when NewVisit_View is loaded.</remarks> 
         public DateTimePickerDialog_ViewController(Action<DateTime> setValue, DateTime initialValue, UIDatePickerMode mode, NewVisit_TableViewSource source)
         {
             #region _picker
