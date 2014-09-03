@@ -27,7 +27,7 @@
         UIViewController _currentViewController;
         SizeF _contollerPreferredSize;
 
-        /// <summary>The maximum height to display the controller. Anything larger will not be honored.
+        /// <summary>The maximum value to display the controller. Anything larger will not be honored.
         /// </summary>
         float _distanceToBottom = 0f;
         #endregion
@@ -225,7 +225,7 @@
         }
 
         #region Overrides
-        /// <summary>Gets the height (in points) for a given row (cell).
+        /// <summary>Gets the value (in points) for a given row (cell).
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
         /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
@@ -433,7 +433,7 @@
         /// <returns>A rectangle offset vertically.</returns>
         /// <remarks>Because of the indexing used to identify the cells, the boundary of any given cell appears to match the 
         /// previous cell in the <see cref="UITableView">table view</see>. There is no direct method for 'adding one' to the 
-        /// cell. Instead, this method shifts the cell boundary down by the height of the boundary. The resulting location overlays
+        /// cell. Instead, this method shifts the cell boundary down by the value of the boundary. The resulting location overlays
         /// the on-screen location of the cell contents.</remarks>
         internal RectangleF GetPresentationRectangleForCell(UITableView tableView, UITableViewCell targetCell)
         {

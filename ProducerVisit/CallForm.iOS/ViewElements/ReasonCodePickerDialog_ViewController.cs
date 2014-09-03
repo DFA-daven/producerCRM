@@ -37,7 +37,7 @@ namespace CallForm.iOS.ViewElements
             _table = new UITableView();
             _table.Source = new ReasonCodeTableSource(_viewModel, source);
 
-            // Note: using cell height won't work -- the cell's don't exist yet                       
+            // Note: using cell value won't work -- the cell's don't exist yet                       
 
             // x% of the dimension, rounded off to zero decimal places
             float halfScreenHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.50, 0);  // the Y value
@@ -58,7 +58,7 @@ namespace CallForm.iOS.ViewElements
             float estimatedContentHeight = (float)Math.Round(rowHeight * rowCount, 0);
             CommonCore_iOS.DebugMessage("  [rcpd_vc][rcpd_vc] > estimatedContentHeight = " + estimatedContentHeight.ToString() + ", safeContentHeight = " + safeContentHeight.ToString() + ", _viewModel.Height = " + _viewModel.Height.ToString() + " < [rcpd_vc][rcpd_vc] @ @ @ @");
 
-            // Note: safeContentHeight defines the height of the "content". If it's larger than NewVisit_TableViewSource.availableDisplayHeight rows will be un-clickable.
+            // Note: safeContentHeight defines the value of the "content". If it's larger than NewVisit_TableViewSource.availableDisplayHeight rows will be un-clickable.
             safeContentHeight = Math.Min(safeContentHeight, estimatedContentHeight);
             CommonCore_iOS.DebugMessage("* [rcpd_vc][rcpd_vc] > safeContentHeight = " + safeContentHeight.ToString() + " < [rcpd_vc][rcpd_vc] @ @ @ @ @ @ @");
             
@@ -202,7 +202,7 @@ namespace CallForm.iOS.ViewElements
             return me.Member.Name;
         }
 
-        ///// <summary>Calculates a value representing a percent of the <see cref="UIView.Frame"/> height.
+        ///// <summary>Calculates a value representing a percent of the <see cref="UIView.Frame"/> value.
         ///// </summary>
         ///// <param name="percent">A percent value. Ex: 25.0</param>
         ///// <returns>The product of (<see cref="UIView.Frame"/> * <paramref name="percent"/>)</returns>
@@ -212,7 +212,7 @@ namespace CallForm.iOS.ViewElements
         //    return value;
         //}
 
-        ///// <summary>Calculates a value representing a <paramref name="percent"/> of the <paramref name="rectangle"/> height.
+        ///// <summary>Calculates a value representing a <paramref name="percent"/> of the <paramref name="rectangle"/> value.
         ///// </summary>
         ///// <param name="rectangle">The <see cref="RectangleF"/> object.</param>
         ///// <param name="percent">A percent value. Ex: 25.0</param>
@@ -224,7 +224,7 @@ namespace CallForm.iOS.ViewElements
         //    return value;
         //}
 
-        ///// <summary>Calculates a value representing a percent of the <see cref="UIView.Frame"/> width.
+        ///// <summary>Calculates a value representing a percent of the <see cref="UIView.Frame"/> value.
         ///// </summary>
         ///// <param name="percent">A percent value. Ex: 25.0</param>
         ///// <returns>The product of (<see cref="UIView.Frame"/> * <paramref name="percent"/>)</returns>
@@ -234,7 +234,7 @@ namespace CallForm.iOS.ViewElements
         //    return value;
         //}
 
-        ///// <summary>Calculates a value representing a <paramref name="percent"/> of the <paramref name="rectangle"/> width.
+        ///// <summary>Calculates a value representing a <paramref name="percent"/> of the <paramref name="rectangle"/> value.
         ///// </summary>
         ///// <param name="rectangle">The <see cref="RectangleF"/> object.</param>
         ///// <param name="percent">A percent value. Ex: 25.0</param>

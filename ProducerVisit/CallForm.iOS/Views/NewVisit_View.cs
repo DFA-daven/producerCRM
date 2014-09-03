@@ -25,7 +25,11 @@ namespace CallForm.iOS.Views
         private UITableView _table; 
         private float _frameWidth;
         string _nameSpace = "CallForm.iOS.";
-        public float _buttonHeight = 50f;
+
+        /// <summary>Class name abbreviation
+        /// </summary>
+        string _cAbb = "[nv_v]";
+        public float _buttonHeight = 0f;
         bool? _isOS7;
 
 
@@ -105,7 +109,11 @@ namespace CallForm.iOS.Views
             _table.Source = source;
 
             // define a sub-view for the saveButton and reSendButton
-            UIView wrapper = new UIView(new RectangleF(0, 0, FrameWidth(), _buttonHeight));
+            float wrapperWidth = FrameWidth();
+            float wrapperHeight = ButtonHeight(); ;
+
+            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > wrapperWidth: " + wrapperWidth.ToString()  + ", wrapperHeight: " + wrapperHeight.ToString() + " <======= ");
+            UIView wrapper = new UIView(new RectangleF(0, 0, wrapperWidth, wrapperHeight));
 
             #region saveButton
             UIButton saveButton = new UIButton(UIButtonType.System);
@@ -141,9 +149,15 @@ namespace CallForm.iOS.Views
             _table.ReloadData();
 
             float tableFrameHeight = _table.Frame.Height;
+            string sourceType = _table.GetType().ToString();
+
+            if (tableFrameHeight < 1)
+            {
+                CommonCore_iOS.DebugMessage("  " + _cAbb + "[vdl] > " + sourceType + " not ready... ");
+            } 
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > tableFrameHeight: " + tableFrameHeight.ToString() + " <======= ");
+            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > value: " + tableFrameHeight.ToString() + " <======= ");
 
             (ViewModel as NewVisit_ViewModel).Error += OnError;
 
@@ -153,7 +167,7 @@ namespace CallForm.iOS.Views
             // ToDo:  replace with the advertisingIdentifier property of the ASIdentifierManager class.
             (ViewModel as NewVisit_ViewModel).UserID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 
-            // Review: double-check -- this should be setting the height/width for the **table** that holds the model
+            // Review: double-check -- this should be setting the value/value for the **table** that holds the model
             SetTableFrameForOrientation(InterfaceOrientation); // use current orientation
 
             //(ViewModel as NewVisit_ViewModel).Height = FrameHeight();
@@ -250,7 +264,7 @@ namespace CallForm.iOS.Views
                                 }
                                 else
                                 {
-                                    // Note: not sure why, but the height values indicate that these are listed 
+                                    // Note: not sure why, but the value values indicate that these are listed 
                                     // in reverse order. So, item [0] is the Email recipients, which is the 
                                     // last/bottom member of the view. 
                                     // this is a view that wraps something else
@@ -469,64 +483,150 @@ namespace CallForm.iOS.Views
         internal float ButtonHeight()
         {
             float height = UIFont.SystemFontSize * 3f;
+            _buttonHeight = height;
+
             CommonCore_iOS.DebugMessage("  [nv_v][bh] > ButtonHeight() = " + height.ToString() + " < ");
             //return 50;
             return height;
         }
 
-        /// <summary>The height of the current <see cref="UIView.Frame"/>.
+        /// <summary>The value of the current <see cref="UIView.Frame"/>.
         /// </summary>
-        /// <returns>The Frame height.</returns>
+        /// <returns>The Frame value.</returns>
         public float FrameHeight()  // 1024 - (20 + 44) = 960
         {
+            float value = _table.Frame.Height;
+            string sourceType = _table.GetType().ToString();
+            string mAbb = "[fh]"; // method name abbreviation
+
+            if (value < 1)
+            {
+                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " not ready... ");
+
+                value = View.Frame.Height;
+                sourceType = View.ToString();
+
+                if (value < 1)
+                {
+                    CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " also not ready... ");
+
+                    value = UIScreen.MainScreen.Bounds.Height;
+                    sourceType = UIScreen.MainScreen.ToString();
+
+                    if (value < 1)
+                    {
+                        CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " also not ready... (how????)");
+                        return 0f;
+                    }
+                }
+            }
+            
             float usableHeight = 0f;
             float topMarginHeight = TopMargin();
 
-            usableHeight = _table.Frame.Height - topMarginHeight;
-            CommonCore_iOS.DebugMessage("  [nv_v][fh] > FrameHeight() = " + usableHeight.ToString() + " < ");
+            usableHeight = value - topMarginHeight;
+            CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > used " + sourceType + " to find FrameWidth() = " + value.ToString() + " < ");
 
             return usableHeight;
         }
 
-        /// <summary>The width of the current <see cref="UIView.Frame"/>.
+        /// <summary>The value of the current <see cref="UIView.Frame"/>.
         /// </summary>
-        /// <returns>The Frame width.</returns>
+        /// <returns>The Frame value.</returns>
         public float FrameWidth()
         {
-            CommonCore_iOS.DebugMessage("  [nv_v][fw] > FrameWidth() = " + _table.Frame.Width.ToString() + " < ");
+            string mAbb = "[fw]"; // method name abbreviation
 
-            return _table.Frame.Width;
+            float value = _table.Frame.Width;
+            string sourceType = _table.GetType().ToString();
+
+            if (value < 1)
+            {
+                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " not ready... < ?");
+
+                value = View.Frame.Width;
+                sourceType = View.ToString();
+
+                if (value < 1)
+                {
+                    CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " also not ready... < ??");
+
+                    value = UIScreen.MainScreen.Bounds.Width;
+                    sourceType = UIScreen.MainScreen.ToString();
+
+                    if (value < 1)
+                    {
+                        CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " also not ready... (how?) < !!!!!");
+                        return 0f;
+                    }
+                }
+            }
+
+            CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > used " + sourceType + " to find " + mAbb + "() = " + value.ToString() + " < OK");
+
+            return value;
         }
 
-        /// <summary>Calculates a value representing a percent of the <see cref="UIView.Frame"/> width.
+        /// <summary>Calculates a value representing a percent of the <see cref="UIView.Frame"/> value.
         /// </summary>
         /// <param name="percent">A percent value. Ex: 25.0</param>
         /// <returns>The product of (<see cref="UIView.Frame"/> * <paramref name="percent"/>)</returns>
         internal float PercentOfFrameWidth(double percent)
         {
-            float value = (float)Math.Round( PercentOfRectangleWidth(_table.Frame, percent), 0);
-            CommonCore_iOS.DebugMessage("  [nv_v][%fw] > PercentOfFrameWidth() = " + value.ToString() + " < ");
+            string mAbb = "[%fw]"; // method name abbreviation
 
+            string sourceType = percent.GetType().ToString();
+
+            if (percent < 1)
+            {
+                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " not ready... < !!!!!");
+                return 0f;
+            }
+
+            float value = PercentOfRectangleWidth(_table.Frame, percent);
+
+            if (value < 1)
+            {
+                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " not ready... < !!!!!");
+                return 0f;
+            }
+
+            value = (float)Math.Round(value, 0);
+            
             return value;
         }
 
-        /// <summary>Calculates a value representing a <paramref name="percent"/> of the <paramref name="rectangle"/> width.
+        /// <summary>Calculates a value representing a <paramref name="percent"/> of the <paramref name="rectangle"/> value.
         /// </summary>
         /// <param name="rectangle">The <see cref="RectangleF"/> object.</param>
         /// <param name="percent">A percent value. Ex: 25.0</param>
         /// <returns>The product of (<paramref name="rectangle">rectangle.Width</see> * <paramref name="percent"/>)</returns>
         internal float PercentOfRectangleWidth(RectangleF rectangle, double percent)
         {
+            string mAbb = "[%rw]"; // method name abbreviation
+
+            // percent was checked before calling this method
+
+            float value = rectangle.Width;
+            string sourceType = rectangle.Width.GetType().ToString();
+
+            if (value < 1)
+            {
+                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " not ready... < !!!!!");
+                return 0f;
+            }
+
             percent = percent / 100;
-            float value = (float)Math.Round((rectangle.Width * percent), 0);
-            CommonCore_iOS.DebugMessage("  [nv_v][%rw] > PercentOfRectangleWidth() = " + value.ToString() + " < ");
+            value = (float)Math.Round((value * percent), 0);
+
+            CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > used " + sourceType + " to find " + mAbb + "() = " + value.ToString() + " < OK");
 
             return value;
         }
 
-        /// <summary>The height of the device's screen.
+        /// <summary>The value of the device's screen.
         /// </summary>
-        /// <returns>The screen height measured in points.</returns>
+        /// <returns>The screen value measured in points.</returns>
         internal float ViewFrameHeight()  // 960 
         {
             float viewFrameHeight = 0;
@@ -536,7 +636,7 @@ namespace CallForm.iOS.Views
             if (View.Frame.Height < 1)
             {
                 CommonCore_iOS.DebugMessage("  [nv_v][vfh] > View not ready... " );
-                return viewFrameHeight;
+                return 0f;
             }
 
             switch (InterfaceOrientation)

@@ -64,23 +64,23 @@
         private static decimal bannerHeightPercent = 10;
         //private static decimal bannerHeightPercent = 0.5;
 
-        /// <summary>The height of controls as a percentage of screen height.
+        /// <summary>The value of controls as a percentage of screen value.
         /// </summary>
         private static decimal controlHeightPercent = 8;
 
-        /// <summary>The width of controls as a percentage of screen width.
+        /// <summary>The value of controls as a percentage of screen value.
         /// </summary>
         private static decimal controlWidthPercent = 33.333M;
 
-        /// <summary>The percentage of the horizontal width to indent this control's origin.
+        /// <summary>The percentage of the horizontal value to indent this control's origin.
         /// </summary>
         private static decimal leftControlOriginPercent = 0;
 
-        /// <summary>The percentage of the horizontal width to indent this control's origin.
+        /// <summary>The percentage of the horizontal value to indent this control's origin.
         /// </summary>
         private static decimal middleControlOriginPercent = 33.333M;
 
-        /// <summary>The percentage of the horizontal width to indent this control's origin.
+        /// <summary>The percentage of the horizontal value to indent this control's origin.
         /// </summary>
         private static decimal rightControlOriginPercent = 66.666M;
 
@@ -346,9 +346,9 @@
             base.MotionEnded(motion, evt);
         }
 
-        /// <summary>The height of the device's screen.
+        /// <summary>The value of the device's screen.
         /// </summary>
-        /// <returns>The screen height measured in points.</returns>
+        /// <returns>The screen value measured in points.</returns>
         internal float ViewFrameHeight()
         {
             float viewFrameHeight = 0;
@@ -374,9 +374,9 @@
             return viewFrameHeight;
         }
 
-        /// <summary>The width of the device's screen.
+        /// <summary>The value of the device's screen.
         /// </summary>
-        /// <returns>The screen width measured in points.</returns>
+        /// <returns>The screen value measured in points.</returns>
         internal float ViewFrameWidth()
         {
             float viewFrameWidth = 0;
@@ -402,9 +402,9 @@
             return viewFrameWidth;
         }
 
-        ///// <summary>The height of the device's screen.
+        ///// <summary>The value of the device's screen.
         ///// </summary>
-        ///// <returns>The screen height measured in points.</returns>
+        ///// <returns>The screen value measured in points.</returns>
         //internal float ScreenHeight()
         //{
         //    float screenHeight = 0;
@@ -412,9 +412,9 @@
         //    return screenHeight;
         //}
 
-        ///// <summary>The width of the device's screen.
+        ///// <summary>The value of the device's screen.
         ///// </summary>
-        ///// <returns>The screen width measured in points.</returns>
+        ///// <returns>The screen value measured in points.</returns>
         //internal float ScreenWidth()
         //{
         //    float screenWidth = 0;
@@ -422,9 +422,9 @@
         //    return screenWidth;
         //}
 
-        /// <summary>The height of the portion of the screen available for Views.
+        /// <summary>The value of the portion of the screen available for Views.
         /// </summary>
-        /// <returns>The available height measured in points.</returns>
+        /// <returns>The available value measured in points.</returns>
         /// <remarks>For pre-iOS 7 devices, this value will be the same as <see cref="ViewFrameHeight"/>. For
         /// iOS 7 and later, the <see cref="topMarginPixels"/> are reserved.</remarks>
         internal float AvailableHeight()
@@ -538,9 +538,9 @@
             return bannerBottom;
         }
 
-        /// <summary>Calculates the pixel-height of controls based on the current screen height.
+        /// <summary>Calculates the pixel-value of controls based on the current screen value.
         /// </summary>
-        /// <returns>The pixel-height of controls.</returns>
+        /// <returns>The pixel-value of controls.</returns>
         internal float ControlHeight()
         {
             //float ControlHeight = CalculatePercent(availableViewHeight(), controlHeightPercent);
@@ -550,9 +550,9 @@
             return controlHeight;
         }
 
-        /// <summary>Calculates the pixel-width of controls based on the current screen width.
+        /// <summary>Calculates the pixel-value of controls based on the current screen value.
         /// </summary>
-        /// <returns>The pixel-width of controls.</returns>
+        /// <returns>The pixel-value of controls.</returns>
         internal float ControlWidth()
         {
             float controlWidth = PercentWidth(controlWidthPercent);
@@ -569,10 +569,10 @@
             return tableTop;
         }
 
-        /// <summary>Calculates the product of the current screen height and a percent.
+        /// <summary>Calculates the product of the current screen value and a percent.
         /// </summary>
         /// <param name="percent">A percent in the range 0 - 100.</param>
-        /// <returns>A value representing a percent of the current screen height.</returns>
+        /// <returns>A value representing a percent of the current screen value.</returns>
         private float PercentHeight(decimal percent)
         {
             float height = CalculatePercent(UIScreen.MainScreen.Bounds.Height, percent);
@@ -581,10 +581,10 @@
             return height;
         }
 
-        /// <summary>Calculates the product of the current screen width and a percent.
+        /// <summary>Calculates the product of the current screen value and a percent.
         /// </summary>
         /// <param name="percent">A percent in the range 0 - 100.</param>
-        /// <returns>A value representing a percent of the current screen width.</returns>
+        /// <returns>A value representing a percent of the current screen value.</returns>
         private float PercentWidth(decimal percent)
         {
             float width = CalculatePercent(UIScreen.MainScreen.Bounds.Width, percent);
@@ -594,7 +594,7 @@
 
         /// <summary>Calculates the product of a dimension and a percent.
         /// </summary>
-        /// <param name="dimension">A dimension, such as screen width or height.</param>
+        /// <param name="dimension">A dimension, such as screen value or value.</param>
         /// <param name="percent">A percent in the range 0 - 100.</param>
         /// <returns>The product of a given dimension and percent.</returns>
         private float CalculatePercent(float dimension, decimal percent)
@@ -700,7 +700,7 @@
             navbarHeight = screenHeight - layoutHeight;
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("  [vr_v][nbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar height: " + navbarHeight.ToString() + " <=======");
+            CommonCore_iOS.DebugMessage("  [vr_v][nbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
 
             if (IsOS7OrLater())
             {
