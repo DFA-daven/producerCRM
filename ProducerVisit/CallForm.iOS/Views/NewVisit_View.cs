@@ -42,6 +42,8 @@ namespace CallForm.iOS.Views
         {
             get
             {
+                CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
                 return UIRectEdge.None;
             }
         }
@@ -149,15 +151,14 @@ namespace CallForm.iOS.Views
             _table.ReloadData();
 
             float tableFrameHeight = _table.Frame.Height;
-            string sourceType = _table.GetType().ToString();
+            string sourceType = _table.Frame.GetType().ToString();
 
             if (tableFrameHeight < 1)
             {
-                CommonCore_iOS.DebugMessage("  " + _cAbb + "[vdl] > " + sourceType + " not ready... ");
-            } 
+                CommonCore_iOS.DebugMessage("  " + _cAbb + "[vdl] > " + sourceType + " not ready... < !!!!! ");
+            }
 
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > value: " + tableFrameHeight.ToString() + " <======= ");
+            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > tableFrameHeight: " + tableFrameHeight.ToString() + " <======= ");
 
             (ViewModel as NewVisit_ViewModel).Error += OnError;
 
@@ -312,6 +313,8 @@ namespace CallForm.iOS.Views
 
         private void ReSendEmail(object sender, EventArgs eventArgs)
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             NewVisit_ViewModel viewModel = ViewModel as NewVisit_ViewModel;
             if (MFMailComposeViewController.CanSendMail)
             {
@@ -342,6 +345,8 @@ namespace CallForm.iOS.Views
 
         private void ReSendFinished(object sender, MFComposeResultEventArgs mfComposeResultEventArgs)
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             InvokeOnMainThread(() => { DismissViewController(true, null); } );
         }
 
@@ -367,6 +372,8 @@ namespace CallForm.iOS.Views
         [Obsolete("Deprecated in iOS6. Replace it with both GetSupportedInterfaceOrientations and PreferredInterfaceOrientationForPresentation", false)]
         public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)  // iOS4/iOS5 only
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             bool rotate = false;
 
             if (toInterfaceOrientation == InterfaceOrientation)
@@ -408,6 +415,8 @@ namespace CallForm.iOS.Views
 
         private void OnSendEmail(object sender, EventArgs eventArgs)
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             NewVisit_ViewModel viewModel = ViewModel as NewVisit_ViewModel;
             if (MFMailComposeViewController.CanSendMail)
             {
@@ -443,6 +452,8 @@ namespace CallForm.iOS.Views
 
         private void MailViewOnFinished(object sender, MFComposeResultEventArgs e)
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             InvokeOnMainThread(() =>
             {
                 // Note: The Navigation Controller is a UI-less View Controller responsible for
@@ -477,11 +488,15 @@ namespace CallForm.iOS.Views
         /// <param name="errorEventArgs"></param>
         private void OnError(object sender, ErrorEventArgs errorEventArgs)
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );
         }
 
         internal float ButtonHeight()
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             float height = UIFont.SystemFontSize * 3f;
             _buttonHeight = height;
 
@@ -495,6 +510,8 @@ namespace CallForm.iOS.Views
         /// <returns>The Frame value.</returns>
         public float FrameHeight()  // 1024 - (20 + 44) = 960
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             float value = _table.Frame.Height;
             string sourceType = _table.GetType().ToString();
             string mAbb = "[fh]"; // method name abbreviation
@@ -535,6 +552,8 @@ namespace CallForm.iOS.Views
         /// <returns>The Frame value.</returns>
         public float FrameWidth()
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             string mAbb = "[fw]"; // method name abbreviation
 
             float value = _table.Frame.Width;
@@ -573,6 +592,8 @@ namespace CallForm.iOS.Views
         /// <returns>The product of (<see cref="UIView.Frame"/> * <paramref name="percent"/>)</returns>
         internal float PercentOfFrameWidth(double percent)
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             string mAbb = "[%fw]"; // method name abbreviation
 
             string sourceType = percent.GetType().ToString();
@@ -603,12 +624,20 @@ namespace CallForm.iOS.Views
         /// <returns>The product of (<paramref name="rectangle">rectangle.Width</see> * <paramref name="percent"/>)</returns>
         internal float PercentOfRectangleWidth(RectangleF rectangle, double percent)
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             string mAbb = "[%rw]"; // method name abbreviation
 
-            // percent was checked before calling this method
+            string sourceType = percent.GetType().ToString();
+
+            if (percent < 1)
+            {
+                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " not ready... < !!!!!");
+                return 0f;
+            }
 
             float value = rectangle.Width;
-            string sourceType = rectangle.Width.GetType().ToString();
+            sourceType = rectangle.Width.GetType().ToString();
 
             if (value < 1)
             {
@@ -629,6 +658,8 @@ namespace CallForm.iOS.Views
         /// <returns>The screen value measured in points.</returns>
         internal float ViewFrameHeight()  // 960 
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             float viewFrameHeight = 0;
             //viewFrameHeight = UIScreen.MainScreen.Bounds.Height;
             viewFrameHeight = View.Frame.Height;
@@ -661,13 +692,15 @@ namespace CallForm.iOS.Views
 
         private float TopMargin()
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             float topMargin = 0f;
 
             topMargin = StatusBarHeight() + NavBarHeight();
 
             if (View.Frame.Height < 1)
             {
-                CommonCore_iOS.DebugMessage("  [nv_v][tm] > View not ready... ");
+                CommonCore_iOS.DebugMessage("  [nv_v][tm] > View not ready. Using hard-coded value. < #####");
                 if (IsOS7OrLater())
                 {
                     topMargin = 20f;
@@ -678,13 +711,15 @@ namespace CallForm.iOS.Views
                 }
             }
             
-            CommonCore_iOS.DebugMessage("  [nv_v][tm] > topMargin: " + topMargin.ToString());
+            CommonCore_iOS.DebugMessage("  [nv_v][tm] > topMargin: " + topMargin.ToString() + " < OK");
 
             return topMargin;
         }
 
         private float LayoutHeight()
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             float layoutHeight = 0f;
             UIView[] subviews = View.Subviews;
 
@@ -724,6 +759,8 @@ namespace CallForm.iOS.Views
 
         private float NavBarHeight()  // 44
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             float screenHeight = UIScreen.MainScreen.Bounds.Height;
             float layoutHeight = 0f;
             float navbarHeight = 0f;
@@ -735,10 +772,11 @@ namespace CallForm.iOS.Views
             }
             else
             {
+                CommonCore_iOS.DebugMessage("  " + _cAbb + "[nbh] > View not ready. Using hard-coded value. < #####");
                 navbarHeight = 44f;
             }
 
-            CommonCore_iOS.DebugMessage("  [nv_v][nbh] > navbarHeight = " + navbarHeight.ToString() + " < = = = =");
+            CommonCore_iOS.DebugMessage("  " + _cAbb + "[nbh] > navbarHeight = " + navbarHeight.ToString() + " < OK");
             return navbarHeight;
 
             #region incomplete
@@ -791,9 +829,11 @@ namespace CallForm.iOS.Views
 
         private float StatusBarHeight()  // 20 
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
             float statusBarHeight = Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
-            CommonCore_iOS.DebugMessage("  [nv_v][sbh] > statusBarHeight: " + statusBarHeight.ToString() + " <= = = = = ");
+            CommonCore_iOS.DebugMessage("  [nv_v][sbh] > statusBarHeight: " + statusBarHeight.ToString() + " < OK");
 
             return statusBarHeight;
         }
@@ -803,6 +843,8 @@ namespace CallForm.iOS.Views
         /// <returns>True if this is iOS 7.0.</returns>
         public bool IsOS7OrLater()
         {
+            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
             bool thisIsOS7 = false;
             
             if (_isOS7 == null)
@@ -819,9 +861,7 @@ namespace CallForm.iOS.Views
                     thisIsOS7 = true;
                 }
 
-                CommonCore_iOS.DebugMessage("  [nv_v][i7ol] > major version (string): " + major);
-                CommonCore_iOS.DebugMessage("  [nv_v][i7ol] > major version (int): " + majorVersion.ToString());
-                CommonCore_iOS.DebugMessage("  [nv_v][i7ol] > version is higher than 6 = " + thisIsOS7.ToString());
+                CommonCore_iOS.DebugMessage("  [nv_v][i7ol] > major version: " + major + ". Version is higher than 6 = " + thisIsOS7.ToString() + " <  ");
 
                 _isOS7 = thisIsOS7;
             }

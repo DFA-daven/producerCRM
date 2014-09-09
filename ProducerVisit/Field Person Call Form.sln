@@ -15,15 +15,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XibFree", "XibFree\XibFree.csproj", "{3CAF9EB6-5E29-40E2-8798-2DE909310CBE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEnd", "BackEnd\BackEnd.csproj", "{26369B4A-5717-44A3-B7FB-EF8F23639C44}"
-	ProjectSection(ProjectDependencies) = postProject
-		{4EF91104-404E-451D-8E7C-B28B8DC6705B} = {4EF91104-404E-451D-8E7C-B28B8DC6705B}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoVersionNumber", "AutoVersionNumber\AutoVersionNumber.csproj", "{4EF91104-404E-451D-8E7C-B28B8DC6705B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{75D2DA9D-DFD4-49A1-98FB-FE0F0677EF0F} = {75D2DA9D-DFD4-49A1-98FB-FE0F0677EF0F}
-		{3CAF9EB6-5E29-40E2-8798-2DE909310CBE} = {3CAF9EB6-5E29-40E2-8798-2DE909310CBE}
-	EndProjectSection
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "SHFB CallForm.Core", "docs\SHFB CallForm.Core.shfbproj", "{BC4B2501-BEE4-4FEE-B2E3-ED4BE3E43A6E}"
 	ProjectSection(ProjectDependencies) = postProject
