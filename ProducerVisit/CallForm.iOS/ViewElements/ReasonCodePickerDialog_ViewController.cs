@@ -65,6 +65,7 @@ namespace CallForm.iOS.ViewElements
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
             _table.Frame = new RectangleF(0, 0, safeContentWidth, safeContentHeight);
 #if (DEBUG || BETA)
+            // No changes / variable assignment here -- this is diagnostic code!
             _table.BackgroundColor = UIColor.Green; // this is the background of the _table -- the color behind the rows.
             View.BackgroundColor = UIColor.Blue; // this is the background of the _popoverController -- the space beneath/behind the _table.
 #endif
@@ -228,7 +229,7 @@ namespace CallForm.iOS.ViewElements
         ///// </summary>
         ///// <param name="percent">A percent value. Ex: 25.0</param>
         ///// <returns>The product of (<see cref="UIView.Frame"/> * <paramref name="percent"/>)</returns>
-        //internal float PercentOfFrameWidth(double percent)
+        //internal float PercentOfTableFrameWidth(double percent)
         //{
         //    float value = (float)Math.Round( PercentOfRectangleWidth(_reportTableView.Frame, percent), 0);
         //    return value;

@@ -62,6 +62,7 @@
             source = source.Split(',')[0]; // drop the port number, in case the address was only the machine name
 
 #if (ALPHA)
+    // No changes / variable assignment here -- this is preprocessor code!
     source += " (ALPHA)";
 #elif (BETA)
     source += " (BETA)";
@@ -81,6 +82,7 @@
             name = _webProducerCrmDatabaseConnection.Database.Connection.Database;
 
 #if (ALPHA)
+    // No changes / variable assignment here -- this is preprocessor code!
     name += " (ALPHA)";
 #elif (BETA)
     name += " (BETA)";

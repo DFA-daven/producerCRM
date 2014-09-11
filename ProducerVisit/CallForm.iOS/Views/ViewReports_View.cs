@@ -220,7 +220,8 @@
             // Note: the order that Views are added determines their position in front of (or behind) other Views.
             // the buttons must have some off-set that is causing the gap.
 #if (DEBUG || BETA)
-            View.BackgroundColor = UIColor.Brown;
+    // No changes / variable assignment here -- this is diagnostic code!
+    View.BackgroundColor = UIColor.Brown;
 #endif
             View.Add(logoButton);
             //View.Add(logoView);
@@ -288,13 +289,14 @@
             // FixMe: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
             // need something like if this.config != release then appName = appName + this.config
 #if (ALPHA)
+    // No changes / variable assignment here -- this is preprocessor code!
     appName += " (ALPHA)";
 #elif (BETA)
     appName += " (BETA)";
 #elif (RELEASE)
 	appName = appName;
 #elif (DEBUG)
-	appName += " (DEBUG)";
+            appName += " (DEBUG)";
 
 #endif
 

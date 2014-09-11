@@ -18,3 +18,7 @@ The MonoTouch Build server GUI log is located at:
 ~/macmini/Library/Logs/Xamarin/MonoTouchVS/mtbservergui.log
 
 mtbservergui.log is mostly concerned with build server license issues.
+
+GUID:
+74bbc59a-703c-0203-8366-a269fdae8f0a
+3e2d137a-0844-444e-9ad5-8888815eddad

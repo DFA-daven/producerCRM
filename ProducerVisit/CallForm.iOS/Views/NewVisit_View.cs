@@ -111,26 +111,30 @@ namespace CallForm.iOS.Views
             _table.Source = source;
 
             // define a sub-view for the saveButton and reSendButton
-            float wrapperWidth = FrameWidth();
+            float wrapperWidth = TableFrameWidth();
             float wrapperHeight = ButtonHeight(); ;
 
-            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > wrapperWidth: " + wrapperWidth.ToString()  + ", wrapperHeight: " + wrapperHeight.ToString() + " <======= ");
+            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > wrapperWidth: " + wrapperWidth.ToString()  + ", wrapperHeight: " + wrapperHeight.ToString() + " < [nv_v][vdl]");
             UIView wrapper = new UIView(new RectangleF(0, 0, wrapperWidth, wrapperHeight));
 
             #region saveButton
             UIButton saveButton = new UIButton(UIButtonType.System);
-            saveButton.Frame = new RectangleF(PercentOfFrameWidth(25), 0, PercentOfFrameWidth(50), ButtonHeight());
-            saveButton.BackgroundColor = UIColor.Red;
+            float saveButtonWidth = (float)Math.Round((wrapperWidth * 0.5), 0);
+            float saveButtonHeight = wrapperHeight;
+
+            CommonCore_iOS.DebugMessage("  [nv_v][vdl] > saveButtonWidth: " + saveButtonWidth.ToString() + ", saveButtonHeight: " + saveButtonHeight.ToString() + " <======= ");
+            saveButton.Frame = new RectangleF(PercentOfTableFrameWidth(25), 0, saveButtonWidth, saveButtonHeight );
+            //saveButton.BackgroundColor = UIColor.Red;
 
             if (!(ViewModel as NewVisit_ViewModel).Editing)
             {
                 UIButton reSendButton = new UIButton(UIButtonType.System);
                 reSendButton.SetTitle("Forward via Email", UIControlState.Normal);
                 reSendButton.TouchUpInside += ReSendEmail;
-                reSendButton.Frame = new RectangleF(PercentOfFrameWidth(20), 0, PercentOfFrameWidth(25), ButtonHeight());
+                reSendButton.Frame = new RectangleF(PercentOfTableFrameWidth(20), 0, PercentOfTableFrameWidth(25), ButtonHeight());
                
                 wrapper.Add(reSendButton);
-                saveButton.Frame = new RectangleF(PercentOfFrameWidth(60), 0, PercentOfFrameWidth(25), ButtonHeight());
+                saveButton.Frame = new RectangleF(PercentOfTableFrameWidth(60), 0, PercentOfTableFrameWidth(25), ButtonHeight());
             }
 
             wrapper.Add(saveButton);
@@ -173,7 +177,7 @@ namespace CallForm.iOS.Views
 
             //(ViewModel as NewVisit_ViewModel).Height = FrameHeight();
 
-            //(ViewModel as NewVisit_ViewModel).Width = FrameWidth();
+            //(ViewModel as NewVisit_ViewModel).Width = TableFrameWidth();
 
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             CommonCore_iOS.DebugMessage("  [nv_v][vdl] > (ViewModel as NewVisit_ViewModel).Height: " + (ViewModel as NewVisit_ViewModel).Height.ToString() + " <= = = = = ");
@@ -187,8 +191,12 @@ namespace CallForm.iOS.Views
             #region colorize subviews
             UIView[] subviews = new UIView[] { };
             int subviewsArrayLength = 0;
-            UIView[] subSubviews = new UIView[] { };
-            int subSubviewsArrayLength = 0;
+            UIView[] subISubviews = new UIView[] { };
+            int subISubviewsArrayLength = 0;
+            UIView[] subJSubviews = new UIView[] { };
+            int subJSubviewsArrayLength = 0;
+            UIView[] subKSubviews = new UIView[] { };
+            int subKSubviewsArrayLength = 0;
             
             string subviewType = string.Empty;
 
@@ -206,88 +214,126 @@ namespace CallForm.iOS.Views
             //                     iOS 7: the footer (which contains the saveButton).
 
 #if (DEBUG)
-            int colorIndex = 0;
-            int grayIndex = 0;
+            // No changes / variable assignment here -- this is diagnostic code!
+            #region
+
+            int colorIIndex = 0;
+            int colorJIndex = 0;
+            int colorKIndex = 0;
 
             // The _table is in the foreground -- color the (undefined) space **behind** the controls.
             // Drag the entire page up or down to see the BackgroundColor.
-            _table.BackgroundColor = UIColor.Orange;
-            View.BackgroundColor = UIColor.Brown;
+            //_table.BackgroundColor = UIColor.Orange;
+            //View.BackgroundColor = UIColor.Brown;
 
+            // +++++
             subviews = View.Subviews;
 
             if (subviews == null)
             {
-                CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[] is NULL. How can the subview be null?!?");
+                CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[] is NULL.");
             }
             else 
             {
                 subviewsArrayLength = subviews.Length;
-                CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString() + ", colorArrayLength = " + colorArrayLength.ToString());
-                // here
+                CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[] is NOT null. Length = " + subviewsArrayLength.ToString() + ".");
 
                 for (int i = 0; i < subviewsArrayLength; i++)
                 {
-                    grayIndex = i % grayArrayLength; // use modulus to keep colorIndex from going out of range
+                    colorIIndex = i % grayArrayLength; // use modulus to keep colorIndex from going out of range
+                    subviewType = subviews[i].GetType().ToString();
 
                     if (subviews[i].GetType() == typeof(UIView))
                     {
-                        CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString() + ", rgbGrays[" + grayIndex.ToString() + "] = " + rgbGrays[grayIndex].ToString());
-                        subviews[i].BackgroundColor = rgbGrays[grayIndex]; // applying color should works here
+                        subviews[i].BackgroundColor = rgbGrays[colorIIndex]; // applying color should works here
+                    }
+
+                    CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "] is a " + subviewType + ": Height = " + subviews[i].Frame.Height.ToString() + ", Width = " + subviews[i].Frame.Width.ToString() + ", color set to " + colorIIndex + ".");
+
+                    // +++++
+                    subISubviews = subviews[i].Subviews;
+
+                    if (subISubviews == null)
+                    {
+                        CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "].Subviews[] is NULL.");
                     }
                     else
                     {
-                        subviewType = subviews[i].GetType().ToString();
-                        CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString() + ", rgbGrays[" + grayIndex.ToString() + "] = " + rgbGrays[grayIndex].ToString());
-                        // here
-                        subviews[i].BackgroundColor = rgbGrays[grayIndex]; // applying color should not work here
-
-                        subSubviews = subviews[i].Subviews;
-
-                        if (subSubviews == null)
+                        subISubviewsArrayLength = subISubviews.Length;
+                        CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "].Subviews[] is NOT null. Length = " + subISubviewsArrayLength.ToString() + ".");
+                        
+                        for (int j = 0; j < subISubviewsArrayLength; j++)
                         {
-                            CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "].Subviews[] is NULL. How can the subview be null?!?");
-                        }
-                        else
-                        {
-                            subSubviewsArrayLength = subSubviews.Length;
-                            CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "].Subviews[] is NOT null. subviewsArrayLength = " + subSubviewsArrayLength.ToString() + ", colorArrayLength = " + colorArrayLength.ToString());
-                            // here
-                            for (int j = 0; j < subSubviewsArrayLength; j++)
+                            colorJIndex = j % colorArrayLength; // use modulus to keep colorIndex from going out of range
+                            subviewType = subISubviews[j].GetType().ToString();
+
+                            if (subISubviews[j].GetType() == typeof(UIView))
                             {
-                                colorIndex = j % colorArrayLength; // use modulus to keep colorIndex from going out of range
+                                subISubviews[j].BackgroundColor = colors[colorJIndex];
+                                subISubviews[j].BackgroundColor = UIColor.FromRGB(159, 0, 255);
+                            }
 
-                                if (subSubviews[j].GetType() == typeof(UIView))
+                            CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "] is a " + subviewType + ": Height = " + subISubviews[j].Frame.Height.ToString() + ", Width = " + subISubviews[j].Frame.Width.ToString() + ", color set to " + colorJIndex + ".");
+                           
+                            // +++++
+                            subJSubviews = subISubviews[j].Subviews;
+
+                            if (subJSubviews == null)
+                            {
+                                CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "].Subviews[] is NULL.");
+                            }
+                            else
+                            {
+                                subJSubviewsArrayLength = subJSubviews.Length;
+                                CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "].Subviews[] is NOT null. Length = " + subJSubviewsArrayLength.ToString() + ".");
+
+                                for (int k = 0; k < subJSubviewsArrayLength; k++)
                                 {
-                                    // this is probably a header or footer
-                                    CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "] == typeof(UIView), Height = " + subSubviews[j].Frame.Height.ToString() + ", colors[" + colorIndex.ToString() + "] = " + colors[colorIndex].ToString());
-                                    subSubviews[j].BackgroundColor = colors[colorIndex]; 
-                                }
-                                else
-                                {
-                                    // Note: not sure why, but the value values indicate that these are listed 
-                                    // in reverse order. So, item [0] is the Email recipients, which is the 
-                                    // last/bottom member of the view. 
-                                    // this is a view that wraps something else
-                                    subviewType = subSubviews[j].GetType().ToString();
-                                    CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "] is wrapping something: Height = " + subSubviews[j].Frame.Height.ToString());
-                                    //string wrappedType = subSubviews[j].Subviews[0].GetType().ToString();
-                                    // this isn't getting down far enough to see the wrapped object
-                                    //CommonCore_iOS.DebugMessage("  [nv_v][vdls] > type of the wrapped object: " + wrappedType);
+                                    //colorKIndex = k % grayArrayLength; // use modulus to keep colorIndex from going out of range
+                                    colorKIndex = k % colorArrayLength;
+                                    subviewType = subJSubviews[k].GetType().ToString();
+
+                                    if (subJSubviews[k].GetType() == typeof(UIView))
+                                    {
+                                        //subJSubviews[k].BackgroundColor = rgbGrays[colorKIndex];
+                                        subJSubviews[k].BackgroundColor = colors[colorKIndex];
+                                        //subJSubviews[k].BackgroundColor = UIColor.Red;
+                                    }
+                                        
+                                    CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "][" + k.ToString() + "] is a " + subviewType + ": Height = " + subJSubviews[k].Frame.Height.ToString() + ", Width = " + subJSubviews[k].Frame.Width.ToString() + ", color set to " + colorKIndex + ".");
+
+                                    // +++++
+                                    subKSubviews = subJSubviews[k].Subviews;
+
+                                    if (subKSubviews == null)
+                                    {
+                                        CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "][" + k.ToString() + "].Subviews[] is NULL.");
+                                    }
+                                    else
+                                    {
+                                        subKSubviewsArrayLength = subKSubviews.Length;
+                                        CommonCore_iOS.DebugMessage("  [nv_v][vdls] > View.Subviews[" + i.ToString() + "][" + j.ToString() + "][" + k.ToString() + "].Subviews[] is NOT null. Length = " + subKSubviewsArrayLength.ToString() + ".");
+
+                                        // for loop
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        #endregion
 #endif
             #endregion colorize subviews
 
-            base.ViewDidLayoutSubviews();
+    base.ViewDidLayoutSubviews();
             
             float screenHeight = UIScreen.MainScreen.Bounds.Height;
             CommonCore_iOS.DebugMessage("  [nv_v][vdls] > screenHeight: " + screenHeight.ToString() + ", viewFrameHeight: " + View.Frame.Height.ToString() + ", LayoutHeight(): " + LayoutHeight().ToString());
-
+            float screenWidth = UIScreen.MainScreen.Bounds.Width;
+            CommonCore_iOS.DebugMessage("  [nv_v][vdls] > screenWidth: " + screenWidth.ToString() + ", viewFrameWidth: " + View.Frame.Width.ToString());
+            
+            
             /*
                 * Note: the TopLayoutGuide and BottomLayoutGuide values are generated dynamically AFTER
                 * the View has been added to the hierarchy, so attempting to read them in ViewDidLoad will return 0. 
@@ -393,6 +439,8 @@ namespace CallForm.iOS.Views
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             float usableHeight = 0f;
             float usableWidth = 0f;
+
+            // ToDo: TopMargin() is called each time the orientation changes. This would be a good place to fix the saveButton origin.
             float topMarginHeight = TopMargin();
 
             switch (toInterfaceOrientation)
@@ -518,21 +566,21 @@ namespace CallForm.iOS.Views
 
             if (value < 1)
             {
-                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " not ready... ");
+                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " not ready... < ?");
 
                 value = View.Frame.Height;
                 sourceType = View.ToString();
 
                 if (value < 1)
                 {
-                    CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " also not ready... ");
+                    CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " also not ready... < ?");
 
                     value = UIScreen.MainScreen.Bounds.Height;
                     sourceType = UIScreen.MainScreen.ToString();
 
                     if (value < 1)
                     {
-                        CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " also not ready... (how????)");
+                        CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " also not ready... (how?) < !!!!!");
                         return 0f;
                     }
                 }
@@ -542,15 +590,17 @@ namespace CallForm.iOS.Views
             float topMarginHeight = TopMargin();
 
             usableHeight = value - topMarginHeight;
-            CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > used " + sourceType + " to find FrameWidth() = " + value.ToString() + " < ");
+            CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > used " + sourceType + " to find TableFrameWidth() = " + value.ToString() + " < ");
 
             return usableHeight;
         }
 
         /// <summary>The value of the current <see cref="UIView.Frame"/>.
         /// </summary>
-        /// <returns>The Frame value.</returns>
-        public float FrameWidth()
+        /// <returns>The width of the _table's frame.</returns>
+        /// <remarks>If _table.Frame.Width is not ready, this method returns View.Frame.Width. 
+        /// If View.Frame.Width is not ready, this method returns UIScreen.MainScreen.Bounds.Width.</remarks>
+        public float TableFrameWidth()
         {
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
@@ -589,8 +639,8 @@ namespace CallForm.iOS.Views
         /// <summary>Calculates a value representing a percent of the <see cref="UIView.Frame"/> value.
         /// </summary>
         /// <param name="percent">A percent value. Ex: 25.0</param>
-        /// <returns>The product of (<see cref="UIView.Frame"/> * <paramref name="percent"/>)</returns>
-        internal float PercentOfFrameWidth(double percent)
+        /// <returns>The product of (<see cref="TableFrameWidth"/> * <paramref name="percent"/>)</returns>
+        internal float PercentOfTableFrameWidth(double percent)
         {
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
@@ -600,20 +650,18 @@ namespace CallForm.iOS.Views
 
             if (percent < 1)
             {
-                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " not ready... < !!!!!");
-                return 0f;
+                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > Warning: " + sourceType + " is < 1. < !!!!!");
             }
 
-            float value = PercentOfRectangleWidth(_table.Frame, percent);
+            percent = percent / 100;
+
+            float value = (float)Math.Round((TableFrameWidth() * percent), 0);
 
             if (value < 1)
             {
-                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > " + sourceType + " not ready... < !!!!!");
-                return 0f;
+                CommonCore_iOS.DebugMessage("  " + _cAbb + mAbb + " > Warning: Result of calculation was < 1. < !!!!!");
             }
 
-            value = (float)Math.Round(value, 0);
-            
             return value;
         }
 
