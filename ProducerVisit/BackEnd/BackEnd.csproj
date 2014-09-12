@@ -256,6 +256,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="SQL\drop tables.sql" />
     <Content Include="SQL\add seed data.sql" />
+    <Content Include="SQL\producer search.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
