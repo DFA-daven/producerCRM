@@ -51,9 +51,9 @@
 
         /// <summary>The collection of <see cref="StoredProducerVisitReport"/>.
         /// </summary>
-        public DbSet<StoredProducerVisitReport> ProducerVisitReports 
+        /// <remarks>These records do not contain <see cref="ReasonCodes"/></remarks>
+        public DbSet<StoredProducerVisitReport> StoredProducerVisitReports 
         {
-            // review: is this correct - isn't it returning *Stored*ProducerVisitReports?
             get; 
             set; 
         }

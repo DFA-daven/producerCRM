@@ -25,7 +25,7 @@
         /// <returns>A <see cref="Controller.View()"/> (page).</returns>
         public ActionResult Index()
         {
-            ViewBag.VisitReportCount = _webProducerCrmDatabaseConnection.ProducerVisitReports.Count();
+            ViewBag.VisitReportCount = _webProducerCrmDatabaseConnection.StoredProducerVisitReports.Count();
             ViewBag.UserCount = _webProducerCrmDatabaseConnection.UserIdentities.Count();
             ViewBag.UniqueUsers = _webProducerCrmDatabaseConnection.UserIdentities.Distinct().Count();
             //ViewBag.EntityNumber = _webMemberDatabaseConnection.Database.SqlQuery<string>("mySpName {0}, {1}, {2}", new object[] { param1, param2, param3 });
@@ -100,7 +100,7 @@
         /// <returns>A <see cref="Controller.View()"/> (page).</returns>
         public ActionResult Summary()
         {
-            ViewBag.VisitReportCount = _webProducerCrmDatabaseConnection.ProducerVisitReports.Count();
+            ViewBag.VisitReportCount = _webProducerCrmDatabaseConnection.StoredProducerVisitReports.Count();
             ViewBag.UserCount = 99;
             ViewBag.UniqueUsers = 99;
             // ToDo: add more reports elements here
@@ -108,7 +108,7 @@
             return View();
         }
 
-        /// <summary>Get the 100 most recent <see cref="StoredProducerVisitReport">ProducerVisitReports</see> for 
+        /// <summary>Get the 100 most recent <see cref="StoredProducerVisitReport">StoredProducerVisitReports</see> for 
         /// a given member number, AND FILTER for just this user.
         /// </summary>
         /// <param name="id">The 8 digit Member Number.</param>
@@ -118,7 +118,7 @@
             // FixMe: change this to a .resx value (or an XML entry)
             int quantity = 100;
 
-            var storedProducerVisitReports = _webProducerCrmDatabaseConnection.ProducerVisitReports
+            var storedProducerVisitReports = _webProducerCrmDatabaseConnection.StoredProducerVisitReports
                 .Where(visitReport => visitReport.MemberNumber.Contains(id))
                 .OrderByDescending(visitReport => visitReport.VisitDate)
                 .Take(quantity)
@@ -145,13 +145,13 @@
             return Json(reportListItems, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>Get all <see cref="StoredProducerVisitReport">ProducerVisitReports</see> for a given member number.
+        /// <summary>Get all <see cref="StoredProducerVisitReport">StoredProducerVisitReports</see> for a given member number.
         /// </summary>
         /// <param name="id">The 8 digit Member Number.</param>
         /// <returns>A <see cref="ReportListItem"/> object representing the set of records.</returns>
         public ActionResult All(string id)
         {
-            var storedProducerVisitReports = _webProducerCrmDatabaseConnection.ProducerVisitReports.Where(visitReport => visitReport.MemberNumber == id)
+            var storedProducerVisitReports = _webProducerCrmDatabaseConnection.StoredProducerVisitReports.Where(visitReport => visitReport.MemberNumber == id)
                 .OrderByDescending(visitReport => visitReport.VisitDate)
                 .ToList();
 
@@ -200,7 +200,7 @@
         {
             report.ID = 0;
             var storedProducerVisitReport = new StoredProducerVisitReport(report);
-            _webProducerCrmDatabaseConnection.ProducerVisitReports.Add(storedProducerVisitReport);
+            _webProducerCrmDatabaseConnection.StoredProducerVisitReports.Add(storedProducerVisitReport);
             _webProducerCrmDatabaseConnection.SaveChanges();
             if (report.ReasonCodes != null)
             {
@@ -253,7 +253,7 @@
         /// <returns></returns>
         public ActionResult Report(string id)
         {
-            return Json(Hydrated(_webProducerCrmDatabaseConnection.ProducerVisitReports.Find(int.Parse(id))), JsonRequestBehavior.AllowGet);
+            return Json(Hydrated(_webProducerCrmDatabaseConnection.StoredProducerVisitReports.Find(int.Parse(id))), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>Gets the list of Call Types from the web service.
