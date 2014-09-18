@@ -4,6 +4,8 @@ This document is adapted from a walk-through: [MSDN: Using Only Stored Procedure
 ## SQLMetal Code Generator
 [CodeProject: Using SQLMetal code generator tool for LINQ to SQL](http://www.codeproject.com/Articles/35655/Using-SQLMetal-code-generator-tool-for-LINQ-to-SQL)
 
+
+## Proof-of-concept
     sqlmetal /code:"c:\linqtest7\northwind.cs" /language:csharp "c:\linqtest7\northwnd.mdf" /sprocs /functions /pluralize
 
 Note: the database name ("northwnd") will be the name of the class.
@@ -30,5 +32,20 @@ Both returns a warning:
 
 *Note: the database name ("NorthWind") will be the name of the class.
 
-  
+## Enterprise database
+### Generate code
     sqlMetal /server:dl-sqlmilk-01 /database:Enterprise /code:"c:\linqtest7\enterprise.cs" /language:csharp /sprocs /functions /pluralize
+
+### Add LINQ to SQL assembly reference
+- In Solution Explorer, right-click References, and then click Add reference.
+- In the Add reference dialog box, click .NET, click the System.Data.Linq assembly, and then click ok.
+
+### Add Enterprice code file to Project
+- On the Project menu, Add Existing Item.
+- In the Add Existing Item dialog box, move to the file location, and then click Add.
+
+### Create a database connection
+
+### Set up the User Interface
+
+### Test
