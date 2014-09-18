@@ -167,7 +167,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\VisitContext.cs" />
+    <Compile Include="Models\VisitContext.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -256,7 +258,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="SQL\drop tables.sql" />
     <Content Include="SQL\add seed data.sql" />
-    <Content Include="SQL\producer search.sql" />
+    <Content Include="SQL\SearchProducer.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

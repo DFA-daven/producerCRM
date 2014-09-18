@@ -30,8 +30,8 @@ namespace BackEnd
             AreaRegistration.RegisterAllAreas();
 
             // Note: this is where the "line that must be commented out" used to be. That action is no longer necessary.
-            Database.SetInitializer<VisitContext>(new SeededSiteDBInitialize());
-            using (var myContext = new VisitContext())
+            Database.SetInitializer<ProducerCrmVisitContext>(new SeededSiteDBInitialize());
+            using (var myContext = new ProducerCrmVisitContext())
             {
                 var x = myContext.Database.Exists(); // hack
             }
@@ -42,7 +42,7 @@ namespace BackEnd
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        /// <summary>Create a new instance of type <see cref="VisitContext"/>
+        /// <summary>Create a new instance of type <see cref="ProducerCrmVisitContext"/>
         /// </summary>
         /// <remarks>
         /// <para>On the first connection to the server, if the specified database does not exist it will be created.</para>
@@ -56,39 +56,39 @@ namespace BackEnd
         /// </remarks>
         /// <example>
         /// <code>
-        /// Database.SetInitializer&lt;VisitContext>(new SeededSiteDBInitialize());
-        /// using (var myContext = new VisitContext())
+        /// Database.SetInitializer&lt;ProducerCrmVisitContext>(new SeededSiteDBInitialize());
+        /// using (var myContext = new ProducerCrmVisitContext())
         /// {
         ///     var x = myContext.Database.Exists(); // hack
         /// }
         /// </code>
         /// </example>
-        public class SiteDBInitialize : CreateDatabaseIfNotExists<VisitContext>
+        public class SiteDBInitialize : CreateDatabaseIfNotExists<ProducerCrmVisitContext>
         {
             // Note: the Seed (override) method below is used to initially populate the database.
             // Note: if the tables on the database have no rows, delete the database and publish BackEnd. Seed (override) will populate the tables.
         }
 
-        /// <summary>Dangerous. If the database model has changed, Drop/Create a new instance of type <VisitContext>. 
+        /// <summary>Dangerous. If the database model has changed, Drop/Create a new instance of type <ProducerCrmVisitContext>. 
         /// </summary>
         /// <remarks>On the first connection to the server, if the specified database exists and the database model is 
         /// different, the existing instance of the database will be dropped and a new instance (with the new model)
         /// will be created.</remarks>
-        //public class SiteDBInitialize : DropCreateDatabaseIfModelChanges<VisitContext>
+        //public class SiteDBInitialize : DropCreateDatabaseIfModelChanges<ProducerCrmVisitContext>
         //{
-        //    protected override void Seed(VisitContext context)
+        //    protected override void Seed(ProducerCrmVisitContext context)
         //    {
         //        context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "global.asax.cs DropCreateDatabaseIfModelChanges", });
         //        context.SaveChanges();
         //    }
         //}
 
-        ///// <summary>Very dangerous. ALWAYS Drop/Create a new instance of type <VisitContext>. 
+        ///// <summary>Very dangerous. ALWAYS Drop/Create a new instance of type <ProducerCrmVisitContext>. 
         ///// </summary>
-        //public class SiteDBInitialize : DropCreateDatabaseAlways<VisitContext>
+        //public class SiteDBInitialize : DropCreateDatabaseAlways<ProducerCrmVisitContext>
         //{
         //    // use the Seed method below to initially populate the database
-        //    //protected override void Seed(VisitContext context)
+        //    //protected override void Seed(ProducerCrmVisitContext context)
         //    //{
         //    //    context.NewEmailRecipients.Add(new CallForm.Core.Models.NewEmailRecipient { Address = "global.asax.cs DropCreateDatabaseAlways", });
         //    //    context.SaveChanges();
@@ -102,8 +102,8 @@ namespace BackEnd
         {
             /// <summary>Runs after the database is created or the schema is updated.
             /// </summary>
-            /// <param name="context">The VisitContext model from BackEnd.</param>
-            protected override void Seed(VisitContext context)
+            /// <param name="context">The ProducerCrmVisitContext model from BackEnd.</param>
+            protected override void Seed(ProducerCrmVisitContext context)
             {
                 // NewEmailRecipients
                 //context.EmailRecipients.Add(new CallForm.Core.Models.EmailRecipient { Address = "loaded via global", DisplayName = "loaded via global" });

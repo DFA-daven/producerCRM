@@ -292,11 +292,27 @@
     <Compile Include="Views\NewVisit_View.cs" />
     <Compile Include="ViewElements\Time_TableViewCell.cs" />
     <Compile Include="Views\ViewReports_View.cs" />
+    <Compile Include="Web References\com.dairydataprocessing.adauth\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <None Include="App.config" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
     <None Include="Views\UserIdentity_View.docx" />
+    <None Include="Web References\com.dairydataprocessing.adauth\ActiveDirectoryAuthWS.wsdl" />
+    <None Include="Web References\com.dairydataprocessing.adauth\ADObject.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\com.dairydataprocessing.adauth\eServerType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\com.dairydataprocessing.adauth\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-640x960.png" />
@@ -425,6 +441,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.EnterpriseServices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -445,6 +464,7 @@
     <BundleResource Include="Resources\Icon-Small-40%402x.png" />
     <Content Include="Resources\Icon-58.png" />
     <Content Include="ToDo-MvvmCross\_ Touch UI.txt" />
+    <None Include="Web References\com.dairydataprocessing.adauth\ActiveDirectoryAuthWS.disco" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -464,6 +484,24 @@
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://adauth.dairydataprocessing.com/ActiveDirectoryAuthWS.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\com.dairydataprocessing.adauth\</RelPath>
+      <UpdateFromURL>http://adauth.dairydataprocessing.com/ActiveDirectoryAuthWS.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
