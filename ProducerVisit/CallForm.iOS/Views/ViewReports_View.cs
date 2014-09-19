@@ -99,6 +99,72 @@
             }
         }
 
+        UIBarButtonItem bbi;
+        public ViewReports_View()
+        {
+            if (IsOS7OrLater())
+            {
+                // UIRefreshControl iOS6
+                var RefreshControl = new UIRefreshControl();
+                RefreshControl.ValueChanged += HandleValueChanged;
+                //AppDelegate.Conference.OnDownloadSucceeded += (jsonString) =>
+                //{
+                //    Console.WriteLine("OnDownloadSucceeded");
+                //    InvokeOnMainThread(() =>
+                //    {
+                //        RefreshControl.EndRefreshing();
+                //    });
+                //};
+                //AppDelegate.Conference.OnDownloadFailed += (err) =>
+                //{
+                //    Console.WriteLine("OnDownloadFailed");
+                //    InvokeOnMainThread(() =>
+                //    {
+                //        RefreshControl.EndRefreshing();
+                //    });
+                //};
+
+                InvokeOnMainThread(() =>
+                {
+                    RefreshControl.EndRefreshing();
+                });
+
+            }
+            else
+            {
+                // old style refresh button and no PassKit for older iOS
+                NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Refresh), false);
+                NavigationItem.LeftBarButtonItem.Clicked += (sender, e) => { Refresh(); };
+            }
+
+            //bbi = new UIBarButtonItem(UIImage.FromBundle("Images/slideout"), UIBarButtonItemStyle.Plain, (sender, e) =>
+            //bbi = new UIBarButtonItem("[R]", UIBarButtonItemStyle.Plain, (sender, e) =>
+            bbi = new UIBarButtonItem(UIBarButtonSystemItem.Refresh, (sender, e) =>
+            {
+                // note: not using a FlyoutNavigation menu
+                //AppDelegate.Current.FlyoutNavigation.ToggleMenu();
+
+                InvokeOnMainThread(() => { new UIAlertView("ViewReports_View", "Refresh clicked.", null, "OK").Show(); });
+            });
+
+            NavigationItem.SetRightBarButtonItem(bbi, false);
+        }
+
+        // UIRefreshControl iOS6
+        void HandleValueChanged(object sender, EventArgs e)
+        {
+            Refresh();
+        }
+        void Refresh()
+        {
+            Console.WriteLine("Refresh data from server");
+            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+            InvokeOnMainThread(() => { new UIAlertView("ViewReports_View", "Refresh requested.", null, "OK").Show(); });
+
+            //AppDelegate.Conference.DownloadFromServer();
+        }
+
+
         public override void ViewDidLoad()
         {
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
@@ -181,7 +247,7 @@
             #region findButton
             var findButton = _findButton = new UIButton(UIButtonType.Custom);
             findButton.Frame = new RectangleF(PercentWidth(middleControlOriginPercent), BannerBottom(), ControlWidth(), ControlHeight());
-            findButton.SetTitle("Refresh", UIControlState.Normal);
+            findButton.SetTitle("Search/Refresh", UIControlState.Normal);
             findButton.BackgroundColor = CommonCore_iOS.viewBackgroundColor;
             //findButton.BackgroundColor = UIColor.Green;
             #endregion findbutton
@@ -248,8 +314,11 @@
 
             set.Bind(logoButton).To(vm => vm.GetReportsCommand);
 
+            set.Bind(bbi).To(vm => vm.GetReportsCommand);
+
             set.Bind(filterField).To(vm => vm.Filter);
             set.Bind(findButton).To(vm => vm.GetReportsCommand);
+
             set.Bind(newButton).To(vm => vm.NewVisitCommand);
 
             set.Bind(loading).For("Visibility").To(vm => vm.Loading).WithConversion("Visibility");

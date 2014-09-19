@@ -81,6 +81,15 @@ namespace CallForm.iOS
                 CommonCore_iOS.DebugMessage("  [Setup][S] > ToDo - hide status bar (and the 'back' button).");
             }
 
+            if (view.Request.ViewModelType == typeof(ViewReports_View))
+            {
+                // ToDo: hide status bar (and the 'back' button)
+                CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+                CommonCore_iOS.DebugMessage("  [Setup][S] > ViewReports_View is the TopViewController. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+
+                //CommonCore_iOS.DebugMessage("  [Setup][S] > ToDo - hide status bar (and the 'back' button).");
+            }
+
             base.Show(view);
         }
     }

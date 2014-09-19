@@ -33,6 +33,8 @@ namespace CallForm.iOS
         UINavigationBar _navigationBar;
         string _nameSpace = "CallForm.iOS.";
 
+        public static AppDelegate Current { get; private set; }
+
         public override UIWindow Window
         {
             get

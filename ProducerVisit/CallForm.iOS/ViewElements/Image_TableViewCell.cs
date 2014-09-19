@@ -16,20 +16,25 @@ namespace CallForm.iOS.ViewElements
         {
             _imageButton = new UIButton(UIButtonType.System);
             _imageButton.TouchUpInside += (sender, args) => { OnClick(); };
+
             if (pictureBytes != null && pictureBytes.Length > 0)
             {
                 var imageData = NSData.FromArray(pictureBytes);
                 _image = UIImage.LoadFromData(imageData);
                 _imageButton.SetBackgroundImage(_image, UIControlState.Normal);
+                //_imageButton.Enabled = false;
                 ContentView.Add(_imageButton);
             }
+
             _clearButton = new UIButton(UIButtonType.System);
             _clearButton.SetTitle("Remove Image", UIControlState.Normal);
             _clearButton.TouchUpInside += (sender, args) => { ClearImage(); };
+
             if (editing)
             {
                 ContentView.Add(_clearButton);
             }
+
             _viewModel = viewModel;
         }
 
@@ -42,7 +47,11 @@ namespace CallForm.iOS.ViewElements
         {
             if (_viewModel.PictureBytes == null)
             {
+#if (DEBUG)
+                InvokeOnMainThread(() => { new UIAlertView("VwElmnts.Img_TblVwCll", "[Click!] OnClick() is disabled while in Debug mode.", null, "OK").Show(); });
+#else
                 _viewModel.TakePictureCommand.Execute(_viewModel);
+#endif
             }
             else
             {
