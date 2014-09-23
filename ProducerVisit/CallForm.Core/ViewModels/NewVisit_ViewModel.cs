@@ -10,6 +10,8 @@ namespace CallForm.Core.ViewModels
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using MonoTouch.UIKit;
+
     using System.Linq;
     using System.Reflection;
     using System.Windows.Input;
@@ -24,6 +26,16 @@ namespace CallForm.Core.ViewModels
         private readonly IDataService _localDatabaseService;
         private readonly IMvxJsonConverter _jsonConverter;
         private MvxSubscriptionToken _subscriptionTag;
+
+        static bool UserInterfaceIdiomIsPhone
+        {
+            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
+        }
+
+        static bool UserInterfaceIdiomIsPad
+        {
+            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad; }
+        }
 
         #region backing fields
         /// <summary>Store for the latitude property.</summary>

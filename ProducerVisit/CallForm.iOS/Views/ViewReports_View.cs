@@ -24,7 +24,25 @@
             get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
         }
 
+        static bool UserInterfaceIdiomIsPad
+        {
+            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad; }
+        }
+
+        private bool _isOS6OrLater;
         private bool _isOS7OrLater;
+
+        public bool IsOS6
+        {
+            get { return _isOS6OrLater; }
+            set { _isOS6OrLater = value; }
+        }
+
+        public bool IsOS7
+        {
+            get { return _isOS7OrLater; }
+            set { _isOS7OrLater = value; }
+        }
 
 
         #region declarations        
@@ -102,27 +120,14 @@
         UIBarButtonItem bbi;
         public ViewReports_View()
         {
-            if (IsOS7OrLater())
+            IsOS6 = CommonCore_iOS.IsMinimumiOS6();
+            IsOS7 = CommonCore_iOS.IsMinimumiOS7();
+
+            if (CommonCore_iOS.IsMinimumOS6)
             {
-                // UIRefreshControl iOS6
                 var RefreshControl = new UIRefreshControl();
                 RefreshControl.ValueChanged += HandleValueChanged;
-                //AppDelegate.Conference.OnDownloadSucceeded += (jsonString) =>
-                //{
-                //    Console.WriteLine("OnDownloadSucceeded");
-                //    InvokeOnMainThread(() =>
-                //    {
-                //        RefreshControl.EndRefreshing();
-                //    });
-                //};
-                //AppDelegate.Conference.OnDownloadFailed += (err) =>
-                //{
-                //    Console.WriteLine("OnDownloadFailed");
-                //    InvokeOnMainThread(() =>
-                //    {
-                //        RefreshControl.EndRefreshing();
-                //    });
-                //};
+
 
                 InvokeOnMainThread(() =>
                 {
@@ -130,12 +135,9 @@
                 });
 
             }
-            else
-            {
-                // old style refresh button and no PassKit for older iOS
+
                 NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Refresh), false);
                 NavigationItem.LeftBarButtonItem.Clicked += (sender, e) => { Refresh(); };
-            }
 
             //bbi = new UIBarButtonItem(UIImage.FromBundle("Images/slideout"), UIBarButtonItemStyle.Plain, (sender, e) =>
             //bbi = new UIBarButtonItem("[R]", UIBarButtonItemStyle.Plain, (sender, e) =>
@@ -303,6 +305,36 @@
             View.Add(loadingOverlay);
 
             base.ViewDidLoad();
+            #region experimental FlyoutNavigationController
+            /*
+            // base.ViewDidLoad();
+            var navigation = new FlyoutNavigationController
+            {
+                // Create the navigation menu
+                NavigationRoot = new RootElement("Navigation") 
+                {
+                    new Section ("Pages") 
+                    {
+                        new StringElement ("Animals"),
+                        new StringElement ("Vegetables"),
+                        new StringElement ("Minerals"),
+                    }
+                },
+
+                // Supply view controllers corresponding to menu items:
+                ViewControllers = new[] 
+                {
+                    new UIViewController { View = new UILabel { Text = "Animals (drag right)" } },
+                    new UIViewController { View = new UILabel { Text = "Vegetables (drag right)" } },
+                    new UIViewController { View = new UILabel { Text = "Minerals (drag right)" } },
+                },
+            };
+
+            // Show the navigation view
+            navigation.ToggleMenu();
+            View.AddSubview(navigation.View);
+             * */
+            #endregion
 
             #region bind content to view
             // Note: this is where the ViewReports_View view controller is created.
@@ -773,7 +805,7 @@
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             CommonCore_iOS.DebugMessage("  [vr_v][nbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
 
-            if (IsOS7OrLater())
+            if (CommonCore_iOS.IsMinimumOS7)
             {
                 navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
                 layoutHeight = this.BottomLayoutGuide.Length - this.TopLayoutGuide.Length;
@@ -788,29 +820,6 @@
         {
             SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
             return Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
-        }
-
-        /// <summary>Is this device running iOS 7.0.
-        /// </summary>
-        /// <returns>True if this is iOS 7.0.</returns>
-        public bool IsOS7OrLater()
-        {
-            bool thisIsOS7 = false;
-            string version = UIDevice.CurrentDevice.SystemVersion;
-            string[] parts = version.Split('.');
-            string major = parts[0];
-            CommonCore_iOS.DebugMessage("  [vr_v][i7ol] > major version (string): " + major);
-            int majorVersion = CommonCore_iOS.SafeConvert(major, 0);
-            CommonCore_iOS.DebugMessage("  [vr_v][i7ol] > major version (int): " + majorVersion.ToString());
-
-            if (majorVersion > 6)
-            {
-                thisIsOS7 = true;
-            }
-
-            CommonCore_iOS.DebugMessage("  [vr_v][i7ol] > version is higher than 6 = " + thisIsOS7.ToString());
-
-            return thisIsOS7;
         }
     }
 

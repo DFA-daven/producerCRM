@@ -862,12 +862,12 @@ namespace CallForm.iOS.Views
 
             if (IsOS7OrLater())
             {
-                CommonCore_iOS.DebugMessage("  [nv_v][nbh] > IsOS7OrLater() = true, navbarHeight = " + navbarHeight.ToString() + " < = = = " );
+                CommonCore_iOS.DebugMessage("  [nv_v][nbh] > IsMinimumiOS6() = true, navbarHeight = " + navbarHeight.ToString() + " < = = = " );
                 navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
             }
             else
             {
-                CommonCore_iOS.DebugMessage("  [nv_v][nbh] > IsOS7OrLater() = FALSE, navbarHeight = " + navbarHeight.ToString() + " - " + StatusBarHeight().ToString() + " = " + (navbarHeight - StatusBarHeight()).ToString() + " < = = = =" );
+                CommonCore_iOS.DebugMessage("  [nv_v][nbh] > IsMinimumiOS6() = FALSE, navbarHeight = " + navbarHeight.ToString() + " - " + StatusBarHeight().ToString() + " = " + (navbarHeight - StatusBarHeight()).ToString() + " < = = = =" );
                 navbarHeight = navbarHeight - StatusBarHeight();
             }
 
@@ -875,12 +875,22 @@ namespace CallForm.iOS.Views
             #endregion
         }
 
-        private float StatusBarHeight()  // 20 
+        /// <summary>Determines the current height of the status bar.
+        /// </summary>
+        /// <returns>The status bar height in pixels.</returns>
+        /// <remarks>For iPad (1st and 2nd generation) and iPad Mini; 20px. 
+        /// For Retina iPad (iPad 3, 4, Air, Mini retina), iPone 4/4s, and iPhone 5 (iPhone 5, 5S, 5C); 40px. </remarks>
+        private float StatusBarHeight()
         {
+            // Review: this always returns "20", never "40". May be a limitation of the simulator?
             CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
-            SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
-            float statusBarHeight = Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
+            float statusBarHeight = 0f;
+            if (!UIApplication.SharedApplication.StatusBarHidden)
+            {
+                SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
+                statusBarHeight = Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
+            }
+            
             CommonCore_iOS.DebugMessage("  [nv_v][sbh] > statusBarHeight: " + statusBarHeight.ToString() + " < OK");
 
             return statusBarHeight;

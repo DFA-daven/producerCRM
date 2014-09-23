@@ -299,11 +299,14 @@
                     case 1:
                         // ToDo: seeing an un-handled exception here if debug on iPhoneSimulator
                         _currentViewController = CallTypePickerPopover;
-                        _popoverController = new UIPopoverController(_currentViewController);
-                        _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
-                        //_popoverController.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath ), tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        //_popoverController.PresentFromRect(GetPresentationRectangleForCell(tableView, _callTypeCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
-                        _popoverController.PresentFromRect(baseCellRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        if (_viewModel.Editing)
+                        {
+                            _popoverController = new UIPopoverController(_currentViewController);
+                            _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
+                            //_popoverController.PresentFromRect(tableView.RectForRowAtIndexPath(indexPath ), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                            //_popoverController.PresentFromRect(GetPresentationRectangleForCell(tableView, _callTypeCell), tableView.Superview, UIPopoverArrowDirection.Any, true);
+                            _popoverController.PresentFromRect(baseCellRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
+                        }
                         break;
                     case 2:
                         _currentViewController = DatePickerPopover;

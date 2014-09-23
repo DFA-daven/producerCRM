@@ -13,6 +13,26 @@ namespace CallForm.iOS
     public class CommonCore_iOS
     {
         static int _numberOfCallsToSetVisible = 0;
+        private static bool _isOS6 = false;
+        private static bool _isOS7 = false;
+
+        public CommonCore_iOS()
+        {
+            IsMinimumOS6 = IsMinimumiOS6();
+            IsMinimumOS7 = IsMinimumiOS7();
+        }
+
+        public static bool IsMinimumOS6
+        {
+            get { return _isOS6; }
+            set { _isOS6 = value; }
+        }
+
+        public static bool IsMinimumOS7
+        {
+            get { return _isOS7; }
+            set { _isOS7 = value; }
+        }
 
         /// <summary>Use for the background of controls: 230, 230, 255
         /// </summary>
@@ -22,7 +42,46 @@ namespace CallForm.iOS
         /// </summary>
         public static UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
 
-        
+
+        /// <summary>Is this device running at least iOS 6.x?
+        /// </summary>
+        /// <returns>True if this is OS majorVersion is greater than 6.</returns>
+        public static bool IsMinimumiOS6()
+        {
+            int minimumVersion = 5;
+            bool minimumOS = false;
+            string version = UIDevice.CurrentDevice.SystemVersion;
+            string[] parts = version.Split('.');
+            string major = parts[0];
+            int majorVersion = SafeConvert(major, 0);
+
+            if (majorVersion > minimumVersion)
+            {
+                minimumOS = true;
+            }
+
+            return minimumOS;
+        }
+
+        /// <summary>Is this device running at least iOS 7.x?
+        /// </summary>
+        /// <returns>True if this is OS majorVersion is greater than 7.</returns>
+        public static bool IsMinimumiOS7()
+        {
+            int minimumVersion = 6;
+            bool minimumOS = false;
+            string version = UIDevice.CurrentDevice.SystemVersion;
+            string[] parts = version.Split('.');
+            string major = parts[0];
+            int majorVersion = SafeConvert(major, 0);
+
+            if (majorVersion > minimumVersion)
+            {
+                minimumOS = true;
+            }
+
+            return minimumOS;
+        }
 
         // review: assigned but not used?
         //public static float topMarginPixels = 70;
