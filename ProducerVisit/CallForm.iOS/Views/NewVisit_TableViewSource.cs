@@ -310,6 +310,11 @@
                         break;
                     case 2:
                         _currentViewController = DatePickerPopover;
+                        if (Common_iOS.UserInterfaceIdiomIsPhone)
+                        {
+                            InvokeOnMainThread(() => { new UIAlertView("Error", "UIPopoverController isn't possible on iPhone.", null, "OK").Show(); });
+                            break;
+                        }
                         _popoverController = new UIPopoverController(_currentViewController);
                         _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
                         //_popoverController.PresentFromRect(GetPresentationRectangleForCell(tableView, _dateCell), tableView.Superview, UIPopoverArrowDirection.Any, true);

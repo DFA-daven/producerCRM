@@ -13,14 +13,8 @@ namespace CallForm.iOS
     public class Common_iOS
     {
         static int _numberOfCallsToSetVisible = 0;
-        private static bool _isOS6 = false;
-        private static bool _isOS7 = false;
 
-        public Common_iOS()
-        {
-            IsMinimumOS6 = IsMinimumiOS6();
-            IsMinimumOS7 = IsMinimumiOS7();
-        }
+        private static bool _isOS6 = false;
 
         public static bool IsMinimumOS6
         {
@@ -28,10 +22,34 @@ namespace CallForm.iOS
             set { _isOS6 = value; }
         }
 
+        private static bool _isOS7 = false;
+
         public static bool IsMinimumOS7
         {
             get { return _isOS7; }
             set { _isOS7 = value; }
+        }
+
+        /// <summary>True if the App is running on an iPhone.
+        /// </summary>
+        /// <remarks>Note: for multiple UserInterfaceIdioms, Targeted Devices should be set to Universal.</remarks>
+        public static bool UserInterfaceIdiomIsPhone
+        {
+            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
+        }
+
+        /// <summary>True if the App is running on an iPad.
+        /// </summary>
+        /// <remarks>Note: for multiple UserInterfaceIdioms, Targeted Devices should be set to Universal.</remarks>
+        public static bool UserInterfaceIdiomIsPad
+        {
+            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad; }
+        }
+
+        public Common_iOS()
+        {
+            IsMinimumOS6 = IsMinimumiOS6();
+            IsMinimumOS7 = IsMinimumiOS7();
         }
 
         /// <summary>Use for the background of controls: 230, 230, 255

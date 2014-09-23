@@ -22,23 +22,6 @@
     /// <para>Design goal is to only deal with formatting and layout of data here -- no state information.</para></remarks>
     class ViewReports_View : MvxViewController
     {
-        /// <summary>True if the App is running on an iPhone.
-        /// </summary>
-        /// <remarks>Note: for multiple UserInterfaceIdioms, Targeted Devices should be set to Universal.
-        /// </remarks>
-        static bool UserInterfaceIdiomIsPhone
-        {
-            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
-        }
-
-        /// <summary>True if the App is running on an iPad.
-        /// </summary>
-        /// <remarks>Note: for multiple UserInterfaceIdioms, Targeted Devices should be set to Universal.</remarks>
-        static bool UserInterfaceIdiomIsPad
-        {
-            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad; }
-        }
-
         private bool _isOS6OrLater;
         private bool _isOS7OrLater;
 
