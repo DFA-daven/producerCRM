@@ -140,6 +140,7 @@ namespace CallForm.iOS.Views
             wrapper.Add(saveButton);
             #endregion saveButton
 
+            // Note: this BindingDescriptionSet represents the link between the NewVisit_View and the NewVisit_ViewModel.
             var set = this.CreateBindingSet<NewVisit_View, NewVisit_ViewModel>();
             set.Bind(saveButton).For("Title").To(vm => vm.SaveButtonText);
             set.Bind(saveButton).To(vm => vm.SaveCommand);

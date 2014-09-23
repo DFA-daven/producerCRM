@@ -296,6 +296,7 @@
             // ToDo:  replace with the advertisingIdentifier property of the ASIdentifierManager class.
             (ViewModel as UserIdentity_ViewModel).DeviceID = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 
+            // Note: this BindingDescriptionSet represents the link between the UserIdentity_View and the UserIdentity_ViewModel.
             var set = this.CreateBindingSet<UserIdentity_View, UserIdentity_ViewModel>();
             set.Bind(email).To(vm => vm.UserEmail);
             set.Bind(assetTag).To(vm => vm.AssetTag);

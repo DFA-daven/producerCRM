@@ -11,8 +11,8 @@ using System.Reflection;
 
 namespace CallForm.iOS
 {
-
-    /// <remarks>This Class is called from AppDelegate.cs (via FinishedLoading), and in turn calls CallForm.Core.App.</remarks>
+    /// <summary>This references the Core project and lets the runtime know how to instantiate the application.</summary>
+    /// <remarks><para>This Class is called from AppDelegate.cs (via FinishedLoading), and in turn calls CallForm.Core.App.</para>
 	public class Setup : MvxTouchSetup
 	{
         string _nameSpace = "CallForm.iOS.";

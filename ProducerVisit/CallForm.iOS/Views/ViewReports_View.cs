@@ -12,18 +12,25 @@
     using System.Reflection;
     using XibFree;
 
-    /// <summary>The project's initial view controller. 
+    /// <summary>The project's initial view controller. This is the primary page for the App.
     /// </summary>
     /// <remarks>
     /// <para>This view inherits from <see cref="MvxViewController"/>. The main over-ridable methods 
     /// here handle the view's life-cycle.</para></remarks>
     class ViewReports_View : MvxViewController
     {
+        /// <summary>True if the App is running on an iPhone.
+        /// </summary>
+        /// <remarks>Note: for multiple UserInterfaceIdioms, Targeted Devices should be set to Universal.
+        /// </remarks>
         static bool UserInterfaceIdiomIsPhone
         {
             get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
         }
 
+        /// <summary>True if the App is running on an iPad.
+        /// </summary>
+        /// <remarks>Note: for multiple UserInterfaceIdioms, Targeted Devices should be set to Universal.</remarks>
         static bool UserInterfaceIdiomIsPad
         {
             get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad; }
@@ -342,6 +349,8 @@
             //   controller = new ViewReports_View();
             //   window.RootViewController = controller;
             // in AppDelegate.cs.
+
+            // Note: this BindingDescriptionSet represents the link between the UserIdentity_View and the UserIdentity_ViewModel.
             var set = this.CreateBindingSet<ViewReports_View, ViewReports_ViewModel>();
 
             set.Bind(logoButton).To(vm => vm.GetReportsCommand);

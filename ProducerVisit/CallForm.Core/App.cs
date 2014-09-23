@@ -1,13 +1,15 @@
 namespace CallForm.Core
 {
     using Cirrious.CrossCore.IoC;
+    using Cirrious.MvvmCross.ViewModels;
     using System.Diagnostics;
     using System.Reflection;
 
     /// <summary>Creates an instance of the App. This is the "Core" Project.
     /// </summary>
-    /// <remarks>This Class is called from CallForm.iOS.Setup.</remarks>
-    public class App : Cirrious.MvvmCross.ViewModels.MvxApplication
+    /// <remarks><para>This Class is called from CallForm.iOS.Setup.</para>
+    /// <para>This initializes the services and defines the ViewModel that will start on launch.</para></remarks>
+    public class App : MvxApplication
     {
         /// <summary>Defines the App Start point as ViewReports_ViewModel.
         /// </summary>
