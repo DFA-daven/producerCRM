@@ -3,8 +3,9 @@
     using Cirrious.MvvmCross.Plugins.Sqlite;
     using System;
 
-    /// <summary>An object representing an "EmailRecipient" record.
+    /// <summary>An object representing an "EmailRecipient" domain object.
     /// </summary>
+    /// <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
     public class EmailRecipient
     {
         /// <summary>The internal ID for this object.

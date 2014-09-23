@@ -2,9 +2,10 @@
 {
     using System;
 
-    /// <summary>Creates an object representing the top-level information for a visit.
+    /// <summary>An object representing the top-level information for a visit.
     /// </summary>
-    /// <remarks>This object is used to populate the table views for the UI.</remarks>
+    /// <remarks>This object is used to populate the table views for the UI. 
+    /// Design goal is to limit this class to only deal with the raw data.</remarks>
     public class ReportListItem
     {
         /// <summary>The internal ID for this object.

@@ -4,7 +4,8 @@
 
     /// <summary>An object cross-referencing a <see cref="StoredProducerVisitReport"/> with a <see cref="ReasonCode"/>.
     /// </summary>
-    /// <remarks>This is a cross-reference linking a specific visit to a reason code(s).</remarks>
+    /// <remarks>This is a cross-reference linking a specific visit to a reason code(s). 
+    /// Design goal is to limit this class to only deal with the raw data.</remarks>
     public class VisitXReason
     {
         /// <summary>The internal ID for this object.

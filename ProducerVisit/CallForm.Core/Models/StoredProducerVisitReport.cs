@@ -5,13 +5,15 @@
 
     /// <summary>An object representing a <c>StoredProducerVisitReport</c> record.
     /// </summary>
-    /// <remarks>The database stores each visit as a record in the "StoredProducerVisitReport" table, and the 
+    /// <remarks><para>The database stores each visit as a record in the "StoredProducerVisitReport" table, and the 
     /// list of possible reasons for visits in the "ReasonCode" table. For any given visit the selected reasons 
-    /// are stored in the "VisitXReason" cross reference table.
+    /// are stored in the "VisitXReason" cross reference table.</para>
     /// 
-    /// A <see cref="StoredProducerVisitReport"/> object represents a single record from the "StoredProducerVisitReport" table. 
+    /// <para>A <see cref="StoredProducerVisitReport"/> object represents a single record from the "StoredProducerVisitReport" table. 
     /// A <see cref="ProducerVisitReport"/> is that same record with a <see cref="ReasonCode">ReasonCode[]</see> holding the 
-    /// reason code(s) for the specific visit.</remarks>
+    /// reason code(s) for the specific visit. </para>
+    /// <para>Design goal is to limit this class to only deal with the raw data.</para></remarks>
+
     public class StoredProducerVisitReport
     {
         /// <summary>The internal ID for this object.

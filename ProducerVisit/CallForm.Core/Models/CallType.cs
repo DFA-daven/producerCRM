@@ -3,8 +3,9 @@
     using Cirrious.MvvmCross.Plugins.Sqlite;
     using System;
 
-    /// <summary>An object representing a visit Call Type.
+    /// <summary>An object representing a visit "CallType" domain object.
     /// </summary>
+    /// <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
     public class CallType
     {
         /// <summary>The internal ID for this object.

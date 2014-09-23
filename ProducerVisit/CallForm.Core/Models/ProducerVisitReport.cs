@@ -2,9 +2,10 @@
 {
     using System;
 
-    /// <summary>Creates an object representing a report of a visit to a member.
+    /// <summary>An object representing a "ProducerVisitReport" (a report of a visit to a member) domain object. 
     /// </summary>
-    /// <remarks>A ProducerVisitReport object is equivalent to a <see cref="StoredProducerVisitReport"/> PLUS the associated
+    /// <remarks>Design goal is to limit this class to only deal with the raw data. 
+    /// A ProducerVisitReport object is equivalent to a <see cref="StoredProducerVisitReport"/> PLUS the associated
     /// <see cref="ReasonCode"/> list. It may represent a visit that exists on the web service, or a new visit.</remarks>
     public class ProducerVisitReport
     {

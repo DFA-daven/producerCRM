@@ -7,8 +7,9 @@ using System.Xml.Serialization;
 
 namespace CallForm.Core.Models
 {
-    /// <summary>Creates an object representing a "UserIdentity" record.
+    /// <summary>Creates an object representing a "UserIdentity" domain object.
     /// </summary>
+    /// <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
     public class UserIdentity
     {
         /// <summary>The internal ID for this object.

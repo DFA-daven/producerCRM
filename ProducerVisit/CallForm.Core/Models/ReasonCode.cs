@@ -3,8 +3,9 @@
     using Cirrious.MvvmCross.Plugins.Sqlite;
     using System;
 
-    /// <summary>An object representing a "ReasonCode" record.
+    /// <summary>An object representing a "ReasonCode" domain object.
     /// </summary>
+    /// <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
     public class ReasonCode
     {
         /// <summary>The internal ID for this object.
