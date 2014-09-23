@@ -10,15 +10,12 @@ namespace CallForm.Core.ViewModels
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using MonoTouch.UIKit;
-
     using System.Linq;
     using System.Reflection;
     using System.Windows.Input;
 
-    /// <summary>Class definition of the New Visit ViewModel.
+    /// <summary>Class definition of the "New Visit" domain object.
     /// </summary>
-    /// <remarks>This is the page for collecting information about a new visit.</remarks>
     public class NewVisit_ViewModel : MvxViewModel
     {
         private readonly ILocationService _locationService;
@@ -26,16 +23,6 @@ namespace CallForm.Core.ViewModels
         private readonly IDataService _localDatabaseService;
         private readonly IMvxJsonConverter _jsonConverter;
         private MvxSubscriptionToken _subscriptionTag;
-
-        static bool UserInterfaceIdiomIsPhone
-        {
-            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
-        }
-
-        static bool UserInterfaceIdiomIsPad
-        {
-            get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad; }
-        }
 
         #region backing fields
         /// <summary>Store for the latitude property.</summary>

@@ -12,9 +12,9 @@
     using System.Reflection;
     using System.Windows.Input;
 
-    /// <summary>Class definition of the View Reports ViewModel.
+    /// <summary>Class definition of the "View Reports" domain object.
     /// </summary>
-    /// <remarks>This is the primary page for the App.</remarks>
+    /// <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
     public class ViewReports_ViewModel : MvxViewModel
     {
         #region Properties

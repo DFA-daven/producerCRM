@@ -12,11 +12,14 @@
     using System.Reflection;
     using XibFree;
 
-    /// <summary>The project's initial view controller. This is the primary page for the App.
+    // notes: see _Touch UI.txt for design details.
+
+    /// <summary>Creates a class representing the UI View for "ViewReports". 
+    /// This is The project's initial view controller, and the primary page for the App.
     /// </summary>
-    /// <remarks>
-    /// <para>This view inherits from <see cref="MvxViewController"/>. The main over-ridable methods 
-    /// here handle the view's life-cycle.</para></remarks>
+    /// <remarks><para>This view inherits from <see cref="MvxViewController"/>. The main over-ridable methods 
+    /// here handle the view's life-cycle.</para>
+    /// <para>Design goal is to only deal with formatting and layout of data here -- no state information.</para></remarks>
     class ViewReports_View : MvxViewController
     {
         /// <summary>True if the App is running on an iPhone.
@@ -127,10 +130,10 @@
         UIBarButtonItem bbi;
         public ViewReports_View()
         {
-            IsOS6 = CommonCore_iOS.IsMinimumiOS6();
-            IsOS7 = CommonCore_iOS.IsMinimumiOS7();
+            IsOS6 = Common_iOS.IsMinimumiOS6();
+            IsOS7 = Common_iOS.IsMinimumiOS7();
 
-            if (CommonCore_iOS.IsMinimumOS6)
+            if (Common_iOS.IsMinimumOS6)
             {
                 var RefreshControl = new UIRefreshControl();
                 RefreshControl.ValueChanged += HandleValueChanged;
@@ -176,8 +179,8 @@
 
         public override void ViewDidLoad()
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("  [vr_v][vdl] > starting method...");
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage("  [vr_v][vdl] > starting method...");
 
             #region pageLayout
             float topMargin = 0;
@@ -186,7 +189,7 @@
             // managing a stack of View Controllers and provides tools for navigation, such 
             // as a navigation bar with a back button.
             topMargin = StatusBarHeight() + NavBarHeight();
-            CommonCore_iOS.DebugMessage("  [vr_v][vdl] > topMargin = " + topMargin.ToString() + " < <======= ");
+            Common_iOS.DebugMessage("  [vr_v][vdl] > topMargin = " + topMargin.ToString() + " < <======= ");
 
 
             #region logo
@@ -245,7 +248,7 @@
                 },
                 //Font = UIFont.SystemFontOfSize(20),
                 Frame = new RectangleF(PercentWidth(leftControlOriginPercent), BannerBottom(), ControlWidth(), ControlHeight()),
-                BackgroundColor = CommonCore_iOS.controlBackgroundColor,
+                BackgroundColor = Common_iOS.controlBackgroundColor,
                 //BackgroundColor = UIColor.Blue,
             };
             filterField.VerticalAlignment = UIControlContentVerticalAlignment.Center;       // text should appear vertically centered
@@ -257,7 +260,7 @@
             var findButton = _findButton = new UIButton(UIButtonType.Custom);
             findButton.Frame = new RectangleF(PercentWidth(middleControlOriginPercent), BannerBottom(), ControlWidth(), ControlHeight());
             findButton.SetTitle("Search/Refresh", UIControlState.Normal);
-            findButton.BackgroundColor = CommonCore_iOS.viewBackgroundColor;
+            findButton.BackgroundColor = Common_iOS.viewBackgroundColor;
             //findButton.BackgroundColor = UIColor.Green;
             #endregion findbutton
 
@@ -269,7 +272,7 @@
             var plusSign = UIImage.FromBundle("Add.png");
             //plusSign.Scale();
             newButton.SetImage(UIImage.FromBundle("Add.png"), UIControlState.Normal);
-            newButton.BackgroundColor = CommonCore_iOS.viewBackgroundColor;
+            newButton.BackgroundColor = Common_iOS.viewBackgroundColor;
             //newButton.BackgroundColor = UIColor.Red;
             #endregion newButton
             #endregion buttons
@@ -279,7 +282,7 @@
             //var tableView = _reportTableView = new UITableView(new RectangleF(0, TableTop(), ScreenWidth(), ScreenHeight() - TableTop()));
             var tableView = _reportTableView = new UITableView(new RectangleF(0, TableTop(), View.Frame.Width, View.Frame.Height - TableTop()));
             tableView.BackgroundView = null;
-            tableView.BackgroundColor = CommonCore_iOS.viewBackgroundColor;
+            tableView.BackgroundColor = Common_iOS.viewBackgroundColor;
             #endregion table
 
             #region loading
@@ -417,15 +420,15 @@
             //this.availableViewHeight
             #endregion
 
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("  [vr_v][vdl] > ...finished method.");
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage("  [vr_v][vdl] > ...finished method.");
         }
 
 
         public override void ViewDidLayoutSubviews()
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("  [vr_v][vdls] > System version: " + UIDevice.CurrentDevice.SystemVersion);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage("  [vr_v][vdls] > System version: " + UIDevice.CurrentDevice.SystemVersion);
 
             base.ViewDidLayoutSubviews();
 
@@ -444,8 +447,8 @@
                 //displacement_y = this.TopLayoutGuide.Length;
             }
 
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("  [vr_v][vdls] > ...finished");
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage("  [vr_v][vdls] > ...finished");
         }
 
         public override void MotionEnded(UIEventSubtype motion, UIEvent evt)
@@ -728,7 +731,7 @@
 
         public override void ViewWillAppear(bool animated)
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             base.ViewWillAppear(animated);
             SetFramesForOrientation(InterfaceOrientation);
@@ -736,7 +739,7 @@
 
         public override void ViewDidAppear(bool animated)
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             
             // Note: each time ViewReports is displayed/appears UploadReports() is triggered.
             base.ViewDidAppear(animated);
@@ -746,7 +749,7 @@
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             base.WillAnimateRotation(toInterfaceOrientation, duration);
 
@@ -755,8 +758,8 @@
 
         private void SetFramesForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("? [vr_v][sffo] > SetFramesForOrientation: make a note of when this runs");
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage("? [vr_v][sffo] > SetFramesForOrientation: make a note of when this runs");
 
             float difference = 0;
             float offset = 0;
@@ -811,14 +814,14 @@
             layoutHeight = this.ViewFrameHeight(); 
             navbarHeight = screenHeight - layoutHeight;
 
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("  [vr_v][nbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage("  [vr_v][nbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
 
-            if (CommonCore_iOS.IsMinimumOS7)
+            if (Common_iOS.IsMinimumOS7)
             {
                 navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
                 layoutHeight = this.BottomLayoutGuide.Length - this.TopLayoutGuide.Length;
-                CommonCore_iOS.DebugMessage("  [vr_v][nbh] > iOS 7 topMarginHeight: " + navbarHeight.ToString() + ", iOS7 layoutHeight = " + layoutHeight.ToString() + " <======= ");
+                Common_iOS.DebugMessage("  [vr_v][nbh] > iOS 7 topMarginHeight: " + navbarHeight.ToString() + ", iOS7 layoutHeight = " + layoutHeight.ToString() + " <======= ");
 
             }
 

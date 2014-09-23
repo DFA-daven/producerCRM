@@ -9,9 +9,16 @@
     using XibFree;
 
     // notes: see _Touch UI.txt for design details.
+
     // FixMe: the UserIdentity view does not implement modal correctly. It looks like the foundation is here, but it was never implemented.
     //public class UserIdentityView : MvxBindingTouchViewController<MyViewModel>, IMvxModalTouchView
     // visit http://stackoverflow.com/questions/14518876/integrating-google-mobile-analytics-with-mvvmcross for examples of getting this to work.
+
+    /// <summary>Creates a class representing the UI View for "UserIdentity". 
+    /// </summary>
+    /// <remarks><para>This view inherits from <see cref="MvxViewController"/>. The main over-ridable methods 
+    /// here handle the view's life-cycle.</para>
+    /// <para>Design goal is to only deal with formatting and layout of data here -- no state information.</para></remarks>
     public class UserIdentity_View : MvxViewController, IMvxModalTouchView
     {
         #region Properties
@@ -32,8 +39,8 @@
 
         public override void ViewDidLoad()
         {
-            CommonCore_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("  [ui_v][vdl] > starting method...");
+            Common_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage("  [ui_v][vdl] > starting method...");
 
             //InvokeOnMainThread(() => { new UIAlertView("starting method...", MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name, null, "OK").Show(); });
 
@@ -46,14 +53,14 @@
                 //Font = UIFont.SystemFontOfSize(UIFont.LabelFontSize * 1.1f),
                 Text = "Please Enter Your Email Address and Asset Tag (if any)",
                 TextColor = UIColor.White,
-                BackgroundColor = CommonCore_iOS.viewBackgroundColor,
+                BackgroundColor = Common_iOS.viewBackgroundColor,
             };
 
             // the email address field
             var email = new UITextField
             {
                 Placeholder = "type email address here...",
-                BackgroundColor = CommonCore_iOS.controlBackgroundColor,
+                BackgroundColor = Common_iOS.controlBackgroundColor,
                 KeyboardType = UIKeyboardType.EmailAddress,
             };
 
@@ -61,7 +68,7 @@
             var assetTag = new UITextField
             {
                 Placeholder = "enter asset tag information here...",
-                BackgroundColor = CommonCore_iOS.controlBackgroundColor,
+                BackgroundColor = Common_iOS.controlBackgroundColor,
                 KeyboardType = UIKeyboardType.Default,
             };
 
@@ -270,7 +277,7 @@
 
             View = new UILayoutHost(pageLayout)
             {
-                BackgroundColor = CommonCore_iOS.viewBackgroundColor,
+                BackgroundColor = Common_iOS.viewBackgroundColor,
             };
 
             base.ViewDidLoad();
@@ -324,13 +331,13 @@
             View.AddGestureRecognizer(goAway);
             #endregion UI action
 
-            CommonCore_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            CommonCore_iOS.DebugMessage("  [ui_v][vdl] > ...finished method.");
+            Common_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage("  [ui_v][vdl] > ...finished method.");
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            CommonCore_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             base.ViewDidLayoutSubviews();
 

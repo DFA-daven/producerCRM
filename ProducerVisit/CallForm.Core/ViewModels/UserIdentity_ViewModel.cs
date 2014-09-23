@@ -6,9 +6,9 @@
     using System;
     using System.Windows.Input;
 
-    /// <summary>Class definition of the User Identity ViewModel.
+    /// <summary>Class definition of the "User Identity" domain object.
     /// </summary>
-    /// <remarks>This is the page for the collecting information about the user.</remarks>
+    /// <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
     public class UserIdentity_ViewModel : MvxViewModel
     {
         #region backing fields

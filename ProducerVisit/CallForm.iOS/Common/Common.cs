@@ -10,13 +10,13 @@ namespace CallForm.iOS
     /// <summary>Commonly used methods.
     /// </summary>
     /// <remarks>This class may be (partially) duplicated in other Projects.</remarks>
-    public class CommonCore_iOS
+    public class Common_iOS
     {
         static int _numberOfCallsToSetVisible = 0;
         private static bool _isOS6 = false;
         private static bool _isOS7 = false;
 
-        public CommonCore_iOS()
+        public Common_iOS()
         {
             IsMinimumOS6 = IsMinimumiOS6();
             IsMinimumOS7 = IsMinimumiOS7();
@@ -155,7 +155,7 @@ namespace CallForm.iOS
             if (_numberOfCallsToSetVisible < 0)
             {
                 _numberOfCallsToSetVisible = 0;
-                CommonCore_iOS.DebugMessage("  [Common][snaiv] > SetNetworkActivityIndicatorVisible() was asked to hide more often than shown.");
+                Common_iOS.DebugMessage("  [Common][snaiv] > SetNetworkActivityIndicatorVisible() was asked to hide more often than shown.");
             }
 
             UIApplication.SharedApplication.NetworkActivityIndicatorVisible = (_numberOfCallsToSetVisible > 0);

@@ -232,7 +232,7 @@
         /// <returns></returns>
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             // FixMe: hard-coded values
             // the _noteCell
@@ -259,7 +259,7 @@
         /// <returns>A row count.</returns>
         public override int RowsInSection(UITableView tableview, int section)
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             // Review: find a way to get this automatically
             // return _viewModel.Reports == null ? 0 : _viewModel.Reports.Count;
@@ -272,7 +272,7 @@
         /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             SizeF availableSize = new SizeF();
 
@@ -323,10 +323,10 @@
                         _popoverController = new UIPopoverController(_currentViewController);
                         //_popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
 
-                        CommonCore_iOS.DebugMessage("  [nv_tvs][rs][4] > baseCellRect.bottom = " + baseCellRect.Bottom.ToString() + ", tableView.Superview.Frame.Bottom = " + tableView.Superview.Frame.Bottom.ToString() + " < @ @ @ @ @ @ @");
+                        Common_iOS.DebugMessage("  [nv_tvs][rs][4] > baseCellRect.bottom = " + baseCellRect.Bottom.ToString() + ", tableView.Superview.Frame.Bottom = " + tableView.Superview.Frame.Bottom.ToString() + " < @ @ @ @ @ @ @");
                         _distanceToBottom = tableView.Superview.Frame.Bottom - baseCellRect.Bottom;
 
-                        CommonCore_iOS.DebugMessage("  [nv_tvs][rs][4] > _popoverController.ContentViewController.PreferredContentSize.Height = " + _popoverController.ContentViewController.PreferredContentSize.Height.ToString() + ", _distanceToBottom = " + _distanceToBottom.ToString() + " < @ @ @ @ @ @ @");
+                        Common_iOS.DebugMessage("  [nv_tvs][rs][4] > _popoverController.ContentViewController.PreferredContentSize.Height = " + _popoverController.ContentViewController.PreferredContentSize.Height.ToString() + ", _distanceToBottom = " + _distanceToBottom.ToString() + " < @ @ @ @ @ @ @");
                         //availableDisplayHeight = Math.Min(_distanceToBottom, _currentViewController.PreferredContentSize.Height);
                         availableDisplayHeight = Math.Min(_distanceToBottom, _popoverController.ContentViewController.PreferredContentSize.Height);
                         //availableDisplayHeight = Math.Max(_distanceToBottom, _popoverController.ContentViewController.PreferredContentSize.Height);
@@ -339,7 +339,7 @@
                         // Hack: just testing...
                         availableSize.Height = Math.Min((float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.50, 0), (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.50, 0));
                         
-                        CommonCore_iOS.DebugMessage("* [nv_tvs][rs][4] > availableDisplayHeight = " + availableDisplayHeight.ToString() + " < [nv_tvs][rs] @ @ @ @ @ @ @");
+                        Common_iOS.DebugMessage("* [nv_tvs][rs][4] > availableDisplayHeight = " + availableDisplayHeight.ToString() + " < [nv_tvs][rs] @ @ @ @ @ @ @");
 
                         //_popoverController.ContentViewController.PreferredContentSize = availableSize;
                         _popoverController.PopoverContentSize = availableSize;
@@ -354,7 +354,7 @@
 #endif
 
                 
-                CommonCore_iOS.DebugMessage("  [nv_tvs][rs][4] > _contollerPreferredSize Height = " + _contollerPreferredSize.Height.ToString() + ", Width = " + _contollerPreferredSize.Width.ToString());
+                Common_iOS.DebugMessage("  [nv_tvs][rs][4] > _contollerPreferredSize Height = " + _contollerPreferredSize.Height.ToString() + ", Width = " + _contollerPreferredSize.Width.ToString());
 
                         break;
                     case 5:
@@ -386,7 +386,7 @@
         /// from the <see cref="NewVisit_TableViewSource"/>.</returns>
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             switch (indexPath.Row)
             {
@@ -417,7 +417,7 @@
         /// </summary>
         public void SafeDismissPopover()
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             if (_popoverController != null)
             {
@@ -436,7 +436,7 @@
         /// <returns>A rectangle bounding the given cell.</returns>
         internal RectangleF GetRectangleForCell(UITableView tableView, UITableViewCell targetCell)
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             return tableView.RectForRowAtIndexPath(tableView.IndexPathForCell(targetCell));
         }
@@ -452,7 +452,7 @@
         /// the on-screen location of the cell contents.</remarks>
         internal RectangleF GetPresentationRectangleForCell(UITableView tableView, UITableViewCell targetCell)
         {
-            CommonCore_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             RectangleF cellBoundary = tableView.RectForRowAtIndexPath(tableView.IndexPathForCell(targetCell));
 
@@ -492,9 +492,9 @@
             string version = UIDevice.CurrentDevice.SystemVersion;
             string[] parts = version.Split('.');
             string major = parts[0];
-            CommonCore_iOS.DebugMessage("  [nv_tvs][i7ol] > major version (string): " + major);
-            int majorVersion = CommonCore_iOS.SafeConvert(major, 0);
-            CommonCore_iOS.DebugMessage("  [nv_tvs][i7ol] > major version (int): " + majorVersion.ToString());
+            Common_iOS.DebugMessage("  [nv_tvs][i7ol] > major version (string): " + major);
+            int majorVersion = Common_iOS.SafeConvert(major, 0);
+            Common_iOS.DebugMessage("  [nv_tvs][i7ol] > major version (int): " + majorVersion.ToString());
 
             if (majorVersion > 6)
             {
@@ -503,7 +503,7 @@
                 thisIsOS7 = true;
             }
 
-            CommonCore_iOS.DebugMessage("  [nv_tvs][i7ol] > version is higher than 6 = " + thisIsOS7.ToString());
+            Common_iOS.DebugMessage("  [nv_tvs][i7ol] > version is higher than 6 = " + thisIsOS7.ToString());
 
             return thisIsOS7;
         }
