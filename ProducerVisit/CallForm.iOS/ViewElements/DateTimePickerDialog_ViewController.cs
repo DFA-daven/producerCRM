@@ -35,7 +35,7 @@ namespace CallForm.iOS.ViewElements
 
             //_picker.BackgroundColor = UIColor.Gray;
             //_picker.Alpha = 0.75f;
-            _picker.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
+            //_picker.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
 
             View.Add(_picker);
             #endregion _picker
@@ -46,10 +46,10 @@ namespace CallForm.iOS.ViewElements
             doneButton.TouchUpInside += (sender, args) => { source.SafeDismissPopover(); };
             doneButton.Frame = new RectangleF(0, _picker.Frame.Height, _picker.Frame.Width, _doneButtonHeight);
 
-            View.Add(doneButton);
+            //View.Add(doneButton);
             #endregion doneButton
 
-            View.SizeToFit();
+            //View.SizeToFit();
             View.BackgroundColor = UIColor.White;
 
             _setValue += setValue;
@@ -84,6 +84,20 @@ namespace CallForm.iOS.ViewElements
                 return size;
             }
             set { base.PreferredContentSize = value; }
+        }
+
+        /// <summary>Deprecated in iOS7 in favor of PreferredContentSize.
+        /// </summary>
+        [Obsolete("Deprecated in iOS7 in favor of PreferredContentSize.", true)]
+        public override SizeF ContentSizeForViewInPopover
+        {
+            get
+            {
+                SizeF size = _picker.Frame.Size;
+                size.Height += 50;
+                return size;
+            }
+            set { base.ContentSizeForViewInPopover = value; }
         }
     }
 }

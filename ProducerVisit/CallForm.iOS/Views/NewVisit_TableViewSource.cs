@@ -288,7 +288,10 @@
                 _notesCell.HideKeyboard();
 
                 var baseCellRect = tableView.RectForRowAtIndexPath(indexPath);
-                
+
+                // Hack: the four popovers are bypassed so that the App doesn't crash on iPhone.
+                bool iPhoneIdiomIssue = Common_iOS.UserInterfaceIdiomIsPhone;
+                string idiomAlert = "Can't display this control on an iPhone.";
 
                 // Note: the Row # here matches the position of the row in the UITableView.
                 switch (indexPath.Row)
@@ -299,6 +302,11 @@
                     case 1:
                         // ToDo: seeing an un-handled exception here if debug on iPhoneSimulator
                         _currentViewController = CallTypePickerPopover;
+                        if (iPhoneIdiomIssue)
+                        {
+                            InvokeOnMainThread(() => { new UIAlertView("Error", idiomAlert, null, "OK").Show(); });
+                            break;
+                        }
                         if (_viewModel.Editing)
                         {
                             _popoverController = new UIPopoverController(_currentViewController);
@@ -310,9 +318,9 @@
                         break;
                     case 2:
                         _currentViewController = DatePickerPopover;
-                        if (Common_iOS.UserInterfaceIdiomIsPhone)
+                        if (iPhoneIdiomIssue)
                         {
-                            InvokeOnMainThread(() => { new UIAlertView("Error", "UIPopoverController isn't possible on iPhone.", null, "OK").Show(); });
+                            InvokeOnMainThread(() => { new UIAlertView("Error", idiomAlert, null, "OK").Show(); });
                             break;
                         }
                         _popoverController = new UIPopoverController(_currentViewController);
@@ -325,6 +333,11 @@
                         break;
                     case 4:
                         _currentViewController = ReasonPickerPopover;
+                        if (iPhoneIdiomIssue)
+                        {
+                            InvokeOnMainThread(() => { new UIAlertView("Error", idiomAlert, null, "OK").Show(); });
+                            break;
+                        }
                         _popoverController = new UIPopoverController(_currentViewController);
                         //_popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
 
@@ -340,7 +353,6 @@
                         //availableSize = _popoverController.ContentViewController.PreferredContentSize; // null?
                         availableSize = _currentViewController.PreferredContentSize;
                         
-                        availableSize.Height = availableDisplayHeight;
                         // Hack: just testing...
                         availableSize.Height = Math.Min((float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.50, 0), (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.50, 0));
                         
@@ -357,9 +369,8 @@
                             _popoverController.BackgroundColor = UIColor.Red; // this is the outer container
                         }
 #endif
-
                 
-                Common_iOS.DebugMessage("  [nv_tvs][rs][4] > _contollerPreferredSize Height = " + _contollerPreferredSize.Height.ToString() + ", Width = " + _contollerPreferredSize.Width.ToString());
+                        Common_iOS.DebugMessage("  [nv_tvs][rs][4] > _contollerPreferredSize Height = " + _contollerPreferredSize.Height.ToString() + ", Width = " + _contollerPreferredSize.Width.ToString());
 
                         break;
                     case 5:
@@ -370,9 +381,18 @@
                         break;
                     case 7:
                         _currentViewController = EmailPickerPopover;
+                        if (iPhoneIdiomIssue)
+                        {
+                            InvokeOnMainThread(() => { new UIAlertView("Error", idiomAlert, null, "OK").Show(); });
+                            break;
+                        }
                         _popoverController = new UIPopoverController(_currentViewController);
-                        //_popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;
+                        _distanceToBottom = tableView.Superview.Frame.Bottom - baseCellRect.Bottom;
+                        availableDisplayHeight = Math.Min(_distanceToBottom, _popoverController.ContentViewController.PreferredContentSize.Height);
+                        availableSize = _currentViewController.PreferredContentSize;
+                        availableSize.Height = availableDisplayHeight;
 
+                        _popoverController.PopoverContentSize = availableSize;
                         _popoverController.PresentFromRect(baseCellRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
                         
                         break;
