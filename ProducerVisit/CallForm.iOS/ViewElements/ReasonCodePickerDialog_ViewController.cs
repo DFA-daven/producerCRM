@@ -140,30 +140,35 @@ namespace CallForm.iOS.ViewElements
                 //size.Height = _table.Source.RowsInSection(_table, 1)  * 50f;
 
                 float rowHeight = _table.RowHeight;
+                if (rowHeight < 1)
+                {
+                    rowHeight = _viewModel.RowHeight;
+                }
+
                 int rowCount = _viewModel.ListOfReasonCodes.Count;
                 float preferredHeight = (float)Math.Round(rowHeight * rowCount, 0);
 
                 float layoutHeight = 0f;
                 UIView[] subviews = View.Subviews;
 
-                Common_iOS.DebugMessage("  [rcpd][pcs][g] > rowHeight = " + rowHeight.ToString() + ", Calculating layoutHeight....");
+                Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > rowHeight = " + rowHeight.ToString() + ", rowCount = " + rowCount.ToString() + ". Calculating layoutHeight....");
                 if (subviews == null)
                 {
-                    Common_iOS.DebugMessage("  [rcpd][pcs][g] > View.Subviews[] is NULL.");
+                    Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[] is NULL.");
                 }
                 else
                 {
                     int subviewsArrayLength = subviews.Length;
-                    Common_iOS.DebugMessage("  [rcpd][pcs][g] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString());
+                    Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString());
                     for (int i = 0; i < subviewsArrayLength; i++)
                     {
                         if (subviews[i].GetType() == typeof(UIView))
                         {
-                            Common_iOS.DebugMessage("  [rcpd][pcs][g] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString());
+                            Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString());
                         }
                         else
                         {
-                            Common_iOS.DebugMessage("  [rcpd][pcs][g] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString());
+                            Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString());
                             layoutHeight = subviews[i].Frame.Height;
                         }
                     }
@@ -174,14 +179,14 @@ namespace CallForm.iOS.ViewElements
                 //size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);
                 size.Height = Math.Max(preferredHeight, layoutHeight);
 
-                //Common_iOS.DebugMessage("  [rcpd][pcs][g] > _table.Frame.Size.Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd][pcs][g] <= = = = = = = ");
-                Common_iOS.DebugMessage("  [rcpd][pcs][g] > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd][pcs][g] <= = = = = = = ");
+                //Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > _table.Frame.Size.Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd_vc][pcs][g] <= = = = = = = ");
+                Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd_vc][pcs][g] <= = = = = = = ");
 
                 return size;
             }
             set 
             {
-                Common_iOS.DebugMessage("  [rcpd][pcs][s] > value.Height = " + value.Height.ToString() + ", Width = " + value.Width.ToString() + " [rcpd][pcs][s] <= = = = = = = ");
+                Common_iOS.DebugMessage("  [rcpd_vc][pcs][s] > value.Height = " + value.Height.ToString() + ", Width = " + value.Width.ToString() + " [rcpd_vc][pcs][s] <= = = = = = = ");
                 base.PreferredContentSize = value; 
             }
         }
@@ -255,12 +260,15 @@ namespace CallForm.iOS.ViewElements
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;
         private const string CellIdentifier = "ReasonCodeTableCell";
-        private float _doneButtonHeight = 50f;
+        public static float _doneButtonHeight;
+        private static float _defaultRowHeight;
 
         public ReasonCodeTableSource(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             _viewModel = viewModel;
             _source = source;
+            _doneButtonHeight = 50f;
+            _defaultRowHeight = 50f;
         }
 
         /// <summary>The number of rows (cells) in this section of <see cref="ReasonCodeTableSource"/>.
@@ -335,6 +343,13 @@ namespace CallForm.iOS.ViewElements
             return cell;
         }
 
+        public static float DefaultRowHeight
+        {
+            get
+            {
+                return _defaultRowHeight;
+            }
+        }
         // <summary>Get the name of a static or instance property from a property access lambda.
         // </summary>
         // <typeparam name="T">Type of the property.</typeparam>

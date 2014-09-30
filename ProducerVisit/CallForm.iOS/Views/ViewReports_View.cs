@@ -129,35 +129,46 @@
 
             }
 
-                NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Refresh), false);
-                NavigationItem.LeftBarButtonItem.Clicked += (sender, e) => { Refresh(); };
+            NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Refresh), false);
+            NavigationItem.LeftBarButtonItem.Clicked += (sender, e) => { Refresh(); };
 
             //bbi = new UIBarButtonItem(UIImage.FromBundle("Images/slideout"), UIBarButtonItemStyle.Plain, (sender, e) =>
             //bbi = new UIBarButtonItem("[R]", UIBarButtonItemStyle.Plain, (sender, e) =>
             bbi = new UIBarButtonItem(UIBarButtonSystemItem.Refresh, (sender, e) =>
             {
-                // note: not using a FlyoutNavigation menu
-                //AppDelegate.Current.FlyoutNavigation.ToggleMenu();
-
-                InvokeOnMainThread(() => { new UIAlertView("ViewReports_View", "Refresh clicked.", null, "OK").Show(); });
+                string message = "  [vr_v][refresh] > Refresh data from server, (right clicked).";
+                Console.WriteLine(message);
+                Common_iOS.DebugMessage(message);
+#if (DEBUG)
+                //InvokeOnMainThread(() => { new UIAlertView("ViewReports_View", "(right) Refresh clicked.", null, "OK").Show(); });
+#endif
             });
 
             NavigationItem.SetRightBarButtonItem(bbi, false);
         }
 
+        #region refresh
         // UIRefreshControl iOS6
         void HandleValueChanged(object sender, EventArgs e)
         {
             Refresh();
         }
+
         void Refresh()
         {
-            Console.WriteLine("Refresh data from server");
-            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
-            InvokeOnMainThread(() => { new UIAlertView("ViewReports_View", "Refresh requested.", null, "OK").Show(); });
+            // ToDo: this probably isn't the best location for this -- move closer to the call to the web service
+            //Common_iOS.SetNetworkActivityIndicatorVisible(true);
+
+            string message = "  [vr_v][refresh] > Refresh data from server, (right clicked).";
+            Console.WriteLine(message);
+            Common_iOS.DebugMessage(message);
+#if (DEBUG)
+            //InvokeOnMainThread(() => { new UIAlertView("ViewReports_View", "(right) Refresh clicked.", null, "OK").Show(); });
+#endif
 
             //AppDelegate.Conference.DownloadFromServer();
         }
+        #endregion refresh
 
 
         public override void ViewDidLoad()
@@ -829,13 +840,24 @@
         {
             _viewModel = viewModel;
 
-            _viewModel.PropertyChanged += (sender, args) =>
+            try
             {
-                if (args.PropertyName == "Reports")
-                {
-                    tableView.ReloadData();
-                }
-            };
+                _viewModel.PropertyChanged += (sender, args) =>
+                    {
+                        //Common_iOS.SetNetworkActivityIndicatorVisible(true);
+
+                        if (args.PropertyName == "Reports")
+                        {
+                            tableView.ReloadData();
+                        }
+                    };
+            }
+            
+            finally
+            {
+                // ToDo: this isn't the right location
+                Common_iOS.SetNetworkActivityIndicatorVisible(false);
+            }
         }
 
         #region Overrides

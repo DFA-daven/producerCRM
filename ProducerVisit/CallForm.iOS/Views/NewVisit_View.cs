@@ -34,10 +34,50 @@ namespace CallForm.iOS.Views
         /// </summary>
         string _cAbb = "[nv_v]";
         public float _buttonHeight = 0f;
-        bool? _isOS7;
 
+        bool? _isOS7;
+        public bool IsOS7OrLater
+        {
+            get
+            {
+                return (bool)_isOS7;
+            }
+        }
+
+        private float _statusBarHeight = 0f;
+        public float StatusBarHeight
+        {
+            get
+            {
+                return _statusBarHeight;
+            }
+        }
+
+        private float _navBarHeight = 0f;
+        public float NavBarHeight
+        {
+            get
+            {
+                return _navBarHeight;
+            }
+        }
 
         #endregion
+
+        public NewVisit_View()
+        {
+            try
+            {
+                _isOS7 = FindIsOS7OrLater();
+                _statusBarHeight = FindStatusBarHeight();
+                _navBarHeight = FindNavBarHeight();
+            }
+            finally
+            {
+                Common_iOS.DebugMessage("  [nv_v][nv_v] > Created instance...");
+            }
+            
+        }
 
         /// <summary>Specify that this View should *not* be displayed beneath the
         /// Status Bar (or the Navigation Bar, if present).
@@ -352,8 +392,8 @@ namespace CallForm.iOS.Views
             float displacement_y = 0f;
             float bottomGuide = 0f;
 
-            bool isOS7orLater = IsOS7OrLater();
-            if (isOS7orLater)
+            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IsOS7OrLater...");
+            if (IsOS7OrLater)
             {
                 displacement_y = this.TopLayoutGuide.Length;
                 bottomGuide = this.BottomLayoutGuide.Length;
@@ -739,7 +779,9 @@ namespace CallForm.iOS.Views
                 default:
                     throw new ArgumentOutOfRangeException("ViewFrameHeight");
             }
-            Common_iOS.DebugMessage("  [nv_v][vfh] > iOS 7 = " + IsOS7OrLater().ToString() + " > ViewFrameHeight(): " + viewFrameHeight.ToString());
+
+            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IsOS7OrLater...");
+            Common_iOS.DebugMessage("  [nv_v][vfh] > iOS 7 = " + IsOS7OrLater.ToString() + " > ViewFrameHeight(): " + viewFrameHeight.ToString());
 
             return viewFrameHeight;
         }
@@ -750,12 +792,14 @@ namespace CallForm.iOS.Views
 
             float topMargin = 0f;
 
-            topMargin = StatusBarHeight() + NavBarHeight();
+            Common_iOS.DebugMessage("  [nv_v][vdls] > Using StatusBarHeight & NavBarHeight...");
+            topMargin = StatusBarHeight + NavBarHeight;
 
             if (View.Frame.Height < 1)
             {
                 Common_iOS.DebugMessage("  [nv_v][tm] > View not ready. Using hard-coded value. < #####");
-                if (IsOS7OrLater())
+                Common_iOS.DebugMessage("  [nv_v][vdls] > Using IsOS7OrLater...");
+                if (IsOS7OrLater)
                 {
                     topMargin = 20f;
                 }
@@ -811,73 +855,81 @@ namespace CallForm.iOS.Views
             return layoutHeight;
         }
 
-        private float NavBarHeight()  // 44
+        internal float FindNavBarHeight()  // 44
         {
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            float navbarHeight = 44f;
 
-            float screenHeight = UIScreen.MainScreen.Bounds.Height;
-            float layoutHeight = 0f;
-            float navbarHeight = 0f;
-            UIView[] subviews = View.Subviews;
-
-            if (IsOS7OrLater())
+            // Note: can't check IsOS7OrLater here
+            try
             {
-                navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
+                if ((bool)_isOS7)
+                {
+                    navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
+                }
+                else
+                {
+                    Common_iOS.DebugMessage("  " + _cAbb + "[nbh] > View not ready. Using hard-coded value. < #####");
+                }
             }
-            else
+            catch
             {
-                Common_iOS.DebugMessage("  " + _cAbb + "[nbh] > View not ready. Using hard-coded value. < #####");
-                navbarHeight = 44f;
+                Common_iOS.DebugMessage("  " + _cAbb + "[nbh] > ERROR. < #####");
             }
+            
 
             Common_iOS.DebugMessage("  " + _cAbb + "[nbh] > navbarHeight = " + navbarHeight.ToString() + " < OK");
             return navbarHeight;
 
             #region incomplete
-            // ToDo: this works in portrait, but after the first rotation it returns 300, 556, 
-            Common_iOS.DebugMessage("  [nv_v][nbh] > Calculating navbarHeight....");
+            //float screenHeight = UIScreen.MainScreen.Bounds.Height;
+            //float layoutHeight = 0f;
+            //UIView[] subviews = View.Subviews;
+
+            //// ToDo: this works in portrait, but after the first rotation it returns 300, 556, 
+            //Common_iOS.DebugMessage("  [nv_v][nbh] > Calculating navbarHeight....");
             
-            // skip if we're not ready
-            if (View.Frame.Height < 1)
-            {
-                Common_iOS.DebugMessage("  [nv_v][nbh] > View not ready... ");
-                if (IsOS7OrLater())
-                {
-                    return 44f;
-                }
-                else
-                {
-                    return 44f;
-                }
-            }
+            //// skip if we're not ready
+            //if (View.Frame.Height < 1)
+            //{
+            //    Common_iOS.DebugMessage("  [nv_v][nbh] > View not ready... ");
+            //    if (IsOS7OrLater)
+            //    {
+            //        return 44f;
+            //    }
+            //    else
+            //    {
+            //        return 44f;
+            //    }
+            //}
 
-            layoutHeight = LayoutHeight();
+            //layoutHeight = LayoutHeight();
 
-            // Note: sometimes the layoutHeight will default to View.Frame.Height, which could equal the screenHeight.
-            // navbarHeight could = 0
-            navbarHeight = screenHeight - layoutHeight;
+            //// Note: sometimes the layoutHeight will default to View.Frame.Height, which could equal the screenHeight.
+            //// navbarHeight could = 0
+            //navbarHeight = screenHeight - layoutHeight;
 
-            // Note: comparisons of floating point values (double and float) are problematic because of the imprecision of floating point arithmetic on binary computers.
-            if ((int)navbarHeight == (int)screenHeight)
-            {
-                Common_iOS.DebugMessage("  [nv_v][nbh] > (int)navbarHeight == (int)screenHeight) == " + navbarHeight.ToString() + " < = =" );
+            //// Note: comparisons of floating point values (double and float) are problematic because of the imprecision of floating point arithmetic on binary computers.
+            //if ((int)navbarHeight == (int)screenHeight)
+            //{
+            //    Common_iOS.DebugMessage("  [nv_v][nbh] > (int)navbarHeight == (int)screenHeight) == " + navbarHeight.ToString() + " < = =" );
 
-                navbarHeight = 0f;
-                return navbarHeight;
-            }
+            //    navbarHeight = 0f;
+            //    return navbarHeight;
+            //}
 
-            if (IsOS7OrLater())
-            {
-                Common_iOS.DebugMessage("  [nv_v][nbh] > IsMinimumiOS6() = true, navbarHeight = " + navbarHeight.ToString() + " < = = = " );
-                navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
-            }
-            else
-            {
-                Common_iOS.DebugMessage("  [nv_v][nbh] > IsMinimumiOS6() = FALSE, navbarHeight = " + navbarHeight.ToString() + " - " + StatusBarHeight().ToString() + " = " + (navbarHeight - StatusBarHeight()).ToString() + " < = = = =" );
-                navbarHeight = navbarHeight - StatusBarHeight();
-            }
+            //if (IsOS7OrLater)
+            //{
+            //    Common_iOS.DebugMessage("  [nv_v][nbh] > IsMinimumiOS6() = true, navbarHeight = " + navbarHeight.ToString() + " < = = = " );
+            //    navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
+            //}
+            //else
+            //{
+            //    Common_iOS.DebugMessage("  [nv_v][nbh] > IsMinimumiOS6() = FALSE, navbarHeight = " + navbarHeight.ToString() + " - " + StatusBarHeight.ToString() + " = " + (navbarHeight - StatusBarHeight).ToString() + " < = = = =");
+            //    navbarHeight = navbarHeight - StatusBarHeight;
+            //}
 
-            return navbarHeight;
+            //return navbarHeight;
             #endregion
         }
 
@@ -886,11 +938,12 @@ namespace CallForm.iOS.Views
         /// <returns>The status bar height in pixels.</returns>
         /// <remarks>For iPad (1st and 2nd generation) and iPad Mini; 20px. 
         /// For Retina iPad (iPad 3, 4, Air, Mini retina), iPone 4/4s, and iPhone 5 (iPhone 5, 5S, 5C); 40px. </remarks>
-        private float StatusBarHeight()
+        internal float FindStatusBarHeight()
         {
             // Review: this always returns "20", never "40". May be a limitation of the simulator?
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             float statusBarHeight = 0f;
+
             if (!UIApplication.SharedApplication.StatusBarHidden)
             {
                 SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
@@ -905,7 +958,7 @@ namespace CallForm.iOS.Views
         /// <summary>Is this device running iOS 7.0.
         /// </summary>
         /// <returns>True if this is iOS 7.0.</returns>
-        public bool IsOS7OrLater()
+        internal bool FindIsOS7OrLater()
         {
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
@@ -927,7 +980,7 @@ namespace CallForm.iOS.Views
 
                 Common_iOS.DebugMessage("  [nv_v][i7ol] > major version: " + major + ". Version is higher than 6 = " + thisIsOS7.ToString() + " <  ");
 
-                _isOS7 = thisIsOS7;
+                //_isOS7 = thisIsOS7;
             }
             else
             {

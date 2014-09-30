@@ -61,6 +61,8 @@ namespace CallForm.Core.ViewModels
         private float _height;
         /// <summary>Store for the <c>Width</c> property.</summary>
         private float _width;
+        /// <summary>Store for the <c>RowHeight</c> property.</summary>
+        private float _rowHeight;
         /// <summary>Store for the <c>Editing</c> property.</summary>
         private bool _editing;
         /// <summary>Store for the <c>PictureBytes[]</c> property.</summary>
@@ -205,6 +207,16 @@ namespace CallForm.Core.ViewModels
             {
                 _width = value;
                 RaisePropertyChanged(() => Width);
+            }
+        }
+
+        public float RowHeight
+        {
+            get { return _rowHeight; }
+            set
+            {
+                _rowHeight = value;
+                RaisePropertyChanged(() => RowHeight);
             }
         }
 

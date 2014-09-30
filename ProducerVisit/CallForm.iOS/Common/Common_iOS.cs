@@ -159,7 +159,7 @@ namespace CallForm.iOS
             DebugMessage(message, writeToConsole);
         }
 
-        public void SetNetworkActivityIndicatorVisible(bool setVisible)
+        public static void SetNetworkActivityIndicatorVisible(bool setVisible)
         {
             if (setVisible)
             {
