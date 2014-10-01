@@ -10,6 +10,9 @@
     using System.Reflection;
     using System.Threading.Tasks;
 
+    /// <summary>Abstract class (replaces UITableViewDelegate and UITableViewDataSource).
+    /// </summary>
+    /// <remarks>GetCell() and other methods use NSIndexPath.</remarks>
     public class NewVisit_TableViewSource : UITableViewSource
     {
         string _nameSpace = "CallForm.iOS.";
@@ -204,7 +207,7 @@
             #endregion
 
             #region notes
-            _notesCell = new TextView_TableViewCell("notes", _viewModel.Editing, _viewModel.Notes,
+            _notesCell = new TextView_TableViewCell("notes", _viewModel.Editing, _viewModel.Notes, 
                 (sender, args) => { _viewModel.Notes = (sender as UITextView).Text; } );
             _notesCell.TextLabel.Text = "Notes";
             #endregion

@@ -50,7 +50,7 @@ namespace CallForm.iOS.ViewElements
             #endregion doneButton
 
             //View.SizeToFit();
-            View.BackgroundColor = UIColor.White;
+            View.BackgroundColor = UIColor.White; // this doesn't seem to matter
 
             _setValue += setValue;
         }

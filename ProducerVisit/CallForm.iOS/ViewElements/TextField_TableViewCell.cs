@@ -16,7 +16,7 @@ namespace CallForm.iOS.ViewElements
                 ShouldChangeCharacters = shouldChange,
                 Text = text ?? string.Empty,
                 TextAlignment = UITextAlignment.Right,
-                BackgroundColor = BackgroundColor,
+                BackgroundColor = UIColor.Clear, // this doesn't seem to matter
                 TextColor = UIColor.Black,
                 KeyboardType = type,
             };
