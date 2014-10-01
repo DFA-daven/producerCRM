@@ -78,6 +78,9 @@
             {
                 _loading = value;
                 RaisePropertyChanged(() => Loading);
+
+                // Review: this is probably the best location for this -- too difficult to track changes when it's located in the web service 
+                CommonCore.SetNetworkActivityIndicatorVisible(value);
             }
         }
 
@@ -130,8 +133,6 @@
                 // Hack: update this to the current back-end target
                 // _targetURL = "http://dl-websvcs-test.dairydata.local:480";
                 _targetURL = "http://DL-WebSvcs-03:480";
-
-                
 
                 Loading = true;
                 semiStaticWebDataService.UpdateModels();
@@ -235,6 +236,18 @@
         protected void DoNewVisitCommand()
         {
             ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { MemberNumber = string.Empty });
+        }
+
+        /// <summary>Value for this View's Title.
+        /// </summary>
+        public string Title
+        {
+            get 
+            {
+                // Undone: how to get this value to display a title when on the ViewReports view, and nothing (or "Home") on the NewVisit view???
+                //return Editing ? "New Contact Report" : "Contact Report"; 
+                return "Home";
+            }
         }
 
         /// <summary>Uploads each <see cref="ProducerVisitReport">visit report</see> that is flagged 
