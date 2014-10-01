@@ -38,39 +38,45 @@ namespace CallForm.iOS.Views
         bool? _isOS7;
         public bool IsOS7OrLater
         {
-            get
-            {
-                return (bool)_isOS7;
-            }
+            get { return (bool)_isOS7; }
+            set { _isOS7 = value; }
         }
 
         private float _statusBarHeight = 0f;
         public float StatusBarHeight
         {
-            get
-            {
-                return _statusBarHeight;
-            }
+            get { return _statusBarHeight; }
+            set { _statusBarHeight = value; }
         }
 
         private float _navBarHeight = 0f;
         public float NavBarHeight
         {
-            get
-            {
-                return _navBarHeight;
-            }
+            get { return _navBarHeight; }
+            set { _navBarHeight = value; }
         }
 
         #endregion
 
+        UIBarButtonItem cancelBBI;
         public NewVisit_View()
         {
+            #region UIBarButtonItem Refresh
+            // this works b/c of the line: set.Bind(cancelBBI).To(vm => vm.GetReportsCommand);
+            cancelBBI = new UIBarButtonItem(UIBarButtonSystemItem.Cancel , (sender, e) =>
+            {
+                string message = "  [nv_v][nv_v] > Cancel (New Visit report) clicked.";
+                Console.WriteLine(message);
+            });
+
+            NavigationItem.SetRightBarButtonItem(cancelBBI, false);
+            #endregion
+
             try
             {
-                _isOS7 = FindIsOS7OrLater();
-                _statusBarHeight = FindStatusBarHeight();
-                _navBarHeight = FindNavBarHeight();
+                IsOS7OrLater = FindIsOS7OrLater();
+                StatusBarHeight = FindStatusBarHeight();
+                NavBarHeight = FindNavBarHeight();
             }
             finally
             {
@@ -97,6 +103,7 @@ namespace CallForm.iOS.Views
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [nv_v][vdl] > starting method...");
 
+            #region view 
             View = new UIView { BackgroundColor = Common_iOS.viewBackgroundColor };
 
             base.ViewDidLoad();
@@ -111,6 +118,14 @@ namespace CallForm.iOS.Views
 
             var source = new NewVisit_TableViewSource(ViewModel as NewVisit_ViewModel, _table);
 
+            float screenHeight = UIScreen.MainScreen.Bounds.Height;
+            float viewFrameHeight = LayoutHeight(); // *****
+            float heightOfVisibleView = NavigationController.VisibleViewController.View.Frame.Height;
+
+            Common_iOS.DebugMessage("  [nv_v][vdl] > screenHeight: " + screenHeight.ToString() + ", viewFrameHeight: " + viewFrameHeight.ToString() + ", heightOfVisibleView: " + heightOfVisibleView.ToString() + " <======= ");
+            #endregion view 
+
+            #region popovers
             /* 
              * ToDo: iOS 7 design guidelines state that picker views should be presented in-line 
              * rather than as input views animated from the bottom of the screen of via a new 
@@ -118,19 +133,6 @@ namespace CallForm.iOS.Views
              * 
              * The system calendar app shows how this should now be implemented.
              */
-            float navbarHeight = 11f;
-            //topMargin = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
-            // topMargin will probably be 44
-
-            float screenHeight = UIScreen.MainScreen.Bounds.Height;
-            //float viewFrameHeight = View.Frame.Height; // *****
-            float viewFrameHeight = LayoutHeight() ; // *****
-
-            float heightOfVisibleView = 22f;
-            //heightOfVisibleView = NavigationController.VisibleViewController.View.Frame.Height;
-
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common_iOS.DebugMessage("  [nv_v][vdl] > screenHeight: " + screenHeight.ToString() + ", viewFrameHeight: " + viewFrameHeight.ToString() + ", heightOfVisibleView: " + heightOfVisibleView.ToString() + " <======= ");
 
             // at this point the "popovers" are still UIViewController
             source.DatePickerPopover = new DateTimePickerDialog_ViewController(
@@ -154,7 +156,9 @@ namespace CallForm.iOS.Views
                 source);
 
             _table.Source = source;
+            #endregion popovers
 
+            #region saveButton
             // define a sub-view for the saveButton and reSendButton
             float wrapperWidth = TableFrameWidth();
             float wrapperHeight = ButtonHeight(); ;
@@ -162,8 +166,8 @@ namespace CallForm.iOS.Views
             Common_iOS.DebugMessage("  [nv_v][vdl] > wrapperWidth: " + wrapperWidth.ToString()  + ", wrapperHeight: " + wrapperHeight.ToString() + " < [nv_v][vdl]");
             UIView wrapper = new UIView(new RectangleF(0, 0, wrapperWidth, wrapperHeight));
 
-            #region saveButton
             UIButton saveButton = new UIButton(UIButtonType.System);
+
             float saveButtonWidth = (float)Math.Round((wrapperWidth * 0.5), 0);
             float saveButtonHeight = wrapperHeight;
 
@@ -189,6 +193,7 @@ namespace CallForm.iOS.Views
             var set = this.CreateBindingSet<NewVisit_View, NewVisit_ViewModel>();
             set.Bind(saveButton).For("Title").To(vm => vm.SaveButtonText);
             set.Bind(saveButton).To(vm => vm.SaveCommand);
+
             set.Bind(this).For(o => o.Title).To(vm => vm.Title);
             set.Apply();
 
@@ -483,6 +488,7 @@ namespace CallForm.iOS.Views
         private void SetTableFrameForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+             
             float usableHeight = 0f;
             float usableWidth = 0f;
 
@@ -496,11 +502,14 @@ namespace CallForm.iOS.Views
                     // _reportTableView.Frame = UIScreen.MainScreen.Bounds;
                     usableHeight = UIScreen.MainScreen.Bounds.Height - topMarginHeight;
                     _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Width, usableHeight);
+                    (ViewModel as NewVisit_ViewModel).Portrait = true;
                     break;
                 case UIInterfaceOrientation.LandscapeLeft:
                 case UIInterfaceOrientation.LandscapeRight:
                     usableWidth = UIScreen.MainScreen.Bounds.Width - topMarginHeight;
                     _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Height, usableWidth);
+                    (ViewModel as NewVisit_ViewModel).Portrait = false;
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("toInterfaceOrientation");
