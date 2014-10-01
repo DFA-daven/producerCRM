@@ -79,5 +79,36 @@ namespace CallForm.Core
             string message = "Class: " + declaringName + ", Method: " + methodName + "(), Parent: " + parentName;
             DebugMessage(message, writeToConsole);
         }
+
+        // Review: will this even work if set to static? 
+        // review: should this be in the individual ViewModels?
+        private static int _numberOfCallsToSetVisible = 0;
+        public static int NumberOfCallsToSetVisible
+        {
+            get { return _numberOfCallsToSetVisible; }
+            set { _numberOfCallsToSetVisible = value; }
+        }
+
+        // Undone: finish implementing in the ViewMethods.
+        public static void SetNetworkActivityIndicatorVisible(bool setVisible)
+        {
+            if (setVisible)
+            {
+                NumberOfCallsToSetVisible++;
+            }
+            else
+            {
+                NumberOfCallsToSetVisible--;
+            }
+
+            if (NumberOfCallsToSetVisible < 0)
+            {
+                NumberOfCallsToSetVisible = 0;
+                DebugMessage("  [CommonCore][snaiv] > SetNetworkActivityIndicatorVisible() was asked to hide more often than shown.");
+            }
+
+            // Note: is this the right place to send an instruction to the View 
+            //UIApplication.SharedApplication.NetworkActivityIndicatorVisible = (NumberOfCallsToSetVisible > 0);
+        }
     }
 }

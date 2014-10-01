@@ -12,10 +12,7 @@ namespace CallForm.iOS
     /// <remarks>This class may be (partially) duplicated in other Projects.</remarks>
     public class Common_iOS
     {
-        static int _numberOfCallsToSetVisible = 0;
-
         private static bool _isOS6 = false;
-
         public static bool IsMinimumOS6
         {
             get { return _isOS6; }
@@ -23,7 +20,6 @@ namespace CallForm.iOS
         }
 
         private static bool _isOS7 = false;
-
         public static bool IsMinimumOS7
         {
             get { return _isOS7; }
@@ -161,22 +157,8 @@ namespace CallForm.iOS
 
         public static void SetNetworkActivityIndicatorVisible(bool setVisible)
         {
-            if (setVisible)
-            {
-                _numberOfCallsToSetVisible++;
-            }
-            else
-            {
-                _numberOfCallsToSetVisible--;
-            }
-
-            if (_numberOfCallsToSetVisible < 0)
-            {
-                _numberOfCallsToSetVisible = 0;
-                Common_iOS.DebugMessage("  [Common][snaiv] > SetNetworkActivityIndicatorVisible() was asked to hide more often than shown.");
-            }
-
-            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = (_numberOfCallsToSetVisible > 0);
+            // ToDo: this method should *only* be toggling the network indicator in response to an instruction from one of the ViewModels.
+            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = setVisible;
         }
 
         public static T SafeConvert<T>(string s, T defaultValue)
