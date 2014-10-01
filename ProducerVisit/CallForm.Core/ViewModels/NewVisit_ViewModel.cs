@@ -63,8 +63,8 @@ namespace CallForm.Core.ViewModels
         private float _width;
         /// <summary>Store for the <c>RowHeight</c> property.</summary>
         private float _rowHeight;
-        /// <summary>Store for the <c>Editing</c> property.</summary>
-        private bool _editing;
+
+
         /// <summary>Store for the <c>PictureBytes[]</c> property.</summary>
         private byte[] _pictureBytes;
         /// <summary>Store for the <c>TakePictureCommand</c> property.</summary>
@@ -125,6 +125,7 @@ namespace CallForm.Core.ViewModels
         {
             // broken: not sure if this is Working correctly -- seems to crash app
             //Mvx.Trace(MvxTraceLevel.Diagnostic, "Init: Report Data", data.ReportData);
+
             if (string.IsNullOrEmpty(data.ReportData))
             {
                 MemberNumber = data.MemberNumber;
@@ -516,6 +517,8 @@ namespace CallForm.Core.ViewModels
         #endregion
 
         #region Page Admin
+        /// <summary>Store for the <c>Editing</c> property.</summary>
+        private bool _editing;
         public bool Editing
         {
             get { return _editing; }
@@ -525,6 +528,21 @@ namespace CallForm.Core.ViewModels
                 RaisePropertyChanged(() => Editing);
                 RaisePropertyChanged(() => SaveButtonText);
                 RaisePropertyChanged(() => Title);
+            }
+        }
+
+        /// <summary>Store for the <c>Portrait</c> property.</summary>
+        private bool _portrait;
+        public bool Portrait
+        {
+            get { return _portrait; }
+            set
+            {
+                // Undone: implement this in order to track orientation changes.
+                _portrait = value;
+                RaisePropertyChanged(() => Height);
+                RaisePropertyChanged(() => Width);
+                RaisePropertyChanged(() => RowHeight);
             }
         }
 
