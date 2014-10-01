@@ -23,20 +23,18 @@
     class ViewReports_View : MvxViewController
     {
         private bool _isOS6OrLater;
-        private bool _isOS7OrLater;
-
         public bool IsOS6
         {
             get { return _isOS6OrLater; }
             set { _isOS6OrLater = value; }
         }
 
+        private bool _isOS7OrLater;
         public bool IsOS7
         {
             get { return _isOS7OrLater; }
             set { _isOS7OrLater = value; }
         }
-
 
         #region declarations        
         // class-level declarations
@@ -59,6 +57,7 @@
 
         /// <summary>Store for the report table property.</summary>
         private UITableView _reportTableView;
+
 
         /// <summary>Store for the loading overlay property.</summary>
         LoadingOverlay _loadingOverlay;
@@ -110,41 +109,65 @@
             }
         }
 
-        UIBarButtonItem bbi;
+        UIBarButtonItem preferencesBBI;
+        UIBarButtonItem refreshBBI;
+        UIBarButtonItem newBBI;
         public ViewReports_View()
         {
             IsOS6 = Common_iOS.IsMinimumiOS6();
             IsOS7 = Common_iOS.IsMinimumiOS7();
 
-            if (Common_iOS.IsMinimumOS6)
+            #region UIRefreshControl
+            //// alternate older-style
+            //if (Common_iOS.IsMinimumOS6)
+            //{
+            //    var RefreshControl = new UIRefreshControl();
+            //    RefreshControl.ValueChanged += HandleValueChanged;
+
+            //    InvokeOnMainThread(() =>
+            //    {
+            //        RefreshControl.EndRefreshing();
+            //    });
+
+            //}
+
+            //NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Refresh), false);
+            //NavigationItem.LeftBarButtonItem.Clicked += (sender, e) => { Refresh(); };
+            #endregion
+
+            #region UIBarButtonItem Preferences
+            // this works b/c of the line: set.Bind(refreshBBI).To(vm => vm.GetReportsCommand);
+            //refreshBBI = new UIBarButtonItem("[R]", UIBarButtonItemStyle.Plain, (sender, e) =>
+            //refreshBBI = new UIBarButtonItem(UIImage.FromBundle("Images/slideout"), UIBarButtonItemStyle.Plain, (sender, e) =>
+
+            // ToDo: switch this to a transparent PNG based on glyph 5060-8 from the Apple Symbols font (three stacked sheets).
+            preferencesBBI = new UIBarButtonItem(UIBarButtonSystemItem.Bookmarks, (sender, e) =>
             {
-                var RefreshControl = new UIRefreshControl();
-                RefreshControl.ValueChanged += HandleValueChanged;
-
-
-                InvokeOnMainThread(() =>
-                {
-                    RefreshControl.EndRefreshing();
-                });
-
-            }
-
-            NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Refresh), false);
-            NavigationItem.LeftBarButtonItem.Clicked += (sender, e) => { Refresh(); };
-
-            //bbi = new UIBarButtonItem(UIImage.FromBundle("Images/slideout"), UIBarButtonItemStyle.Plain, (sender, e) =>
-            //bbi = new UIBarButtonItem("[R]", UIBarButtonItemStyle.Plain, (sender, e) =>
-            bbi = new UIBarButtonItem(UIBarButtonSystemItem.Refresh, (sender, e) =>
-            {
-                string message = "  [vr_v][refresh] > Refresh data from server, (right clicked).";
+                string message = "  [vr_v][vr_v] > Preferences BBI clicked.";
                 Console.WriteLine(message);
-                Common_iOS.DebugMessage(message);
 #if (DEBUG)
-                //InvokeOnMainThread(() => { new UIAlertView("ViewReports_View", "(right) Refresh clicked.", null, "OK").Show(); });
+                InvokeOnMainThread(() => { new UIAlertView("ViewReports_View", message, null, "OK").Show(); });
 #endif
             });
 
-            NavigationItem.SetRightBarButtonItem(bbi, false);
+#if (DEBUG)
+            // Undone: missing Preferences view; missing correct icon
+            NavigationItem.SetLeftBarButtonItem(preferencesBBI, false);
+#endif 
+            #endregion
+
+            #region UIBarButtonItem Refresh
+            // this works b/c of the line: set.Bind(refreshBBI).To(vm => vm.GetReportsCommand);
+            refreshBBI = new UIBarButtonItem(UIBarButtonSystemItem.Refresh, (sender, e) =>
+            {
+                string message = "  [vr_v][vr_v] > Refresh data from server, (right clicked).";
+                Console.WriteLine(message);
+            });
+
+            NavigationItem.SetRightBarButtonItem(refreshBBI, false);
+            #endregion
+
+
         }
 
         #region refresh
@@ -156,20 +179,16 @@
 
         void Refresh()
         {
-            // ToDo: this probably isn't the best location for this -- move closer to the call to the web service
-            //Common_iOS.SetNetworkActivityIndicatorVisible(true);
-
-            string message = "  [vr_v][refresh] > Refresh data from server, (right clicked).";
+            string message = "  [vr_v][refresh] > Refresh data from server, (left clicked).";
             Console.WriteLine(message);
-            Common_iOS.DebugMessage(message);
 #if (DEBUG)
-            //InvokeOnMainThread(() => { new UIAlertView("ViewReports_View", "(right) Refresh clicked.", null, "OK").Show(); });
+            InvokeOnMainThread(() => { new UIAlertView("ViewReports_View", message, null, "OK").Show(); });
 #endif
+            // ToDo: if using this approach (HandleValueChanged/Refresh) need to call the GetReportsCommand().
 
             //AppDelegate.Conference.DownloadFromServer();
         }
         #endregion refresh
-
 
         public override void ViewDidLoad()
         {
@@ -253,7 +272,7 @@
             #region findButton
             var findButton = _findButton = new UIButton(UIButtonType.Custom);
             findButton.Frame = new RectangleF(PercentWidth(middleControlOriginPercent), BannerBottom(), ControlWidth(), ControlHeight());
-            findButton.SetTitle("Search/Refresh", UIControlState.Normal);
+            findButton.SetTitle("Search", UIControlState.Normal);
             findButton.BackgroundColor = Common_iOS.viewBackgroundColor;
             //findButton.BackgroundColor = UIColor.Green;
             #endregion findbutton
@@ -269,6 +288,7 @@
             newButton.BackgroundColor = Common_iOS.viewBackgroundColor;
             //newButton.BackgroundColor = UIColor.Red;
             #endregion newButton
+
             #endregion buttons
 
             #region table
@@ -276,7 +296,8 @@
             //var tableView = _reportTableView = new UITableView(new RectangleF(0, TableTop(), ScreenWidth(), ScreenHeight() - TableTop()));
             var tableView = _reportTableView = new UITableView(new RectangleF(0, TableTop(), View.Frame.Width, View.Frame.Height - TableTop()));
             tableView.BackgroundView = null;
-            tableView.BackgroundColor = Common_iOS.viewBackgroundColor;
+            tableView.BackgroundColor = UIColor.White; // this makes the rows of the table white
+            //tableView.BackgroundColor = UIColor.Clear; // this allows the View.BackgroundColor to be visible
             #endregion table
 
             #region loading
@@ -290,10 +311,11 @@
             #endregion layout
 
             // Note: the order that Views are added determines their position in front of (or behind) other Views.
-            // the buttons must have some off-set that is causing the gap.
+            // the buttons must have some off-set that is causing a gap.
+
+            View.BackgroundColor = Common_iOS.viewBackgroundColor;
 #if (DEBUG || BETA)
-    // No changes / variable assignment here -- this is diagnostic code!
-    View.BackgroundColor = UIColor.Brown;
+    View.BackgroundColor = UIColor.Orange;
 #endif
             View.Add(logoButton);
             //View.Add(logoView);
@@ -304,7 +326,7 @@
             View.Add(newButton);
 
             View.Add(tableView);
-            
+
             View.Add(loading);
             View.Add(loadingOverlay);
 
@@ -352,7 +374,7 @@
 
             set.Bind(logoButton).To(vm => vm.GetReportsCommand);
 
-            set.Bind(bbi).To(vm => vm.GetReportsCommand);
+            set.Bind(refreshBBI).To(vm => vm.GetReportsCommand);
 
             set.Bind(filterField).To(vm => vm.Filter);
             set.Bind(findButton).To(vm => vm.GetReportsCommand);
@@ -417,7 +439,6 @@
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdl] > ...finished method.");
         }
-
 
         public override void ViewDidLayoutSubviews()
         {
@@ -827,8 +848,13 @@
             SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
             return Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
         }
+
+
     }
 
+    /// <summary>Abstract class (replaces UITableViewDelegate and UITableViewDataSource).
+    /// </summary>
+    /// <remarks>GetCell() and other methods use NSIndexPath.</remarks>
     public class ViewReportsTableSource : UITableViewSource
     {
         #region Properties
@@ -836,6 +862,7 @@
         private const string CellIdentifier = "tableViewCell";
         #endregion
 
+        UIButton newReport;
         public ViewReportsTableSource(ViewReports_ViewModel viewModel, UITableView tableView)
         {
             _viewModel = viewModel;
@@ -844,8 +871,6 @@
             {
                 _viewModel.PropertyChanged += (sender, args) =>
                     {
-                        //Common_iOS.SetNetworkActivityIndicatorVisible(true);
-
                         if (args.PropertyName == "Reports")
                         {
                             tableView.ReloadData();
@@ -855,8 +880,7 @@
             
             finally
             {
-                // ToDo: this isn't the right location
-                Common_iOS.SetNetworkActivityIndicatorVisible(false);
+                
             }
         }
 
@@ -890,6 +914,18 @@
             tableView.ReloadData();
         }
 
+        public override UIView GetViewForFooter(UITableView tableView, int section)
+        {
+            // FixMe: until the TableView is loaded there is no content, so this footer appears near the top of the page.
+            // Solution: move this back into the main View, and set the gravity so that it acts like a footer.
+            newReport = new UIButton(UIButtonType.Custom);
+            //newReport.Frame = new RectangleF(PercentWidth(rightControlOriginPercent), 0, ControlWidth(), ControlHeight());
+            newReport.SetTitle("New Report", UIControlState.Normal);
+            newReport.BackgroundColor = Common_iOS.viewBackgroundColor;
+
+            return newReport;
+        }
+
         /// <summary>Gets a cell based on the selected <see cref="NSIndexPath">Row</see>.
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
@@ -910,6 +946,10 @@
             cell.Source.Text = reportListItem.UserEmail;
             cell.Reasons.Text = reportListItem.PrimaryReasonCode.Name;
 
+            // this keeps the color behind the text the same as the rest of the table
+            cell.Date.BackgroundColor = cell.MemberNumber.BackgroundColor = tableView.BackgroundColor;
+            cell.Source.BackgroundColor = cell.Reasons.BackgroundColor = tableView.BackgroundColor;
+
             cell.Host.SetNeedsLayout();
 
             return cell;
@@ -917,6 +957,8 @@
         #endregion
     }
 
+    /// <summary>These are the rows in the View Reports view. 
+    /// </summary>
     public class TableViewCell : UITableViewCell
     {
         public UILabel Date, MemberNumber, Source, Reasons;
@@ -930,7 +972,7 @@
             // this layout is composed of "columns"
             var layout = new LinearLayout(Orientation.Horizontal)
             {
-                //Padding = new UIEdgeInsets(5, 5, 5, 5),
+                Padding = new UIEdgeInsets(5, 5, 5, 5),
                 Spacing = 20,
                 Gravity = Gravity.CenterVertical,
                 LayoutParameters = new LayoutParameters()
@@ -971,7 +1013,7 @@
                             }),
                         }
                     },
-                    // the reason "column
+                    // the reason "column"
                     new TextNativeView(Reasons = new UILabel
                     {
                         Font = UIFont.SystemFontOfSize(UIFont.SystemFontSize)
