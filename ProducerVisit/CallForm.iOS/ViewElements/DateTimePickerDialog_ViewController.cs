@@ -6,11 +6,9 @@ namespace CallForm.iOS.ViewElements
     using MonoTouch.Foundation;
     using MonoTouch.UIKit;
     using System;
-    using System.Collections.Generic;
     using System.Drawing;
-    using System.Linq;
 
-    public partial class DateTimePickerDialog_ViewController : UIViewController
+    public partial class DateTimePickerDialog_ViewController : UIViewController 
     {
         private Action<DateTime> _setValue = obj => { };
         private UIDatePicker _picker;
@@ -55,6 +53,8 @@ namespace CallForm.iOS.ViewElements
             _setValue += setValue;
         }
 
+        #region overrides
+        #pragma warning disable 1591
         /// <summary>Specify that this View should *not* be displayed beneath the
         /// Status Bar (or the Navigation Bar, if present).
         /// </summary>
@@ -79,7 +79,7 @@ namespace CallForm.iOS.ViewElements
                 SizeF size = _picker.Frame.Size;
 
                 // Hack: comment out to hide doneButton
-                //size.Height = _picker.Frame.Size.Height + _doneButtonHeight;
+                //size.Height = _picker.Frame.Size.Height + _defaultButtonHeight;
 
                 return size;
             }
@@ -99,5 +99,7 @@ namespace CallForm.iOS.ViewElements
             }
             set { base.ContentSizeForViewInPopover = value; }
         }
+        #pragma warning restore 1591
+        #endregion overrides
     }
 }
