@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Reflection;
 //using CallForm.Core.ViewModels;
 
-
 namespace CallForm.iOS
 {
     /// <summary>Creates an AppDelegate for CallForm.iOS.</summary>
@@ -35,6 +34,7 @@ namespace CallForm.iOS
 
         public static AppDelegate Current { get; private set; }
 
+        #pragma warning disable 1591
         public override UIWindow Window
         {
             get
@@ -46,8 +46,11 @@ namespace CallForm.iOS
                 base.Window = value;
             }
         }
+        #pragma warning restore 1591
         #endregion
 
+        #region overrides
+        #pragma warning disable 1591
         /// <summary>Defines actions to occur after FinishedLaunching.
         /// </summary>
         /// <param name="app"></param>
@@ -170,16 +173,23 @@ namespace CallForm.iOS
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [AppD][wt] > App is terminating.");
         }
-
+        #pragma warning restore 1591
+        #endregion overrides
+        
         //public event EventHandler<ErrorEventArgs> Error;
     }
 
     class NavBarDelegate : UINavigationBarDelegate
     {
+        #region overrides
+        #pragma warning disable 1591
+
         public override UIBarPosition GetPositionForBar(IUIBarPositioning barPositioning)
         {
             return UIBarPosition.TopAttached;
         }
+        #pragma warning restore 1591
+        #endregion overrides
     }
 }
 

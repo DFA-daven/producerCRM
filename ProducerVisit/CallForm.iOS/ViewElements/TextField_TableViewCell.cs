@@ -39,11 +39,15 @@ namespace CallForm.iOS.ViewElements
             _textField.Text = text ?? string.Empty;
         }
 
+        #region overrides
+        #pragma warning disable 1591
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
             _textField.Frame = new RectangleF(ContentView.Bounds.Width - 310, ContentView.Bounds.Height / 2 - 10, 300, 20);
         }
+        #pragma warning restore 1591
+        #endregion overrides
 
         public void HideKeyboard()
         {

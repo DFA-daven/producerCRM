@@ -34,6 +34,7 @@ namespace CallForm.iOS.ViewElements
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             _viewModel = viewModel;
+
             _table = new UITableView();
             _table.Source = new ReasonCodeTableSource(_viewModel, source);
 
@@ -78,6 +79,8 @@ namespace CallForm.iOS.ViewElements
             View.SizeToFit();
         }
 
+        #region overrides
+        #pragma warning disable 1591
         /// <summary>Specify that this View should *not* be displayed beneath the
         /// Status Bar (or the Navigation Bar, if present).
         /// </summary>
@@ -95,17 +98,17 @@ namespace CallForm.iOS.ViewElements
             _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedReasonCodes));
         }
 
-        public override void ViewDidLoad()
-        {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common_iOS.DebugMessage("? [rcpd_vc][vdl] > make a note of when this is being run");
-        }
+        //public override void ViewDidLoad()
+        //{
+        //    Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+        //    Common_iOS.DebugMessage("? [rcpd_vc][vdl] > make a note of when this is being run");
+        //}
 
-        public override void ViewDidLayoutSubviews()
-        {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common_iOS.DebugMessage("? [rcpd_vc][vdls] > make a note of when this is being run");
-        }
+        //public override void ViewDidLayoutSubviews()
+        //{
+        //    Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+        //    Common_iOS.DebugMessage("? [rcpd_vc][vdls] > make a note of when this is being run");
+        //}
 
         //internal float ReasonCodeHeight
         //{
@@ -190,6 +193,8 @@ namespace CallForm.iOS.ViewElements
                 base.PreferredContentSize = value; 
             }
         }
+        #pragma warning restore 1591
+        #endregion overrides
 
         // <summary>Get the name of a static or instance property from a property access lambda.
         // </summary>
@@ -257,20 +262,24 @@ namespace CallForm.iOS.ViewElements
     {
         string _nameSpace = "CallForm.iOS.";
 
+        private const string CellIdentifier = "ReasonCodeTableCell";
+
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;
-        private const string CellIdentifier = "ReasonCodeTableCell";
-        public static float _doneButtonHeight;
+        private static float _doneButtonHeight;
         private static float _defaultRowHeight;
 
         public ReasonCodeTableSource(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             _viewModel = viewModel;
             _source = source;
-            _doneButtonHeight = 50f;
-            _defaultRowHeight = 50f;
+            // Undone: extend this to the other view controllers
+            _doneButtonHeight = viewModel.RowHeight;
+            _defaultRowHeight = viewModel.RowHeight;
         }
 
+        #region overrides
+        #pragma warning disable 1591
         /// <summary>The number of rows (cells) in this section of <see cref="ReasonCodeTableSource"/>.
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView"/>/control that contains the section.</param>
@@ -342,6 +351,8 @@ namespace CallForm.iOS.ViewElements
             cell.Accessory = _viewModel.SelectedReasonCodes.Contains(reasonCode) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
             return cell;
         }
+        #pragma warning restore 1591
+        #endregion overrides
 
         public static float DefaultRowHeight
         {

@@ -10,9 +10,13 @@ namespace CallForm.iOS.ViewElements
 
     class NavBarDelegate : UINavigationBarDelegate
     {
+        #region overrides
+        #pragma warning disable 1591
         public override UIBarPosition GetPositionForBar(IUIBarPositioning barPositioning)
         {
             return UIBarPosition.TopAttached;
         }
+        #pragma warning restore 1591
+        #endregion overrides
     }
 }

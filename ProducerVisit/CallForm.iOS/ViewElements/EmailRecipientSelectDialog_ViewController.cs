@@ -33,12 +33,11 @@ namespace CallForm.iOS.ViewElements
         /// <remarks>This ViewController is created when NewVisit_View is loaded.</remarks> 
         public EmailRecipientSelectDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
-            //View.BackgroundColor = UIColor.Green;
             _viewModel = viewModel;
+
             _table = new UITableView();
             _table.Source = new EmailRecipientsTableSource(_viewModel, source);
-            //_reportTableView.BackgroundColor = UIColor.LightGray;
-            //_reportTableView.Alpha = 0.5f;
+
             _table.AutoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleRightMargin;
             
             // Review: would _table.EstimatedRowHeight be a better value?
@@ -58,6 +57,8 @@ namespace CallForm.iOS.ViewElements
 
         }
 
+        #region overrides
+        #pragma warning disable 1591
         /// <summary>Specify that this View should *not* be displayed beneath the
         /// Status Bar (or the Navigation Bar, if present).
         /// </summary>
@@ -92,8 +93,8 @@ namespace CallForm.iOS.ViewElements
             }
             set { base.PreferredContentSize = value; }
         }
-
-
+        #pragma warning restore 1591
+        #endregion overrides
 
         // <summary>Get the name of a static or instance property from a property access lambda.
         // </summary>
@@ -133,6 +134,8 @@ namespace CallForm.iOS.ViewElements
             _source = source;
         }
 
+        #region overrides
+        #pragma warning disable 1591
         /// <summary>The number of rows (cells) in this section of <see cref="EmailRecipientsTableSource"/>.
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView"/>/control that contains the section.</param>
@@ -214,6 +217,8 @@ namespace CallForm.iOS.ViewElements
             cell.Accessory = _viewModel.SelectedEmailDisplayNames.Contains(selectedDisplayName) ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
             return cell;
         }
+        #pragma warning restore 1591
+        #endregion overrides
 
         // <summary>Get the name of a static or instance property from a property access lambda.
         // </summary>

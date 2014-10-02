@@ -180,7 +180,6 @@ namespace CallForm.Core.ViewModels
             Lng = locationMessage.Lng;
         }
 
-        // FixMe: re-factor userID to DeviceID
         public string UserID
         {
             get { return _userID; }

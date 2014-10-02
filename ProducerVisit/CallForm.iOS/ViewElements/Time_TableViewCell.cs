@@ -19,10 +19,14 @@ namespace CallForm.iOS.ViewElements
             }
         }
 
+        #region overrides
+        #pragma warning disable 1591
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
             _setToNow.Frame = new RectangleF(ContentView.Bounds.Width / 2 - 75, 5, 150, 60);
         }
+        #pragma warning restore 1591
+        #endregion overrides
     }
 }

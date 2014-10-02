@@ -228,6 +228,7 @@
         }
 
         #region Overrides
+        #pragma warning disable 1591
         /// <summary>Gets the value (in points) for a given row (cell).
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
@@ -439,6 +440,7 @@
             rVal.TextLabel.Text = indexPath.Row.ToString();
             return rVal;
         }
+        #pragma warning restore 1591
         #endregion
 
         /// <summary>Close the <c>_popoverController</c>.

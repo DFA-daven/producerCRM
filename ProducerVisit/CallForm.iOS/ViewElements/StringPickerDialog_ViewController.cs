@@ -57,6 +57,8 @@ namespace CallForm.iOS.ViewElements
             _setValue += setValue;
         }
 
+        #region overrides
+        #pragma warning disable 1591
         /// <summary>Specify that this View should *not* be displayed beneath the
         /// Status Bar (or the Navigation Bar, if present).
         /// </summary>
@@ -87,6 +89,8 @@ namespace CallForm.iOS.ViewElements
             }
             set { base.PreferredContentSize = value; }
         }
+        #pragma warning restore 1591
+        #endregion overrides
     }
 
     public class StringListPickerViewModel : UIPickerViewModel
@@ -114,6 +118,8 @@ namespace CallForm.iOS.ViewElements
             Items = items;
         }
 
+        #region overrides
+        #pragma warning disable 1591
         public override int GetRowsInComponent(UIPickerView picker, int component)
         {
             if (NoItem())
@@ -141,6 +147,8 @@ namespace CallForm.iOS.ViewElements
         {
             return 1;
         }
+        #pragma warning restore 1591
+        #endregion overrides
 
         public virtual string GetTitleForItem(string item)
         {

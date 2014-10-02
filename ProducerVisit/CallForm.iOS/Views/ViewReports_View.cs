@@ -98,17 +98,6 @@
         #endregion
         #endregion
 
-        /// <summary>Specify that this View should *not* be displayed beneath the
-        /// Status Bar (or the Navigation Bar, if present).
-        /// </summary>
-        public override UIRectEdge EdgesForExtendedLayout
-        {
-            get
-            {
-                return UIRectEdge.None;
-            }
-        }
-
         UIBarButtonItem preferencesBBI;
         UIBarButtonItem refreshBBI;
         UIBarButtonItem newBBI;
@@ -166,8 +155,6 @@
 
             NavigationItem.SetRightBarButtonItem(refreshBBI, false);
             #endregion
-
-
         }
 
         #region refresh
@@ -190,6 +177,8 @@
         }
         #endregion refresh
 
+        #region overrides
+        #pragma warning disable 1591
         public override void ViewDidLoad()
         {
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
@@ -476,6 +465,46 @@
             base.MotionEnded(motion, evt);
         }
 
+        /// <summary>Specify that this View should *not* be displayed beneath the
+        /// Status Bar (or the Navigation Bar, if present).
+        /// </summary>
+        public override UIRectEdge EdgesForExtendedLayout
+        {
+            get
+            {
+                return UIRectEdge.None;
+            }
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
+            base.ViewWillAppear(animated);
+            SetFramesForOrientation(InterfaceOrientation);
+        }
+
+        public override void ViewDidAppear(bool animated)
+        {
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
+            // Note: each time ViewReports is displayed/appears UploadReports() is triggered.
+            base.ViewDidAppear(animated);
+            (ViewModel as ViewReports_ViewModel).UploadReports();
+            (ViewModel as ViewReports_ViewModel).Loading = false;
+        }
+
+        public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
+        {
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
+            base.WillAnimateRotation(toInterfaceOrientation, duration);
+
+            SetFramesForOrientation(toInterfaceOrientation);
+        }
+        #pragma warning restore 1591
+        #endregion overrides
+
         /// <summary>The value of the device's screen.
         /// </summary>
         /// <returns>The screen value measured in points.</returns>
@@ -744,33 +773,6 @@
             InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );
         }
 
-        public override void ViewWillAppear(bool animated)
-        {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
-            base.ViewWillAppear(animated);
-            SetFramesForOrientation(InterfaceOrientation);
-        }
-
-        public override void ViewDidAppear(bool animated)
-        {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            
-            // Note: each time ViewReports is displayed/appears UploadReports() is triggered.
-            base.ViewDidAppear(animated);
-            (ViewModel as ViewReports_ViewModel).UploadReports();
-            (ViewModel as ViewReports_ViewModel).Loading = false;
-        }
-
-        public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
-        {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
-            base.WillAnimateRotation(toInterfaceOrientation, duration);
-
-            SetFramesForOrientation(toInterfaceOrientation);
-        }
-
         private void SetFramesForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
@@ -848,8 +850,6 @@
             SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
             return Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
         }
-
-
     }
 
     /// <summary>Abstract class (replaces UITableViewDelegate and UITableViewDataSource).
@@ -885,6 +885,7 @@
         }
 
         #region Overrides
+        #pragma warning disable 1591
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
             // FixMe: remove hard-coded values (or add XML entry)
@@ -919,11 +920,18 @@
             // FixMe: until the TableView is loaded there is no content, so this footer appears near the top of the page.
             // Solution: move this back into the main View, and set the gravity so that it acts like a footer.
             newReport = new UIButton(UIButtonType.Custom);
-            //newReport.Frame = new RectangleF(PercentWidth(rightControlOriginPercent), 0, ControlWidth(), ControlHeight());
-            newReport.SetTitle("New Report", UIControlState.Normal);
+            newReport.Frame = new RectangleF(0, 0, ControlWidth(), ControlHeight());
+            newReport.SetTitle("New Report (tableView footer)", UIControlState.Normal);
             newReport.BackgroundColor = Common_iOS.viewBackgroundColor;
 
             return newReport;
+        }
+
+        public override float GetHeightForFooter(UITableView tableView, int section)
+        {
+            float heightToReport = _doneButtonHeight;
+
+            return heightToReport;
         }
 
         /// <summary>Gets a cell based on the selected <see cref="NSIndexPath">Row</see>.
@@ -954,6 +962,7 @@
 
             return cell;
         }
+        #pragma warning restore 1591
         #endregion
     }
 
@@ -972,7 +981,7 @@
             // this layout is composed of "columns"
             var layout = new LinearLayout(Orientation.Horizontal)
             {
-                Padding = new UIEdgeInsets(5, 5, 5, 5),
+                Padding = new UIEdgeInsets(4, 6, 4, 6),
                 Spacing = 20,
                 Gravity = Gravity.CenterVertical,
                 LayoutParameters = new LayoutParameters()

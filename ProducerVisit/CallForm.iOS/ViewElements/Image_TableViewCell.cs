@@ -80,6 +80,8 @@ namespace CallForm.iOS.ViewElements
             _imageButton.SetBackgroundImage(_image, UIControlState.Normal);
         }
 
+        #region overrides
+        #pragma warning disable 1591
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
@@ -87,5 +89,7 @@ namespace CallForm.iOS.ViewElements
             _clearButton.Frame = new RectangleF(ContentView.Bounds.Width / 2 - 75, 5, 150, 150);
 
         }
+        #pragma warning restore 1591
+        #endregion overrides
     }
 }

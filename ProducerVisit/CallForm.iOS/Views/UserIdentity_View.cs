@@ -26,17 +26,8 @@
         //string _namespace = "CallForm.iOS.Views.UserIdentity_View";
         #endregion
 
-        /// <summary>Specify that this View should *not* be displayed beneath the
-        /// Status Bar (or the Navigation Bar, if present).
-        /// </summary>
-        public override UIRectEdge EdgesForExtendedLayout
-        {
-            get
-            {
-                return UIRectEdge.None;
-            }
-        }
-
+        #region overrides
+        #pragma warning disable 1591
         public override void ViewDidLoad()
         {
             Common_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
@@ -351,6 +342,19 @@
              * and BottomLayoutGuide are preferred since they allow the app to meet the iOS 7 design goals.
              */
         }
+
+        /// <summary>Specify that this View should *not* be displayed beneath the
+        /// Status Bar (or the Navigation Bar, if present).
+        /// </summary>
+        public override UIRectEdge EdgesForExtendedLayout
+        {
+            get
+            {
+                return UIRectEdge.None;
+            }
+        }
+        #pragma warning restore 1591
+        #endregion overrides
 
         private float screenWidth()
         {

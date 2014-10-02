@@ -85,6 +85,8 @@ namespace CallForm.iOS.Views
             
         }
 
+        #region overrides
+        #pragma warning disable 1591
         /// <summary>Specify that this View should *not* be displayed beneath the
         /// Status Bar (or the Navigation Bar, if present).
         /// </summary>
@@ -408,45 +410,6 @@ namespace CallForm.iOS.Views
             Common_iOS.DebugMessage("  [nv_v][vdls] > ...finished");
         }
 
-        private void ReSendEmail(object sender, EventArgs eventArgs)
-        {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
-            NewVisit_ViewModel viewModel = ViewModel as NewVisit_ViewModel;
-            if (MFMailComposeViewController.CanSendMail)
-            {
-                MFMailComposeViewController mailView = new MFMailComposeViewController();
-                mailView.SetSubject("Notes regarding contact with member " + viewModel.MemberNumber);
-                if (viewModel.PictureBytes != null && viewModel.PictureBytes.Length > 0)
-                {
-                    mailView.AddAttachmentData(NSData.FromArray(viewModel.PictureBytes), "image/jpeg", "Picture.jpg");
-                }
-
-                // ToDo: add a message to the body to indicate if a picture was attached
-                mailView.SetMessageBody(
-                    "Member Number: " + viewModel.MemberNumber + "\n" +
-                    "Contact Type: " + viewModel.SelectedCallType + "\n" +
-                    "Date: " + viewModel.Date.ToShortDateString() + "\n" +
-                    "Length of Call (hours): " + viewModel.Duration + "\n" +
-                    "Reason(s) for Call: " + string.Join(", ", viewModel.SelectedReasonCodes) + "\n" +
-                    "Notes: " + viewModel.Notes + "\n"
-                    , false);
-                mailView.Finished += ReSendFinished;
-                InvokeOnMainThread(() => { PresentViewController(mailView, true, null); } ); 
-            }
-            else
-            {
-                InvokeOnMainThread(() => { new UIAlertView("Error", "There are no mail accounts configured to send email.", null, "OK").Show(); } );
-            }
-        }
-
-        private void ReSendFinished(object sender, MFComposeResultEventArgs mfComposeResultEventArgs)
-        {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
-            InvokeOnMainThread(() => { DismissViewController(true, null); } );
-        }
-
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
         {
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
@@ -485,6 +448,48 @@ namespace CallForm.iOS.Views
         }
 #pragma warning restore 612,618
 
+        #pragma warning restore 1591
+        #endregion overrides
+
+        private void ReSendEmail(object sender, EventArgs eventArgs)
+        {
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
+            NewVisit_ViewModel viewModel = ViewModel as NewVisit_ViewModel;
+            if (MFMailComposeViewController.CanSendMail)
+            {
+                MFMailComposeViewController mailView = new MFMailComposeViewController();
+                mailView.SetSubject("Notes regarding contact with member " + viewModel.MemberNumber);
+                if (viewModel.PictureBytes != null && viewModel.PictureBytes.Length > 0)
+                {
+                    mailView.AddAttachmentData(NSData.FromArray(viewModel.PictureBytes), "image/jpeg", "Picture.jpg");
+                }
+
+                // ToDo: add a message to the body to indicate if a picture was attached
+                mailView.SetMessageBody(
+                    "Member Number: " + viewModel.MemberNumber + "\n" +
+                    "Contact Type: " + viewModel.SelectedCallType + "\n" +
+                    "Date: " + viewModel.Date.ToShortDateString() + "\n" +
+                    "Length of Call (hours): " + viewModel.Duration + "\n" +
+                    "Reason(s) for Call: " + string.Join(", ", viewModel.SelectedReasonCodes) + "\n" +
+                    "Notes: " + viewModel.Notes + "\n"
+                    , false);
+                mailView.Finished += ReSendFinished;
+                InvokeOnMainThread(() => { PresentViewController(mailView, true, null); } ); 
+            }
+            else
+            {
+                InvokeOnMainThread(() => { new UIAlertView("Error", "There are no mail accounts configured to send email.", null, "OK").Show(); } );
+            }
+        }
+
+        private void ReSendFinished(object sender, MFComposeResultEventArgs mfComposeResultEventArgs)
+        {
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+
+            InvokeOnMainThread(() => { DismissViewController(true, null); } );
+        }
+        
         private void SetTableFrameForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);

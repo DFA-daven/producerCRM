@@ -34,6 +34,8 @@ namespace CallForm.iOS.ViewElements
             _textView.Text = text;
         }
 
+        #region overrides
+        #pragma warning disable 1591
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
@@ -41,6 +43,8 @@ namespace CallForm.iOS.ViewElements
             DetailTextLabel.TextColor = UIColor.Red;
             _textView.Frame = new RectangleF(TextLabel.Bounds.Width + 20, 5, ContentView.Bounds.Width - TextLabel.Bounds.Width - 25, 100);
         }
+        #pragma warning restore 1591
+        #endregion overrides
 
         public void HideKeyboard()
         {
