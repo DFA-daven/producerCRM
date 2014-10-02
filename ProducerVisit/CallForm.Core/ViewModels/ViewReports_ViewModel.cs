@@ -41,8 +41,18 @@
         private bool _loading;
         private ReportListItem _selectedReport;
         private MvxCommand _viewReportCommand;
+
         /// <summary>Store for the <c>RowHeight</c> property.</summary>
         private float _rowHeight;
+        public float RowHeight
+        {
+            get { return _rowHeight; }
+            set
+            {
+                _rowHeight = value;
+                RaisePropertyChanged(() => RowHeight);
+            }
+        }
         #endregion
 
         /// <summary>Runs before this view Overlays <see cref="UserIdentity_ViewModel"/> if no identity exists.
@@ -152,15 +162,7 @@
             }
         }
 
-        public float RowHeight
-        {
-            get { return _rowHeight; }
-            set
-            {
-                _rowHeight = value;
-                RaisePropertyChanged(() => RowHeight);
-            }
-        }
+
 
         #region Get report
         /// <summary>The value the user would like to search for.

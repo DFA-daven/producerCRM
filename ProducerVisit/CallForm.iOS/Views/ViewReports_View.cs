@@ -392,7 +392,7 @@
 
             (ViewModel as ViewReports_ViewModel).Error += OnError;
 
-            var source = new ViewReportsTableSource(ViewModel as ViewReports_ViewModel, tableView);
+            var source = new ViewReports_TableViewSource(ViewModel as ViewReports_ViewModel, tableView);
 
             tableView.Source = source;
 
@@ -855,24 +855,35 @@
     /// <summary>Abstract class (replaces UITableViewDelegate and UITableViewDataSource).
     /// </summary>
     /// <remarks>GetCell() and other methods use NSIndexPath.</remarks>
-    public class ViewReportsTableSource : UITableViewSource
+    public class ViewReports_TableViewSource : UITableViewSource
     {
         #region Properties
         private readonly ViewReports_ViewModel _viewModel;
         private readonly UITableView _tableView;
         private const string CellIdentifier = "tableViewCell";
         private float _defaultButtonHeight;
-        private float _defaultRowHeight;
+
+        /// <summary>Store for the <c>RowHeight</c> property.</summary>
+        private float _deafultRowHeight;
+        public float RowHeight
+        {
+            get { return _deafultRowHeight; }
+            set
+            {
+                _deafultRowHeight = value;
+                RaisePropertyChanged(() => RowHeight);
+            }
+        }
         #endregion
 
         UIButton newReport;
-        public ViewReportsTableSource(ViewReports_ViewModel viewModel, UITableView tableView)
+        public ViewReports_TableViewSource(ViewReports_ViewModel viewModel, UITableView tableView)
         {
             _viewModel = viewModel;
             _tableView = tableView;
 
             _defaultButtonHeight = viewModel.RowHeight;
-            _defaultRowHeight = viewModel.RowHeight;
+            RowHeight = viewModel.RowHeight;
 
             try
             {
@@ -899,7 +910,7 @@
             return 50;
         }
 
-        /// <summary>The number of rows (cells) in this section of <see cref="ViewReportsTableSource"/>.
+        /// <summary>The number of rows (cells) in this section of <see cref="ViewReports_TableViewSource"/>.
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView"/>/control that contains the section.</param>
         /// <param name="section">The index number of the section that contains the rows (cells).</param>
@@ -910,7 +921,7 @@
             return _viewModel.Reports == null ? 0 : _viewModel.Reports.Count;
         }
 
-        /// <summary>Handles the selected row (cell) in <see cref="ViewReportsTableSource"/>.
+        /// <summary>Handles the selected row (cell) in <see cref="ViewReports_TableViewSource"/>.
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView"/>/control that contains the selected row.</param>
         /// <param name="indexPath">The <see cref="NSIndexPath"/> of the selected row in the control.</param>
@@ -945,7 +956,7 @@
         /// </summary>
         /// <param name="tableView">The <see cref="UITableView">(view) table</see> that contains the cell.</param>
         /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
-        /// <returns>The requested <see cref="TableViewCell" /> from the <see cref="ViewReportsTableSource"/>.</returns>
+        /// <returns>The requested <see cref="TableViewCell" /> from the <see cref="ViewReports_TableViewSource"/>.</returns>
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             TableViewCell cell = tableView.DequeueReusableCell(CellIdentifier) as TableViewCell ?? new TableViewCell();
@@ -1041,6 +1052,8 @@
         }
     }
 
+    /// <summary>Used to create the content of <see cref="TableViewCell"/>.
+    /// </summary>
     public class TextNativeView : NativeView
     {
         public TextNativeView(UILabel view)
