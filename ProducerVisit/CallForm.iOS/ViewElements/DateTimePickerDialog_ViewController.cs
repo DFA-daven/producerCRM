@@ -79,7 +79,7 @@ namespace CallForm.iOS.ViewElements
                 SizeF size = _picker.Frame.Size;
 
                 // Hack: comment out to hide doneButton
-                //size.Height = _picker.Frame.Size.Height + _defaultButtonHeight;
+                //size.Height = _picker.Frame.Size.Height + _buttonHeight;
 
                 return size;
             }

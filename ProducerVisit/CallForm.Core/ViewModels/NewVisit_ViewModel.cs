@@ -2,7 +2,6 @@ namespace CallForm.Core.ViewModels
 {
     using CallForm.Core.Models;
     using CallForm.Core.Services;
-    using Cirrious.CrossCore;
     using Cirrious.CrossCore.Platform;
     using Cirrious.MvvmCross.Plugins.Messenger;
     using Cirrious.MvvmCross.Plugins.PictureChooser;
@@ -11,11 +10,11 @@ namespace CallForm.Core.ViewModels
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Reflection;
     using System.Windows.Input;
 
     /// <summary>Class definition of the "New Visit" domain object.
     /// </summary>
+    /// <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
     public class NewVisit_ViewModel : MvxViewModel
     {
         private readonly ILocationService _locationService;
@@ -54,17 +53,6 @@ namespace CallForm.Core.ViewModels
         /// <summary>Store for the <c>SaveCommand</c> property.</summary>
         private MvxCommand _saveCommand;
         
-        // FixMe: re-factor userID to DeviceID
-        private string _userID;
-
-        /// <summary>Store for the <c>Height</c> property.</summary>
-        private float _height;
-        /// <summary>Store for the <c>Width</c> property.</summary>
-        private float _width;
-        /// <summary>Store for the <c>RowHeight</c> property.</summary>
-        private float _rowHeight;
-
-
         /// <summary>Store for the <c>PictureBytes[]</c> property.</summary>
         private byte[] _pictureBytes;
         /// <summary>Store for the <c>TakePictureCommand</c> property.</summary>
@@ -180,6 +168,8 @@ namespace CallForm.Core.ViewModels
             Lng = locationMessage.Lng;
         }
 
+        // FixMe: re-factor userID to DeviceID
+        private string _userID;
         public string UserID
         {
             get { return _userID; }
@@ -190,35 +180,41 @@ namespace CallForm.Core.ViewModels
             }
         }
 
-        public float Height
-        {
-            get { return _height; }
-            set
-            {
-                _height = value;
-                RaisePropertyChanged(() => Height);
-            }
-        }
+        ///// <summary>Store for the <c>Height</c> property.</summary>
+        //private float _height;
+        //public float Height
+        //{
+        //    get { return _height; }
+        //    set
+        //    {
+        //        _height = value;
+        //        RaisePropertyChanged(() => Height);
+        //    }
+        //}
 
-        public float Width
-        {
-            get { return _width; }
-            set
-            {
-                _width = value;
-                RaisePropertyChanged(() => Width);
-            }
-        }
+        ///// <summary>Store for the <c>Width</c> property.</summary>
+        //private float _width;
+        //public float Width
+        //{
+        //    get { return _width; }
+        //    set
+        //    {
+        //        _width = value;
+        //        RaisePropertyChanged(() => Width);
+        //    }
+        //}
 
-        public float RowHeight
-        {
-            get { return _rowHeight; }
-            set
-            {
-                _rowHeight = value;
-                RaisePropertyChanged(() => RowHeight);
-            }
-        }
+        ///// <summary>Store for the <c>RowHeight</c> property.</summary>
+        //private float _rowHeight;
+        //public float RowHeight
+        //{
+        //    get { return _rowHeight; }
+        //    set
+        //    {
+        //        _rowHeight = value;
+        //        RaisePropertyChanged(() => RowHeight);
+        //    }
+        //}
 
         /// <summary>The latitude value for this visit.
         /// </summary>
@@ -518,6 +514,10 @@ namespace CallForm.Core.ViewModels
         #region Page Admin
         /// <summary>Store for the <c>Editing</c> property.</summary>
         private bool _editing;
+
+        /// <summary>Keeps track of Editing status.
+        /// </summary>
+        /// <remarks>This is an example of a property that SHOULD be in the ViewModel.</remarks>
         public bool Editing
         {
             get { return _editing; }
@@ -527,21 +527,6 @@ namespace CallForm.Core.ViewModels
                 RaisePropertyChanged(() => Editing);
                 RaisePropertyChanged(() => SaveButtonText);
                 RaisePropertyChanged(() => Title);
-            }
-        }
-
-        /// <summary>Store for the <c>Portrait</c> property.</summary>
-        private bool _portrait;
-        public bool Portrait
-        {
-            get { return _portrait; }
-            set
-            {
-                // Undone: implement this in order to track orientation changes.
-                _portrait = value;
-                RaisePropertyChanged(() => Height);
-                RaisePropertyChanged(() => Width);
-                RaisePropertyChanged(() => RowHeight);
             }
         }
 

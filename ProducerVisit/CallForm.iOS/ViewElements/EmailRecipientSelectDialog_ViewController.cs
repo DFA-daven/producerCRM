@@ -4,6 +4,7 @@ namespace CallForm.iOS.ViewElements
 {
     using CallForm.Core.ViewModels;
     using CallForm.iOS.Views;
+    using Cirrious.MvvmCross.ViewModels;
     using MonoTouch.Foundation;
     using MonoTouch.MessageUI;
     using MonoTouch.UIKit;
@@ -68,6 +69,7 @@ namespace CallForm.iOS.ViewElements
             }
         }
 
+        // Note: Use this as a part of the Producer popover view ++++
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
@@ -124,16 +126,36 @@ namespace CallForm.iOS.ViewElements
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;
         private const string CellIdentifier = "EmailTableCell";
-        private float _defaultButtonHeight;
-        private float _defaultRowHeight;
+
+        /// <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        private float _buttonHeight = 0f;
+        public float ButtonHeight
+        {
+            get { return _buttonHeight; }
+            set
+            {
+                _buttonHeight = value;
+            }
+        }
+
+        /// <summary>Store for the <c>RowHeight</c> property.</summary>
+        private float _rowHeight = 0f;
+        public float RowHeight
+        {
+            get { return _rowHeight; }
+            set
+            {
+                _rowHeight = value;
+            }
+        }
 
         public EmailRecipientsTableSource(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             _viewModel = viewModel;
             _source = source;
 
-            _defaultButtonHeight = viewModel.RowHeight;
-            _defaultRowHeight = viewModel.RowHeight;
+            ButtonHeight = source.RowHeight;
+            RowHeight = source.RowHeight;
         }
 
         #region overrides
@@ -160,10 +182,10 @@ namespace CallForm.iOS.ViewElements
             //doneButton.TouchUpInside += (sender, args) => { Invoke(_source.SafeDismissPopover, 0); };
             //doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(() => {Dism})
 
-            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, _defaultButtonHeight);
+            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, ButtonHeight);
 
             // Hack: hide Done button.
-            _defaultButtonHeight = 0f;
+            ButtonHeight = 0f;
             doneButton.Hidden = true;
 
             return doneButton;
@@ -190,6 +212,7 @@ namespace CallForm.iOS.ViewElements
                 _viewModel.SelectedEmailDisplayNames.Add(currentlySelectedDisplayName);
             }
 
+            // Note: use this for Producer popover view ++++
             _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailAddresses));
             _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedEmailDisplayNames));
             tableView.DeselectRow(indexPath, true);
@@ -198,7 +221,7 @@ namespace CallForm.iOS.ViewElements
 
         public override float GetHeightForFooter(UITableView tableView, int section)
         {
-            float heightToReport = _defaultButtonHeight;
+            float heightToReport = ButtonHeight;
 
             return heightToReport;
         }

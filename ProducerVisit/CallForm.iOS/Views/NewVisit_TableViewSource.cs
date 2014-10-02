@@ -19,6 +19,8 @@
 
         #region Properties
         private readonly NewVisit_ViewModel _viewModel;
+        private readonly UITableView _tableView;
+
         private readonly TextField_TableViewCell _memberNumberCell, _durationCell;
         private readonly UITableViewCell _callTypeCell, _dateCell, _reasonCell, _emailRecipientsCell;
         private readonly Image_TableViewCell _takePictureCell;
@@ -33,6 +35,37 @@
         /// <summary>The maximum value to display the controller. Anything larger will not be honored.
         /// </summary>
         float _distanceToBottom = 0f;
+
+        private bool _isOS7OrLater;
+        public bool IsOS7OrLater
+        {
+            get { return _isOS7OrLater; }
+            set { _isOS7OrLater = value; }
+        }
+
+        /// <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        private float _buttonHeight = 0f;
+        public float ButtonHeight
+        {
+            get { return _buttonHeight; }
+            set
+            {
+                _buttonHeight = value;
+                //RaisePropertyChanged(() => ButtonHeight);
+            }
+        }
+
+        /// <summary>Store for the <c>RowHeight</c> property.</summary>
+        private float _rowHeight = 0f;
+        public float RowHeight
+        {
+            get { return _rowHeight; }
+            set
+            {
+                _rowHeight = value;
+                //RaisePropertyChanged(() => RowHeight);
+            }
+        }
         #endregion
 
         /// <summary>A container for the popover controller.
@@ -47,7 +80,11 @@
         public NewVisit_TableViewSource(NewVisit_ViewModel viewModel, UITableView tableView)
         {
             _viewModel = viewModel;
+            _tableView = tableView;
 
+            // FixMe: hard-coded values -- calculate these from the screen dimensions?
+            ButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 3f), 0);
+            RowHeight = 50f;
 
             #region viewModel property changed
             _viewModel.PropertyChanged += (sender, args) =>
@@ -252,7 +289,7 @@
             }
 
             // otherwise...
-            return 50;
+            return RowHeight;
         }
 
         /// <summary>The number of rows (cells) in this section of <see cref="NewVisit_TableViewSource"/>.
@@ -368,7 +405,7 @@
                         _popoverController.PresentFromRect(baseCellRect, tableView.Superview, UIPopoverArrowDirection.Any, true);
 #if (DEBUG || BETA)
                         // No changes / variable assignment here -- this is diagnostic code!
-                        if (IsOS7OrLater())
+                        if (IsOS7OrLater)
                         {
                             _popoverController.BackgroundColor = UIColor.Red; // this is the outer container
                         }
@@ -440,8 +477,18 @@
             rVal.TextLabel.Text = indexPath.Row.ToString();
             return rVal;
         }
+
+        public override float GetHeightForFooter(UITableView tableView, int section)
+        {
+            float heightToReport = RowHeight;
+
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage("  [nv_tvs][ghff] > Footer Height = " + RowHeight.ToString() + " < = = = = = =");
+
+            return heightToReport;
+        }
         #pragma warning restore 1591
-        #endregion
+        #endregion overrides
 
         /// <summary>Close the <c>_popoverController</c>.
         /// </summary>
@@ -511,31 +558,6 @@
             }
 
             return me.Member.Name;
-        }
-
-        /// <summary>Is this device running iOS 7.0.
-        /// </summary>
-        /// <returns>True if this is iOS 7.0.</returns>
-        public bool IsOS7OrLater()
-        {
-            bool thisIsOS7 = false;
-            string version = UIDevice.CurrentDevice.SystemVersion;
-            string[] parts = version.Split('.');
-            string major = parts[0];
-            Common_iOS.DebugMessage("  [nv_tvs][i7ol] > major version (string): " + major);
-            int majorVersion = Common_iOS.SafeConvert(major, 0);
-            Common_iOS.DebugMessage("  [nv_tvs][i7ol] > major version (int): " + majorVersion.ToString());
-
-            if (majorVersion > 6)
-            {
-                //float displacement_y = this.TopLayoutGuide.Length;
-
-                thisIsOS7 = true;
-            }
-
-            Common_iOS.DebugMessage("  [nv_tvs][i7ol] > version is higher than 6 = " + thisIsOS7.ToString());
-
-            return thisIsOS7;
         }
     }
 }

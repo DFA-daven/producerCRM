@@ -20,8 +20,9 @@ namespace CallForm.iOS.ViewElements
     {
         string _nameSpace = "CallForm.iOS.";
 
-        private readonly UITableView _table;
         private readonly NewVisit_ViewModel _viewModel;
+        private readonly NewVisit_TableViewSource _source;
+        private readonly UITableView _table;
 
         /// <summary>Creates an instance of the <see cref="ReasonCodePickerDialog_ViewController"/> class. This holds the "content" inside the _popoverController.
         /// </summary>
@@ -33,6 +34,7 @@ namespace CallForm.iOS.ViewElements
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             _viewModel = viewModel;
+            _source = source;
 
             _table = new UITableView();
             _table.Source = new ReasonCodeTableSource(_viewModel, source);
@@ -56,7 +58,7 @@ namespace CallForm.iOS.ViewElements
             rowCount = rowCount + 2; // add two to take into account the footer and header
             
             float estimatedContentHeight = (float)Math.Round(rowHeight * rowCount, 0);
-            Common_iOS.DebugMessage("  [rcpd_vc][rcpd_vc] > estimatedContentHeight = " + estimatedContentHeight.ToString() + ", safeContentHeight = " + safeContentHeight.ToString() + ", _viewModel.Height = " + _viewModel.Height.ToString() + " < [rcpd_vc][rcpd_vc] @ @ @ @");
+            Common_iOS.DebugMessage("  [rcpd_vc][rcpd_vc] > estimatedContentHeight = " + estimatedContentHeight.ToString() + ", safeContentHeight = " + safeContentHeight.ToString() + " < [rcpd_vc][rcpd_vc] @ @ @ @");
 
             // Note: safeContentHeight defines the value of the "content". If it's larger than NewVisit_TableViewSource.availableDisplayHeight rows will be un-clickable.
             safeContentHeight = Math.Min(safeContentHeight, estimatedContentHeight);
@@ -99,13 +101,13 @@ namespace CallForm.iOS.ViewElements
 
         //public override void ViewDidLoad()
         //{
-        //    Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+        //    Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
         //    Common_iOS.DebugMessage("? [rcpd_vc][vdl] > make a note of when this is being run");
         //}
 
         //public override void ViewDidLayoutSubviews()
         //{
-        //    Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+        //    Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
         //    Common_iOS.DebugMessage("? [rcpd_vc][vdls] > make a note of when this is being run");
         //}
 
@@ -144,7 +146,7 @@ namespace CallForm.iOS.ViewElements
                 float rowHeight = _table.RowHeight;
                 if (rowHeight < 1)
                 {
-                    rowHeight = _viewModel.RowHeight;
+                    rowHeight = _source.RowHeight;
                 }
 
                 int rowCount = _viewModel.ListOfReasonCodes.Count;
@@ -261,20 +263,39 @@ namespace CallForm.iOS.ViewElements
     {
         string _nameSpace = "CallForm.iOS.";
 
-        private const string CellIdentifier = "ReasonCodeTableCell";
-
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;
-        private static float _defaultButtonHeight;
-        private static float _defaultRowHeight;
+        private const string CellIdentifier = "ReasonCodeTableCell";
+
+        /// <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        private float _buttonHeight = 0f;
+        public float ButtonHeight
+        {
+            get { return _buttonHeight; }
+            set
+            {
+                _buttonHeight = value;
+            }
+        }
+
+        /// <summary>Store for the <c>RowHeight</c> property.</summary>
+        private float _rowHeight = 0f;
+        public float RowHeight
+        {
+            get { return _rowHeight; }
+            set
+            {
+                _rowHeight = value;
+            }
+        }
 
         public ReasonCodeTableSource(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             _viewModel = viewModel;
             _source = source;
-            // Undone: extend this to the other view controllers
-            _defaultButtonHeight = viewModel.RowHeight;
-            _defaultRowHeight = viewModel.RowHeight;
+
+            ButtonHeight = source.RowHeight;
+            RowHeight = source.RowHeight;
         }
 
         #region overrides
@@ -299,10 +320,10 @@ namespace CallForm.iOS.ViewElements
             // review: is InvokeOnMainThread() correct?
             doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.SafeDismissPopover); };
             //doneButton.TouchUpInside += (sender, args) => { Invoke(_source.SafeDismissPopover, 0); };
-            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, _defaultButtonHeight);
+            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, ButtonHeight);
 
             // Hack: hide Done button.
-            _defaultButtonHeight = 0f;
+            ButtonHeight = 0f;
             doneButton.Hidden = true;
 
             return doneButton;
@@ -331,7 +352,7 @@ namespace CallForm.iOS.ViewElements
 
         public override float GetHeightForFooter(UITableView tableView, int section)
         {
-            float heightToReport = _defaultButtonHeight;
+            float heightToReport = _source.RowHeight;
 
             return heightToReport;
         }
@@ -353,13 +374,6 @@ namespace CallForm.iOS.ViewElements
         #pragma warning restore 1591
         #endregion overrides
 
-        public static float DefaultRowHeight
-        {
-            get
-            {
-                return _defaultRowHeight;
-            }
-        }
         // <summary>Get the name of a static or instance property from a property access lambda.
         // </summary>
         // <typeparam name="T">Type of the property.</typeparam>

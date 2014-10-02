@@ -9,6 +9,7 @@
     using MonoTouch.UIKit;
     using System;
     using System.Drawing;
+    using System.Linq.Expressions;
     using System.Reflection;
     using XibFree;
 
@@ -22,23 +23,66 @@
     /// <para>Design goal is to only deal with formatting and layout of data here -- no state information.</para></remarks>
     class ViewReports_View : MvxViewController
     {
-        private bool _isOS6OrLater;
-        public bool IsOS6
-        {
-            get { return _isOS6OrLater; }
-            set { _isOS6OrLater = value; }
-        }
+        
+        // class-level declarations
 
+        string _nameSpace1 = "CallForm.iOS.";
+
+        /// <summary>Class name abbreviation
+        /// </summary>
+        string _cAbb = "[vr_v]";
+
+        #region Properties
         private bool _isOS7OrLater;
-        public bool IsOS7
+        public bool IsOS7OrLater
         {
             get { return _isOS7OrLater; }
             set { _isOS7OrLater = value; }
         }
 
-        #region declarations        
-        // class-level declarations
-        #region Properties
+        /// <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        private float _buttonHeight = 0f;
+        public float ButtonHeight
+        {
+            get { return _buttonHeight; }
+            set
+            {
+                _buttonHeight = value;
+                //RaisePropertyChanged(() => ButtonHeight);
+            }
+        }
+
+        /// <summary>Store for the <c>RowHeight</c> property.</summary>
+        private float _rowHeight = 0f;
+        public float RowHeight
+        {
+            get { return _rowHeight; }
+            set
+            {
+                _rowHeight = value;
+                //RaisePropertyChanged(() => RowHeight);
+            }
+        }
+
+        /// <summary>Store for the <c>Portrait</c> property.</summary>
+        private bool _portrait;
+
+        /// <summary>Keeps track of portrait (or landscape) orientation.
+        /// </summary>
+        /// <remarks>This is a property that SHOULD be in the ViewController.</remarks>
+        public bool Portrait
+        {
+            get { return _portrait; }
+            set
+            {
+                // Undone: implement this in order to track orientation changes.
+                _portrait = value;
+                //RaisePropertyChanged(() => Height);
+                //RaisePropertyChanged(() => Width);
+                //RaisePropertyChanged(() => RowHeight);
+            }
+        }
+
         /// <summary>Store for the logo button property.</summary>
         private UIButton _logoButton;
         /// <summary>Store for the logo orientation property.</summary>
@@ -57,7 +101,6 @@
 
         /// <summary>Store for the report table property.</summary>
         private UITableView _reportTableView;
-
 
         /// <summary>Store for the loading overlay property.</summary>
         LoadingOverlay _loadingOverlay;
@@ -93,9 +136,6 @@
         /// <summary>The percentage of the horizontal value to indent this control's origin.
         /// </summary>
         private static decimal rightControlOriginPercent = 66.666M;
-
-        string _nameSpace = "CallForm.iOS.";
-        #endregion
         #endregion
 
         UIBarButtonItem preferencesBBI;
@@ -103,8 +143,11 @@
         UIBarButtonItem newBBI;
         public ViewReports_View()
         {
-            IsOS6 = Common_iOS.IsMinimumiOS6();
-            IsOS7 = Common_iOS.IsMinimumiOS7();
+            IsOS7OrLater = Common_iOS.IsMinimumiOS7();
+
+            // FixMe: hard-coded values -- calculate these from the screen dimensions?
+            ButtonHeight = 50f;
+            RowHeight = 50f;
 
             #region UIRefreshControl
             //// alternate older-style
@@ -181,7 +224,7 @@
         #pragma warning disable 1591
         public override void ViewDidLoad()
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdl] > starting method...");
 
             #region pageLayout
@@ -425,13 +468,13 @@
             //this.availableViewHeight
             #endregion
 
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdl] > ...finished method.");
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdls] > System version: " + UIDevice.CurrentDevice.SystemVersion);
 
             base.ViewDidLayoutSubviews();
@@ -446,12 +489,12 @@
              * and BottomLayoutGuide are preferred since they allow the app to meet the iOS 7 design goals.
              */
             float displacement_y = 0f;
-            if (_isOS7OrLater)
+            if (IsOS7OrLater)
             {
                 //displacement_y = this.TopLayoutGuide.Length;
             }
 
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdls] > ...finished");
         }
 
@@ -478,7 +521,7 @@
 
         public override void ViewWillAppear(bool animated)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             base.ViewWillAppear(animated);
             SetFramesForOrientation(InterfaceOrientation);
@@ -486,7 +529,7 @@
 
         public override void ViewDidAppear(bool animated)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             // Note: each time ViewReports is displayed/appears UploadReports() is triggered.
             base.ViewDidAppear(animated);
@@ -496,12 +539,13 @@
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
             base.WillAnimateRotation(toInterfaceOrientation, duration);
 
             SetFramesForOrientation(toInterfaceOrientation);
         }
+
         #pragma warning restore 1591
         #endregion overrides
 
@@ -775,7 +819,7 @@
 
         private void SetFramesForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("? [vr_v][sffo] > SetFramesForOrientation: make a note of when this runs");
 
             float difference = 0;
@@ -788,12 +832,16 @@
             {
                 case UIInterfaceOrientation.Portrait:
                 case UIInterfaceOrientation.PortraitUpsideDown:
+                    Portrait = true;
+
                     break;
 
                 case UIInterfaceOrientation.LandscapeLeft:
                 case UIInterfaceOrientation.LandscapeRight:
                     offset = (difference / 2);
                     offset = (float)Math.Round(offset, 0);
+                    Portrait = false;
+
                     break;
 
                 default:
@@ -831,7 +879,7 @@
             layoutHeight = this.ViewFrameHeight(); 
             navbarHeight = screenHeight - layoutHeight;
 
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][nbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
 
             if (Common_iOS.IsMinimumOS7)
@@ -857,23 +905,50 @@
     /// <remarks>GetCell() and other methods use NSIndexPath.</remarks>
     public class ViewReports_TableViewSource : UITableViewSource
     {
+        #region declarations
+        // class-level declarations
+        string _nameSpace = "CallForm.iOS.";
+
+        /// <summary>Class name abbreviation
+        /// </summary>
+        string _cAbb = "[vr_v]";
+
         #region Properties
         private readonly ViewReports_ViewModel _viewModel;
         private readonly UITableView _tableView;
         private const string CellIdentifier = "tableViewCell";
-        private float _defaultButtonHeight;
 
-        /// <summary>Store for the <c>RowHeight</c> property.</summary>
-        private float _deafultRowHeight;
-        public float RowHeight
+        private bool _isOS7OrLater;
+        public bool IsOS7OrLater
         {
-            get { return _deafultRowHeight; }
+            get { return _isOS7OrLater; }
+            set { _isOS7OrLater = value; }
+        }
+
+        /// <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        private float _buttonHeight = 0f;
+        public float ButtonHeight
+        {
+            get { return _buttonHeight; }
             set
             {
-                _deafultRowHeight = value;
-                RaisePropertyChanged(() => RowHeight);
+                _buttonHeight = value;
+                //RaisePropertyChanged(() => ButtonHeight);
             }
         }
+
+        /// <summary>Store for the <c>RowHeight</c> property.</summary>
+        private float _rowHeight = 0f;
+        public float RowHeight
+        {
+            get { return _rowHeight; }
+            set
+            {
+                _rowHeight = value;
+                //RaisePropertyChanged(() => RowHeight);
+            }
+        }
+        #endregion
         #endregion
 
         UIButton newReport;
@@ -882,8 +957,9 @@
             _viewModel = viewModel;
             _tableView = tableView;
 
-            _defaultButtonHeight = viewModel.RowHeight;
-            RowHeight = viewModel.RowHeight;
+            // FixMe: hard-coded values -- calculate these from the screen dimensions?
+            ButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 3f), 0);
+            RowHeight = 50f;
 
             try
             {
@@ -907,7 +983,7 @@
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
             // FixMe: remove hard-coded values (or add XML entry)
-            return 50;
+            return RowHeight;
         }
 
         /// <summary>The number of rows (cells) in this section of <see cref="ViewReports_TableViewSource"/>.
@@ -947,7 +1023,10 @@
 
         public override float GetHeightForFooter(UITableView tableView, int section)
         {
-            float heightToReport = _defaultButtonHeight;
+            float heightToReport = RowHeight;
+
+            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            Common_iOS.DebugMessage("  [vr_tvs][ghff] > Footer Height = " + RowHeight.ToString() + " < = = = = = =");
 
             return heightToReport;
         }
@@ -982,6 +1061,23 @@
         }
         #pragma warning restore 1591
         #endregion
+
+        // <summary>Get the name of a static or instance property from a property access lambda.
+        // </summary>
+        // <typeparam name="T">Type of the property.</typeparam>
+        // <param name="propertyLambda">lambda expression of the form: '() => Class.Property' or '() => object.Property'.</param>
+        // <returns>The name of the property.</returns>
+        public string GetPropertyName<T>(Expression<Func<T>> propertyLambda)
+        {
+            var me = propertyLambda.Body as MemberExpression;
+
+            if (me == null)
+            {
+                throw new ArgumentException("You must pass a lambda of the form: '() => Class.Property' or '() => object.Property'");
+            }
+
+            return me.Member.Name;
+        }
     }
 
     /// <summary>These are the rows in the View Reports view. 

@@ -24,6 +24,25 @@
         #region Properties
         string _namespace = "CallForm.iOS.";
         //string _namespace = "CallForm.iOS.Views.UserIdentity_View";
+
+        /// <summary>Store for the <c>Portrait</c> property.</summary>
+        private bool _portrait;
+
+        /// <summary>Keeps track of portrait (or landscape) orientation.
+        /// </summary>
+        /// <remarks>This is a property that SHOULD be in the ViewController.</remarks>
+        public bool Portrait
+        {
+            get { return _portrait; }
+            set
+            {
+                // Undone: implement this in order to track orientation changes.
+                _portrait = value;
+                //RaisePropertyChanged(() => Height);
+                //RaisePropertyChanged(() => Width);
+                //RaisePropertyChanged(() => RowHeight);
+            }
+        }
         #endregion
 
         #region overrides

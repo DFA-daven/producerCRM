@@ -7,9 +7,7 @@
     using Cirrious.MvvmCross.ViewModels;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
-    using System.Reflection;
     using System.Windows.Input;
 
     /// <summary>Class definition of the "View Reports" domain object.
@@ -42,17 +40,19 @@
         private ReportListItem _selectedReport;
         private MvxCommand _viewReportCommand;
 
-        /// <summary>Store for the <c>RowHeight</c> property.</summary>
-        private float _rowHeight;
-        public float RowHeight
-        {
-            get { return _rowHeight; }
-            set
-            {
-                _rowHeight = value;
-                RaisePropertyChanged(() => RowHeight);
-            }
-        }
+        ///// <summary>Store for the <c>RowHeight</c> property.</summary>
+        //private float _rowHeight;
+        //public float RowHeight
+        //{
+        //    get { return _rowHeight; }
+        //    set
+        //    {
+        //        _rowHeight = value;
+        //        RaisePropertyChanged(() => RowHeight);
+        //    }
+        //}
+
+        
         #endregion
 
         /// <summary>Runs before this view Overlays <see cref="UserIdentity_ViewModel"/> if no identity exists.

@@ -24,38 +24,85 @@ namespace CallForm.iOS.Views
     public class NewVisit_View : MvxViewController
     {
         #region Properties
-        /// <summary>The View that contains the data-entry controls (which are defined in <see cref="NewVisit_TableViewSource"/>).
-        /// </summary>
-        private UITableView _table; 
-        private float _frameWidth;
         string _nameSpace = "CallForm.iOS.";
 
         /// <summary>Class name abbreviation
         /// </summary>
         string _cAbb = "[nv_v]";
-        public float _buttonHeight = 0f;
 
-        bool? _isOS7;
+        /// <summary>The View that contains the data-entry controls (which are defined in <see cref="NewVisit_TableViewSource"/>).
+        /// </summary>
+        private UITableView _table; 
+        private float _frameWidth = 0f;
+
+        private bool _isOS7OrLater;
         public bool IsOS7OrLater
         {
-            get { return (bool)_isOS7; }
-            set { _isOS7 = value; }
+            get { return _isOS7OrLater; }
+            set { _isOS7OrLater = value; }
         }
 
         private float _statusBarHeight = 0f;
         public float StatusBarHeight
         {
             get { return _statusBarHeight; }
-            set { _statusBarHeight = value; }
+            set 
+            { 
+                _statusBarHeight = value; 
+            }
         }
 
         private float _navBarHeight = 0f;
         public float NavBarHeight
         {
             get { return _navBarHeight; }
-            set { _navBarHeight = value; }
+            set 
+            { 
+                _navBarHeight = value; 
+            }
         }
 
+        /// <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        private float _buttonHeight = 0f;
+        public float ButtonHeight
+        {
+            get { return _buttonHeight; }
+            set
+            {
+                _buttonHeight = value;
+                //RaisePropertyChanged(() => ButtonHeight);
+            }
+        }
+
+        /// <summary>Store for the <c>RowHeight</c> property.</summary>
+        private float _rowHeight = 0f;
+        public float RowHeight
+        {
+            get { return _rowHeight; }
+            set
+            {
+                _rowHeight = value;
+                //RaisePropertyChanged(() => RowHeight);
+            }
+        }
+        /// <summary>Store for the <c>Portrait</c> property.</summary>
+        private bool _portrait;
+
+        /// <summary>Keeps track of portrait (or landscape) orientation.
+        /// </summary>
+        /// <remarks>This is a property that SHOULD be in the ViewController.</remarks>
+        public bool Portrait
+        {
+            get { return _portrait; }
+            set
+            {
+                // Undone: implement this in order to track orientation changes.
+                _portrait = value;
+                //RaisePropertyChanged(() => Height);
+                //RaisePropertyChanged(() => Width);
+                //RaisePropertyChanged(() => RowHeight);
+            }
+        }
         #endregion
 
         UIBarButtonItem cancelBBI;
@@ -77,6 +124,10 @@ namespace CallForm.iOS.Views
                 IsOS7OrLater = FindIsOS7OrLater();
                 StatusBarHeight = FindStatusBarHeight();
                 NavBarHeight = FindNavBarHeight();
+
+                // FixMe: hard-coded values -- calculate these from the screen dimensions?
+                ButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 3f), 0);
+                RowHeight = 50f;
             }
             finally
             {
@@ -163,7 +214,7 @@ namespace CallForm.iOS.Views
             #region saveButton
             // define a sub-view for the saveButton and reSendButton
             float wrapperWidth = TableFrameWidth();
-            float wrapperHeight = ButtonHeight(); ;
+            float wrapperHeight = ButtonHeight; ;
 
             Common_iOS.DebugMessage("  [nv_v][vdl] > wrapperWidth: " + wrapperWidth.ToString()  + ", wrapperHeight: " + wrapperHeight.ToString() + " < [nv_v][vdl]");
             UIView wrapper = new UIView(new RectangleF(0, 0, wrapperWidth, wrapperHeight));
@@ -182,10 +233,10 @@ namespace CallForm.iOS.Views
                 UIButton reSendButton = new UIButton(UIButtonType.System);
                 reSendButton.SetTitle("Forward via Email", UIControlState.Normal);
                 reSendButton.TouchUpInside += ReSendEmail;
-                reSendButton.Frame = new RectangleF(PercentOfTableFrameWidth(20), 0, PercentOfTableFrameWidth(25), ButtonHeight());
+                reSendButton.Frame = new RectangleF(PercentOfTableFrameWidth(20), 0, PercentOfTableFrameWidth(25), ButtonHeight);
                
                 wrapper.Add(reSendButton);
-                saveButton.Frame = new RectangleF(PercentOfTableFrameWidth(60), 0, PercentOfTableFrameWidth(25), ButtonHeight());
+                saveButton.Frame = new RectangleF(PercentOfTableFrameWidth(60), 0, PercentOfTableFrameWidth(25), ButtonHeight);
             }
 
             wrapper.Add(saveButton);
@@ -232,8 +283,6 @@ namespace CallForm.iOS.Views
 
             //(ViewModel as NewVisit_ViewModel).Width = TableFrameWidth();
 
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common_iOS.DebugMessage("  [nv_v][vdl] > (ViewModel as NewVisit_ViewModel).Height: " + (ViewModel as NewVisit_ViewModel).Height.ToString() + " <= = = = = ");
             Common_iOS.DebugMessage("  [nv_v][vdl] > ...finished method.");
         }
 
@@ -490,37 +539,6 @@ namespace CallForm.iOS.Views
             InvokeOnMainThread(() => { DismissViewController(true, null); } );
         }
         
-        private void SetTableFrameForOrientation(UIInterfaceOrientation toInterfaceOrientation)
-        {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-             
-            float usableHeight = 0f;
-            float usableWidth = 0f;
-
-            // ToDo: TopMargin() is called each time the orientation changes. This would be a good place to fix the saveButton origin.
-            float topMarginHeight = TopMargin();
-
-            switch (toInterfaceOrientation)
-            {
-                case UIInterfaceOrientation.Portrait:
-                case UIInterfaceOrientation.PortraitUpsideDown:
-                    // _reportTableView.Frame = UIScreen.MainScreen.Bounds;
-                    usableHeight = UIScreen.MainScreen.Bounds.Height - topMarginHeight;
-                    _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Width, usableHeight);
-                    (ViewModel as NewVisit_ViewModel).Portrait = true;
-                    break;
-                case UIInterfaceOrientation.LandscapeLeft:
-                case UIInterfaceOrientation.LandscapeRight:
-                    usableWidth = UIScreen.MainScreen.Bounds.Width - topMarginHeight;
-                    _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Height, usableWidth);
-                    (ViewModel as NewVisit_ViewModel).Portrait = false;
-
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("toInterfaceOrientation");
-            }
-        }
-
         private void OnSendEmail(object sender, EventArgs eventArgs)
         {
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
@@ -601,16 +619,35 @@ namespace CallForm.iOS.Views
             InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );
         }
 
-        internal float ButtonHeight()
+        private void SetTableFrameForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
-            float height = UIFont.SystemFontSize * 3f;
-            _buttonHeight = height;
+            float usableHeight = 0f;
+            float usableWidth = 0f;
 
-            Common_iOS.DebugMessage("  [nv_v][bh] > ButtonHeight() = " + height.ToString() + " < ");
-            //return 50;
-            return height;
+            // ToDo: TopMargin() is called each time the orientation changes. This would be a good place to fix the saveButton origin.
+            float topMarginHeight = TopMargin();
+
+            switch (toInterfaceOrientation)
+            {
+                case UIInterfaceOrientation.Portrait:
+                case UIInterfaceOrientation.PortraitUpsideDown:
+                    // _reportTableView.Frame = UIScreen.MainScreen.Bounds;
+                    usableHeight = UIScreen.MainScreen.Bounds.Height - topMarginHeight;
+                    _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Width, usableHeight);
+                    Portrait = true;
+                    break;
+                case UIInterfaceOrientation.LandscapeLeft:
+                case UIInterfaceOrientation.LandscapeRight:
+                    usableWidth = UIScreen.MainScreen.Bounds.Width - topMarginHeight;
+                    _table.Frame = new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Height, usableWidth);
+                    Portrait = false;
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("toInterfaceOrientation");
+            }
         }
 
         /// <summary>The value of the current <see cref="UIView.Frame"/>.
@@ -877,7 +914,7 @@ namespace CallForm.iOS.Views
             // Note: can't check IsOS7OrLater here
             try
             {
-                if ((bool)_isOS7)
+                if ((bool)_isOS7OrLater)
                 {
                     navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
                 }
@@ -978,7 +1015,7 @@ namespace CallForm.iOS.Views
 
             bool thisIsOS7 = false;
             
-            if (_isOS7 == null)
+            if (_isOS7OrLater == null)
             {
                 string version = UIDevice.CurrentDevice.SystemVersion;
                 string[] parts = version.Split('.');
@@ -994,11 +1031,11 @@ namespace CallForm.iOS.Views
 
                 Common_iOS.DebugMessage("  [nv_v][i7ol] > major version: " + major + ". Version is higher than 6 = " + thisIsOS7.ToString() + " <  ");
 
-                //_isOS7 = thisIsOS7;
+                //_isOS7OrLater = thisIsOS7;
             }
             else
             {
-                thisIsOS7 = (bool)_isOS7;
+                thisIsOS7 = (bool)_isOS7OrLater;
             }
 
             return thisIsOS7;
