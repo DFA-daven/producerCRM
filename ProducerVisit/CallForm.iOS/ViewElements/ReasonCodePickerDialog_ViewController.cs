@@ -5,7 +5,6 @@ namespace CallForm.iOS.ViewElements
     using CallForm.Core.Models;
     using CallForm.Core.ViewModels;
     using CallForm.iOS.Views;
-    using CallForm.iOS.Views;
     using MonoTouch.Foundation;
     using MonoTouch.UIKit;
     using System;
@@ -266,7 +265,7 @@ namespace CallForm.iOS.ViewElements
 
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;
-        private static float _doneButtonHeight;
+        private static float _defaultButtonHeight;
         private static float _defaultRowHeight;
 
         public ReasonCodeTableSource(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
@@ -274,7 +273,7 @@ namespace CallForm.iOS.ViewElements
             _viewModel = viewModel;
             _source = source;
             // Undone: extend this to the other view controllers
-            _doneButtonHeight = viewModel.RowHeight;
+            _defaultButtonHeight = viewModel.RowHeight;
             _defaultRowHeight = viewModel.RowHeight;
         }
 
@@ -300,10 +299,10 @@ namespace CallForm.iOS.ViewElements
             // review: is InvokeOnMainThread() correct?
             doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(_source.SafeDismissPopover); };
             //doneButton.TouchUpInside += (sender, args) => { Invoke(_source.SafeDismissPopover, 0); };
-            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, _doneButtonHeight);
+            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, _defaultButtonHeight);
 
             // Hack: hide Done button.
-            _doneButtonHeight = 0f;
+            _defaultButtonHeight = 0f;
             doneButton.Hidden = true;
 
             return doneButton;
@@ -332,7 +331,7 @@ namespace CallForm.iOS.ViewElements
 
         public override float GetHeightForFooter(UITableView tableView, int section)
         {
-            float heightToReport = _doneButtonHeight;
+            float heightToReport = _defaultButtonHeight;
 
             return heightToReport;
         }

@@ -859,13 +859,20 @@
     {
         #region Properties
         private readonly ViewReports_ViewModel _viewModel;
+        private readonly UITableView _tableView;
         private const string CellIdentifier = "tableViewCell";
+        private float _defaultButtonHeight;
+        private float _defaultRowHeight;
         #endregion
 
         UIButton newReport;
         public ViewReportsTableSource(ViewReports_ViewModel viewModel, UITableView tableView)
         {
             _viewModel = viewModel;
+            _tableView = tableView;
+
+            _defaultButtonHeight = viewModel.RowHeight;
+            _defaultRowHeight = viewModel.RowHeight;
 
             try
             {
@@ -920,7 +927,7 @@
             // FixMe: until the TableView is loaded there is no content, so this footer appears near the top of the page.
             // Solution: move this back into the main View, and set the gravity so that it acts like a footer.
             newReport = new UIButton(UIButtonType.Custom);
-            newReport.Frame = new RectangleF(0, 0, ControlWidth(), ControlHeight());
+            //newReport.Frame = new RectangleF(0, 0, ControlWidth(), ControlHeight());
             newReport.SetTitle("New Report (tableView footer)", UIControlState.Normal);
             newReport.BackgroundColor = Common_iOS.viewBackgroundColor;
 
@@ -929,7 +936,7 @@
 
         public override float GetHeightForFooter(UITableView tableView, int section)
         {
-            float heightToReport = _doneButtonHeight;
+            float heightToReport = _defaultButtonHeight;
 
             return heightToReport;
         }

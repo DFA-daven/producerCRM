@@ -2,9 +2,7 @@
 
 namespace CallForm.iOS.ViewElements
 {
-    using CallForm.Core.Models;
     using CallForm.Core.ViewModels;
-    using CallForm.iOS.Views;
     using CallForm.iOS.Views;
     using MonoTouch.Foundation;
     using MonoTouch.MessageUI;
@@ -126,12 +124,16 @@ namespace CallForm.iOS.ViewElements
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;
         private const string CellIdentifier = "EmailTableCell";
-        private float _doneButtonHeight = 50f;
+        private float _defaultButtonHeight;
+        private float _defaultRowHeight;
 
         public EmailRecipientsTableSource(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
             _viewModel = viewModel;
             _source = source;
+
+            _defaultButtonHeight = viewModel.RowHeight;
+            _defaultRowHeight = viewModel.RowHeight;
         }
 
         #region overrides
@@ -158,10 +160,10 @@ namespace CallForm.iOS.ViewElements
             //doneButton.TouchUpInside += (sender, args) => { Invoke(_source.SafeDismissPopover, 0); };
             //doneButton.TouchUpInside += (sender, args) => { InvokeOnMainThread(() => {Dism})
 
-            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, _doneButtonHeight);
+            doneButton.Frame = new RectangleF(0, 0, tableView.Frame.Width, _defaultButtonHeight);
 
             // Hack: hide Done button.
-            _doneButtonHeight = 0f;
+            _defaultButtonHeight = 0f;
             doneButton.Hidden = true;
 
             return doneButton;
@@ -196,7 +198,7 @@ namespace CallForm.iOS.ViewElements
 
         public override float GetHeightForFooter(UITableView tableView, int section)
         {
-            float heightToReport = _doneButtonHeight;
+            float heightToReport = _defaultButtonHeight;
 
             return heightToReport;
         }

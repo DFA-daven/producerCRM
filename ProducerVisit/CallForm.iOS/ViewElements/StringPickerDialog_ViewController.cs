@@ -3,7 +3,6 @@
 namespace CallForm.iOS.ViewElements
 {
     using CallForm.iOS.Views;
-    using MonoTouch.Foundation;
     using MonoTouch.UIKit;
     using System;
     using System.Collections.Generic;
@@ -83,7 +82,7 @@ namespace CallForm.iOS.ViewElements
                 SizeF size = _picker.Frame.Size;
 
                 // Hack: comment out to hide doneButton
-                //size.Height = _picker.Frame.Size.Height + _doneButtonHeight;
+                //size.Height = _picker.Frame.Size.Height + _defaultButtonHeight;
 
                 return size;
             }

@@ -41,6 +41,8 @@
         private bool _loading;
         private ReportListItem _selectedReport;
         private MvxCommand _viewReportCommand;
+        /// <summary>Store for the <c>RowHeight</c> property.</summary>
+        private float _rowHeight;
         #endregion
 
         /// <summary>Runs before this view Overlays <see cref="UserIdentity_ViewModel"/> if no identity exists.
@@ -147,6 +149,16 @@
 
                 // FixMe: add proper error handling
                 Error(this, new ErrorEventArgs { Message = exc.Message });
+            }
+        }
+
+        public float RowHeight
+        {
+            get { return _rowHeight; }
+            set
+            {
+                _rowHeight = value;
+                RaisePropertyChanged(() => RowHeight);
             }
         }
 
