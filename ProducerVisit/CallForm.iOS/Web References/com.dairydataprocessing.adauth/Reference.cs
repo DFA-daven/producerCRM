@@ -14,20 +14,19 @@
 #pragma warning disable 1591
 
 namespace CallForm.iOS.com.dairydataprocessing.adauth {
-    using System;
-    using System.Web.Services;
-    using System.Diagnostics;
-    using System.Web.Services.Protocols;
-    using System.Xml.Serialization;
-    using System.ComponentModel;
-    
-    
+    using System.CodeDom.Compiler;          // GeneratedCodeAttribute
+    using System.ComponentModel;            // DesignerCategoryAttribute
+    using System.Diagnostics;               // DebuggerStepThroughAttribute
+    using System.Web.Services;              // WebServiceBindingAttribute
+    using System.Web.Services.Protocols;    // SoapHttpClientProtocol
+
+
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="ActiveDirectoryAuthSoap", Namespace="http://dairylea/webservices/")]
-    public partial class ActiveDirectoryAuth : System.Web.Services.Protocols.SoapHttpClientProtocol {
+    [GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [DebuggerStepThroughAttribute()] 
+    [DesignerCategoryAttribute("code")] 
+    [WebServiceBindingAttribute(Name = "ActiveDirectoryAuthSoap", Namespace = "http://dairylea/webservices/")] 
+    public partial class ActiveDirectoryAuth : SoapHttpClientProtocol {
         
         private System.Threading.SendOrPostCallback SetServerOperationCompleted;
         

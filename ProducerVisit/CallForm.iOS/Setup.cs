@@ -62,7 +62,7 @@ namespace CallForm.iOS
             if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {
                 Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                Common_iOS.DebugMessage("  [Setup][S] > ViewModelType is NewVisit_ViewModel.");
+                Common_iOS.DebugMessage("  [Setup][S] > ViewModelType is NewVisit_ViewModel. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 
                 if (MasterNavigationController.TopViewController is NewVisit_View)
                 {
@@ -70,21 +70,20 @@ namespace CallForm.iOS
                     Common_iOS.DebugMessage("  [Setup][S] > about to 'PopViewController' NewVisit_ViewModel.");
 
                     MasterNavigationController.PopViewControllerAnimated(false);
-                    Common_iOS.DebugMessage("  [Setup][S] > NewVisit_ViewModel has been popped.");
+                    Common_iOS.DebugMessage("  [Setup][S] > NewVisit_ViewModel has been popped. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
                 }
             }
 
-            if (view.Request.ViewModelType == typeof(UserIdentity_View))
-            //if (view.Request.ViewModelType == typeof(UserIdentity_ViewModel))
+            if ((view.Request.ViewModelType == typeof(UserIdentity_ViewModel)) || (view.Request.ViewModelType == typeof(UserIdentity_View)))
             {
                 // ToDo: hide status bar (and the 'back' button)
                 Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                Common_iOS.DebugMessage("  [Setup][S] > ToDo - hide status bar (and the 'back' button).");
+            if ((view.Request.ViewModelType == typeof(UserIdentity_ViewModel)) || (view.Request.ViewModelType == typeof(UserIdentity_View)))
+                Common_iOS.DebugMessage("  [Setup][S] > ToDo - hide status bar (and the 'back' button) on UserIdentity_View. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
                 //MasterNavigationController.SetNavigationBarHidden(true, false);
             }
 
-            if (view.Request.ViewModelType == typeof(ViewReports_View))
-            //if (view.Request.ViewModelType == typeof(ViewReports_ViewModel))
+            if ((view.Request.ViewModelType == typeof(ViewReports_ViewModel)) || (view.Request.ViewModelType == typeof(ViewReports_View)))
             {
                 Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
                 Common_iOS.DebugMessage("  [Setup][S] > ViewReports_View is the TopViewController. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
