@@ -289,6 +289,7 @@ namespace CallForm.iOS.Views
         public override void ViewDidLayoutSubviews()
         {
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            View.BackgroundColor = Common_iOS.viewBackgroundColor;
 
             #region colorize subviews
             UIView[] subviews = new UIView[] { };
@@ -323,10 +324,10 @@ namespace CallForm.iOS.Views
             int colorJIndex = 0;
             int colorKIndex = 0;
 
-            // The _table is in the foreground -- color the (undefined) space **behind** the controls.
+            // The _table is in the foreground -- this color is the (undefined) space **behind** the controls.
             // Drag the entire page up or down to see the BackgroundColor.
             //_table.BackgroundColor = UIColor.Orange;
-            //View.BackgroundColor = UIColor.Brown;
+            View.BackgroundColor = UIColor.Brown;
 
             // +++++
             subviews = View.Subviews;

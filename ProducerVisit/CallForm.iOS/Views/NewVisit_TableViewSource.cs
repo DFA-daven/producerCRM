@@ -221,7 +221,7 @@
 
             #region callType
             _callTypeCell = new UITableViewCell(UITableViewCellStyle.Value1, "callType");
-            _callTypeCell.TextLabel.Text = "Call Type";
+            _callTypeCell.TextLabel.Text = "Contact Type";
             _callTypeCell.DetailTextLabel.Text = _viewModel.SelectedCallType;
             _callTypeCell.DetailTextLabel.TextColor = UIColor.Black;
             #endregion
