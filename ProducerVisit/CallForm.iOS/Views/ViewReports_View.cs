@@ -90,6 +90,13 @@
         /// <summary>Store for the logo property.</summary>
         private UIView _logoView;
 
+        /// <summary>Store for the footer button property.</summary>
+        private UIButton _footerButton;
+        /// <summary>Store for the footer orientation property.</summary>
+        private LinearLayout _footerLinearLayout;
+        /// <summary>Store for the footer property.</summary>
+        private UIView _footerView;
+
         /// <summary>Store for the search filter property.</summary>
         private UITextField _filterField;
         /// <summary>Store for the button property.</summary>
@@ -227,6 +234,16 @@
             Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdl] > starting method...");
 
+            if (!IsOS7OrLater)
+            {
+                string message = "  [vr_v][vr_v] > This App requires iOS 7 or higher.";
+                Console.WriteLine(message);
+                //InvokeOnMainThread(() => { new UIAlertView("Wrong iOS version", message, null, "OK").Show(); });
+
+                // Review: pick one: 1. P/Invoke exit(); 2. NSThread.Exit(); 3. throwing an exception; 4. terminateWithSuccess
+                // NSThread.Exit();
+            }
+
             #region pageLayout
             float topMargin = 0;
 
@@ -235,7 +252,6 @@
             // as a navigation bar with a back button.
             topMargin = StatusBarHeight() + NavBarHeight();
             Common_iOS.DebugMessage("  [vr_v][vdl] > topMargin = " + topMargin.ToString() + " < <======= ");
-
 
             #region logo
             #region logoButton
@@ -332,6 +348,44 @@
             //tableView.BackgroundColor = UIColor.Clear; // this allows the View.BackgroundColor to be visible
             #endregion table
 
+            #region footer
+            #region footerButton
+            var footerButton = _footerButton = new UIButton(UIButtonType.Custom);
+            footerButton.Frame = new RectangleF(0, 0, MaxBannerWidth(), MaxBannerHeight());
+            footerButton.SetTitle("DFA & DMS", UIControlState.Normal);
+            footerButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
+            footerButton.BackgroundColor = UIColor.Yellow;
+            #endregion footerButton
+
+            #region footerLayout
+            var footerLayout = _footerLinearLayout = new LinearLayout(Orientation.Vertical)
+            {
+                Gravity = Gravity.BottomCenter,
+                SubViews = new View[]
+                {
+                    new NativeView
+                    {
+                        View = footerButton,
+                        LayoutParameters = new LayoutParameters()
+                        {
+                            Gravity = Gravity.Top,
+                        }
+                    }
+                }
+            };
+            #endregion footerLayout
+
+            #region footerView
+            var footerView = _footerView = new UIView();
+            footerView = new UILayoutHost(footerLayout)
+            {
+                BackgroundColor = UIColor.White,
+            };
+
+            footerView.SizeToFit();
+            #endregion footerView
+            #endregion footer
+
             #region loading
             var loading = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
             loading.Center = View.Center;
@@ -342,7 +396,8 @@
 
             #endregion layout
 
-            // Note: the order that Views are added determines their position in front of (or behind) other Views.
+            // Note: most of these view elements don't have a layout/gravity, 
+            // so the order that Views are added determines their position in front of (or behind) other Views.
             // the buttons must have some off-set that is causing a gap.
 
             View.BackgroundColor = Common_iOS.viewBackgroundColor;
@@ -350,14 +405,18 @@
     View.BackgroundColor = UIColor.Orange;
 #endif
             View.Add(logoButton);
-            //View.Add(logoView);
             //View.Add(logoLayout);
+            //View.Add(logoView);
 
             View.Add(findButton);
             View.Add(filterField);
             View.Add(newButton);
 
             View.Add(tableView);
+
+            //View.Add(footerButton);
+            //View.Add(footerLayout);
+            //View.Add(footerView);
 
             View.Add(loading);
             View.Add(loadingOverlay);
@@ -1016,7 +1075,7 @@
             newReport = new UIButton(UIButtonType.Custom);
             //newReport.Frame = new RectangleF(0, 0, ControlWidth(), ControlHeight());
             newReport.SetTitle("New Report (tableView footer)", UIControlState.Normal);
-            newReport.BackgroundColor = Common_iOS.viewBackgroundColor;
+            newReport.BackgroundColor = Common_iOS.controlBackgroundColor;
 
             return newReport;
         }
