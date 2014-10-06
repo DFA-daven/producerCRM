@@ -58,11 +58,9 @@
             Common_iOS.DebugMessage("  [ui_v][vdl] > starting method...");
 
             NavigationItem.SetHidesBackButton(true, false);
+            var statusBarHidden = UIApplication.SharedApplication.StatusBarHidden;
 
             //InvokeOnMainThread(() => { new UIAlertView("starting method...", MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name, null, "OK").Show(); });
-
-            float space = percentHeight(5);
-            //space = 
 
             #region controls
             // instructions for the inputs
@@ -117,10 +115,15 @@
             #endregion controls
 
             #region file status layout
+            float shortButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 3f), 0);
+
+            float minHeightSpace = Math.Min(percentHeight(5), shortButtonHeight);
+            float maxHeightSpace = Math.Max(percentHeight(5), shortButtonHeight);
+
             var fileStatusLayout = new LinearLayout(Orientation.Horizontal)
             {
                 Gravity = Gravity.TopCenter,
-                Spacing = space,
+                Spacing = shortButtonHeight,
                 SubViews = new View[]
                 {
                     new NativeView
@@ -129,7 +132,7 @@
                         LayoutParameters = new LayoutParameters()
                         {
                             Width = percentWidth(10),
-                            Height = space,
+                            Height = shortButtonHeight,
                             Weight = 3,
 
                             Gravity = Gravity.TopCenter ,
@@ -141,7 +144,7 @@
                         LayoutParameters = new LayoutParameters()
                         {
                             Width = percentWidth(10),
-                            Height = space,
+                            Height = shortButtonHeight,
                             Weight = 2,
 
                             Gravity = Gravity.TopCenter ,
@@ -153,7 +156,7 @@
                         LayoutParameters = new LayoutParameters()
                         {
                             Width = percentWidth(10),
-                            Height = space,
+                            Height = shortButtonHeight,
                             Weight = 1,
 
                             Gravity = Gravity.TopCenter ,
@@ -162,9 +165,9 @@
                 },
                 LayoutParameters = new LayoutParameters()
                 {
-                    Height = space + space,
+                    Height = minHeightSpace + minHeightSpace,
                     Gravity = Gravity.TopCenter,
-                    MaxHeight = space + space + space,
+                    MaxHeight = minHeightSpace + minHeightSpace + minHeightSpace,
                 }
             };
 
@@ -184,7 +187,7 @@
             {
                 Gravity = Gravity.TopCenter,
                 Padding = new UIEdgeInsets(4, 6, 4, 6),
-                Spacing = space,
+                Spacing = minHeightSpace,
                 SubViews = new View[]
                 {
                     // this "view" pushes the others down the page
@@ -196,8 +199,8 @@
                         },
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = space,
-                            Height = percentHeight(2.5),
+                            Width = minHeightSpace,
+                            Height = minHeightSpace,
                             Weight = 7,
 
                             Gravity = Gravity.TopCenter,
@@ -212,7 +215,7 @@
                         {
                             //Width = fileStatusView.Frame.Width,
                             Width = AutoSize.FillParent,
-                            Height = space + space,
+                            Height = minHeightSpace + minHeightSpace,
                             Weight = 6,
 
                             Gravity = Gravity.TopCenter ,

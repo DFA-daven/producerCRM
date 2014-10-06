@@ -105,18 +105,24 @@ namespace CallForm.iOS.Views
         }
         #endregion
 
-        UIBarButtonItem cancelBBI;
+        UIBarButtonItem trashBBI;
         public NewVisit_View()
         {
-            #region UIBarButtonItem Refresh
-            // this works b/c of the line: set.Bind(cancelBBI).To(vm => vm.GetReportsCommand);
-            cancelBBI = new UIBarButtonItem(UIBarButtonSystemItem.Cancel , (sender, e) =>
+            #region UIBarButtonItem Trash
+            // ToDo: check if this record can be deleted
+            bool recordCanBeDeleted = true;
+            if (Editing)
             {
-                string message = "  [nv_v][nv_v] > Cancel (New Visit report) clicked.";
-                Console.WriteLine(message);
-            });
+                trashBBI = new UIBarButtonItem(UIBarButtonSystemItem.Trash  , (sender, e) =>
+                {
+                    string message = "  [nv_v][nv_v] > 'Trash' (New Visit report) clicked.";
+                    Console.WriteLine(message);
+                });
 
-            NavigationItem.SetRightBarButtonItem(cancelBBI, false);
+                trashBBI.Enabled = recordCanBeDeleted;
+
+                NavigationItem.SetRightBarButtonItem(trashBBI, false);
+            }
             #endregion
 
             try
