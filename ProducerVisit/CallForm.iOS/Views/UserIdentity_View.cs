@@ -45,6 +45,11 @@
         }
         #endregion
 
+        public UserIdentity_View()
+        {
+            //NavBarHeight = FindNavBarHeight();
+        }
+
         #region overrides
         #pragma warning disable 1591
         public override void ViewDidLoad()
@@ -52,16 +57,19 @@
             Common_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [ui_v][vdl] > starting method...");
 
+            NavigationItem.SetHidesBackButton(true, false);
+
             //InvokeOnMainThread(() => { new UIAlertView("starting method...", MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name, null, "OK").Show(); });
 
-            float space = 20;
+            float space = percentHeight(5);
+            //space = 
 
             #region controls
             // instructions for the inputs
             var instructions = new UILabel
             {
                 //Font = UIFont.SystemFontOfSize(UIFont.LabelFontSize * 1.1f),
-                Text = "Please Enter Your Email Address and Asset Tag (if any)",
+                Text = "Please enter your Email Address and Asset Tag (if any).",
                 TextColor = UIColor.White,
                 BackgroundColor = Common_iOS.viewBackgroundColor,
             };
@@ -69,7 +77,7 @@
             // the email address field
             var email = new UITextField
             {
-                Placeholder = "type email address here...",
+                Placeholder = "example@dfamilk.com",
                 BackgroundColor = Common_iOS.controlBackgroundColor,
                 KeyboardType = UIKeyboardType.EmailAddress,
             };
@@ -77,7 +85,7 @@
             // asset tag field
             var assetTag = new UITextField
             {
-                Placeholder = "enter asset tag information here...",
+                Placeholder = "check back of device",
                 BackgroundColor = Common_iOS.controlBackgroundColor,
                 KeyboardType = UIKeyboardType.Default,
             };
@@ -92,29 +100,27 @@
             
             #region files
             var file1 = new UIButton(UIButtonType.System);
-            file1.SetTitle("CallType", UIControlState.Normal);
-            file1.SetTitle("CallType", UIControlState.Disabled);
+            file1.SetTitle("Call", UIControlState.Normal);
+            file1.SetTitle("Call", UIControlState.Disabled);
             file1.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
 
             var file2 = new UIButton(UIButtonType.System);
-            file2.SetTitle("EmailRecipient", UIControlState.Normal);
-            file2.SetTitle("EmailRecipient", UIControlState.Disabled);
+            file2.SetTitle("Email", UIControlState.Normal);
+            file2.SetTitle("Email", UIControlState.Disabled);
             file2.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
 
             var file3 = new UIButton(UIButtonType.System);
-            file3.SetTitle("ReasonCode", UIControlState.Normal);
-            file3.SetTitle("ReasonCode", UIControlState.Disabled);
+            file3.SetTitle("Reason", UIControlState.Normal);
+            file3.SetTitle("Reason", UIControlState.Disabled);
             file3.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
             #endregion files
             #endregion controls
 
-
-
-            #region file status
+            #region file status layout
             var fileStatusLayout = new LinearLayout(Orientation.Horizontal)
             {
                 Gravity = Gravity.TopCenter,
-                Spacing = space, 
+                Spacing = space,
                 SubViews = new View[]
                 {
                     new NativeView
@@ -167,6 +173,7 @@
             fileStatusView = new UILayoutHost(fileStatusLayout)
             {
                 //BackgroundColor = UIColor.LightGray, 
+                BackgroundColor = Common_iOS.controlBackgroundColor,
             };
 
             //fileStatusView.SizeToFit();   // tightly enclose the sub-views
@@ -176,6 +183,7 @@
             var pageLayout = new LinearLayout(Orientation.Vertical)
             {
                 Gravity = Gravity.TopCenter,
+                Padding = new UIEdgeInsets(4, 6, 4, 6),
                 Spacing = space,
                 SubViews = new View[]
                 {
@@ -189,19 +197,21 @@
                         LayoutParameters = new LayoutParameters()
                         {
                             Width = space,
-                            Height = percentHeight(5),
+                            Height = percentHeight(2.5),
                             Weight = 7,
 
                             Gravity = Gravity.TopCenter,
                         }
                     },
 
+// ToDo: remove for production
                     new NativeView
                     {
                         View = fileStatusView,
                         LayoutParameters = new LayoutParameters()
                         {
                             //Width = fileStatusView.Frame.Width,
+                            Width = AutoSize.FillParent,
                             Height = space + space,
                             Weight = 6,
 
@@ -209,13 +219,15 @@
                         },
                     },
 
+
                     new NativeView
                     {
                         View = instructions,
                         LayoutParameters = new LayoutParameters()
                         {
-                            //Width = AutoSize.WrapContent,  
-                            //Height = AutoSize.WrapContent,
+                            Width = AutoSize.FillParent,  
+                            MaxHeight = percentHeight(15),
+                            MinHeight = percentHeight(7.5),
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = View.Frame.Width * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
@@ -374,6 +386,13 @@
         }
         #pragma warning restore 1591
         #endregion overrides
+
+        private static float _navBarHeight = 0f;
+        public static float NavBarHeight
+        {
+            get { return _navBarHeight; }
+            set { _navBarHeight = value; }
+        }
 
         private float screenWidth()
         {
