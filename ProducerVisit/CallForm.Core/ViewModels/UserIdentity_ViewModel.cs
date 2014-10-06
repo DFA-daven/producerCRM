@@ -62,6 +62,13 @@
             }
         }
 
+        /// <summary>Value for this View's Title.
+        /// </summary>
+        public string Title
+        {
+            get { return "User Settings"; }
+        }
+
         public event EventHandler<ErrorEventArgs> Error;
 
         #region Save
@@ -85,7 +92,7 @@
         {
             if (string.IsNullOrEmpty(UserEmail))
             {
-                Error(this, new ErrorEventArgs { Message = "You must enter your email address" });
+                Error(this, new ErrorEventArgs { Message = "You must enter your email address." });
             }
             // ToDo: add check to validate email address
             else
