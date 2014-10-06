@@ -8,6 +8,7 @@ using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.Touch.Platform;
 using System.Diagnostics;
 using System.Reflection;
+using System;
 
 namespace CallForm.iOS
 {
@@ -24,7 +25,7 @@ namespace CallForm.iOS
 
 	    protected override IMvxTouchViewPresenter CreatePresenter()
         {
-            return new MvxProducerVisitTouchViewPresenter(ApplicationDelegate, Window);
+            return new MvxProducerVisit_TouchViewPresenter(ApplicationDelegate, Window);
 	    }
 
         /// <summary>Creates a new instance of the App.
@@ -32,9 +33,8 @@ namespace CallForm.iOS
         /// <returns></returns>
 	    protected override IMvxApplication CreateApp ()
 		{
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common_iOS.DebugMessage("  [Setup][CA] > return new Core.App().");
-
+            Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
+            Console.WriteLine("  [Setup][CA] > return new Core.App(). < SETUP SETUP SETUP SETUP SETUP SETUP");
 			return new Core.App();
 		}
 		
@@ -45,12 +45,14 @@ namespace CallForm.iOS
         //}
 	}
 
-    public class MvxProducerVisitTouchViewPresenter : MvxTouchViewPresenter
+    public class MvxProducerVisit_TouchViewPresenter : MvxTouchViewPresenter
     {
         string _nameSpace = "CallForm.iOS.";
 
-        public MvxProducerVisitTouchViewPresenter(UIApplicationDelegate applicationDelegate, UIWindow window) : base(applicationDelegate, window)
+        public MvxProducerVisit_TouchViewPresenter(UIApplicationDelegate applicationDelegate, UIWindow window) : base(applicationDelegate, window)
         {
+            Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
+            Console.WriteLine("  [Setup][mpv_tvp] > New instance of MvxProducerVisit_TouchViewPresenter created. < SETUP SETUP SETUP SETUP SETUP SETUP");
         }
 
         /// <summary>Show the view (but if it's <see cref="NewVisit_View"/> turn animation off).
@@ -58,39 +60,34 @@ namespace CallForm.iOS
         /// <param name="view">The view to be displayed.</param>
         public override void Show(IMvxTouchView view)
         {
-
             if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {
-                Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                Common_iOS.DebugMessage("  [Setup][S] > ViewModelType is NewVisit_ViewModel. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
+                Console.WriteLine("  [Setup][mpv_tvp][S] > the View requested NewVisit_ViewModel. < SETUP SETUP SETUP SETUP SETUP SETUP");
 
                 if (MasterNavigationController.TopViewController is NewVisit_View)
                 {
-                    Common_iOS.DebugMessage("  [Setup][S] > NewVisit_ViewModel is the TopViewController.");
-                    Common_iOS.DebugMessage("  [Setup][S] > about to 'PopViewController' NewVisit_ViewModel.");
+                    Console.WriteLine("  [Setup][mpv_tvp][S] > NewVisit_ViewModel is the TopViewController. < SETUP SETUP SETUP SETUP SETUP SETUP");
+                    Console.WriteLine("  [Setup][mpv_tvp][S] > about to 'PopViewController' NewVisit_ViewModel. < SETUP SETUP SETUP SETUP SETUP SETUP");
 
                     MasterNavigationController.PopViewControllerAnimated(false);
-                    Common_iOS.DebugMessage("  [Setup][S] > NewVisit_ViewModel has been popped. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                    Console.WriteLine("  [Setup][mpv_tvp][S] > NewVisit_ViewModel has been popped. < SETUP SETUP SETUP SETUP SETUP SETUP");
                 }
             }
-
-            if ((view.Request.ViewModelType == typeof(UserIdentity_ViewModel)) || (view.Request.ViewModelType == typeof(UserIdentity_View)))
+            else if (view.Request.ViewModelType == typeof(UserIdentity_ViewModel))
             {
-                // ToDo: hide status bar (and the 'back' button)
-                Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            if ((view.Request.ViewModelType == typeof(UserIdentity_ViewModel)) || (view.Request.ViewModelType == typeof(UserIdentity_View)))
-                Common_iOS.DebugMessage("  [Setup][S] > ToDo - hide status bar (and the 'back' button) on UserIdentity_View. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-                //MasterNavigationController.SetNavigationBarHidden(true, false);
+                Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
+                Console.WriteLine("  [Setup][mpv_tvp][S] > the View requested UserIdentity_ViewModel. < SETUP SETUP SETUP SETUP SETUP SETUP");
             }
-
-            if ((view.Request.ViewModelType == typeof(ViewReports_ViewModel)) || (view.Request.ViewModelType == typeof(ViewReports_View)))
+            else if ((view.Request.ViewModelType == typeof(ViewReports_ViewModel)))
             {
-                Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-                Common_iOS.DebugMessage("  [Setup][S] > ViewReports_View is the TopViewController. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-
-                //MasterNavigationController.SetNavigationBarHidden(false, false);
-
-                //Common_iOS.DebugMessage("  [Setup][S] > ToDo - hide status bar (and the 'back' button).");
+                Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
+                Console.WriteLine("  [Setup][mpv_tvp][S] > the View requested ViewReports_ViewModel. < SETUP SETUP SETUP SETUP SETUP SETUP");
+            }
+            else
+            {
+                Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
+                Console.WriteLine("  [Setup][mpv_tvp][S] > the View requested an 'unknown' (new?) ViewModel type. < SETUP SETUP SETUP SETUP SETUP SETUP");
             }
 
             base.Show(view);
