@@ -449,7 +449,7 @@ namespace CallForm.iOS.Views
             float displacement_y = 0f;
             float bottomGuide = 0f;
 
-            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IsOS7OrLater...");
+            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IOSVersionOK...");
             if (IsOS7OrLater)
             {
                 displacement_y = this.TopLayoutGuide.Length;
@@ -832,7 +832,7 @@ namespace CallForm.iOS.Views
                     throw new ArgumentOutOfRangeException("ViewFrameHeight");
             }
 
-            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IsOS7OrLater...");
+            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IOSVersionOK...");
             Common_iOS.DebugMessage("  [nv_v][vfh] > iOS 7 = " + IsOS7OrLater.ToString() + " > ViewFrameHeight(): " + viewFrameHeight.ToString());
 
             return viewFrameHeight;
@@ -850,7 +850,7 @@ namespace CallForm.iOS.Views
             if (View.Frame.Height < 1)
             {
                 Common_iOS.DebugMessage("  [nv_v][tm] > View not ready. Using hard-coded value. < #####");
-                Common_iOS.DebugMessage("  [nv_v][vdls] > Using IsOS7OrLater...");
+                Common_iOS.DebugMessage("  [nv_v][vdls] > Using IOSVersionOK...");
                 if (IsOS7OrLater)
                 {
                     topMargin = 20f;
@@ -912,7 +912,7 @@ namespace CallForm.iOS.Views
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             float navbarHeight = 44f;
 
-            // Note: can't check IsOS7OrLater here
+            // Note: can't check IOSVersionOK here
             try
             {
                 if ((bool)_isOS7OrLater)
@@ -945,7 +945,7 @@ namespace CallForm.iOS.Views
             //if (View.Frame.Height < 1)
             //{
             //    Common_iOS.DebugMessage("  [nv_v][nbh] > View not ready... ");
-            //    if (IsOS7OrLater)
+            //    if (IOSVersionOK)
             //    {
             //        return 44f;
             //    }
@@ -970,7 +970,7 @@ namespace CallForm.iOS.Views
             //    return navbarHeight;
             //}
 
-            //if (IsOS7OrLater)
+            //if (IOSVersionOK)
             //{
             //    Common_iOS.DebugMessage("  [nv_v][nbh] > IsMinimumiOS6() = true, navbarHeight = " + navbarHeight.ToString() + " < = = = " );
             //    navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
@@ -1032,7 +1032,7 @@ namespace CallForm.iOS.Views
 
                 Common_iOS.DebugMessage("  [nv_v][i7ol] > major version: " + major + ". Version is higher than 6 = " + thisIsOS7.ToString() + " <  ");
 
-                //_isOS7OrLater = thisIsOS7;
+                //_iOSVersionOK = thisIsOS7;
             }
             else
             {

@@ -40,6 +40,13 @@
             set { _isOS7OrLater = value; }
         }
 
+        private bool _isOS8OrLater;
+        public bool IsOS8OrLater
+        {
+            get { return _isOS8OrLater; }
+            set { _isOS8OrLater = value; }
+        }
+
         /// <summary>Store for the <c>ButtonHeight</c> property.</summary>
         private float _buttonHeight = 0f;
         public float ButtonHeight
@@ -150,11 +157,14 @@
         UIBarButtonItem newBBI;
         public ViewReports_View()
         {
-            IsOS7OrLater = Common_iOS.IsMinimumiOS7();
+            IsOS7OrLater = Common_iOS.IsMinimumOS7;
+            IsOS8OrLater = Common_iOS.IsMinimumiOS8();
+            //NavBarHeight = FindNavBarHeight();
+            //ViewFrameHeight = FindViewFrameHeight();
 
             // FixMe: hard-coded values -- calculate these from the screen dimensions?
-            ButtonHeight = 50f;
-            RowHeight = 50f;
+            ButtonHeight = 44f;
+            RowHeight = 44f;
 
             #region UIRefreshControl
             //// alternate older-style
@@ -234,10 +244,12 @@
             Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdl] > starting method...");
 
-            if (!IsOS7OrLater)
+            if (!IsOS8OrLater)
             {
-                string message = "  [vr_v][vr_v] > This App requires iOS 7 or higher.";
+                string message = "  [vr_v][vr_v] > This App requires iOS 8 or higher.";
                 Console.WriteLine(message);
+                Common_iOS.DebugMessage("##################### Halt app. ####################################################");
+
                 //InvokeOnMainThread(() => { new UIAlertView("Wrong iOS version", message, null, "OK").Show(); });
 
                 // Review: pick one: 1. P/Invoke exit(); 2. NSThread.Exit(); 3. throwing an exception; 4. terminateWithSuccess
@@ -250,7 +262,7 @@
             // Note: The Navigation Controller is a UI-less View Controller responsible for
             // managing a stack of View Controllers and provides tools for navigation, such 
             // as a navigation bar with a back button.
-            topMargin = StatusBarHeight() + NavBarHeight();
+            topMargin = StatusBarHeight() + NavBarHeight;
             Common_iOS.DebugMessage("  [vr_v][vdl] > topMargin = " + topMargin.ToString() + " < <======= ");
 
             #region logo
@@ -479,7 +491,10 @@
             set.Apply();
 
             #region UI action
+            // Note: resigning the first responder automatically dismisses the keyboard (if displayed)
             findButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
+            logoButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
+            refreshBBI.Clicked += (sender, args) => { filterField.ResignFirstResponder(); };
 
             filterField.ShouldReturn = delegate
             {
@@ -594,6 +609,7 @@
             base.ViewDidAppear(animated);
             (ViewModel as ViewReports_ViewModel).UploadReports();
             (ViewModel as ViewReports_ViewModel).Loading = false;
+            (ViewModel as ViewReports_ViewModel).IOSVersionOK = false;
         }
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
@@ -608,10 +624,16 @@
         #pragma warning restore 1591
         #endregion overrides
 
+        private static float _viewFrameHeight = 0f;
+        public static float ViewFrameHeight
+        {
+            get { return _viewFrameHeight; }
+            set { _viewFrameHeight = value; }
+        }
         /// <summary>The value of the device's screen.
         /// </summary>
         /// <returns>The screen value measured in points.</returns>
-        internal float ViewFrameHeight()
+        internal float FindViewFrameHeight()
         {
             float viewFrameHeight = 0;
             //viewFrameHeight = UIScreen.MainScreen.Bounds.Height;
@@ -632,7 +654,7 @@
                 default:
                     throw new ArgumentOutOfRangeException("ViewFrameHeight");
             }
-            
+
             return viewFrameHeight;
         }
 
@@ -929,24 +951,29 @@
             view.Frame = frame;
         }
 
-        private float NavBarHeight()
+        private static float _navBarHeight = 0f;
+        public static float NavBarHeight
+        {
+            get { return _navBarHeight; }
+            set { _navBarHeight = value; }
+        }
+        private float FindNavBarHeight()
         {
             float screenHeight = UIScreen.MainScreen.Bounds.Height;
             float layoutHeight = 0f;
             float navbarHeight = 0f;
 
-            layoutHeight = this.ViewFrameHeight(); 
+            layoutHeight = ViewFrameHeight;
             navbarHeight = screenHeight - layoutHeight;
 
             Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common_iOS.DebugMessage("  [vr_v][nbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
+            Common_iOS.DebugMessage("  [common_iOS][fnbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
 
             if (Common_iOS.IsMinimumOS7)
             {
                 navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
                 layoutHeight = this.BottomLayoutGuide.Length - this.TopLayoutGuide.Length;
-                Common_iOS.DebugMessage("  [vr_v][nbh] > iOS 7 topMarginHeight: " + navbarHeight.ToString() + ", iOS7 layoutHeight = " + layoutHeight.ToString() + " <======= ");
-
+                Common_iOS.DebugMessage("  [common_iOS][fnbh] > iOS 7 topMarginHeight: " + navbarHeight.ToString() + ", iOS7 layoutHeight = " + layoutHeight.ToString() + " <======= ");
             }
 
             return navbarHeight;
@@ -976,6 +1003,7 @@
         private readonly ViewReports_ViewModel _viewModel;
         private readonly UITableView _tableView;
         private const string CellIdentifier = "tableViewCell";
+        private const string FooterIdentifier = "tableViewFooter";
 
         private bool _isOS7OrLater;
         public bool IsOS7OrLater
@@ -1010,7 +1038,7 @@
         #endregion
         #endregion
 
-        UIButton newReport;
+        UIButton newReportButtonTableView;
         public ViewReports_TableViewSource(ViewReports_ViewModel viewModel, UITableView tableView)
         {
             _viewModel = viewModel;
@@ -1072,12 +1100,12 @@
         {
             // FixMe: until the TableView is loaded there is no content, so this footer appears near the top of the page.
             // Solution: move this back into the main View, and set the gravity so that it acts like a footer.
-            newReport = new UIButton(UIButtonType.Custom);
-            //newReport.Frame = new RectangleF(0, 0, ControlWidth(), ControlHeight());
-            newReport.SetTitle("New Report (tableView footer)", UIControlState.Normal);
-            newReport.BackgroundColor = Common_iOS.controlBackgroundColor;
+            newReportButtonTableView = new UIButton(UIButtonType.Custom);
+            //newReportButtonTableView.Frame = new RectangleF(0, 0, ControlWidth(), ControlHeight());
+            newReportButtonTableView.SetTitle("New Report (tableView footer)", UIControlState.Normal);
+            newReportButtonTableView.BackgroundColor = Common_iOS.controlBackgroundColor;
 
-            return newReport;
+            return newReportButtonTableView;
         }
 
         public override float GetHeightForFooter(UITableView tableView, int section)
@@ -1099,6 +1127,7 @@
         {
             TableViewCell cell = tableView.DequeueReusableCell(CellIdentifier) as TableViewCell ?? new TableViewCell();
 
+            Common_iOS.DebugMessage("  [vr_tvs][gc] > indexPath.Row = " + indexPath.Row.ToString() + ". < ++++++++ ++++++++");
             ReportListItem reportListItem = _viewModel.Reports[indexPath.Row];
 
             /*
