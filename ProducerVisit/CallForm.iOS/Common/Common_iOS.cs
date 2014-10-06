@@ -5,6 +5,7 @@ namespace CallForm.iOS
     using System.Diagnostics;
     using System.Drawing;
     using System.Linq.Expressions;
+    using System.Reflection;
     using System.Resources;
 
     /// <summary>Commonly used methods.
@@ -12,18 +13,45 @@ namespace CallForm.iOS
     /// <remarks>This class may be (partially) duplicated in other Projects.</remarks>
     public class Common_iOS
     {
-        private static bool _isOS6 = false;
-        public static bool IsMinimumOS6
-        {
-            get { return _isOS6; }
-            set { _isOS6 = value; }
-        }
+        // class-level declarations
+
+        string _nameSpace1 = "CallForm.";
+
+        /// <summary>Class name abbreviation
+        /// </summary>
+        string _cAbb = "[Common_iOS]";
 
         private static bool _isOS7 = false;
         public static bool IsMinimumOS7
         {
             get { return _isOS7; }
             set { _isOS7 = value; }
+        }
+
+        private static bool _isOS8 = false;
+        public static bool IsMinimumOS8
+        {
+            get { return _isOS8; }
+            set { _isOS8 = value; }
+        }
+
+        /// <summary>Is this device running at least iOS 8.x?
+        /// </summary>
+        /// <returns>True if this is OS majorVersion is greater than 8.</returns>
+        private static bool IsMinimumiOS(int minimumVersion)
+        {
+            bool minimumOS = false;
+            string version = UIDevice.CurrentDevice.SystemVersion;
+            string[] parts = version.Split('.');
+            string major = parts[0];
+            int majorVersion = SafeConvert(major, 0);
+
+            if (majorVersion >= minimumVersion)
+            {
+                minimumOS = true;
+            }
+
+            return minimumOS;
         }
 
         /// <summary>True if the App is running on an iPhone.
@@ -44,8 +72,8 @@ namespace CallForm.iOS
 
         public Common_iOS()
         {
-            IsMinimumOS6 = IsMinimumiOS6();
-            IsMinimumOS7 = IsMinimumiOS7();
+            IsMinimumOS7 = IsMinimumiOS(7);
+            IsMinimumOS8 = IsMinimumiOS(8);
         }
 
         /// <summary>Use for the background of controls: 230, 230, 255
@@ -55,47 +83,6 @@ namespace CallForm.iOS
         /// <summary>Use for the background of views: 200, 200, 255
         /// </summary>
         public static UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
-
-
-        /// <summary>Is this device running at least iOS 6.x?
-        /// </summary>
-        /// <returns>True if this is OS majorVersion is greater than 6.</returns>
-        public static bool IsMinimumiOS6()
-        {
-            int minimumVersion = 5;
-            bool minimumOS = false;
-            string version = UIDevice.CurrentDevice.SystemVersion;
-            string[] parts = version.Split('.');
-            string major = parts[0];
-            int majorVersion = SafeConvert(major, 0);
-
-            if (majorVersion > minimumVersion)
-            {
-                minimumOS = true;
-            }
-
-            return minimumOS;
-        }
-
-        /// <summary>Is this device running at least iOS 7.x?
-        /// </summary>
-        /// <returns>True if this is OS majorVersion is greater than 7.</returns>
-        public static bool IsMinimumiOS7()
-        {
-            int minimumVersion = 6;
-            bool minimumOS = false;
-            string version = UIDevice.CurrentDevice.SystemVersion;
-            string[] parts = version.Split('.');
-            string major = parts[0];
-            int majorVersion = SafeConvert(major, 0);
-
-            if (majorVersion > minimumVersion)
-            {
-                minimumOS = true;
-            }
-
-            return minimumOS;
-        }
 
         // review: assigned but not used?
         //public static float topMarginPixels = 70;
