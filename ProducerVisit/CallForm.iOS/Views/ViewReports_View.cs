@@ -158,7 +158,7 @@
         public ViewReports_View()
         {
             IsOS7OrLater = Common_iOS.IsMinimumOS7;
-            IsOS8OrLater = Common_iOS.IsMinimumiOS8();
+            IsOS8OrLater = Common_iOS.IsMinimumOS8;
             //NavBarHeight = FindNavBarHeight();
             //ViewFrameHeight = FindViewFrameHeight();
 
@@ -362,6 +362,7 @@
 
             #region footer
             #region footerButton
+             how to get newReportButtonTableView working?
             var footerButton = _footerButton = new UIButton(UIButtonType.Custom);
             footerButton.Frame = new RectangleF(0, 0, MaxBannerWidth(), MaxBannerHeight());
             footerButton.SetTitle("DFA & DMS", UIControlState.Normal);
@@ -1057,6 +1058,11 @@
                             tableView.ReloadData();
                         }
                     };
+
+                //set.Bind(newReportButtonTableView).To(vm => vm.NewVisitCommand);
+            //findButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
+
+                newReportButtonTableView.TouchUpInside += (sender, args) => { (viewModel as ViewReports_ViewModel).NewVisitCommand; }
             }
             
             finally
