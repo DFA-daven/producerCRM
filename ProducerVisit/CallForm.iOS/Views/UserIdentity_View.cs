@@ -57,8 +57,14 @@
             Common_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [ui_v][vdl] > starting method...");
 
+            // Note: this took a while to find...
             NavigationItem.SetHidesBackButton(true, false);
-            var statusBarHidden = UIApplication.SharedApplication.StatusBarHidden;
+
+            // if there's already a Title, use it. Otherwise set it to "User Settings".
+            // ToDo: get the title from the ViewReports_View.
+            //NavigationItem.Title = NavigationItem.Title ?? appName;
+
+            //var statusBarHidden = UIApplication.SharedApplication.StatusBarHidden;
 
             //InvokeOnMainThread(() => { new UIAlertView("starting method...", MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name, null, "OK").Show(); });
 
@@ -69,7 +75,8 @@
                 //Font = UIFont.SystemFontOfSize(UIFont.LabelFontSize * 1.1f),
                 Text = "Please enter your Email Address and Asset Tag (if any).",
                 TextColor = UIColor.White,
-                BackgroundColor = Common_iOS.viewBackgroundColor,
+                //BackgroundColor = Common_iOS.viewBackgroundColor,
+                BackgroundColor = Common_iOS.controlBackgroundColor,
             };
 
             // the email address field
@@ -89,33 +96,37 @@
             };
 
             // ok button
-            var button = new UIButton(UIButtonType.System);
-            button.SetTitle("OK", UIControlState.Normal);
-            button.SetTitle("OK", UIControlState.Disabled);
-            button.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            //button.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleBottomMargin;
-            button.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
+            var okButton = new UIButton(UIButtonType.System);
+            okButton.SetTitle("OK", UIControlState.Normal);
+            okButton.SetTitle("OK", UIControlState.Disabled);
+            okButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            okButton.BackgroundColor = Common_iOS.controlBackgroundColor;
+            //okButton.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleBottomMargin;
+            okButton.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
             
             #region files
             var file1 = new UIButton(UIButtonType.System);
             file1.SetTitle("Call", UIControlState.Normal);
             file1.SetTitle("Call", UIControlState.Disabled);
             file1.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            file1.BackgroundColor = Common_iOS.controlBackgroundColor;
 
             var file2 = new UIButton(UIButtonType.System);
             file2.SetTitle("Email", UIControlState.Normal);
             file2.SetTitle("Email", UIControlState.Disabled);
             file2.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            file2.BackgroundColor = Common_iOS.controlBackgroundColor;
 
             var file3 = new UIButton(UIButtonType.System);
             file3.SetTitle("Reason", UIControlState.Normal);
             file3.SetTitle("Reason", UIControlState.Disabled);
             file3.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+            file3.BackgroundColor = Common_iOS.controlBackgroundColor;
             #endregion files
             #endregion controls
 
             #region file status layout
-            float shortButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 3f), 0);
+            float shortButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 2f), 0);
 
             float minHeightSpace = Math.Min(percentHeight(5), shortButtonHeight);
             float maxHeightSpace = Math.Max(percentHeight(5), shortButtonHeight);
@@ -123,7 +134,7 @@
             var fileStatusLayout = new LinearLayout(Orientation.Horizontal)
             {
                 Gravity = Gravity.TopCenter,
-                Spacing = shortButtonHeight,
+                Spacing = minHeightSpace,
                 SubViews = new View[]
                 {
                     new NativeView
@@ -143,7 +154,7 @@
                         View = file2,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = percentWidth(10),
+                            Width = percentWidth(15),
                             Height = shortButtonHeight,
                             Weight = 2,
 
@@ -176,7 +187,7 @@
             fileStatusView = new UILayoutHost(fileStatusLayout)
             {
                 //BackgroundColor = UIColor.LightGray, 
-                BackgroundColor = Common_iOS.controlBackgroundColor,
+                BackgroundColor = Common_iOS.viewBackgroundColor ,
             };
 
             //fileStatusView.SizeToFit();   // tightly enclose the sub-views
@@ -222,15 +233,15 @@
                         },
                     },
 
-
                     new NativeView
                     {
                         View = instructions,
                         LayoutParameters = new LayoutParameters()
                         {
                             Width = AutoSize.FillParent,  
-                            MaxHeight = percentHeight(15),
-                            MinHeight = percentHeight(7.5),
+                            Height = AutoSize.FillParent,
+                            MaxHeight = maxHeightSpace + maxHeightSpace + maxHeightSpace,
+                            MinHeight = maxHeightSpace + maxHeightSpace,
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = View.Frame.Width * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
@@ -246,6 +257,7 @@
                         LayoutParameters = new LayoutParameters()
                         {
                             //Width = PercentWidth(90), 
+                            Height = shortButtonHeight,
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = ViewFrameWidth() * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
@@ -271,10 +283,10 @@
                     },
                     new NativeView
                     {
-                        View = button,
+                        View = okButton,
                         LayoutParameters = new LayoutParameters()
                         {
-                            //Width = PercentWidth(90), 
+                            Width = percentWidth(15),
                             //MaxWidth = View.Frame.Width * 0.9f, 
                             //MarginLeft = View.Frame.Width * 0.05f,
                             //MarginTop = View.Frame.Height * 0.05f,
@@ -332,7 +344,7 @@
             var set = this.CreateBindingSet<UserIdentity_View, UserIdentity_ViewModel>();
             set.Bind(email).To(vm => vm.UserEmail);
             set.Bind(assetTag).To(vm => vm.AssetTag);
-            set.Bind(button).To(vm => vm.SaveCommand);
+            set.Bind(okButton).To(vm => vm.SaveCommand);
             set.Apply();
 
             #region UI action
@@ -346,7 +358,7 @@
             assetTag.ShouldReturn = delegate
             {
                 assetTag.ResignFirstResponder();    // close the keyboard
-                button.BecomeFirstResponder();
+                okButton.BecomeFirstResponder();
                 return true;
             };
 
