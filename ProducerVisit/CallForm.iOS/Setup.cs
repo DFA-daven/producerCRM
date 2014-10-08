@@ -60,9 +60,10 @@ namespace CallForm.iOS
         /// <param name="view">The view to be displayed.</param>
         public override void Show(IMvxTouchView view)
         {
+            Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
+
             if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {
-                Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
                 Console.WriteLine("  [Setup][mpv_tvp][S] > the View requested NewVisit_ViewModel. < SETUP SETUP SETUP SETUP SETUP SETUP");
 
                 if (MasterNavigationController.TopViewController is NewVisit_View)
@@ -76,12 +77,10 @@ namespace CallForm.iOS
             }
             else if (view.Request.ViewModelType == typeof(UserIdentity_ViewModel))
             {
-                Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
                 Console.WriteLine("  [Setup][mpv_tvp][S] > the View requested UserIdentity_ViewModel. < SETUP SETUP SETUP SETUP SETUP SETUP");
             }
             else if ((view.Request.ViewModelType == typeof(ViewReports_ViewModel)))
             {
-                Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
                 Console.WriteLine("  [Setup][mpv_tvp][S] > the View requested ViewReports_ViewModel. < SETUP SETUP SETUP SETUP SETUP SETUP");
             }
             else

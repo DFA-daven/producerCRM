@@ -66,6 +66,10 @@
         /// </summary>
         public string Title
         {
+            // if there's already a Title, use it. Otherwise set it to "User Settings".
+            // ToDo: get the title from the ViewReports_View.
+            //NavigationItem.Title = NavigationItem.Title ?? appName;
+
             get { return "User Settings"; }
         }
 
