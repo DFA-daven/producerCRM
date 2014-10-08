@@ -106,22 +106,43 @@ namespace CallForm.iOS.Views
         #endregion
 
         UIBarButtonItem trashBBI;
+        UIBarButtonItem searchBBI;
         public NewVisit_View()
         {
-            #region UIBarButtonItem Trash
+            #region UIBarButtonItems
+            // ToDo: check if we're using local or remote data
+            bool producerCanBeSearched = true;
+
             // ToDo: check if this record can be deleted
             bool recordCanBeDeleted = true;
+
             if (Editing)
             {
-                trashBBI = new UIBarButtonItem(UIBarButtonSystemItem.Trash  , (sender, e) =>
+                trashBBI = new UIBarButtonItem(UIBarButtonSystemItem.Trash, (sender, e) =>
                 {
-                    string message = "  [nv_v][nv_v] > 'Trash' (New Visit report) clicked.";
+                    string message = "  [nv_v][nv_v] > 'Search' (New Visit report) clicked.";
                     Console.WriteLine(message);
                 });
 
                 trashBBI.Enabled = recordCanBeDeleted;
 
                 NavigationItem.SetRightBarButtonItem(trashBBI, false);
+            }
+            else
+            {
+                searchBBI = new UIBarButtonItem(UIBarButtonSystemItem.Search, (sender, e) =>
+                {
+                    string message = "  [nv_v][nv_v] > 'Trash' (New Visit report) clicked.";
+                    Console.WriteLine(message);
+                });
+
+                searchBBI.Enabled = producerCanBeSearched;
+
+                // ToDo: add logic to check if this is a new or existing record
+                // if (is a new record)
+                // {
+                NavigationItem.SetRightBarButtonItem(searchBBI, false);
+                // }
             }
             #endregion
 
@@ -250,13 +271,29 @@ namespace CallForm.iOS.Views
 
             // Note: this BindingDescriptionSet represents the link between the NewVisit_View and the NewVisit_ViewModel.
             var set = this.CreateBindingSet<NewVisit_View, NewVisit_ViewModel>();
+
             set.Bind(saveButton).For("Title").To(vm => vm.SaveButtonText);
             set.Bind(saveButton).To(vm => vm.SaveCommand);
+
+            // Undone: need new command for producer search
+            if (Editing)
+            {
+                set.Bind(trashBBI).To(vm => vm.SaveCommand);
+            }
+            else
+            {
+                set.Bind(searchBBI).To(vm => vm.SaveCommand);
+            }
 
             set.Bind(this).For(o => o.Title).To(vm => vm.Title);
             set.Apply();
 
+
+
             #region UI action
+            //trashBBI.Clicked += (sender, args) => { new UIAlertView("Error", "There are no mail accounts configured to send email.", null, "OK").Show(); };
+            //InvokeOnMainThread(() => { new UIAlertView("Error", "There are no mail accounts configured to send email.", null, "OK").Show(); });
+
 
             #endregion UI action
 
