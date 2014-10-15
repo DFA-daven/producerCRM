@@ -1,0 +1,14 @@
+﻿Notes that don't fit anyplace else.
+
+?? Operator
+"??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
+
+  // Set y to the value of x if x is NOT null; otherwise, 
+  // if x = null, set y to -1. 
+  int y = x ?? -1;
+
+?: Operator
+The conditional operator (?:) returns one of two values depending on the value of a Boolean expression. Following is the syntax for the conditional operator.
+
+  condition ? first_expression : second_expression;
+

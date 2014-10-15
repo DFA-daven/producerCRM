@@ -84,7 +84,6 @@
         {
             get
             {
-                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
                 _saveCommand = _saveCommand ?? new MvxCommand(DoSaveCommand);
                 return _saveCommand;
             }
