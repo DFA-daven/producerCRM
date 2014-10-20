@@ -56,12 +56,12 @@
             }
         }
 
-        //private bool _iOSVersionOK;
-        //public bool IOSVersionOK
-        //{
-        //    get { return _iOSVersionOK; }
-        //    set { _iOSVersionOK = value; }
-        //}
+        private bool _iOSVersionOK;
+        public bool IOSVersionOK
+        {
+            get { return _iOSVersionOK; }
+            set { _iOSVersionOK = value; }
+        }
 
         ///// <summary>Store for the <c>RowHeight</c> property.</summary>
         //private float _rowHeight;
@@ -101,7 +101,7 @@
             if (string.IsNullOrWhiteSpace(_userIdentityService.GetIdentity().UserEmail) == true)
             {
                 // open the UserIdentity_View (to capture the missing information)
-                //CommonCore.DebugMessage(methodName, "  [vr_vm][start] > requesting to show <UserIdentity_ViewModel> ");
+                CommonCore.DebugMessage(methodName, "  [vr_vm][start] > requesting to show <UserIdentity_ViewModel> ");
 
                 ShowViewModel<UserIdentity_ViewModel>();
             }
