@@ -7,6 +7,7 @@
     using System.Web;
     using CallForm.Core.Models;
     using System.Web.Services;
+    using System.Data.Common;
 
     /// <summary>Class for creating a new <c>ProducerCrmVisitContext</c>, inherits from <see cref="DbContext"/>.
     /// </summary>
@@ -127,52 +128,50 @@
         /// <summary>The collection of <see cref="VisitXReasons"/>.
         /// </summary>
         public DbSet<VisitXReason> VisitXReasons { get; set; }
-
-        
     }
 
-    [WebService(Namespace = "http://tempuri.org/")]
-    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-    [System.ComponentModel.ToolboxItem(false)]
-    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-    // [System.Web.Script.Services.ScriptService]
-    public class Service1 : System.Web.Services.WebService
-    {
-        [WebMethod]
-        public string GetDataLINQ()
-        {
-            using (connection)
-            {
-                try
-                {
-                    connection.Open();
-                    DbCommand command = connection.CreateCommand();
-                    command.CommandText = "Select * ";
-                    int rows = command.ExecuteNonQuery();
+    //[WebService(Namespace = "http://tempuri.org/")]
+    //[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    //[System.ComponentModel.ToolboxItem(false)]
+    //// To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    //// [System.Web.Script.Services.ScriptService]
+    //public class Service1 : System.Web.Services.WebService
+    //{
+    //    [WebMethod]
+    //    public string GetDataLINQ()
+    //    {
+    //        using (connection)
+    //        {
+    //            try
+    //            {
+    //                connection.Open();
+    //                DbCommand command = connection.CreateCommand();
+    //                command.CommandText = "Select * ";
+    //                int rows = command.ExecuteNonQuery();
 
-                }
-                catch (DbException exDb)
-                {
+    //            }
+    //            catch (DbException exDb)
+    //            {
 
-                }
-                catch (Exception ex)
-                {
+    //            }
+    //            catch (Exception ex)
+    //            {
 
-                }
-            }
+    //            }
+    //        }
 
-            try
-            {
-                EnterpriseContext dc = new EnterpriseContext();
-                //var command = dc.usp_dequeueTestProject();
-                var command = dc.CallTypes;
-                string value = command.Select(c => c.Command).FirstOrDefault();
-                return value;
-            }
-            catch (Exception ex)
-            {
-                return ex.ToString();
-            }
-        }
-    }
+    //        try
+    //        {
+    //            EnterpriseContext dc = new EnterpriseContext();
+    //            //var command = dc.usp_dequeueTestProject();
+    //            var command = dc.CallTypes;
+    //            string value = command.Select(c => c.Command).FirstOrDefault();
+    //            return value;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            return ex.ToString();
+    //        }
+    //    }
+    //}
 }

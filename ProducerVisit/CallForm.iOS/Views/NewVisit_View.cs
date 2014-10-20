@@ -42,6 +42,13 @@ namespace CallForm.iOS.Views
             set { _isOS7OrLater = value; }
         }
 
+        private bool _isOS8OrLater;
+        public bool IsOS8OrLater
+        {
+            get { return _isOS8OrLater; }
+            set { _isOS8OrLater = value; }
+        }
+
         private float _statusBarHeight = 0f;
         public float StatusBarHeight
         {
@@ -109,56 +116,63 @@ namespace CallForm.iOS.Views
         UIBarButtonItem searchBBI;
         public NewVisit_View()
         {
-            #region UIBarButtonItems
-            // ToDo: check if we're using local or remote data
-            bool producerCanBeSearched = true;
+            Common_iOS.DebugMessage("  [nv_v][nv_v] > Creating new instance...");
 
-            // ToDo: check if this record can be deleted
-            bool recordCanBeDeleted = true;
+            Editing = (ViewModel as NewVisit_ViewModel).IsNewReport;
 
-            if (Editing)
-            {
-                trashBBI = new UIBarButtonItem(UIBarButtonSystemItem.Trash, (sender, e) =>
-                {
-                    string message = "  [nv_v][nv_v] > 'Search' (New Visit report) clicked.";
-                    Console.WriteLine(message);
-                });
+            //IsOS8OrLater = Common_iOS.iOSVersionOK;
+            StatusBarHeight = FindStatusBarHeight();
+            NavBarHeight = FindNavBarHeight();
 
-                trashBBI.Enabled = recordCanBeDeleted;
-
-                NavigationItem.SetRightBarButtonItem(trashBBI, false);
-            }
-            else
-            {
-                searchBBI = new UIBarButtonItem(UIBarButtonSystemItem.Search, (sender, e) =>
-                {
-                    string message = "  [nv_v][nv_v] > 'Trash' (New Visit report) clicked.";
-                    Console.WriteLine(message);
-                });
-
-                searchBBI.Enabled = producerCanBeSearched;
-
-                // ToDo: add logic to check if this is a new or existing record
-                // if (is a new record)
-                // {
-                NavigationItem.SetRightBarButtonItem(searchBBI, false);
-                // }
-            }
-            #endregion
+            // FixMe: hard-coded values -- calculate these from the screen dimensions?
+            ButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 3f), 0);
+            RowHeight = 50f;
 
             try
             {
-                IsOS7OrLater = FindIsOS7OrLater();
-                StatusBarHeight = FindStatusBarHeight();
-                NavBarHeight = FindNavBarHeight();
+                #region UIBarButtonItems
+                // ToDo: check if we're using local or remote data
+                bool producerCanBeSearched = true;
 
-                // FixMe: hard-coded values -- calculate these from the screen dimensions?
-                ButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 3f), 0);
-                RowHeight = 50f;
+                // ToDo: check if this record can be deleted
+                bool recordCanBeDeleted = true;
+
+                if (Editing)
+                {
+                    trashBBI = new UIBarButtonItem(UIBarButtonSystemItem.Trash, (sender, e) =>
+                    {
+                        string message = "  [nv_v][nv_v] > 'Search' (New Visit report) clicked.";
+                        Console.WriteLine(message);
+                    });
+
+                    trashBBI.Enabled = recordCanBeDeleted;
+                    trashBBI.TintColor = UIColor.Red;
+
+                    NavigationItem.SetRightBarButtonItem(trashBBI, false);
+                }
+                else
+                {
+                    searchBBI = new UIBarButtonItem(UIBarButtonSystemItem.Search, (sender, e) =>
+                    {
+                        string message = "  [nv_v][nv_v] > 'Trash' (New Visit report) clicked.";
+                        Console.WriteLine(message);
+                    });
+
+                    searchBBI.Enabled = producerCanBeSearched;
+
+                    // ToDo: add logic to check if this is a new or existing record
+                    // if (is a new record)
+                    // {
+                    NavigationItem.SetRightBarButtonItem(searchBBI, false);
+                    // }
+                }
+                #endregion
+
+
             }
             finally
             {
-                Common_iOS.DebugMessage("  [nv_v][nv_v] > Created instance...");
+                Common_iOS.DebugMessage("  [nv_v][nv_v] > New instance created.");
             }
             
         }
@@ -255,7 +269,7 @@ namespace CallForm.iOS.Views
             saveButton.Frame = new RectangleF(PercentOfTableFrameWidth(25), 0, saveButtonWidth, saveButtonHeight );
             //saveButton.BackgroundColor = UIColor.Red;
 
-            if (!(ViewModel as NewVisit_ViewModel).Editing)
+            if (!(ViewModel as NewVisit_ViewModel).IsNewReport)
             {
                 UIButton reSendButton = new UIButton(UIButtonType.System);
                 reSendButton.SetTitle("Forward via Email", UIControlState.Normal);
@@ -955,10 +969,9 @@ namespace CallForm.iOS.Views
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             float navbarHeight = 44f;
 
-            // Note: can't check IOSVersionOK here
             try
             {
-                if ((bool)_isOS7OrLater)
+                if (IsOS7OrLater)
                 {
                     navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
                 }
@@ -1048,41 +1061,6 @@ namespace CallForm.iOS.Views
             Common_iOS.DebugMessage("  [nv_v][sbh] > statusBarHeight: " + statusBarHeight.ToString() + " < OK");
 
             return statusBarHeight;
-        }
-
-        /// <summary>Is this device running iOS 7.0.
-        /// </summary>
-        /// <returns>True if this is iOS 7.0.</returns>
-        internal bool FindIsOS7OrLater()
-        {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
-            bool thisIsOS7 = false;
-            
-            if (_isOS7OrLater == null)
-            {
-                string version = UIDevice.CurrentDevice.SystemVersion;
-                string[] parts = version.Split('.');
-                string major = parts[0];
-                int majorVersion = Common_iOS.SafeConvert(major, 0);
-
-                if (majorVersion > 6)
-                {
-                    //float displacement_y = this.TopLayoutGuide.Length;
-
-                    thisIsOS7 = true;
-                }
-
-                Common_iOS.DebugMessage("  [nv_v][i7ol] > major version: " + major + ". Version is higher than 6 = " + thisIsOS7.ToString() + " <  ");
-
-                //_iOSVersionOK = thisIsOS7;
-            }
-            else
-            {
-                thisIsOS7 = (bool)_isOS7OrLater;
-            }
-
-            return thisIsOS7;
         }
     }
 }

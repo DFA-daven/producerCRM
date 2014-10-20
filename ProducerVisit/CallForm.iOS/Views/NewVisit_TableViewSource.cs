@@ -151,7 +151,7 @@
             #endregion viewModel property changed
 
             #region memberNumber
-            _memberNumberCell = new TextField_TableViewCell("memberNumber", _viewModel.Editing, _viewModel.MemberNumber,
+            _memberNumberCell = new TextField_TableViewCell("memberNumber", _viewModel.IsNewReport, _viewModel.MemberNumber,
                 UIKeyboardType.NumberPad, (field, range, replacementString) =>
                 {
                     int i;
@@ -168,7 +168,7 @@
              */
             _memberNumberCell.TextLabel.Text = "Member Number";
 
-            if (!_viewModel.Editing)
+            if (!_viewModel.IsNewReport)
             {
                 _memberNumberCell.DetailTextLabel.Text = _viewModel.MemberNumber ?? string.Empty;
 
@@ -185,7 +185,7 @@
             #endregion
 
             #region duration
-            _durationCell = new TextField_TableViewCell("duration", _viewModel.Editing, _viewModel.DurationString,
+            _durationCell = new TextField_TableViewCell("duration", _viewModel.IsNewReport, _viewModel.DurationString,
                 UIKeyboardType.DecimalPad, (field, range, replacementString) =>
                 {
                     string newString = new NSString(field.Text).Replace(range, new NSString(replacementString));
@@ -211,7 +211,7 @@
                 );
 
             _durationCell.TextLabel.Text = "Length of Call (hours)";
-            if (!_viewModel.Editing)
+            if (!_viewModel.IsNewReport)
             {
                 // TODO: validate data (make sure it's a number before attempting ToString) orig: ("#0.##")
                 _durationCell.DetailTextLabel.Text = _viewModel.Duration.ToString("00.00");
@@ -244,13 +244,13 @@
             #endregion
 
             #region notes
-            _notesCell = new TextView_TableViewCell("notes", _viewModel.Editing, _viewModel.Notes, 
+            _notesCell = new TextView_TableViewCell("notes", _viewModel.IsNewReport, _viewModel.Notes, 
                 (sender, args) => { _viewModel.Notes = (sender as UITextView).Text; } );
             _notesCell.TextLabel.Text = "Notes";
             #endregion
 
             #region takePicture
-            _takePictureCell = new Image_TableViewCell("takePicture", _viewModel.PictureBytes, _viewModel.Editing, _viewModel);
+            _takePictureCell = new Image_TableViewCell("takePicture", _viewModel.PictureBytes, _viewModel.IsNewReport, _viewModel);
             _takePictureCell.TextLabel.Text = "Take Picture";
             #endregion
 
@@ -322,7 +322,7 @@
 
 
 
-            if (_viewModel.Editing)
+            if (_viewModel.IsNewReport)
             {
                 _memberNumberCell.HideKeyboard();
                 _durationCell.HideKeyboard();
@@ -348,7 +348,7 @@
                             InvokeOnMainThread(() => { new UIAlertView("Error", idiomAlert, null, "OK").Show(); });
                             break;
                         }
-                        if (_viewModel.Editing)
+                        if (_viewModel.IsNewReport)
                         {
                             _popoverController = new UIPopoverController(_currentViewController);
                             _popoverController.PopoverContentSize = _currentViewController.PreferredContentSize;

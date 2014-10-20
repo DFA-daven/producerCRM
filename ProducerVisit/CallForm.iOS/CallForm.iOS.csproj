@@ -38,12 +38,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <OutputPath>bin\iPhone\Debug</OutputPath>
     <CodesignKey>iPhone Developer: David Nouza %28CVMDPN3UN8%29</CodesignKey>
-	<CodesignProvision>
+    <CodesignProvision>
     </CodesignProvision>
     <CodesignEntitlements />
     <CodesignResourceRules />
@@ -51,7 +51,7 @@
     <BuildIpa>False</BuildIpa>
     <IpaMetadata />
     <IpaPackageName />
-	<MtouchDebug>True</MtouchDebug>
+    <MtouchDebug>True</MtouchDebug>
     <MtouchSdkVersion>7.1</MtouchSdkVersion>
     <MtouchLink>Full</MtouchLink>
     <MtouchProfiling>False</MtouchProfiling>
@@ -69,8 +69,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
     <MtouchDebug>False</MtouchDebug>
-	<MtouchSdkVersion>7.1</MtouchSdkVersion>
-	<MtouchLink>SdkOnly</MtouchLink>
+    <MtouchSdkVersion>7.1</MtouchSdkVersion>
+    <MtouchLink>Full</MtouchLink>
     <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs />
     <MtouchFastDev>False</MtouchFastDev>
@@ -84,7 +84,7 @@
     <MtouchI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|iPhone' ">
-	<DebugType>pdbonly</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Alpha</OutputPath>
     <DefineConstants>DEBUG;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
@@ -92,7 +92,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer: David Nouza %28CVMDPN3UN8%29</CodesignKey>
-	<CodesignProvision>
+    <CodesignProvision>
     </CodesignProvision>
     <CodesignEntitlements />
     <CodesignResourceRules />
@@ -100,10 +100,10 @@
     <BuildIpa>False</BuildIpa>
     <IpaMetadata />
     <IpaPackageName />
-	<MtouchDebug>True</MtouchDebug>
+    <MtouchDebug>True</MtouchDebug>
     <MtouchSdkVersion>7.1</MtouchSdkVersion>
     <MtouchLink>SdkOnly</MtouchLink>
-	<MtouchProfiling>False</MtouchProfiling>
+    <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs />
     <MtouchFastDev>True</MtouchFastDev>
     <MtouchArch>Default, ARMv7</MtouchArch>
@@ -114,22 +114,22 @@
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
     <MtouchI18n />
-	<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Beta|iPhone' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Beta</OutputPath>
-	<DefineConstants>TRACE;__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
+    <DefineConstants>TRACE;__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Distribution</CodesignKey>
-	<CodesignProvision>04B0F2B2-CC37-4C83-A0E5-7E1BCA85023F</CodesignProvision>
+    <CodesignProvision>04B0F2B2-CC37-4C83-A0E5-7E1BCA85023F</CodesignProvision>
     <CodesignEntitlements />
     <CodesignResourceRules />
     <CodesignExtraArgs />
-	<BuildIpa>True</BuildIpa>
+    <BuildIpa>True</BuildIpa>
     <IpaMetadata />
     <IpaPackageName>com.dairylea.beta.producervisit</IpaPackageName>
     <MtouchSdkVersion>Default</MtouchSdkVersion>
@@ -146,22 +146,22 @@
     <MtouchUseRefCounting>False</MtouchUseRefCounting>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	<DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Release</OutputPath>
-	<DefineConstants>__IOS__;__MOBILE__;__RELEASE__;RELEASE;</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;RELEASE;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Distribution</CodesignKey>
-	<CodesignProvision>04B0F2B2-CC37-4C83-A0E5-7E1BCA85023F</CodesignProvision>
+    <CodesignProvision>04B0F2B2-CC37-4C83-A0E5-7E1BCA85023F</CodesignProvision>
     <CodesignEntitlements />
     <CodesignResourceRules />
     <CodesignExtraArgs />
-	<BuildIpa>True</BuildIpa>
+    <BuildIpa>True</BuildIpa>
     <IpaMetadata />
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
     <MtouchSdkVersion>7.1</MtouchSdkVersion>
@@ -189,8 +189,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-	<MtouchDebug>False</MtouchDebug>
-	<MtouchSdkVersion>7.1</MtouchSdkVersion>
+    <MtouchDebug>False</MtouchDebug>
+    <MtouchSdkVersion>7.1</MtouchSdkVersion>
     <MtouchLink>None</MtouchLink>
     <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs />
@@ -226,7 +226,7 @@
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <MtouchI18n />
     <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
-	<DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -253,7 +253,7 @@
     <MtouchI18n />
     <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
     <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;</DefineConstants>
-	<DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AutoVersionNumber\GlobalAssemblyVersion.cs">
@@ -294,7 +294,9 @@
       <DependentUpon>Reference.map</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />

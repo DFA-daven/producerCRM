@@ -7,7 +7,9 @@
     using Cirrious.MvvmCross.ViewModels;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
+    using System.Reflection;
     using System.Windows.Input;
 
     /// <summary>Class definition of the "View Reports" domain object.
@@ -54,12 +56,12 @@
             }
         }
 
-        private bool _iOSVersionOK;
-        public bool IOSVersionOK
-        {
-            get { return _iOSVersionOK; }
-            set { _iOSVersionOK = value; }
-        }
+        //private bool _iOSVersionOK;
+        //public bool IOSVersionOK
+        //{
+        //    get { return _iOSVersionOK; }
+        //    set { _iOSVersionOK = value; }
+        //}
 
         ///// <summary>Store for the <c>RowHeight</c> property.</summary>
         //private float _rowHeight;
@@ -91,15 +93,15 @@
             // note: this creates a new instance of ViewReports_ViewModel.
             base.Start();
 
-            if (!IOSVersionOK)
-            {
-                CommonCore.DebugMessage("##################### Halt app. ####################################################");
-            }
+            //if (!IOSVersionOK)
+            //{
+            //    CommonCore.DebugMessage("##################### Halt app. ####################################################");
+            //}
 
             if (string.IsNullOrWhiteSpace(_userIdentityService.GetIdentity().UserEmail) == true)
             {
                 // open the UserIdentity_View (to capture the missing information)
-                CommonCore.DebugMessage(methodName, "  [vr_vm][start] > requesting to show <UserIdentity_ViewModel> ");
+                //CommonCore.DebugMessage(methodName, "  [vr_vm][start] > requesting to show <UserIdentity_ViewModel> ");
 
                 ShowViewModel<UserIdentity_ViewModel>();
             }
@@ -199,7 +201,6 @@
         {
             get
             {
-                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
                 _getReportsCommand = _getReportsCommand ?? new MvxCommand(DoGetReportsCommand);
                 return _getReportsCommand;
             }
@@ -255,8 +256,13 @@
         {
             get
             {
-                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
+                //CommonCore.DebugMessage("  core[vr_vm][nvc] > Assigning _newVisitCommand... ");
+
+                // Review: does this property need to be handled safely?
                 _newVisitCommand = _newVisitCommand ?? new MvxCommand(DoNewVisitCommand);
+
+                //CommonCore.DebugMessage("  core[vr_vm][nvc] > ..._newVisitCommand assigned: >" + _newVisitCommand.ToString() + "< ");
+
                 return _newVisitCommand;
             }
         }
@@ -265,6 +271,7 @@
         /// </summary>
         protected void DoNewVisitCommand()
         {
+            //CommonCore.DebugMessage("  core[vr_vm][dnvc] > About to ShowViewModel<NewVisit_ViewModel>()... ");
             ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { MemberNumber = string.Empty });
         }
 

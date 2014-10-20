@@ -5,6 +5,7 @@
     using Cirrious.MvvmCross.Touch.Views;
     using MonoTouch.UIKit;
     using System;
+    using System.Drawing;
     using System.Reflection;
     using XibFree;
 
@@ -25,9 +26,22 @@
         string _namespace = "CallForm.iOS.";
         //string _namespace = "CallForm.iOS.Views.UserIdentity_View";
 
+        /// <summary>Store for the <c>iPhoneIdiom</c> property.</summary>
+        private bool _iPhoneIdiom;
+        /// <summary>Keeps track of if this is an iPhone (vs iPad).
+        /// </summary>
+        /// <remarks>This is a property that SHOULD be in the ViewController.</remarks>
+        public bool iPhoneIdiom
+        {
+            get { return _iPhoneIdiom; }
+            set
+            {
+                _iPhoneIdiom = value;
+            }
+        }
+
         /// <summary>Store for the <c>Portrait</c> property.</summary>
         private bool _portrait;
-
         /// <summary>Keeps track of portrait (or landscape) orientation.
         /// </summary>
         /// <remarks>This is a property that SHOULD be in the ViewController.</remarks>
@@ -48,6 +62,8 @@
         public UserIdentity_View()
         {
             //NavBarHeight = FindNavBarHeight();
+
+            bool iPhoneIdiom = Common_iOS.UserInterfaceIdiomIsPhone;
         }
 
         #region overrides
@@ -69,20 +85,28 @@
             //InvokeOnMainThread(() => { new UIAlertView("starting method...", MethodBase.GetCurrentMethod().DeclaringType.Name + "." + MethodBase.GetCurrentMethod().Name, null, "OK").Show(); });
 
             #region controls
+
             // instructions for the inputs
             var instructions = new UILabel
             {
-                //Font = UIFont.SystemFontOfSize(UIFont.LabelFontSize * 1.1f),
                 Text = "Please enter your Email Address and Asset Tag (if any).",
                 TextColor = UIColor.White,
-                //BackgroundColor = Common_iOS.viewBackgroundColor,
-                BackgroundColor = Common_iOS.controlBackgroundColor,
+
+                BackgroundColor = Common_iOS.viewBackgroundColor,
+                //BackgroundColor = Common_iOS.controlBackgroundColor,
+                //BackgroundColor = UIColor.Green,
+                
+                // Note: this took a while to find...
+                // allow text to wrap in the control
+                LineBreakMode = UILineBreakMode.WordWrap,
+                Lines = 0
             };
 
             // the email address field
             var email = new UITextField
             {
-                Placeholder = "example@dfamilk.com",
+                // leading and trailing space
+                Placeholder = " example@dfamilk.com ",
                 BackgroundColor = Common_iOS.controlBackgroundColor,
                 KeyboardType = UIKeyboardType.EmailAddress,
             };
@@ -90,7 +114,8 @@
             // asset tag field
             var assetTag = new UITextField
             {
-                Placeholder = "check back of device",
+                // leading and trailing space
+                Placeholder = " check back of device ",
                 BackgroundColor = Common_iOS.controlBackgroundColor,
                 KeyboardType = UIKeyboardType.Default,
             };
@@ -105,36 +130,90 @@
             okButton.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
             
             #region files
+            bool file1OK, file2OK, file3OK;
+            file1OK = file2OK = file3OK = false;
+            UIColor badColor = UIColor.Red;
+            UIColor goodColor = UIColor.Green;
+
+            // ToDo
+            badColor = UIColor.LightGray;
+
+            //if ((ViewModel as NewVisit_ViewModel).ListOfCallTypes.Count > 0)
+            //{
+            //    file1OK = true;
+            //}
+
+            //if ((ViewModel as NewVisit_ViewModel).ListOfEmailAddresses.Count > 0)
+            //{
+            //    file2OK = true;
+            //}
+
+            //if ((ViewModel as NewVisit_ViewModel).ListOfReasonCodes.Count > 0)
+            //{
+            //    file3OK = true;
+            //}
+
             var file1 = new UIButton(UIButtonType.System);
+#if (DEBUG)
             file1.SetTitle("Call", UIControlState.Normal);
             file1.SetTitle("Call", UIControlState.Disabled);
+#endif
             file1.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            file1.BackgroundColor = Common_iOS.controlBackgroundColor;
+            file1.BackgroundColor = file1OK ? goodColor : badColor;
 
             var file2 = new UIButton(UIButtonType.System);
+#if (DEBUG)
             file2.SetTitle("Email", UIControlState.Normal);
             file2.SetTitle("Email", UIControlState.Disabled);
+#endif
             file2.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            file2.BackgroundColor = Common_iOS.controlBackgroundColor;
+            file2.BackgroundColor = file2OK ? goodColor : badColor;
 
             var file3 = new UIButton(UIButtonType.System);
+#if (DEBUG)
             file3.SetTitle("Reason", UIControlState.Normal);
             file3.SetTitle("Reason", UIControlState.Disabled);
+#endif
             file3.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
-            file3.BackgroundColor = Common_iOS.controlBackgroundColor;
+            file3.BackgroundColor = file3OK ? goodColor : badColor;
             #endregion files
+
+            //// ToDo: can the _logoButton be shared?
+            //var testVRV = new ViewReports_View();
+            //bool valueFromVRV = testVRV.IsOS8OrLater;
+
             #endregion controls
 
-            #region file status layout
+            #region layout
             float shortButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 2f), 0);
+            float minimumHeightFromPercent = percentHeight(0.5);
+            float fileButtonHeight = minimumHeightFromPercent;
 
-            float minHeightSpace = Math.Min(percentHeight(5), shortButtonHeight);
-            float maxHeightSpace = Math.Max(percentHeight(5), shortButtonHeight);
+            //float minimumWidthUnit = percentWidth(0.5);
+            double controlWidthPercent = 50;
+            double fileControlHorzSpacingPercent = 5;
+            double fileControlVertSpacingPercent = 5;
 
+            double pushDownPercent = 5;
+
+            if (Common_iOS.UserInterfaceIdiomIsPhone)
+            {
+                fileButtonHeight = fileButtonHeight * 2;
+                controlWidthPercent = 75;
+                pushDownPercent = 1;
+                fileControlVertSpacingPercent = 2;
+            }
+
+            float minHeightSpace = Math.Min(percentHeight(fileControlVertSpacingPercent), shortButtonHeight);
+            float maxHeightSpace = Math.Max(percentHeight(fileControlVertSpacingPercent), shortButtonHeight);
+
+            double fileControlWidthPercent = (controlWidthPercent - (fileControlHorzSpacingPercent * 2)) / 3;
+
+            #region file status layout
             var fileStatusLayout = new LinearLayout(Orientation.Horizontal)
             {
                 Gravity = Gravity.TopCenter,
-                Spacing = minHeightSpace,
+                Spacing = percentWidth(fileControlHorzSpacingPercent),
                 SubViews = new View[]
                 {
                     new NativeView
@@ -142,11 +221,11 @@
                         View = file1,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = percentWidth(10),
-                            Height = shortButtonHeight,
+                            Width = percentWidth(fileControlWidthPercent),
+                            Height = fileButtonHeight,
                             Weight = 3,
 
-                            Gravity = Gravity.TopCenter ,
+                            Gravity = Gravity.TopLeft ,
                         }
                     },
                     new NativeView
@@ -154,8 +233,8 @@
                         View = file2,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = percentWidth(15),
-                            Height = shortButtonHeight,
+                            Width = percentWidth(fileControlWidthPercent),
+                            Height = fileButtonHeight,
                             Weight = 2,
 
                             Gravity = Gravity.TopCenter ,
@@ -166,19 +245,20 @@
                         View = file3,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = percentWidth(10),
-                            Height = shortButtonHeight,
+                            Width = percentWidth(fileControlWidthPercent),
+                            Height = fileButtonHeight,
                             Weight = 1,
 
-                            Gravity = Gravity.TopCenter ,
+                            Gravity = Gravity.TopRight ,
                         }
                     },
                 },
                 LayoutParameters = new LayoutParameters()
                 {
-                    Height = minHeightSpace + minHeightSpace,
+                    Width = percentWidth(controlWidthPercent),
+                    //Height = minHeightSpace + minHeightSpace,
                     Gravity = Gravity.TopCenter,
-                    MaxHeight = minHeightSpace + minHeightSpace + minHeightSpace,
+                    //MaxHeight = minHeightSpace * 3,
                 }
             };
 
@@ -186,18 +266,20 @@
             var fileStatusView = new UIView();
             fileStatusView = new UILayoutHost(fileStatusLayout)
             {
-                //BackgroundColor = UIColor.LightGray, 
-                BackgroundColor = Common_iOS.viewBackgroundColor ,
+                BackgroundColor = UIColor.DarkGray,
+                //BackgroundColor = Common_iOS.viewBackgroundColor,
             };
 
             //fileStatusView.SizeToFit();   // tightly enclose the sub-views
             #endregion
 
+            //var textMargins = new UIEdgeInsets(0f, 15f, 0f, 4f);
+
             // this view has an array of sub-views
             var pageLayout = new LinearLayout(Orientation.Vertical)
             {
                 Gravity = Gravity.TopCenter,
-                Padding = new UIEdgeInsets(4, 6, 4, 6),
+                Padding = new UIEdgeInsets(4f, 6f, 4f, 0f),
                 Spacing = minHeightSpace,
                 SubViews = new View[]
                 {
@@ -206,14 +288,13 @@
                     {
                         View = new UIView()
                         {
-                            //BackgroundColor = UIColor.Yellow,
+                            BackgroundColor = UIColor.Yellow,
                         },
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = minHeightSpace,
-                            Height = minHeightSpace,
-                            Weight = 7,
-
+                            Width = percentWidth(controlWidthPercent),
+                            Height = percentHeight(pushDownPercent),
+                            Weight = 7f,
                             Gravity = Gravity.TopCenter,
                         }
                     },
@@ -224,11 +305,9 @@
                         View = fileStatusView,
                         LayoutParameters = new LayoutParameters()
                         {
-                            //Width = fileStatusView.Frame.Width,
-                            Width = AutoSize.FillParent,
-                            Height = minHeightSpace + minHeightSpace,
+                            Width = percentWidth(controlWidthPercent),
+                            Height = minHeightSpace * 2,
                             Weight = 6,
-
                             Gravity = Gravity.TopCenter ,
                         },
                     },
@@ -238,15 +317,12 @@
                         View = instructions,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = AutoSize.FillParent,  
-                            Height = AutoSize.FillParent,
-                            MaxHeight = maxHeightSpace + maxHeightSpace + maxHeightSpace,
-                            MinHeight = maxHeightSpace + maxHeightSpace,
-                            //MaxWidth = View.Frame.Width * 0.9f, 
-                            //MarginLeft = View.Frame.Width * 0.05f,
-                            //MarginTop = View.Frame.Height * 0.05f,
-                            Weight = 7,
-
+                            //Width = AutoSize.FillParent,  
+                            Width = percentWidth(controlWidthPercent),
+                            MaxHeight = maxHeightSpace * 3,
+                            //MinHeight = maxHeightSpace + maxHeightSpace,
+                            Weight = 7f,
+                            //Margins = textMargins,
                             Gravity = Gravity.TopCenter,
                         },
                     },
@@ -256,15 +332,12 @@
                         View = email,
                         LayoutParameters = new LayoutParameters()
                         {
-                            //Width = PercentWidth(90), 
+                            Width = percentWidth(controlWidthPercent),
                             Height = shortButtonHeight,
-                            //MaxWidth = View.Frame.Width * 0.9f, 
-                            //MarginLeft = ViewFrameWidth() * 0.05f,
-                            //MarginTop = View.Frame.Height * 0.05f,
                             Weight = 4,
-
+                            //Margins = textMargins,
                             Gravity = Gravity.TopCenter,
-                        },
+                        }, 
                     },
 
                     new NativeView
@@ -272,12 +345,9 @@
                         View = assetTag,
                         LayoutParameters = new LayoutParameters()
                         {
-                            //Width = PercentWidth(90), 
-                            //MaxWidth = View.Frame.Width * 0.9f, 
-                            //MarginLeft = PercentWidth(5),
-                            //MarginTop = View.Frame.Height * 0.05f,
+                            Width = percentWidth(controlWidthPercent),
+                            Height = shortButtonHeight,
                             Weight = 3,
-
                             Gravity = Gravity.TopCenter,
                         },
                     },
@@ -286,12 +356,9 @@
                         View = okButton,
                         LayoutParameters = new LayoutParameters()
                         {
-                            Width = percentWidth(15),
-                            //MaxWidth = View.Frame.Width * 0.9f, 
-                            //MarginLeft = View.Frame.Width * 0.05f,
-                            //MarginTop = View.Frame.Height * 0.05f,
+                            Width = percentWidth(fileControlHorzSpacingPercent * 3),
+                            Height = shortButtonHeight,
                             Weight = 2,
-
                             Gravity = Gravity.TopCenter,
                         },
                         
@@ -300,15 +367,23 @@
                     // this "view" pushes the others up to the top of the page
                     new NativeView
                     {
-                        View = new UIView(),
+                        View = new UIView()
+                        {
+                            BackgroundColor = UIColor.Yellow,
+                        },
                         LayoutParameters = new LayoutParameters()
                         {
-                            Height = percentHeight(5),
+                            Width = percentWidth(controlWidthPercent),
+                            Height = percentHeight(pushDownPercent),
                             Weight = 1,
-
                             Gravity = Gravity.TopCenter,
                         }
                     },
+                },
+                LayoutParameters = new LayoutParameters()
+                {
+                    // these are the parameters for pageLayout
+                    Gravity = Gravity.TopCenter,
                 }
             };
 
@@ -316,6 +391,8 @@
             {
                 BackgroundColor = Common_iOS.viewBackgroundColor,
             };
+            #endregion layout
+
 
             base.ViewDidLoad();
 
@@ -402,6 +479,7 @@
         #pragma warning restore 1591
         #endregion overrides
 
+        #region layout properties
         private static float _navBarHeight = 0f;
         public static float NavBarHeight
         {
@@ -433,6 +511,7 @@
             value = Math.Abs(Math.Round(value));
             return (float)value;
         }
+        #endregion
 
         /// <summary>Displays the error issued by the <c>ViewModel</c> .
         /// </summary>

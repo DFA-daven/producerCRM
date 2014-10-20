@@ -31,20 +31,28 @@
         /// <summary>Class name abbreviation
         /// </summary>
         string _cAbb = "[vr_v]";
+        string _bannerImageName = "DFA-DMS-Banner.png";
 
         #region Properties
-        private bool _isOS7OrLater;
-        public bool IsOS7OrLater
-        {
-            get { return _isOS7OrLater; }
-            set { _isOS7OrLater = value; }
-        }
+        //private bool _isOS7OrLater;
+        //public bool IsOS7OrLater
+        //{
+        //    get { return _isOS7OrLater; }
+        //    set { _isOS7OrLater = value; }
+        //}
 
-        private bool _isOS8OrLater;
-        public bool IsOS8OrLater
+        //private bool _isOS8OrLater;
+        //public bool IsOS8OrLater
+        //{
+        //    get { return _isOS8OrLater; }
+        //    set { _isOS8OrLater = value; }
+        //}
+
+        private bool _iOSVersionOK;
+        public bool iOSVersionOK
         {
-            get { return _isOS8OrLater; }
-            set { _isOS8OrLater = value; }
+            get { return _iOSVersionOK; }
+            set { _iOSVersionOK = value; }
         }
 
         /// <summary>Store for the <c>ButtonHeight</c> property.</summary>
@@ -69,6 +77,38 @@
                 _rowHeight = value;
                 //RaisePropertyChanged(() => RowHeight);
             }
+        }
+
+        private static float _navBarHeight = 0f;
+        public static float NavBarHeight
+        {
+            get { return _navBarHeight; }
+            set { _navBarHeight = value; }
+        }
+        //private float FindNavBarHeight()
+        //{
+        //    float screenHeight = UIScreen.MainScreen.Bounds.Height;
+        //    float layoutHeight = 0f;
+        //    float navbarHeight = 0f;
+
+        //    layoutHeight = ViewFrameHeight;
+        //    navbarHeight = screenHeight - layoutHeight;
+
+        //    Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+        //    Common_iOS.DebugMessage("  [common_iOS][fnbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
+
+        //    navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
+        //    layoutHeight = this.BottomLayoutGuide.Length - this.TopLayoutGuide.Length;
+        //    Common_iOS.DebugMessage("  [common_iOS][fnbh] > iOS 7 topMarginHeight: " + navbarHeight.ToString() + ", iOS7 layoutHeight = " + layoutHeight.ToString() + " <======= ");
+
+        //    return navbarHeight;
+        //}
+
+        private static float _statusBarHeight = 0f;
+        public static float StatusBarHeight
+        {
+            get { return _statusBarHeight; }
+            set { _statusBarHeight = value; }
         }
 
         /// <summary>Store for the <c>Portrait</c> property.</summary>
@@ -157,14 +197,21 @@
         UIBarButtonItem newBBI;
         public ViewReports_View()
         {
-            IsOS7OrLater = Common_iOS.IsMinimumOS7;
-            IsOS8OrLater = Common_iOS.IsMinimumOS8;
+            //iOSVersionOK = Common_iOS.iOSVersionOK ;
             //NavBarHeight = FindNavBarHeight();
             //ViewFrameHeight = FindViewFrameHeight();
 
             // FixMe: hard-coded values -- calculate these from the screen dimensions?
             ButtonHeight = 44f;
             RowHeight = 44f;
+
+            NavBarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
+            
+            SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
+            StatusBarHeight =   Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
+
+                
+           
 
             #region UIRefreshControl
             //// alternate older-style
@@ -244,17 +291,17 @@
             Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdl] > starting method...");
 
-            if (!IsOS8OrLater)
-            {
-                string message = "  [vr_v][vr_v] > This App requires iOS 8 or higher.";
-                Console.WriteLine(message);
-                Common_iOS.DebugMessage("##################### Halt app. ####################################################");
+            //if (!iOSVersionOK)
+            //{
+            //    string message = "  [vr_v][vdl] > Running under less than iOS 8.";
+            //    Console.WriteLine(message);
+            //    //Common_iOS.DebugMessage("##################### Halt app. ####################################################");
 
-                //InvokeOnMainThread(() => { new UIAlertView("Wrong iOS version", message, null, "OK").Show(); });
+            //    //InvokeOnMainThread(() => { new UIAlertView("Wrong iOS version", message, null, "OK").Show(); });
 
-                // Review: pick one: 1. P/Invoke exit(); 2. NSThread.Exit(); 3. throwing an exception; 4. terminateWithSuccess
-                // NSThread.Exit();
-            }
+            //    // Review: pick one: 1. P/Invoke exit(); 2. NSThread.Exit(); 3. throwing an exception; 4. terminateWithSuccess
+            //    // NSThread.Exit();
+            //}
 
             #region pageLayout
             float topMargin = 0;
@@ -262,20 +309,21 @@
             // Note: The Navigation Controller is a UI-less View Controller responsible for
             // managing a stack of View Controllers and provides tools for navigation, such 
             // as a navigation bar with a back button.
-            topMargin = StatusBarHeight() + NavBarHeight;
+            topMargin = StatusBarHeight + NavBarHeight;
             Common_iOS.DebugMessage("  [vr_v][vdl] > topMargin = " + topMargin.ToString() + " < <======= ");
 
             #region logo
             #region logoButton
-            var logoButton = _logoButton = new UIButton(UIButtonType.Custom);
+            var logoButton = new UIButton(UIButtonType.Custom);
             logoButton.Frame = new RectangleF(0, 0, MaxBannerWidth(), MaxBannerHeight());
             logoButton.SetTitle("DFA & DMS", UIControlState.Normal);
             logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
             logoButton.BackgroundColor = UIColor.Yellow;
+            _logoButton = logoButton;
             #endregion logoButton
 
             #region logoLayout
-            var logoLayout = _logoLinearLayout = new LinearLayout(Orientation.Vertical)
+            var logoLayout = new LinearLayout(Orientation.Vertical)
             {
                 Gravity = Gravity.TopCenter,
                 SubViews = new View[]
@@ -290,16 +338,19 @@
                     }
                 }
             };
+
+            _logoLinearLayout = logoLayout;
             #endregion logoLayout
 
             #region logoView
-            var logoView = _logoView = new UIView();
+            var logoView = new UIView();
             logoView = new UILayoutHost(logoLayout)
             {
                 BackgroundColor = UIColor.White,
             };
 
             logoView.SizeToFit();
+            _logoView = logoView;
             #endregion logoView
             #endregion logo
 
@@ -362,16 +413,17 @@
 
             #region footer
             #region footerButton
-             how to get newReportButtonTableView working?
-            var footerButton = _footerButton = new UIButton(UIButtonType.Custom);
+            // how to get newReportButtonTableView working?
+            var footerButton = new UIButton(UIButtonType.Custom);
             footerButton.Frame = new RectangleF(0, 0, MaxBannerWidth(), MaxBannerHeight());
             footerButton.SetTitle("DFA & DMS", UIControlState.Normal);
             footerButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
             footerButton.BackgroundColor = UIColor.Yellow;
+            _footerButton = footerButton;
             #endregion footerButton
 
             #region footerLayout
-            var footerLayout = _footerLinearLayout = new LinearLayout(Orientation.Vertical)
+            var footerLayout = new LinearLayout(Orientation.Vertical)
             {
                 Gravity = Gravity.BottomCenter,
                 SubViews = new View[]
@@ -386,16 +438,19 @@
                     }
                 }
             };
+            
+            _footerLinearLayout = footerLayout;
             #endregion footerLayout
 
             #region footerView
-            var footerView = _footerView = new UIView();
+            var footerView = new UIView();
             footerView = new UILayoutHost(footerLayout)
             {
                 BackgroundColor = UIColor.White,
             };
 
             footerView.SizeToFit();
+            _footerView = footerView;
             #endregion footerView
             #endregion footer
 
@@ -564,10 +619,10 @@
              * and BottomLayoutGuide are preferred since they allow the app to meet the iOS 7 design goals.
              */
             float displacement_y = 0f;
-            if (IsOS7OrLater)
-            {
-                //displacement_y = this.TopLayoutGuide.Length;
-            }
+            //if (IsOS7OrLater)
+            //{
+            //    //displacement_y = this.TopLayoutGuide.Length;
+            //}
 
             Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdls] > ...finished");
@@ -610,7 +665,7 @@
             base.ViewDidAppear(animated);
             (ViewModel as ViewReports_ViewModel).UploadReports();
             (ViewModel as ViewReports_ViewModel).Loading = false;
-            (ViewModel as ViewReports_ViewModel).IOSVersionOK = false;
+            //(ViewModel as ViewReports_ViewModel).IOSVersionOK = iOSVersionOK;
         }
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
@@ -750,11 +805,16 @@
 
         private float MaxBannerHeight()
         {
-            float actualBannerHeight = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Height;
-            float maxBannerHeight = DesiredBannerHeight();
+            Common_iOS.DebugMessage("  [vr_v][mbh] > Finding MaxBannerHeight...");
 
+            float maxBannerHeight = DesiredBannerHeight();
+            UIImage bannerImage = BannerImage();
+            float actualBannerHeight = bannerImage.Size.Width;
+
+            Common_iOS.DebugMessage("  [vr_v][mbh] > Checking BannerHeightRatio()...");
             float desiredBannerHeight = actualBannerHeight * BannerHeightRatio();
 
+            Common_iOS.DebugMessage("  [vr_v][mbw] > Checking BannerRatioLimit()...");
             if (BannerRatioLimit())
             {
                 desiredBannerHeight = maxBannerHeight;
@@ -778,18 +838,43 @@
 
         private float MaxBannerWidth()
         {
-            float actualBannerWidth = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Width;
-            float maxAllowedBannerWidth = View.Frame.Width;
+            Common_iOS.DebugMessage("  [vr_v][mbw] > Finding MaxBannerWidth...");
 
+            float maxAllowedBannerWidth = View.Frame.Width;
+            UIImage bannerImage = BannerImage();
+            float actualBannerWidth = bannerImage.Size.Width;
+
+            Common_iOS.DebugMessage("  [vr_v][mbw] > Checking BannerHeightRatio()...");
             float desiredBannerWidth = actualBannerWidth * BannerHeightRatio();
 
+            Common_iOS.DebugMessage("  [vr_v][mbw] > Checking BannerRatioLimit()...");
             if (BannerRatioLimit()) 
             {
                 desiredBannerWidth = maxAllowedBannerWidth;
             }
 
             desiredBannerWidth = (float)Math.Round(desiredBannerWidth, 0);
+
+            Common_iOS.DebugMessage("  [vr_v][mbw] > desiredBannerWidth: " + desiredBannerWidth + ". < [vr_v][mbw] ");
+
             return desiredBannerWidth;
+        }
+
+        private UIImage BannerImage()
+        {
+            UIImage bannerImage = new UIImage();
+
+            try
+            {
+                bannerImage = UIImage.FromBundle(_bannerImageName);
+            }
+            catch
+            {
+                Common_iOS.DebugMessage("  [vr_v][mbw] > Banner image was not found! < Error : Error : Error : Error : Error : Error ");
+                bannerImage = new UIImage();
+            }
+            
+            return bannerImage;
         }
 
         //private float bannerHorizontalOrigin()
@@ -943,47 +1028,13 @@
         /// <summary>Updates the horizontal origin of a view.
         /// </summary>
         /// <param name="view">The <see cref="UIView"/> to be updated.</param>
-        /// <param name="x">The new "X" coordinate for the View.</param>
+        /// <param name="bannerImage">The new "X" coordinate for the View.</param>
         internal void SetFrameX(UIView view, float x)
         {
             // Hack: this should be handled automatically with .gravity.
             var frame = view.Frame;
             frame.X = x;
             view.Frame = frame;
-        }
-
-        private static float _navBarHeight = 0f;
-        public static float NavBarHeight
-        {
-            get { return _navBarHeight; }
-            set { _navBarHeight = value; }
-        }
-        private float FindNavBarHeight()
-        {
-            float screenHeight = UIScreen.MainScreen.Bounds.Height;
-            float layoutHeight = 0f;
-            float navbarHeight = 0f;
-
-            layoutHeight = ViewFrameHeight;
-            navbarHeight = screenHeight - layoutHeight;
-
-            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common_iOS.DebugMessage("  [common_iOS][fnbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
-
-            if (Common_iOS.IsMinimumOS7)
-            {
-                navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
-                layoutHeight = this.BottomLayoutGuide.Length - this.TopLayoutGuide.Length;
-                Common_iOS.DebugMessage("  [common_iOS][fnbh] > iOS 7 topMarginHeight: " + navbarHeight.ToString() + ", iOS7 layoutHeight = " + layoutHeight.ToString() + " <======= ");
-            }
-
-            return navbarHeight;
-        }
-
-        private float StatusBarHeight()
-        {
-            SizeF statusBarFrameSize = UIApplication.SharedApplication.StatusBarFrame.Size;
-            return Math.Min(statusBarFrameSize.Width, statusBarFrameSize.Height);
         }
     }
 
@@ -1062,7 +1113,7 @@
                 //set.Bind(newReportButtonTableView).To(vm => vm.NewVisitCommand);
             //findButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
 
-                newReportButtonTableView.TouchUpInside += (sender, args) => { (viewModel as ViewReports_ViewModel).NewVisitCommand; }
+               // newReportButtonTableView.TouchUpInside += (sender, args) => { (viewModel as ViewReports_ViewModel).NewVisitCommand; }
             }
             
             finally

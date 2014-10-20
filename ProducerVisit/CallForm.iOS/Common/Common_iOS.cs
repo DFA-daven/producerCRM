@@ -21,38 +21,28 @@ namespace CallForm.iOS
         /// </summary>
         string _cAbb = "[Common_iOS]";
 
-        private static bool _isOS7 = false;
-        public static bool IsMinimumOS7
+        #region properties
+        //private static bool _isOS7 = false;
+        //public static bool IsMinimumOS7
+        //{
+        //    get { return _isOS7; }
+        //    set { _isOS7 = value; }
+        //}
+
+        //private static bool _isOS8 = false;
+        //public static bool IsMinimumOS8
+        //{
+        //    get { return _isOS8; }
+        //    set { _isOS8 = value; }
+        //}
+
+        private static bool _iOSVersionOK = false;
+        public static bool iOSVersionOK
         {
-            get { return _isOS7; }
-            set { _isOS7 = value; }
+            get { return _iOSVersionOK; }
+            set { _iOSVersionOK = value; }
         }
 
-        private static bool _isOS8 = false;
-        public static bool IsMinimumOS8
-        {
-            get { return _isOS8; }
-            set { _isOS8 = value; }
-        }
-
-        /// <summary>Is this device running at least iOS 8.x?
-        /// </summary>
-        /// <returns>True if this is OS majorVersion is greater than 8.</returns>
-        private static bool IsMinimumiOS(int minimumVersion)
-        {
-            bool minimumOS = false;
-            string version = UIDevice.CurrentDevice.SystemVersion;
-            string[] parts = version.Split('.');
-            string major = parts[0];
-            int majorVersion = SafeConvert(major, 0);
-
-            if (majorVersion >= minimumVersion)
-            {
-                minimumOS = true;
-            }
-
-            return minimumOS;
-        }
 
         /// <summary>True if the App is running on an iPhone.
         /// </summary>
@@ -70,12 +60,6 @@ namespace CallForm.iOS
             get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad; }
         }
 
-        public Common_iOS()
-        {
-            IsMinimumOS7 = IsMinimumiOS(7);
-            IsMinimumOS8 = IsMinimumiOS(8);
-        }
-
         /// <summary>Use for the background of controls: 230, 230, 255
         /// </summary>
         public static UIColor controlBackgroundColor = UIColor.FromRGB(230, 230, 255);
@@ -84,12 +68,36 @@ namespace CallForm.iOS
         /// </summary>
         public static UIColor viewBackgroundColor = UIColor.FromRGB(200, 200, 255);
 
-        // review: assigned but not used?
-        //public static float topMarginPixels = 70;
-        //public static double bannerHeightPercent = 12.5;
-        //public static double controlHeightPercent = 5;
-        //public static double controlWidthPercent = 31;
-        //public static double leftControlOriginPercent = 1;
+        // ToDo: implement text color(s) here
+        #endregion properties
+
+        public Common_iOS()
+        {
+            //iOSVersionOK = IsMinimumiOS(7);
+
+            // Review: should screen control size information be implemented here? The idiom doesn't change once the app is running.
+        }
+
+        #region methods
+        /// <summary>Is this device running at least iOS 8.bannerImage?
+        /// </summary>
+        /// <returns>True if this is OS majorVersion is greater than 8.</returns>
+        private static bool IsMinimumiOS(int minimumVersion)
+        {
+            bool minimumOS = false;
+            string version = UIDevice.CurrentDevice.SystemVersion;
+            string[] parts = version.Split('.');
+            string major = parts[0];
+            int majorVersion = SafeConvert(major, 0);
+
+            if (majorVersion >= minimumVersion)
+            {
+                minimumOS = true;
+            }
+
+            return minimumOS;
+        }
+        #endregion
 
         /// <summary>Take the given information and write it to the iOS app's err.log.
         /// </summary>
