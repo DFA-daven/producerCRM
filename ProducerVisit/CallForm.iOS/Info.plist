@@ -47,7 +47,11 @@
 	<key>CFBundleIdentifier</key>
 		<string>com.dairylea.producercrm</string>
 	<key>CFBundleVersion</key>
+<<<<<<< .mine
+		<string>1.4.14293.11740</string>
+=======
 		<string>1.4.14293.11576</string>
+>>>>>>> .r3464
 	<key>UIStatusBarTintParameters</key>
 		<dict>
 			<key>UINavigationBar</key>
