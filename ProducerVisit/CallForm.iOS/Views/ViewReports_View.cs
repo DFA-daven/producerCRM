@@ -941,13 +941,13 @@
             Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][nbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
 
-            if (Common_iOS.IsMinimumOS7)
-            {
+            //if (Common_iOS.IsMinimumOS7)
+            //{
                 navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
                 layoutHeight = this.BottomLayoutGuide.Length - this.TopLayoutGuide.Length;
                 Common_iOS.DebugMessage("  [vr_v][nbh] > iOS 7 topMarginHeight: " + navbarHeight.ToString() + ", iOS7 layoutHeight = " + layoutHeight.ToString() + " <======= ");
 
-            }
+            //}
 
             return navbarHeight;
         }
