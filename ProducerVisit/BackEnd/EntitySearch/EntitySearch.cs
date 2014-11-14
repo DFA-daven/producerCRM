@@ -26,6 +26,8 @@
 /// 
 namespace BackEnd.EntitySearch
 {
+    using DairyleaDAL.Entities;
+    using DairyleaDAL.Services;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -36,9 +38,6 @@ namespace BackEnd.EntitySearch
     using System.Web.SessionState;
     using System.Web.UI;
     using System.Web.UI.WebControls;
-    using DairyleaDAL.Entities;
-    using DairyleaDAL.Services;
-    using System;
 
     /// <summary>UI For Entity Search
     /// </summary>
