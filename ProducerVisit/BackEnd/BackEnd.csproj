@@ -27,25 +27,32 @@
     <DefineConstants>TRACE;DEBUG;__DEBUG__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>doc\BackEnd.XML</DocumentationFile>
+    <DocumentationFile>BackEnd.XML</DocumentationFile>
+	<ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Alpha|AnyCPU'">
     <DebugType>pdbonly</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Alpha\</OutputPath>
-    <DefineConstants>ALPHA;TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <OutputPath>doc\</OutputPath>
+    <DefineConstants>DEBUG;ALPHA;__ALPHA__;</DefineConstants>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+	<WarningLevel>4</WarningLevel>
+    <DocumentationFile>doc\BackEnd.XML</DocumentationFile>
+	<ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Beta\</OutputPath>
-    <DefineConstants>BETA;TRACE</DefineConstants>
+    <OutputPath>doc\</OutputPath>
+    <DefineConstants>TRACE;BETA;__BETA__;</DefineConstants>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+	<WarningLevel>4</WarningLevel>
+    <DocumentationFile>BackEnd.XML</DocumentationFile>
+	<ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -55,11 +62,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>BackEnd.xml</DocumentationFile>
-    <DefineConstants>RELEASE;__RELEASE__;</DefineConstants>
+	<ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DairyleaDataAccessLayer">
-      <HintPath>..\..\Libraries\dlDataAccessLayer\Trunk\DairyleaDataAccessLayer\DairyleaDataAccessLayer\bin\Release\DairyleaDataAccessLayer.dll</HintPath>
+      <HintPath>..\..\..\Libraries\DairyleaDataAccessLayer\DairyleaDataAccessLayer\bin\Release\DairyleaDataAccessLayer.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -287,26 +294,6 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Alpha|AnyCPU'">
-    <OutputPath>doc\</OutputPath>
-    <DefineConstants>DEBUG;ALPHA;__ALPHA__;</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>BackEnd.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta|AnyCPU'">
-    <OutputPath>doc\</OutputPath>
-    <DefineConstants>TRACE;BETA;__BETA__;</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>BackEnd.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
