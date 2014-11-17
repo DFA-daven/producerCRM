@@ -30,90 +30,6 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhone</Platform>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
-    <OutputPath>bin\iPhone\Debug</OutputPath>
-    <CodesignKey>iPhone Developer: David Nouza %28CVMDPN3UN8%29</CodesignKey>
-    <CodesignProvision>
-    </CodesignProvision>
-    <CodesignExtraArgs>
-    </CodesignExtraArgs>
-    <IpaMetadata>
-    </IpaMetadata>
-    <IpaPackageName>
-    </IpaPackageName>
-    <MtouchDebug>True</MtouchDebug>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
-    <MtouchLink>Full</MtouchLink>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
-    <MtouchArch>ARMv7</MtouchArch>
-    <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <MtouchI18n>
-    </MtouchI18n>
-    <WarningLevel>4</WarningLevel>
-    <Optimize>false</Optimize>
-    <StartupObject>CallForm.iOS.Application</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
-    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
-    <MtouchLink>None</MtouchLink>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
-    <MtouchArch>ARMv7</MtouchArch>
-    <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <MtouchI18n>
-    </MtouchI18n>
-    <WarningLevel>4</WarningLevel>
-    <Optimize>false</Optimize>
-    <StartupObject>CallForm.iOS.Application</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\iPhone\Release</OutputPath>
-    <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;RELEASE;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Distribution</CodesignKey>
-    <CodesignProvision>04B0F2B2-CC37-4C83-A0E5-7E1BCA85023F</CodesignProvision>
-    <CodesignExtraArgs>
-    </CodesignExtraArgs>
-    <BuildIpa>True</BuildIpa>
-    <IpaMetadata>
-    </IpaMetadata>
-    <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
-    <MtouchArch>ARMv7</MtouchArch>
-    <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
-    <MtouchI18n>
-    </MtouchI18n>
-    <StartupObject>CallForm.iOS.Application</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <MtouchLink>None</MtouchLink>
-    <IpaMetadata>
-    </IpaMetadata>
-    <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
-    <MtouchArch>ARMv7</MtouchArch>
-    <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <MtouchI18n>
-    </MtouchI18n>
-    <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;</DefineConstants>
-    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
-    <StartupObject>CallForm.iOS.Application</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AutoVersionNumber\GlobalAssemblyVersion.cs">
       <Link>GlobalAssemblyVersion.cs</Link>
@@ -375,5 +291,29 @@ copy /Y "$(ProjectDir)..\AutoVersionNumber\Info.plist" "$(ProjectDir)Info.plist"
     <OutputPath>bin\iPhone\Enterprise</OutputPath>
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
   </PropertyGroup>
 </Project>
