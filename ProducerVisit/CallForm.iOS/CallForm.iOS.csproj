@@ -27,206 +27,92 @@
     <ApplicationVersion>1.4.051.1510</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>TRACE;__IOS__;__MOBILE__;__DEBUG__;DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-	<OutputPath>bin</OutputPath>
-	<StartupObject>CallForm.iOS.Application</StartupObject>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhone</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
-    <OutputPath>bin</OutputPath>
-    <CodesignKey>iPhone Developer</CodesignKey>
-	<CodesignProvision>45d52977-a3e7-4192-bedc-bd913402b6a4</CodesignProvision>
-	<IpaMetadata>
-	</IpaMetadata>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <CodesignKey>iPhone Developer: David Nouza %28CVMDPN3UN8%29</CodesignKey>
+    <CodesignProvision>
+    </CodesignProvision>
+    <CodesignExtraArgs>
+    </CodesignExtraArgs>
+    <IpaMetadata>
+    </IpaMetadata>
     <IpaPackageName>
-	</IpaPackageName>
-	<MtouchDebug>True</MtouchDebug>
+    </IpaPackageName>
+    <MtouchDebug>True</MtouchDebug>
     <MtouchSdkVersion>7.1</MtouchSdkVersion>
     <MtouchLink>Full</MtouchLink>
-	<MtouchExtraArgs>
-	</MtouchExtraArgs>
-	<MtouchArch>ARMv7</MtouchArch>
-	<MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-	<MtouchI18n>
-	</MtouchI18n>
-	<WarningLevel>4</WarningLevel>
-	<Optimize>False</Optimize>
-	<StartupObject>CallForm.iOS.Application</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
-    <OutputPath>bin</OutputPath>
-    <MtouchLink>None</MtouchLink>
-	<MtouchExtraArgs>
-	</MtouchExtraArgs>
-	<MtouchArch>ARMv7</MtouchArch>
-	<MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-	<MtouchI18n>
-	</MtouchI18n>
-	<WarningLevel>4</WarningLevel>
-	<Optimize>False</Optimize>
-	<StartupObject>CallForm.iOS.Application</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|iPhone' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin</OutputPath>
-    <DefineConstants>DEBUG;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
-	<CodesignProvision>45d52977-a3e7-4192-bedc-bd913402b6a4</CodesignProvision>
-	<IpaMetadata>
-	</IpaMetadata>
-    <IpaPackageName>
-	</IpaPackageName>
-	<MtouchDebug>True</MtouchDebug>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
-    <MtouchExtraArgs>
-	</MtouchExtraArgs>
-	<MtouchFastDev>True</MtouchFastDev>
-    <MtouchArch>ARMv7</MtouchArch>
-    <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <MtouchI18n />
-	<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	<StartupObject>CallForm.iOS.Application</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Beta|iPhone' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin</OutputPath>
-	<DefineConstants>TRACE;__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Distribution</CodesignKey>
-	<CodesignProvision>Automatic:InHouse</CodesignProvision>
-	<BuildIpa>True</BuildIpa>
-    <IpaMetadata>
-	</IpaMetadata>
-    <IpaPackageName>com.dairylea.beta.producerCRM</IpaPackageName>
     <MtouchExtraArgs>
     </MtouchExtraArgs>
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	<DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
-	<StartupObject>CallForm.iOS.Application</StartupObject>
+    <MtouchI18n>
+    </MtouchI18n>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <StartupObject>CallForm.iOS.Application</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <MtouchLink>None</MtouchLink>
+    <MtouchExtraArgs>
+    </MtouchExtraArgs>
+    <MtouchArch>ARMv7</MtouchArch>
+    <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
+    <MtouchI18n>
+    </MtouchI18n>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <StartupObject>CallForm.iOS.Application</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin</OutputPath>
-	<DefineConstants>__IOS__;__MOBILE__;__RELEASE__;RELEASE;</DefineConstants>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;RELEASE;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Distribution</CodesignKey>
-	<CodesignProvision>Automatic:InHouse</CodesignProvision>
+    <CodesignProvision>04B0F2B2-CC37-4C83-A0E5-7E1BCA85023F</CodesignProvision>
+    <CodesignExtraArgs>
+    </CodesignExtraArgs>
     <BuildIpa>True</BuildIpa>
-	<IpaMetadata>
-	</IpaMetadata>
+    <IpaMetadata>
+    </IpaMetadata>
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
-	<MtouchSdkVersion>7.1</MtouchSdkVersion>
+    <MtouchSdkVersion>7.1</MtouchSdkVersion>
     <MtouchExtraArgs>
     </MtouchExtraArgs>
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-	<DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
-	<MtouchI18n>
-	</MtouchI18n>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	<StartupObject>CallForm.iOS.Application</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|iPhoneSimulator' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin</OutputPath>
-    <DefineConstants>DEBUG;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <MtouchDebug>False</MtouchDebug>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
-    <MtouchLink>None</MtouchLink>
-    <MtouchProfiling>False</MtouchProfiling>
-    <MtouchExtraArgs>
-	</MtouchExtraArgs>
-	<MtouchFastDev>False</MtouchFastDev>
-    <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
-    <MtouchArch>Default, ARMv7</MtouchArch>
-    <MtouchUseLlvm>False</MtouchUseLlvm>
-    <MtouchUseThumb>False</MtouchUseThumb>
-    <MtouchUseSGen>False</MtouchUseSGen>
-    <MtouchUseRefCounting>False</MtouchUseRefCounting>
-    <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <MtouchI18n />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Beta|iPhoneSimulator' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin</OutputPath>
-    <DefineConstants>TRACE;__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <MtouchLink>None</MtouchLink>
-    <MtouchSdkVersion>Default</MtouchSdkVersion>
-    <MtouchDebug>False</MtouchDebug>
-    <MtouchProfiling>False</MtouchProfiling>
-    <MtouchExtraArgs>
-	</MtouchExtraArgs>
-	<MtouchFastDev>False</MtouchFastDev>
-    <MtouchArch>Default, ARMv7</MtouchArch>
-    <MtouchUseLlvm>False</MtouchUseLlvm>
-    <MtouchUseThumb>False</MtouchUseThumb>
-    <MtouchUseSGen>False</MtouchUseSGen>
-    <MtouchUseRefCounting>False</MtouchUseRefCounting>
-    <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <MtouchI18n />
-    <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
     <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <MtouchI18n>
+    </MtouchI18n>
+    <StartupObject>CallForm.iOS.Application</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin</OutputPath>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <BuildIpa>False</BuildIpa>
     <IpaMetadata>
-	</IpaMetadata>
-    <IpaPackageName>
-	</IpaPackageName>
-	<IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
-    <MtouchSdkVersion>Default</MtouchSdkVersion>
-    <MtouchDebug>False</MtouchDebug>
-    <MtouchProfiling>False</MtouchProfiling>
+    </IpaMetadata>
+    <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
     <MtouchExtraArgs>
-	</MtouchExtraArgs>
-	<MtouchFastDev>False</MtouchFastDev>
-    <MtouchArch>Default, ARMv7</MtouchArch>
-    <MtouchUseLlvm>False</MtouchUseLlvm>
-    <MtouchUseThumb>False</MtouchUseThumb>
-    <MtouchUseSGen>False</MtouchUseSGen>
-    <MtouchUseRefCounting>False</MtouchUseRefCounting>
+    </MtouchExtraArgs>
+    <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <MtouchI18n />
-    <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
+    <MtouchI18n>
+    </MtouchI18n>
     <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;</DefineConstants>
     <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <StartupObject>CallForm.iOS.Application</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AutoVersionNumber\GlobalAssemblyVersion.cs">
@@ -301,125 +187,101 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CallForm.Core\CallForm.Core.csproj">
-      <Project>{4b641af9-5bbe-4eee-a0e6-df2dd7b0e526}</Project>
+      <Project>{4B641AF9-5BBE-4EEE-A0E6-DF2DD7B0E526}</Project>
       <Name>CallForm.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cirrious.FluentLayout\Cirrious.FluentLayouts.Touch.csproj">
-      <Project>{75d2da9d-dfd4-49a1-98fb-fe0f0677ef0f}</Project>
+      <Project>{75D2DA9D-DFD4-49A1-98FB-FE0F0677EF0F}</Project>
       <Name>Cirrious.FluentLayouts.Touch</Name>
     </ProjectReference>
     <ProjectReference Include="..\XibFree\XibFree.csproj">
-      <Project>{3caf9eb6-5e29-40e2-8798-2de909310cbe}</Project>
+      <Project>{3CAF9EB6-5E29-40E2-8798-2DE909310CBE}</Project>
       <Name>XibFree</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Cirrious.CrossCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.0.13-beta4\lib\MonoTouch40\Cirrious.CrossCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.CrossCore.Touch, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.0.13-beta4\lib\MonoTouch40\Cirrious.CrossCore.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Binding, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Binding.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Binding.Touch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Binding.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Dialog.Touch, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Touch.Dialog.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Dialog.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Localization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Localization.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.File, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.File.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.File.Touch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.File.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.File.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Location, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Location.Touch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Location.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Network, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Network.Touch, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Network.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.PictureChooser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.PictureChooser.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.PictureChooser.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.PictureChooser.Touch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.PictureChooser.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.PictureChooser.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Sqlite.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite.Touch, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Sqlite.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility.Touch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Visibility.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Touch, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="CrossUI.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Touch.Dialog.3.0.13-beta4\lib\MonoTouch40\CrossUI.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="CrossUI.Touch, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmCross.HotTuna.Touch.Dialog.3.0.13-beta4\lib\MonoTouch40\CrossUI.Touch.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
-    <Reference Include="System.EnterpriseServices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
+    <Reference Include="Cirrious.CrossCore">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.0.13-beta4\lib\MonoTouch40\Cirrious.CrossCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.CrossCore.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.0.13-beta4\lib\MonoTouch40\Cirrious.CrossCore.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross">
+      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Binding">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Binding.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Binding.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Binding.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Dialog.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.Touch.Dialog.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Dialog.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Localization">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.File.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.File.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.File.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Json">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Location">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Location.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Location.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Network">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Network.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Network.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.PictureChooser">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.PictureChooser.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.PictureChooser.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.PictureChooser.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.PictureChooser.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.PictureChooser.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Sqlite.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Visibility.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.13-beta4\lib\MonoTouch40\Cirrious.MvvmCross.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="CrossUI.Core">
+      <HintPath>..\packages\MvvmCross.HotTuna.Touch.Dialog.3.0.13-beta4\lib\MonoTouch40\CrossUI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CrossUI.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.Touch.Dialog.3.0.13-beta4\lib\MonoTouch40\CrossUI.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Dairylea-Banner.png" />
@@ -501,5 +363,17 @@ rem del "$(ProjectDir)info.plist"
 rem del "$(ProjectDir)..\AutoVersionNumber\info.plist" 
 "C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\info.tt"
 copy /Y "$(ProjectDir)..\AutoVersionNumber\Info.plist" "$(ProjectDir)Info.plist"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Enterprise|iPhone' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Enterprise</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
 </Project>
