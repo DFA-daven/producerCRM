@@ -1,0 +1,893 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CallForm.Core</name>
+    </assembly>
+    <members>
+        <member name="T:CallForm.Core.App">
+            <summary>Creates an instance of the App. This is the "Core" Project.
+            </summary>
+            <remarks><para>This Class is called from CallForm.iOS.Setup.</para>
+            <para>This initializes the services and defines the ViewModel that will start on launch.</para></remarks>
+        </member>
+        <member name="M:CallForm.Core.App.Initialize">
+            <summary>Defines the App Start point as ViewReports_ViewModel.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.CommonCore">
+            <summary>Commonly used methods.
+            </summary>
+            <remarks>This class may be (partially) duplicated in other Projects.</remarks>
+        </member>
+        <member name="M:CallForm.Core.CommonCore.DebugMessage(System.String)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="message">The message to write to the log.</param>
+        </member>
+        <member name="M:CallForm.Core.CommonCore.DebugMessage(System.String,System.Boolean)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="message">The message to write to the log.</param>
+            <param name="writeToConsole">If <c>True</c>, also write <paramref name="message"/> to the <c>System.Console</c>.</param>
+        </member>
+        <member name="M:CallForm.Core.CommonCore.DebugMessage(System.String,System.String,System.Boolean)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="declaringName">The name of the file that threw the error</param>
+            <param name="methodName">The name of the method that threw the error.
+            This is useful for things like the Master page.</param>
+            <param name="writeToConsole">If <c>True</c>, also write the message to the <c>System.Console</c>.</param>
+        </member>
+        <member name="M:CallForm.Core.CommonCore.DebugMessage(System.String,System.String,System.String,System.Boolean)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="declaringName">The name of the file that threw the error</param>
+            <param name="methodName">The name of the method that threw the error</param>
+            <param name="parentName">The URL of the page that threw the exception. 
+            This is useful for things like the Master page.</param>
+            <param name="writeToConsole">If <c>True</c>, also write the message to the <c>System.Console</c>.</param>
+        </member>
+        <member name="T:CallForm.Core.Models.CallType">
+            <summary>An object representing a visit "CallType" domain object.
+            </summary>
+            <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
+        </member>
+        <member name="M:CallForm.Core.Models.CallType.ToString">
+            <summary>The name of this visit Call Type.
+            </summary>
+            <returns>A <see cref="T:System.String"/> of the description.</returns>
+            <remarks>Including this Override simplifies processing this Class (Model).</remarks>
+        </member>
+        <member name="P:CallForm.Core.Models.CallType.ID">
+            <summary>The internal ID for this object.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.CallType.Name">
+            <summary>Gets/sets the "name" for this instance.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Models.EmailRecipient">
+            <summary>An object representing an "EmailRecipient" domain object.
+            </summary>
+            <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
+        </member>
+        <member name="M:CallForm.Core.Models.EmailRecipient.ToString">
+            <summary>The DisplayName of this <see cref="T:CallForm.Core.Models.EmailRecipient"/>.
+            </summary>
+            <returns>A <see cref="T:System.String"/> of the description.</returns>
+            <remarks>Including this Override simplifies processing this Class (Model).</remarks>
+        </member>
+        <member name="P:CallForm.Core.Models.EmailRecipient.ID">
+            <summary>The internal ID for this object.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.EmailRecipient.Address">
+            <summary>Gets/sets the e-mail Address for this instance.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.EmailRecipient.DisplayName">
+            <summary>Gets/sets the DisplayName for this instance.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Models.ReportListItem">
+            <summary>An object representing the top-level information for a visit.
+            </summary>
+            <remarks>This object is used to populate the table views for the UI. 
+            Design goal is to limit this class to only deal with the raw data.</remarks>
+        </member>
+        <member name="P:CallForm.Core.Models.ReportListItem.ID">
+            <summary>The internal ID for this object.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ReportListItem.UserEmail">
+            <summary>The email address of the user who created this entry.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ReportListItem.MemberNumber">
+            <summary>The 8 digit member number.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ReportListItem.VisitDate">
+            <summary>The date of the visit/contact with the member.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ReportListItem.PrimaryReasonCode">
+            <summary>The primary reason for the visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ReportListItem.Uploaded">
+            <summary>Indicates if this object has been uploaded.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ReportListItem.Local">
+            <summary>Indicates if this record is local.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Models.StoredProducerVisitReport">
+            <summary>An object representing a <c>StoredProducerVisitReport</c> record.
+            </summary>
+            <remarks><para>The database stores each visit as a record in the "StoredProducerVisitReport" table, and the 
+            list of possible reasons for visits in the "ReasonCode" table. For any given visit the selected reasons 
+            are stored in the "VisitXReason" cross reference table.</para>
+            
+            <para>A <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> object represents a single record from the "StoredProducerVisitReport" table. 
+            A <see cref="T:CallForm.Core.Models.ProducerVisitReport"/> is that same record with a <see cref="T:CallForm.Core.Models.ReasonCode">ReasonCode[]</see> holding the 
+            reason code(s) for the specific visit. </para>
+            <para>Design goal is to limit this class to only deal with the raw data.</para></remarks>
+        </member>
+        <member name="M:CallForm.Core.Models.StoredProducerVisitReport.#ctor">
+            <summary>The class constructor.
+            </summary>
+        </member>
+        <member name="M:CallForm.Core.Models.StoredProducerVisitReport.#ctor(CallForm.Core.Models.ProducerVisitReport)">
+            <summary>Creates a <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> based on a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>.
+            </summary>
+            <remarks>Creates a <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> by dropping the <see cref="T:CallForm.Core.Models.ReasonCode"/>, and
+            marking the Uploaded properties as false.</remarks>
+            <param name="visitReport">The visit report.</param>
+        </member>
+        <member name="M:CallForm.Core.Models.StoredProducerVisitReport.Hydrate(CallForm.Core.Models.ReasonCode[])">
+            <summary>Creates a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/> by appending a <see cref="T:CallForm.Core.Models.ReasonCode"/> to this 
+            <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.
+            </summary>
+            <param name="reasonCodes">An array of <see cref="T:CallForm.Core.Models.ReasonCode"/> to be added.</param>
+            <returns>A <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>.</returns>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.ID">
+            <summary>The internal ID for this object.
+            </summary>
+            <seealso cref="P:CallForm.Core.Models.ReasonCode.ID"/>
+            <seealso cref="P:CallForm.Core.Models.VisitXReason.ID"/>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.UserID">
+            <summary>The device ID associated with this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.MemberNumber">
+            <summary>The 8 digit member number.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.Lat">
+            <summary>Decimal latitude.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.Lng">
+            <summary>Decimal longitude.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.VisitDate">
+            <summary>The date the visit took place.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.Duration">
+            <summary>The length of the visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.EntryDateTime">
+            <summary>The time-stamp of this Visit Report.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.CallType">
+            <summary>The Call Type for this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.Notes">
+            <summary>Text notes associated with this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.EmailRecipients">
+            <summary>The email recipients notified about this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.PictureBytes">
+            <summary>A picture associated with this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.StoredProducerVisitReport.Uploaded">
+            <summary>Has this <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> been uploaded?
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Models.VisitXReason">
+            <summary>An object cross-referencing a <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> with a <see cref="T:CallForm.Core.Models.ReasonCode"/>.
+            </summary>
+            <remarks>This is a cross-reference linking a specific visit to a reason code(s). 
+            Design goal is to limit this class to only deal with the raw data.</remarks>
+        </member>
+        <member name="P:CallForm.Core.Models.VisitXReason.ID">
+            <summary>The internal ID for this object.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.VisitXReason.ReasonID">
+            <summary>A <see cref="P:CallForm.Core.Models.ReasonCode.ID">ReasonCode.ID</see>.
+            </summary>
+            <remarks><see cref="P:CallForm.Core.Models.VisitXReason.ReasonID">VisitXReason.ReasonID</see> == <see cref="P:CallForm.Core.Models.ReasonCode.ID">ReasonCode.ID</see></remarks>
+        </member>
+        <member name="P:CallForm.Core.Models.VisitXReason.VisitID">
+            <summary>A <see cref="P:CallForm.Core.Models.StoredProducerVisitReport.ID">StoredProducerVisitReport.ID</see>.
+            </summary>
+            <remarks><see cref="P:CallForm.Core.Models.VisitXReason.VisitID">VisitXReason.VisitID</see> == <see cref="P:CallForm.Core.Models.StoredProducerVisitReport.ID">StoredProducerVisitReport.ID</see></remarks>
+        </member>
+        <member name="T:CallForm.Core.Models.UserIdentity">
+            <summary>Creates an object representing a "UserIdentity" domain object.
+            </summary>
+            <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
+        </member>
+        <member name="M:CallForm.Core.Models.UserIdentity.ToString">
+            <summary>The UserEmail of this <see cref="T:CallForm.Core.Models.UserIdentity"/>.
+            </summary>
+            <returns>A <see cref="T:System.String"/> of the description.</returns>
+        </member>
+        <member name="P:CallForm.Core.Models.UserIdentity.ID">
+            <summary>The internal ID for this object.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.UserIdentity.DeviceID">
+            <summary>The ID of the device (hardware).
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.UserIdentity.UserEmail">
+            <summary>The user's email address.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.UserIdentity.AssetTag">
+            <summary>Text entered by the user to identify this device.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Models.ProducerVisitReport">
+            <summary>An object representing a "ProducerVisitReport" (a report of a visit to a member) domain object. 
+            </summary>
+            <remarks>Design goal is to limit this class to only deal with the raw data. 
+            A ProducerVisitReport object is equivalent to a <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> PLUS the associated
+            <see cref="T:CallForm.Core.Models.ReasonCode"/> list. It may represent a visit that exists on the web service, or a new visit.</remarks>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.ID">
+            <summary>The internal ID for this object.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.UserID">
+            <summary>The device ID associated with this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.MemberNumber">
+            <summary>The 8 digit member number.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.Lat">
+            <summary>Decimal latitude.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.Lng">
+            <summary>Decimal longitude.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.VisitDate">
+            <summary>The date the visit took place.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.Duration">
+            <summary>The length of the visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.EntryDateTime">
+            <summary>The time-stamp of this Visit Report.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.CallType">
+            <summary>The <see cref="P:CallForm.Core.Models.ProducerVisitReport.CallType"/> for this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.Notes">
+            <summary>Text notes associated with this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.EmailRecipients">
+            <summary>The email recipient(s) notified about this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.PictureBytes">
+            <summary>A picture associated with this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ProducerVisitReport.ReasonCodes">
+            <summary>The Reason Code(s) for this visit.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Models.ReasonCode">
+            <summary>An object representing a "ReasonCode" domain object.
+            </summary>
+            <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
+        </member>
+        <member name="M:CallForm.Core.Models.ReasonCode.ToString">
+            <summary>The description of this <see cref="T:CallForm.Core.Models.ReasonCode"/>.
+            </summary>
+            <returns>A <see cref="T:System.String"/> of the description.</returns>
+            <remarks>Including this Override simplifies processing this Class (Model).</remarks>
+        </member>
+        <member name="P:CallForm.Core.Models.ReasonCode.ID">
+            <summary>The internal ID for this object.
+            </summary>
+            <seealso cref="P:CallForm.Core.Models.StoredProducerVisitReport.ID"/>
+            <seealso cref="P:CallForm.Core.Models.VisitXReason.ID"/>
+        </member>
+        <member name="P:CallForm.Core.Models.ReasonCode.Name">
+            <summary>The description of the reason.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Models.ReasonCode.Code">
+            <summary>The value associated with this <see cref="T:CallForm.Core.Models.ReasonCode"/>.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Services.IUserIdentityService">
+            <summary>An interface to the <see cref="T:CallForm.Core.Models.UserIdentity"/>.
+            </summary>
+            <remarks>Signatures of methods, properties, events and/or indexers</remarks>
+        </member>
+        <member name="M:CallForm.Core.Services.IUserIdentityService.UpdateIdentity(CallForm.Core.Models.UserIdentity)">
+            <summary>Updates <paramref name="identity"/> to the XML file on-device, and to the web service.
+            </summary>
+            <param name="identity">A <see cref="T:CallForm.Core.Models.UserIdentity"/>.</param>
+        </member>
+        <member name="M:CallForm.Core.Services.IUserIdentityService.GetIdentity">
+            <summary>Get the <see cref="T:CallForm.Core.Models.UserIdentity"/>.
+            </summary>
+            <returns>The on-device copy of <see cref="T:CallForm.Core.Models.UserIdentity"/>.</returns>
+            <returns></returns>
+        </member>
+        <member name="P:CallForm.Core.Services.IUserIdentityService.IdentityRecorded">
+            <summary>Indicates if the XML file exists in the <see cref="T:Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
+            </summary>
+            <value>Was the User Identity recorded?</value>
+        </member>
+        <member name="T:CallForm.Core.Services.UserIdentityService">
+            <summary>Implements the <see cref="T:CallForm.Core.Services.IUserIdentityService"/> interface.
+            </summary>
+        </member>
+        <member name="F:CallForm.Core.Services.UserIdentityService._fileStore">
+            <summary>An instance of the <see cref="T:Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
+            </summary>
+        </member>
+        <member name="F:CallForm.Core.Services.UserIdentityService._identityRecorded">
+            <summary>Was the User Identity stored?</summary>
+        </member>
+        <member name="F:CallForm.Core.Services.UserIdentityService._identityUploaded">
+            <summary>Was the User Identity uploaded?</summary>
+        </member>
+        <member name="F:CallForm.Core.Services.UserIdentityService._restClient">
+            <summary>An instance of the <see cref="T:Cirrious.MvvmCross.Plugins.Network.Rest.IMvxRestClient"/>.
+            </summary>
+        </member>
+        <member name="M:CallForm.Core.Services.UserIdentityService.#ctor(Cirrious.MvvmCross.Plugins.File.IMvxFileStore,Cirrious.MvvmCross.Plugins.Network.Rest.IMvxRestClient)">
+            <summary>Provides access to the <paramref name="fileStore"/> and <paramref name="restClient"/>.
+            </summary>
+            <param name="fileStore">The target <see cref="T:Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/></param>
+            <param name="restClient">The target <see cref="T:Cirrious.MvvmCross.Plugins.Network.Rest.IMvxRestClient"/></param>
+        </member>
+        <member name="M:CallForm.Core.Services.UserIdentityService.GetIdentity">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.UserIdentityService.UpdateIdentity(CallForm.Core.Models.UserIdentity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.UserIdentityService.SaveIdentityToFile(CallForm.Core.Models.UserIdentity)">
+            <summary>Attempts to save the <paramref name="identity"/> to an XML file.
+            </summary>
+            <param name="identity">The <see cref="T:CallForm.Core.Models.UserIdentity"/> to be recorded.</param>
+            <remarks>Sets the "IdentityRecorded" flag.</remarks>
+        </member>
+        <member name="M:CallForm.Core.Services.UserIdentityService.CreateIdentity">
+            <summary>Creates an "empty" <see cref="T:CallForm.Core.Models.UserIdentity"/>, and 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CallForm.Core.Services.UserIdentityService.IdentityRecorded">
+            <inheritdoc/>
+        </member>
+        <member name="E:CallForm.Core.Services.UserIdentityService.Error">
+            <summary>An error event to communicate to the <c>View</c>.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Services.ISemiStaticWebDataService">
+            <summary>Interface for infrequently changing data.
+            </summary>
+            <remarks>Signatures of methods, properties, events and/or indexers</remarks>
+        </member>
+        <member name="M:CallForm.Core.Services.ISemiStaticWebDataService.GetCallTypesAsList">
+            <summary>Gets the <see cref="T:CallForm.Core.Models.CallType"/>(s) from the <see cref="T:Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
+            </summary>
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.CallType"/>&gt;.</returns>
+        </member>
+        <member name="M:CallForm.Core.Services.ISemiStaticWebDataService.GetEmailDisplayNamesAsList">
+            <summary>Gets the "DisplayName" of the <see cref="T:CallForm.Core.Models.EmailRecipient"/>(s) from the <see cref="T:Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
+            </summary>
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.EmailRecipient"/>&gt; "DisplayName".</returns>
+        </member>
+        <member name="M:CallForm.Core.Services.ISemiStaticWebDataService.GetEmailAddressesAsList">
+            <summary>Gets the "Address" of the <see cref="T:CallForm.Core.Models.EmailRecipient"/>(s) from the <see cref="T:Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
+            </summary>
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.EmailRecipient"/>&gt; "Address".</returns>
+        </member>
+        <member name="M:CallForm.Core.Services.ISemiStaticWebDataService.GetReasonCodes">
+            <summary>Gets the <see cref="T:CallForm.Core.Models.ReasonCode"/>(s) from the <see cref="T:Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/>.
+            </summary>
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.ReasonCode"/>&gt;.</returns>
+            <remarks><see cref="T:CallForm.Core.Models.ReasonCode"/> are stored in both the SQLite database and XML.</remarks>
+        </member>
+        <member name="M:CallForm.Core.Services.ISemiStaticWebDataService.UpdateModels">
+            <summary>Gets the object (model) tables from the web service, and updates the SQLite an/or XML file as required.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Services.SemiStaticWebDataService">
+            <summary>Implements the <see cref="T:CallForm.Core.Services.ISemiStaticWebDataService"/> interface.
+            </summary>
+        </member>
+        <member name="M:CallForm.Core.Services.SemiStaticWebDataService.#ctor(Cirrious.MvvmCross.Plugins.File.IMvxFileStore,Cirrious.MvvmCross.Plugins.Network.Rest.IMvxJsonRestClient,CallForm.Core.Services.IDataService)">
+            <summary>Provides access to the <paramref name="fileStore"/>, <paramref name="jsonRestClient"/>, and <paramref name="localSQLiteDataService"/>.
+            </summary>
+            <param name="fileStore">The target <see cref="T:Cirrious.MvvmCross.Plugins.File.IMvxFileStore"/></param>
+            <param name="jsonRestClient">The target <see cref="T:Cirrious.MvvmCross.Plugins.Network.Rest.IMvxJsonRestClient"/></param>
+            <param name="localSQLiteDataService">The target <see cref="T:CallForm.Core.Services.IDataService"/></param>
+        </member>
+        <member name="M:CallForm.Core.Services.SemiStaticWebDataService.GetReasonCodes">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.SemiStaticWebDataService.GetCallTypesAsList">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.SemiStaticWebDataService.GetEmailDisplayNamesAsList">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.SemiStaticWebDataService.GetEmailAddressesAsList">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.SemiStaticWebDataService.UpdateModels">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.SemiStaticWebDataService.ReasonCodeRestResponse(Cirrious.MvvmCross.Plugins.Network.Rest.MvxDecodedRestResponse{System.Collections.Generic.List{CallForm.Core.Models.ReasonCode}})">
+            <summary>Handle the REST Response containing <c>ReasonCode</c>.
+            </summary>
+            <param name="response">The REST response</param>
+            <remarks>This code doesn't run until a few seconds after the Request is
+            generated by <c>UpdateReasonCodeModel()</c>.</remarks>
+        </member>
+        <member name="M:CallForm.Core.Services.SemiStaticWebDataService.Deserialize``1(System.String)">
+            <summary>Convert XML to an object.
+            </summary>
+            <typeparam name="T">The type to apply to the XML.</typeparam>
+            <param name="xml">An XML ("serialized") string.</param>
+            <returns>The <paramref name="xml"/> deserialized to an object.</returns>
+        </member>
+        <member name="M:CallForm.Core.Services.SemiStaticWebDataService.Serialize``1(``0)">
+            <summary>Convert an object to XML.
+            </summary>
+            <typeparam name="T">The type to apply to <paramref name="obj"/>.</typeparam>
+            <param name="obj">An object that needs to be serialized.</param>
+            <returns>An object "serialized" to XML.</returns>
+        </member>
+        <member name="T:CallForm.Core.Services.DataService">
+            <summary>Implements the <see cref="T:CallForm.Core.Services.IDataService"/> interface.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Services.IDataService">
+            <summary>Interface for visit reports stored in the SQLite database.
+            </summary>
+            <remarks>Signatures of methods, properties, events and/or indexers</remarks>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.ToUpload">
+            <summary>Opens the SQLite database, gets rows from <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>
+            where "Uploaded" is false, and returns them as a List&lt;<see cref="T:CallForm.Core.Models.ProducerVisitReport"/>&gt;.
+            </summary> &lt; T &gt;
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.ProducerVisitReport"/>&gt; where "Uploaded" is false.</returns>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.Recent">
+            <summary>Opens the SQLite database, gets the most recent <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>s.
+            </summary>
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.ReportListItem"/>&gt; sorted in descending order by VisitDate.</returns>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.Insert(CallForm.Core.Models.ProducerVisitReport)">
+            <summary>Given a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>, adds a 
+            <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> (and <see cref="T:CallForm.Core.Models.VisitXReason"/>(s)) to the SQLite database.
+            </summary>
+            <param name="report">A new <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>.</param>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.GetHydratedReport(System.Int32)">
+            <summary>Opens the SQLite database, gets a <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> (and <see cref="T:CallForm.Core.Models.ReasonCode"/>), 
+            and 
+            </summary>
+            <param name="id">The internal ID number of a <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.</param>
+            <returns>A <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>.</returns>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.ReportUploaded(System.Int32)">
+            <summary>Marks the "uploaded" flag for a given <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> in the SQLite database.
+            </summary>
+            <param name="id">The internal ID number of <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.</param>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.GetSQLiteReasonCodes">
+            <summary>Opens the SQLite database, gets all <see cref="T:CallForm.Core.Models.ReasonCode"/>.
+            </summary>
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.ReasonCode"/>&gt;.</returns>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.UpdateSQLiteReasonCodes(System.Collections.Generic.List{CallForm.Core.Models.ReasonCode})">
+            <summary>Opens the SQLite database, and replaces the <see cref="T:CallForm.Core.Models.ReasonCode"/> table.
+            </summary>
+            <param name="newObjects">A new List&lt;<see cref="T:CallForm.Core.Models.ReasonCode"/>&gt;.</param>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.GetSQLiteCallTypes">
+            <summary>Opens the SQLite database, gets all <see cref="T:CallForm.Core.Models.CallType"/>.
+            </summary>
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.CallType"/>&gt;.</returns>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.UpdateSQLiteCallTypes(System.Collections.Generic.List{CallForm.Core.Models.CallType})">
+            <summary>Opens the SQLite database, and replaces the <see cref="T:CallForm.Core.Models.CallType"/> table.
+            </summary>
+            <param name="newObjects">A new List&lt;<see cref="T:CallForm.Core.Models.CallType"/>&gt;.</param>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.GetSQLiteEmailRecipients">
+            <summary>Opens the SQLite database, gets all <see cref="T:CallForm.Core.Models.EmailRecipient"/>.
+            </summary>
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.EmailRecipient"/>&gt;.</returns>
+        </member>
+        <member name="M:CallForm.Core.Services.IDataService.UpdateSQLiteEmailRecipients(System.Collections.Generic.List{CallForm.Core.Models.EmailRecipient})">
+            <summary>Opens the SQLite database, and replaces the <see cref="T:CallForm.Core.Models.EmailRecipient"/> table.
+            </summary>
+            <param name="newObjects">A new List&lt;<see cref="T:CallForm.Core.Models.EmailRecipient"/>&gt;.</param>
+        </member>
+        <member name="P:CallForm.Core.Services.IDataService.Count">
+            <summary>The number of <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> records in the SQLite database.
+            </summary>
+        </member>
+        <member name="F:CallForm.Core.Services.DataService._userIdentityService">
+            <inheritdoc/>
+        </member>
+        <member name="F:CallForm.Core.Services.DataService._localSQLiteConnection">
+            <summary>The connection to the SQLite database.
+            </summary>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.#ctor(Cirrious.MvvmCross.Plugins.Sqlite.ISQLiteConnectionFactory,CallForm.Core.Services.IUserIdentityService)">
+            <summary>Opens the SQLite database; 
+            if needed create an instance of an SQLite database; 
+            if needed create object tables.
+            </summary>
+            <param name="factory">The <see cref="T:Cirrious.MvvmCross.Plugins.Sqlite.ISQLiteConnectionFactory"/>.</param>
+            <param name="userIdentityService">The <see cref="T:CallForm.Core.Services.IUserIdentityService"/>.</param>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.Hydrated(CallForm.Core.Models.StoredProducerVisitReport)">
+            <summary>Opens the SQLite database, adds <see cref="M:CallForm.Core.Models.ReasonCode.#ctor"/> to the <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>, and 
+            returns a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>.
+            </summary>
+            <param name="storedProducerVisitReport">A <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.</param>
+            <returns>A <see cref="T:CallForm.Core.Models.ProducerVisitReport"/> based on a <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.</returns>
+            <remarks>Opens the <see cref="F:CallForm.Core.Services.DataService._localSQLiteConnection"/>, queries the <see cref="T:CallForm.Core.Models.VisitXReason"/> table for the given
+            <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <see cref="T:CallForm.Core.Models.ReasonCode"/> table
+            to get a <see cref="T:CallForm.Core.Models.ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>.</remarks>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.ToUpload">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.Recent">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.Insert(CallForm.Core.Models.ProducerVisitReport)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.GetHydratedReport(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.ReportUploaded(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.GetSQLiteReasonCodes">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.UpdateSQLiteReasonCodes(System.Collections.Generic.List{CallForm.Core.Models.ReasonCode})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.GetSQLiteCallTypes">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.UpdateSQLiteCallTypes(System.Collections.Generic.List{CallForm.Core.Models.CallType})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.GetSQLiteEmailRecipients">
+            <inheritdoc/>
+        </member>
+        <member name="M:CallForm.Core.Services.DataService.UpdateSQLiteEmailRecipients(System.Collections.Generic.List{CallForm.Core.Models.EmailRecipient})">
+            <inheritdoc/>
+        </member>
+        <member name="P:CallForm.Core.Services.DataService.Count">
+            <inheritdoc/>
+        </member>
+        <member name="T:CallForm.Core.Services.ErrorEventArgs">
+            <summary>An error event to communicate to the <c>View</c>.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.Services.ErrorEventArgs.Message">
+            <summary>The message to display on the error pop-up.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.Services.ILocationService">
+            <summary>Creates the interface for <see cref="T:CallForm.Core.Services.LocationService"/>.
+            </summary>
+            <remarks>Signatures of methods, properties, events and/or indexers</remarks>
+        </member>
+        <member name="M:CallForm.Core.Services.ILocationService.TryGetLatestLocation(System.Double@,System.Double@)">
+            <summary>Attempts to get the current coordinates.
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="lng">Longitude</param>
+            <returns></returns>
+        </member>
+        <member name="T:CallForm.Core.ViewModels.UserIdentity_ViewModel">
+            <summary>Class definition of the "User Identity" domain object.
+            </summary>
+            <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
+        </member>
+        <member name="M:CallForm.Core.ViewModels.UserIdentity_ViewModel.#ctor(CallForm.Core.Services.IUserIdentityService)">
+            <summary>Creates an instance of <see cref="T:CallForm.Core.ViewModels.UserIdentity_ViewModel"/>.
+            </summary>
+            <param name="userIdentityService"></param>
+        </member>
+        <member name="M:CallForm.Core.ViewModels.UserIdentity_ViewModel.DoSaveCommand">
+            <summary>This is the action of the "OK" button at the bottom of the UserIdentityView page.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.UserIdentity_ViewModel.DeviceID">
+            <summary>The unique Id of the iOS device.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.UserIdentity_ViewModel.UserEmail">
+            <summary>The user's email address.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.UserIdentity_ViewModel.AssetTag">
+            <summary>The "Asset Tag" assigned to the iOS device.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.UserIdentity_ViewModel.SaveCommand">
+            <summary>The action for the "OK" / Save button.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.ViewModels.ViewReports_ViewModel">
+            <summary>Class definition of the "View Reports" domain object.
+            </summary>
+            <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
+        </member>
+        <member name="M:CallForm.Core.ViewModels.ViewReports_ViewModel.Start">
+            <summary>Runs before this view Overlays <see cref="T:CallForm.Core.ViewModels.UserIdentity_ViewModel"/> if no identity exists.
+            </summary>
+            <remarks>This model is the <see cref="M:CallForm.Core.App.Initialize">RegisterAppStart</see> of <see cref="T:CallForm.Core.App"/>.</remarks>
+        </member>
+        <member name="M:CallForm.Core.ViewModels.ViewReports_ViewModel.#ctor(Cirrious.MvvmCross.Plugins.Network.Rest.IMvxJsonRestClient,Cirrious.CrossCore.Platform.IMvxJsonConverter,CallForm.Core.Services.IDataService,Cirrious.MvvmCross.Plugins.Network.Rest.IMvxRestClient,CallForm.Core.Services.ISemiStaticWebDataService,CallForm.Core.Services.IUserIdentityService)">
+            <summary>Creates an instance of <see cref="T:CallForm.Core.ViewModels.ViewReports_ViewModel"/>.
+            </summary>
+            <param name="jsonRestClient"></param>
+            <param name="jsonConverter"></param>
+            <param name="localDataService"></param>
+            <param name="restClient"></param>
+            <param name="semiStaticWebDataService"></param>
+            <param name="userIdentityService"></param>
+        </member>
+        <member name="M:CallForm.Core.ViewModels.ViewReports_ViewModel.DoGetReportsCommand">
+            <summary>Executes the query that retrieves the Reports (or if blank, the most recent result).
+            </summary>
+        </member>
+        <member name="M:CallForm.Core.ViewModels.ViewReports_ViewModel.DoNewVisitCommand">
+            <summary>Open the <see cref="T:CallForm.Core.ViewModels.NewVisit_ViewModel"/> view.
+            </summary>
+        </member>
+        <member name="M:CallForm.Core.ViewModels.ViewReports_ViewModel.UploadReports">
+            <summary>Uploads each <see cref="T:CallForm.Core.Models.ProducerVisitReport">visit report</see> that is flagged 
+            <see cref="!:DataService.ToUpLoad()">ToUpLoad()</see> in the on-device
+            database to the web service.
+            </summary>
+            <remarks>This is called each time the <c>ViewReport</c>'s <c>ViewDidAppear()</c> event occurs.</remarks>
+        </member>
+        <member name="M:CallForm.Core.ViewModels.ViewReports_ViewModel.ParseResponse(Cirrious.MvvmCross.Plugins.Network.Rest.MvxRestResponse)">
+            <summary>Parse the response from the web service for a <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> ID, 
+            and mark the visit report as uploaded.
+            </summary>
+            <param name="response">The REST response from the web service.</param>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.ViewReports_ViewModel.Request">
+            <summary>Holds the REST request string.
+            </summary>
+            <remarks>This is mostly for debugging -- so if the request fails there's an easy way to see the contents.</remarks>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.ViewReports_ViewModel.Filter">
+            <summary>The value the user would like to search for.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.ViewReports_ViewModel.GetReportsCommand">
+            <summary>Gets the Reports Command.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.ViewReports_ViewModel.Title">
+            <summary>Value for this View's Title.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.ViewReports_ViewModel.Reports">
+            <summary>The "visit reports" are listed in the <c>TableView</c>.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.ViewModels.ErrorEventArgs">
+            <summary>An error event to communicate to the <c>View</c>.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.ErrorEventArgs.Message">
+            <summary>The message to display on the error pop-up.
+            </summary>
+        </member>
+        <member name="T:CallForm.Core.ViewModels.NewVisit_ViewModel">
+            <summary>Class definition of the "New Visit" domain object.
+            </summary>
+            <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._lat">
+            <summary>Store for the latitude property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._lng">
+            <summary>Store for the longitude property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._selectedCallType">
+            <summary>Store for the selected <c>CallType</c> property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._date">
+            <summary>Store for the date property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._duration">
+            <summary>Store for the visit duration property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._durationString">
+            <summary>Store for the (string) visit duration property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._actualTime">
+            <summary>Store for the <c>ActualTime</c> property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._memberNumber">
+            <summary>Store for the member number property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._notes">
+            <summary>Store for the notes property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._selectReasonCodes">
+            <summary>Store for the selected <c>ReasonCode</c> property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._callTypes">
+            <summary>Store for the list of possible visit <c>CallType</c>s.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._emailAddresses">
+            <summary>Store for the email addresses selected by the user</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._emailDisplayNames">
+            <summary>Store for the email display names selected by the user</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._saveCommand">
+            <summary>Store for the <c>SaveCommand</c> property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._pictureBytes">
+            <summary>Store for the <c>PictureBytes[]</c> property.</summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._takePictureCommand">
+            <summary>Store for the <c>TakePictureCommand</c> property.</summary>
+        </member>
+        <member name="M:CallForm.Core.ViewModels.NewVisit_ViewModel.#ctor(CallForm.Core.Services.ILocationService,Cirrious.MvvmCross.Plugins.Messenger.IMvxMessenger,Cirrious.MvvmCross.Plugins.PictureChooser.IMvxPictureChooserTask,CallForm.Core.Services.IDataService,Cirrious.CrossCore.Platform.IMvxJsonConverter,CallForm.Core.Services.ISemiStaticWebDataService)">
+            <summary>Creates an instance of <c>NewVisit_ViewModel</c>.
+            </summary>
+            <param name="locationService"></param>
+            <param name="messenger"></param>
+            <param name="pictureChooserTask"></param>
+            <param name="localDatabaseService"></param>
+            <param name="jsonConverter"></param>
+            <param name="semiStaticWebDataService"></param>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel.ListOfReasonCodes">
+            <summary>The list of <see cref="T:CallForm.Core.Models.ReasonCode"/>s for the user to select from.
+            </summary>
+            <remarks><c>ListOfReasonCodes</c> is handled by <see cref="!:CallForm.iOS.ViewElements.ReasonCodePickerDialogViewController"/></remarks>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel.ListOfEmailAddresses">
+            <summary>Holds the "Address" of potential Email Recipients.
+            </summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel.ListOfEmailDisplayNames">
+            <summary>Holds the "DisplayName" of potential Email Recipients.
+            </summary>
+        </member>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._editing">
+            <summary>Store for the <c>Editing</c> property.</summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.Lat">
+            <summary>The latitude value for this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.Lng">
+            <summary>The longitude value for this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.Date">
+            <summary>The date assigned to this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.Duration">
+            <summary>The (numeric) duration assigned to this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.DurationString">
+            <summary>The (string) duration assigned to this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.ActualTime">
+            <summary>The time when this visit was created/updated.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.MemberNumber">
+            <summary>The member number associated with this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.Notes">
+            <summary>Any user entered notes associated with this visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.SelectedReasonCodes">
+            <summary>A set of <see cref="T:CallForm.Core.Models.ReasonCode"/>(s) assigned by the user to this Visit.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.SelectedCallType">
+            <summary>The name of the visit <see cref="T:CallForm.Core.Models.CallType"/> selected by the user.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.ListOfCallTypes">
+            <summary>The list of <see cref="T:CallForm.Core.Models.CallType"/> names for the user to select from.
+            </summary>
+            <remarks><see cref="P:CallForm.Core.ViewModels.NewVisit_ViewModel.ListOfCallTypes"/> is handled by <see cref="!:CallForm.iOS.ViewElements.StringPickerDialog_ViewController"/></remarks>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.SaveCommand">
+            <summary>The action for Save button.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.SelectedEmailAddresses">
+            <summary>The list of <see cref="T:CallForm.Core.Models.EmailRecipient"/> Addresses for the user to select from.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.SelectedEmailDisplayNames">
+            <summary>The list of <see cref="T:CallForm.Core.Models.EmailRecipient"/> DisplayNames for the user to select from.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.Editing">
+            <summary>Keeps track of Editing status.
+            </summary>
+            <remarks>This is an example of a property that SHOULD be in the ViewModel.</remarks>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.SaveButtonText">
+            <summary>Label for <see cref="P:CallForm.Core.ViewModels.NewVisit_ViewModel.SaveCommand"/>.
+            </summary>
+        </member>
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.Title">
+            <summary>Value for this View's Title.
+            </summary>
+        </member>
+        <member name="E:CallForm.Core.ViewModels.NewVisit_ViewModel.Error">
+            <summary>An error event to communicate to the <c>View</c>.
+            </summary>
+        </member>
+    </members>
+</doc>
