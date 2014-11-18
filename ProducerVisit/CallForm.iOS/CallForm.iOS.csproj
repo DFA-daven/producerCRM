@@ -146,7 +146,34 @@
 	<MtouchI18n>
 	</MtouchI18n>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+	
+	<DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
 	<StartupObject>CallForm.iOS.Application</StartupObject>
+	
+	<CodesignProvision>04B0F2B2-CC37-4C83-A0E5-7E1BCA85023F</CodesignProvision>
+    <CodesignEntitlements />
+    <CodesignResourceRules />
+    <CodesignExtraArgs />
+	<BuildIpa>True</BuildIpa>
+    <IpaMetadata>
+	</IpaMetadata>
+    <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
+    <MtouchSdkVersion>7.1</MtouchSdkVersion>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchDebug>False</MtouchDebug>
+    <MtouchProfiling>False</MtouchProfiling>
+    <MtouchExtraArgs>
+    </MtouchExtraArgs>
+    <MtouchFastDev>False</MtouchFastDev>
+    <MtouchArch>Default, ARMv7</MtouchArch>
+    <MtouchUseLlvm>False</MtouchUseLlvm>
+    <MtouchUseThumb>False</MtouchUseThumb>
+    <MtouchUseSGen>False</MtouchUseSGen>
+    <MtouchUseRefCounting>False</MtouchUseRefCounting>
+    <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
+    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
+    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|iPhoneSimulator' ">
     <DebugType>pdbonly</DebugType>
