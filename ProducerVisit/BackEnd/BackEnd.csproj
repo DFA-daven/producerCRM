@@ -66,7 +66,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DairyleaDataAccessLayer">
-      <HintPath>..\..\..\Libraries\DairyleaDataAccessLayer\DairyleaDataAccessLayer\bin\Release\DairyleaDataAccessLayer.dll</HintPath>
+      <HintPath>References\DairyleaDataAccessLayer.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
