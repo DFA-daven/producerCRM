@@ -1,0 +1,7 @@
+﻿DairyDataAccessLayer.dll
+
+original location: 
+c:\users\Dave.Nouza\Dairylea Source\Libraries\dlDataAccessLayer\Trunk\DairyleaDataAccessLayer\DairyleaDataAccessLayer\bin\Release\DairyleaDataAccessLayer.dll
+
+alternate location:
+C:\Users\dave.nouza\Source\Repos\DFA\Libraries\DairyleaDataAccessLayer\DairyleaDataAccessLayer\bin\Release\DairyleaDataAccessLayer.dll

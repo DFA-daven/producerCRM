@@ -77,6 +77,8 @@ namespace CallForm.Core.ViewModels
             IMvxJsonConverter jsonConverter,
             ISemiStaticWebDataService semiStaticWebDataService)
         {
+            CommonCore.DebugMessage("  core[nv_vm][nv_vm] > Creating new instance of NewVisit_ViewModel()... ");
+
             ListOfReasonCodes = localDatabaseService.GetSQLiteReasonCodes();
             SelectedReasonCodes = new List<ReasonCode>();
 
@@ -106,22 +108,24 @@ namespace CallForm.Core.ViewModels
             _localDatabaseService = localDatabaseService;
             _jsonConverter = jsonConverter;
 
-            Editing = true;
+            // Review: 11 is this *always* a new report?
+            //IsNewReport = true;
+
+            CommonCore.DebugMessage("  core[nv_vm][nv_vm] > ...finished creating NewVisit_ViewModel().");
+
         }
 
         public void Init(NewVisitInit data)
         {
-            // broken: not sure if this is Working correctly -- seems to crash app
-            //Mvx.Trace(MvxTraceLevel.Diagnostic, "Init: Report Data", data.ReportData);
-
+            CommonCore.DebugMessage("  core[nv_vm][init] > Starting Init(NewVisitInit data)... ");
             if (string.IsNullOrEmpty(data.ReportData))
             {
                 MemberNumber = data.MemberNumber;
-                Editing = true;
+                IsNewReport = true;
                 return;
             }
             var report = _jsonConverter.DeserializeObject<ProducerVisitReport>(data.ReportData);
-            Editing = false;
+            IsNewReport = false;
 
             UserID = report.UserID;
             MemberNumber = report.MemberNumber;
@@ -144,6 +148,8 @@ namespace CallForm.Core.ViewModels
                     new List<string>(report.EmailRecipients.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries));
             }
             PictureBytes = (byte[]) (report.PictureBytes ?? new byte[0]).Clone();
+
+            CommonCore.DebugMessage("  core[nv_vm][init] > ...finished Init(NewVisitInit data).");
         }
 
         //internal List<string> 
@@ -361,7 +367,6 @@ namespace CallForm.Core.ViewModels
         {
             get
             {
-                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
                 _saveCommand = _saveCommand ?? new MvxCommand(DoSaveCommand);
                 return _saveCommand;
             }
@@ -388,9 +393,16 @@ namespace CallForm.Core.ViewModels
             {
                 Error(this, new ErrorEventArgs { Message = "You must enter a value for Length of Call." });
             }
-            else if (Editing)
+            else 
+            {
+                // no errors were detected
+            }
+
+            if (IsNewReport)
             {
                 _localDatabaseService.Insert(NewVisitAsProducerVisitReport());
+
+                // do we need to send an email?
                 if (SelectedEmailAddresses == null || SelectedEmailAddresses.Count <= 0)
                 {
                     Close(this);
@@ -402,7 +414,7 @@ namespace CallForm.Core.ViewModels
             }
             else
             {
-                //Close(this);
+                // this is not a new report, so the saveButton is functioning as an "add new report" button
                 ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { MemberNumber = MemberNumber });
             }
         }
@@ -442,7 +454,6 @@ namespace CallForm.Core.ViewModels
         {
             get
             {
-                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
                 _takePictureCommand = _takePictureCommand ?? new MvxCommand(DoTakePictureCommand);
                 return _takePictureCommand;
             }
@@ -512,19 +523,19 @@ namespace CallForm.Core.ViewModels
         #endregion
 
         #region Page Admin
-        /// <summary>Store for the <c>Editing</c> property.</summary>
-        private bool _editing;
+        /// <summary>Store for the <c>IsNewReport</c> property.</summary>
+        private bool _isNewReport;
 
-        /// <summary>Keeps track of Editing status.
+        /// <summary>Keeps track of IsNewReport status.
         /// </summary>
         /// <remarks>This is an example of a property that SHOULD be in the ViewModel.</remarks>
-        public bool Editing
+        public bool IsNewReport
         {
-            get { return _editing; }
+            get { return _isNewReport; }
             set
             {
-                _editing = value;
-                RaisePropertyChanged(() => Editing);
+                _isNewReport = value;
+                RaisePropertyChanged(() => IsNewReport);
                 RaisePropertyChanged(() => SaveButtonText);
                 RaisePropertyChanged(() => Title);
             }
@@ -532,16 +543,18 @@ namespace CallForm.Core.ViewModels
 
         /// <summary>Label for <see cref="SaveCommand"/>.
         /// </summary>
+        /// <remarks>If this <see cref="IsNewReport"/>, button action is to "save" this <see cref="NewVisit_View"/>. If not IsNewReport, 
+        /// button action is to open a new NewVisit_View (with the current <see cref="MemberNumber"/>.</remarks>
         public string SaveButtonText
         {
-            get { return Editing ? "Save" : "New Report for Member"; }
+            get { return IsNewReport ? "Save" : "New Report for Member"; }
         }
 
         /// <summary>Value for this View's Title.
         /// </summary>
         public string Title
         {
-            get { return Editing ? "New Contact Report" : "Contact Report"; }
+            get { return IsNewReport ? "New Contact Report" : "Contact Report"; }
         }
 
         /// <summary>An error event to communicate to the <c>View</c>.
@@ -552,6 +565,7 @@ namespace CallForm.Core.ViewModels
 
     public class NewVisitInit
     {
+
         public string ReportData { get; set; }
         public string MemberNumber { get; set; }
     }

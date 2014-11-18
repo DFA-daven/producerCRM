@@ -42,6 +42,13 @@ namespace CallForm.iOS.Views
             set { _isOS7OrLater = value; }
         }
 
+        private bool _isOS8OrLater;
+        public bool IsOS8OrLater
+        {
+            get { return _isOS8OrLater; }
+            set { _isOS8OrLater = value; }
+        }
+
         private float _statusBarHeight = 0f;
         public float StatusBarHeight
         {
@@ -105,33 +112,67 @@ namespace CallForm.iOS.Views
         }
         #endregion
 
-        UIBarButtonItem cancelBBI;
+        UIBarButtonItem trashBBI;
+        UIBarButtonItem searchBBI;
         public NewVisit_View()
         {
-            #region UIBarButtonItem Refresh
-            // this works b/c of the line: set.Bind(cancelBBI).To(vm => vm.GetReportsCommand);
-            cancelBBI = new UIBarButtonItem(UIBarButtonSystemItem.Cancel , (sender, e) =>
-            {
-                string message = "  [nv_v][nv_v] > Cancel (New Visit report) clicked.";
-                Console.WriteLine(message);
-            });
+            Common_iOS.DebugMessage("  [nv_v][nv_v] > Creating new instance...");
 
-            NavigationItem.SetRightBarButtonItem(cancelBBI, false);
-            #endregion
+            Editing = (ViewModel as NewVisit_ViewModel).IsNewReport;
+
+            //IsOS8OrLater = Common_iOS.iOSVersionOK;
+            StatusBarHeight = FindStatusBarHeight();
+            NavBarHeight = FindNavBarHeight();
+
+            // FixMe: hard-coded values -- calculate these from the screen dimensions?
+            ButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 3f), 0);
+            RowHeight = 50f;
 
             try
             {
-                IsOS7OrLater = FindIsOS7OrLater();
-                StatusBarHeight = FindStatusBarHeight();
-                NavBarHeight = FindNavBarHeight();
+                #region UIBarButtonItems
+                // ToDo: check if we're using local or remote data
+                bool producerCanBeSearched = true;
 
-                // FixMe: hard-coded values -- calculate these from the screen dimensions?
-                ButtonHeight = (float)Math.Round((UIFont.SystemFontSize * 3f), 0);
-                RowHeight = 50f;
+                // ToDo: check if this record can be deleted
+                bool recordCanBeDeleted = true;
+
+                if (Editing)
+                {
+                    trashBBI = new UIBarButtonItem(UIBarButtonSystemItem.Trash, (sender, e) =>
+                    {
+                        string message = "  [nv_v][nv_v] > 'Search' (New Visit report) clicked.";
+                        Console.WriteLine(message);
+                    });
+
+                    trashBBI.Enabled = recordCanBeDeleted;
+                    trashBBI.TintColor = UIColor.Red;
+
+                    NavigationItem.SetRightBarButtonItem(trashBBI, false);
+                }
+                else
+                {
+                    searchBBI = new UIBarButtonItem(UIBarButtonSystemItem.Search, (sender, e) =>
+                    {
+                        string message = "  [nv_v][nv_v] > 'Trash' (New Visit report) clicked.";
+                        Console.WriteLine(message);
+                    });
+
+                    searchBBI.Enabled = producerCanBeSearched;
+
+                    // ToDo: add logic to check if this is a new or existing record
+                    // if (is a new record)
+                    // {
+                    NavigationItem.SetRightBarButtonItem(searchBBI, false);
+                    // }
+                }
+                #endregion
+
+
             }
             finally
             {
-                Common_iOS.DebugMessage("  [nv_v][nv_v] > Created instance...");
+                Common_iOS.DebugMessage("  [nv_v][nv_v] > New instance created.");
             }
             
         }
@@ -228,7 +269,7 @@ namespace CallForm.iOS.Views
             saveButton.Frame = new RectangleF(PercentOfTableFrameWidth(25), 0, saveButtonWidth, saveButtonHeight );
             //saveButton.BackgroundColor = UIColor.Red;
 
-            if (!(ViewModel as NewVisit_ViewModel).Editing)
+            if (!(ViewModel as NewVisit_ViewModel).IsNewReport)
             {
                 UIButton reSendButton = new UIButton(UIButtonType.System);
                 reSendButton.SetTitle("Forward via Email", UIControlState.Normal);
@@ -244,13 +285,29 @@ namespace CallForm.iOS.Views
 
             // Note: this BindingDescriptionSet represents the link between the NewVisit_View and the NewVisit_ViewModel.
             var set = this.CreateBindingSet<NewVisit_View, NewVisit_ViewModel>();
+
             set.Bind(saveButton).For("Title").To(vm => vm.SaveButtonText);
             set.Bind(saveButton).To(vm => vm.SaveCommand);
+
+            // Undone: need new command for producer search
+            if (Editing)
+            {
+                set.Bind(trashBBI).To(vm => vm.SaveCommand);
+            }
+            else
+            {
+                set.Bind(searchBBI).To(vm => vm.SaveCommand);
+            }
 
             set.Bind(this).For(o => o.Title).To(vm => vm.Title);
             set.Apply();
 
+
+
             #region UI action
+            //trashBBI.Clicked += (sender, args) => { new UIAlertView("Error", "There are no mail accounts configured to send email.", null, "OK").Show(); };
+            //InvokeOnMainThread(() => { new UIAlertView("Error", "There are no mail accounts configured to send email.", null, "OK").Show(); });
+
 
             #endregion UI action
 
@@ -449,7 +506,7 @@ namespace CallForm.iOS.Views
             float displacement_y = 0f;
             float bottomGuide = 0f;
 
-            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IsOS7OrLater...");
+            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IOSVersionOK...");
             if (IsOS7OrLater)
             {
                 displacement_y = this.TopLayoutGuide.Length;
@@ -832,7 +889,7 @@ namespace CallForm.iOS.Views
                     throw new ArgumentOutOfRangeException("ViewFrameHeight");
             }
 
-            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IsOS7OrLater...");
+            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IOSVersionOK...");
             Common_iOS.DebugMessage("  [nv_v][vfh] > iOS 7 = " + IsOS7OrLater.ToString() + " > ViewFrameHeight(): " + viewFrameHeight.ToString());
 
             return viewFrameHeight;
@@ -850,7 +907,7 @@ namespace CallForm.iOS.Views
             if (View.Frame.Height < 1)
             {
                 Common_iOS.DebugMessage("  [nv_v][tm] > View not ready. Using hard-coded value. < #####");
-                Common_iOS.DebugMessage("  [nv_v][vdls] > Using IsOS7OrLater...");
+                Common_iOS.DebugMessage("  [nv_v][vdls] > Using IOSVersionOK...");
                 if (IsOS7OrLater)
                 {
                     topMargin = 20f;
@@ -912,10 +969,9 @@ namespace CallForm.iOS.Views
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             float navbarHeight = 44f;
 
-            // Note: can't check IsOS7OrLater here
             try
             {
-                if ((bool)_isOS7OrLater)
+                if (IsOS7OrLater)
                 {
                     navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
                 }
@@ -945,7 +1001,7 @@ namespace CallForm.iOS.Views
             //if (View.Frame.Height < 1)
             //{
             //    Common_iOS.DebugMessage("  [nv_v][nbh] > View not ready... ");
-            //    if (IsOS7OrLater)
+            //    if (IOSVersionOK)
             //    {
             //        return 44f;
             //    }
@@ -970,7 +1026,7 @@ namespace CallForm.iOS.Views
             //    return navbarHeight;
             //}
 
-            //if (IsOS7OrLater)
+            //if (IOSVersionOK)
             //{
             //    Common_iOS.DebugMessage("  [nv_v][nbh] > IsMinimumiOS6() = true, navbarHeight = " + navbarHeight.ToString() + " < = = = " );
             //    navbarHeight = NavigationController.NavigationBar.Frame.Height; // the nearest ANCESTOR NavigationController
@@ -1005,41 +1061,6 @@ namespace CallForm.iOS.Views
             Common_iOS.DebugMessage("  [nv_v][sbh] > statusBarHeight: " + statusBarHeight.ToString() + " < OK");
 
             return statusBarHeight;
-        }
-
-        /// <summary>Is this device running iOS 7.0.
-        /// </summary>
-        /// <returns>True if this is iOS 7.0.</returns>
-        internal bool FindIsOS7OrLater()
-        {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
-            bool thisIsOS7 = false;
-            
-            if (_isOS7OrLater == null)
-            {
-                string version = UIDevice.CurrentDevice.SystemVersion;
-                string[] parts = version.Split('.');
-                string major = parts[0];
-                int majorVersion = Common_iOS.SafeConvert(major, 0);
-
-                if (majorVersion > 6)
-                {
-                    //float displacement_y = this.TopLayoutGuide.Length;
-
-                    thisIsOS7 = true;
-                }
-
-                Common_iOS.DebugMessage("  [nv_v][i7ol] > major version: " + major + ". Version is higher than 6 = " + thisIsOS7.ToString() + " <  ");
-
-                //_isOS7OrLater = thisIsOS7;
-            }
-            else
-            {
-                thisIsOS7 = (bool)_isOS7OrLater;
-            }
-
-            return thisIsOS7;
         }
     }
 }

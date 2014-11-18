@@ -150,7 +150,7 @@
         UIBarButtonItem newBBI;
         public ViewReports_View()
         {
-            IsOS7OrLater = Common_iOS.IsMinimumiOS7();
+            //IsOS7OrLater = Common_iOS.IsMinimumiOS7();
 
             // FixMe: hard-coded values -- calculate these from the screen dimensions?
             ButtonHeight = 50f;
@@ -234,15 +234,15 @@
             Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdl] > starting method...");
 
-            if (!IsOS7OrLater)
-            {
-                string message = "  [vr_v][vr_v] > This App requires iOS 7 or higher.";
-                Console.WriteLine(message);
-                //InvokeOnMainThread(() => { new UIAlertView("Wrong iOS version", message, null, "OK").Show(); });
+            //if (!IsOS7OrLater)
+            //{
+            //    string message = "  [vr_v][vr_v] > This App requires iOS 7 or higher.";
+            //    Console.WriteLine(message);
+            //    //InvokeOnMainThread(() => { new UIAlertView("Wrong iOS version", message, null, "OK").Show(); });
 
-                // Review: pick one: 1. P/Invoke exit(); 2. NSThread.Exit(); 3. throwing an exception; 4. terminateWithSuccess
-                // NSThread.Exit();
-            }
+            //    // Review: pick one: 1. P/Invoke exit(); 2. NSThread.Exit(); 3. throwing an exception; 4. terminateWithSuccess
+            //    // NSThread.Exit();
+            //}
 
             #region pageLayout
             float topMargin = 0;
@@ -547,11 +547,11 @@
              * Note: EdgesForExtendedLayout may allow this app to display, but using TopLayoutGuide
              * and BottomLayoutGuide are preferred since they allow the app to meet the iOS 7 design goals.
              */
-            float displacement_y = 0f;
-            if (IsOS7OrLater)
-            {
-                //displacement_y = this.TopLayoutGuide.Length;
-            }
+            //float displacement_y = 0f;
+            //if (IsOS7OrLater)
+            //{
+            //    //displacement_y = this.TopLayoutGuide.Length;
+            //}
 
             Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [vr_v][vdls] > ...finished");

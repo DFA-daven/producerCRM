@@ -1,0 +1,400 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BackEnd</name>
+    </assembly>
+    <members>
+        <member name="T:BackEnd.Controllers.ProducerCrmVisitController">
+            <summary>Creates a new <c>ProducerCrmVisitController</c> for managing requests to the  web service. Inherits from <see cref="T:System.Web.Mvc.Controller"/>.
+            </summary>
+        </member>
+        <member name="F:BackEnd.Controllers.ProducerCrmVisitController._webProducerCrmDatabaseConnection">
+            <summary>The web service connection.
+            </summary>
+        </member>
+        <member name="M:BackEnd.Controllers.ProducerCrmVisitController.Index">
+            <summary>Composes the Index (default) page.
+            </summary>
+            <returns>A <see cref="M:System.Web.Mvc.Controller.View"/> (page).</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.ProducerCrmVisitController.Summary">
+            <summary>Composes the Summary (default) page.
+            </summary>
+            <returns>A <see cref="M:System.Web.Mvc.Controller.View"/> (page).</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.ProducerCrmVisitController.Recent(System.String)">
+            <summary>Get the 100 most recent <see cref="T:CallForm.Core.Models.StoredProducerVisitReport">StoredProducerVisitReports</see> for 
+            a given member number, AND FILTER for just this user.
+            </summary>
+            <param name="id">The 8 digit Member Number.</param>
+            <returns>A <see cref="T:CallForm.Core.Models.ReportListItem"/> object representing the set of records.</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.ProducerCrmVisitController.All(System.String)">
+            <summary>Get all <see cref="T:CallForm.Core.Models.StoredProducerVisitReport">StoredProducerVisitReports</see> for a given member number.
+            </summary>
+            <param name="id">The 8 digit Member Number.</param>
+            <returns>A <see cref="T:CallForm.Core.Models.ReportListItem"/> object representing the set of records.</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.ProducerCrmVisitController.Hydrated(CallForm.Core.Models.StoredProducerVisitReport)">
+            <summary>Opens the <see cref="F:BackEnd.Controllers.ProducerCrmVisitController._webProducerCrmDatabaseConnection"/>, adds a <see cref="T:CallForm.Core.Models.ReasonCode"/>[], and 
+            returns a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>.
+            </summary>
+            <param name="storedProducerVisitReport">A <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.</param>
+            <returns>A <see cref="T:CallForm.Core.Models.ProducerVisitReport"/> based on a <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.</returns>
+            <remarks>Opens the <see cref="T:BackEnd.Models.ProducerCrmVisitContext"/> connection, queries the <see cref="T:CallForm.Core.Models.VisitXReason"/> table for the given
+            <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <see cref="T:CallForm.Core.Models.ReasonCode"/> table
+            to get a <see cref="T:CallForm.Core.Models.ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>.</remarks>
+        </member>
+        <member name="M:BackEnd.Controllers.ProducerCrmVisitController.Log(CallForm.Core.Models.ProducerVisitReport)">
+            <summary>Creates a new <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> on the web service.
+            </summary>
+            <param name="report">A <see cref="T:CallForm.Core.Models.ProducerVisitReport">visit report</see>.</param>
+            <returns>A "Success" message.</returns>
+            <remarks>The <c>ToUpLoad()</c> flag is set in <c>ReportUploaded()</c>, which is 
+            passed the new <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> ID by <c>ParseResponse</c>.</remarks>
+        </member>
+        <member name="M:BackEnd.Controllers.ProducerCrmVisitController.Reasons(System.String)">
+            <summary>Gets the list of Reason Codes from the web service.
+            </summary>
+            <param name="id"></param>
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.ReasonCode"/>&gt;.</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.ProducerCrmVisitController.Report(System.String)">
+            <summary>Gets a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/> based on the 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BackEnd.Controllers.ProducerCrmVisitController.CallTypes(System.String)">
+            <summary>Gets the list of Call Types from the web service.
+            </summary>
+            <param name="id"></param>
+            <returns>List&lt;<see cref="T:CallForm.Core.Models.CallType"/>&gt;.</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.ProducerCrmVisitController.EmailRecipients(System.String)">
+            <summary>Gets the list of Email Recipients from the web service.
+            </summary>
+            <param name="id"></param>
+            <returns>List&lt;<see cref="T:CallForm.Core.Models.EmailRecipient"/>&gt;.</returns>
+        </member>
+        <member name="T:BackEnd.Controllers.EnterpriseController">
+            <summary>Creates a new <c>EnterpriseController</c> for managing requests to the  web service. Inherits from <see cref="T:System.Web.Mvc.Controller"/>.
+            </summary>
+        </member>
+        <member name="F:BackEnd.Controllers.EnterpriseController._webEnterpriseDatabaseConnection">
+            <summary>The web service connection.
+            </summary>
+        </member>
+        <member name="M:BackEnd.Controllers.EnterpriseController.Index">
+            <summary>Composes the Index (default) page.
+            </summary>
+            <returns>A <see cref="M:System.Web.Mvc.Controller.View"/> (page).</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.EnterpriseController.Summary">
+            <summary>Composes the Summary (default) page.
+            </summary>
+            <returns>A <see cref="M:System.Web.Mvc.Controller.View"/> (page).</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.EnterpriseController.Recent(System.String)">
+            <summary>Get the 100 most recent <see cref="T:CallForm.Core.Models.StoredProducerVisitReport">StoredProducerVisitReports</see> for 
+            a given member number, AND FILTER for just this user.
+            </summary>
+            <param name="id">The 8 digit Member Number.</param>
+            <returns>A <see cref="T:CallForm.Core.Models.ReportListItem"/> object representing the set of records.</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.EnterpriseController.All(System.String)">
+            <summary>Get all <see cref="T:CallForm.Core.Models.StoredProducerVisitReport">StoredProducerVisitReports</see> for a given member number.
+            </summary>
+            <param name="id">The 8 digit Member Number.</param>
+            <returns>A <see cref="T:CallForm.Core.Models.ReportListItem"/> object representing the set of records.</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.EnterpriseController.Hydrated(CallForm.Core.Models.StoredProducerVisitReport)">
+            <summary>Opens the <see cref="F:BackEnd.Controllers.EnterpriseController._webEnterpriseDatabaseConnection"/>, adds a <see cref="T:CallForm.Core.Models.ReasonCode"/>[], and 
+            returns a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>.
+            </summary>
+            <param name="storedProducerVisitReport">A <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.</param>
+            <returns>A <see cref="T:CallForm.Core.Models.ProducerVisitReport"/> based on a <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.</returns>
+            <remarks>Opens the <see cref="T:BackEnd.Models.EnterpriseContext"/> connection, queries the <see cref="T:CallForm.Core.Models.VisitXReason"/> table for the given
+            <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> ID, matches the VisitXReason.ReasonIDs against the <see cref="T:CallForm.Core.Models.ReasonCode"/> table
+            to get a <see cref="T:CallForm.Core.Models.ReasonCode"/>[], and returns the StoredProducerVisitReport.Hydrate(reasonCodes), aka a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/>.</remarks>
+        </member>
+        <member name="M:BackEnd.Controllers.EnterpriseController.Log(CallForm.Core.Models.ProducerVisitReport)">
+            <summary>Creates a new <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> on the web service.
+            </summary>
+            <param name="report">A <see cref="T:CallForm.Core.Models.ProducerVisitReport">visit report</see>.</param>
+            <returns>A "Success" message.</returns>
+            <remarks>The <c>ToUpLoad()</c> flag is set in <c>ReportUploaded()</c>, which is 
+            passed the new <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/> ID by <c>ParseResponse</c>.</remarks>
+        </member>
+        <member name="M:BackEnd.Controllers.EnterpriseController.Reasons(System.String)">
+            <summary>Gets the list of Reason Codes from the web service.
+            </summary>
+            <param name="id"></param>
+            <returns>A List&lt;<see cref="T:CallForm.Core.Models.ReasonCode"/>&gt;.</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.EnterpriseController.Report(System.String)">
+            <summary>Gets a <see cref="T:CallForm.Core.Models.ProducerVisitReport"/> based on the 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BackEnd.Controllers.EnterpriseController.CallTypes(System.String)">
+            <summary>Gets the list of Call Types from the web service.
+            </summary>
+            <param name="id"></param>
+            <returns>List&lt;<see cref="T:CallForm.Core.Models.CallType"/>&gt;.</returns>
+        </member>
+        <member name="M:BackEnd.Controllers.EnterpriseController.EmailRecipients(System.String)">
+            <summary>Gets the list of Email Recipients from the web service.
+            </summary>
+            <param name="id"></param>
+            <returns>List&lt;<see cref="T:CallForm.Core.Models.EmailRecipient"/>&gt;.</returns>
+        </member>
+        <member name="T:BackEnd.EntitySearch.EntitySearch">
+            <summary>UI For Entity Search
+            </summary>
+        </member>
+        <member name="F:BackEnd.EntitySearch.EntitySearch.PRODUCER_NUMBER">
+            <summary>Stores the producer division and number (8 digit, aka "member id")
+            </summary>
+        </member>
+        <member name="F:BackEnd.EntitySearch.EntitySearch.totalCount">
+            <summary>Stores the total count of each search result
+            </summary>
+        </member>
+        <member name="M:BackEnd.EntitySearch.EntitySearch.StartSearch(System.Object,System.EventArgs)">
+            <summary>Lookup Entity data for the given Search Word
+            </summary>
+            <param name="sender">Object that action was performed on</param>
+            <param name="e">Arguments for Event</param>
+        </member>
+        <member name="M:BackEnd.EntitySearch.EntitySearch.Search">
+            <summary>Searches for all of the entities specified
+            </summary>
+        </member>
+        <member name="M:BackEnd.EntitySearch.EntitySearch.SearchProducer">
+            <summary>Populates the producer repeater with possible matches
+            </summary>
+        </member>
+        <member name="M:BackEnd.EntitySearch.EntitySearch.SearchFieldPerson">
+            <summary>Populates the Field Person repeater with possible matches
+            </summary>
+        </member>
+        <member name="M:BackEnd.EntitySearch.EntitySearch.BuildUserControlSessionList(System.Data.DataTable,System.String)">
+            <summary>Creates the list of results for the session
+            </summary>
+            <param name="baseTable">The entity table, with all columns that will be used by the GridView.</param>
+            <param name="entityGridViewName">The Session Variable name used by the User Control.</param>
+        </member>
+        <member name="M:BackEnd.EntitySearch.EntitySearch.SetEntityLabel(System.Web.UI.WebControls.HyperLink,System.String,System.String)">
+            <summary>Sets the entity label text and URL. If the URL is empty, applies a CSS Class.
+            </summary>
+            <param name="hyperLink">The target hyperlink control.</param>
+            <param name="text">The text content.</param>
+            <param name="href">The href.</param>
+        </member>
+        <member name="M:BackEnd.EntitySearch.EntitySearch.InitializeEntities">
+            <summary>Initializes all of the search entities
+            </summary>
+        </member>
+        <member name="M:BackEnd.EntitySearch.EntitySearch.ManageDatatable(System.Web.SessionState.HttpSessionState,System.Web.UI.WebControls.GridView,System.Data.DataTable,System.String)">
+            <summary>Manage the GridView and Session Variable tables.
+            </summary>
+            <param name="session">The session.</param>
+            <param name="gridView">The GridView control that will hold the table data.</param>
+            <param name="entityTable">A DataTable to be assigned to the GridView.</param>
+            <param name="newSearch">The new search.</param>
+            <returns>A DataTable, with Extended Properties set.
+            </returns>
+            <remarks>The GridView displays the table data, but the table and extended properties are held in a Session Variable.
+            </remarks>
+        </member>
+        <member name="M:BackEnd.EntitySearch.EntitySearch.AddExtendedPropertiesToDatatable(System.Data.DataTable)">
+            <summary>Add Extended Properties to the given DataTable, and populate them with default values.
+            </summary>
+            <param name="dataTable">DataTable to add properties to</param>
+        </member>
+        <member name="T:BackEnd.EntitySearch.Entity">
+            <summary>Class for managing Entity Type.
+            </summary>
+            <remarks>This is used by the various pages in <c>DairyleaPortal/OverView</c> to keep track of the current entity.</remarks>
+        </member>
+        <member name="M:BackEnd.EntitySearch.Entity.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:BackEnd.EntitySearch.Entity"/> class.
+            </summary>
+        </member>
+        <member name="P:BackEnd.EntitySearch.Entity.CurrentEntityParameter">
+            <summary>Gets or sets the "type" of the Entity -- Producer, Customer, Hauler, FIPS, Area, Field Person
+            </summary>
+            <value>
+            The current entity parameter.
+            </value>
+        </member>
+        <member name="P:BackEnd.EntitySearch.Entity.CurrentEntityIdNumber">
+            <summary>Gets or sets the ID number (as string) of the Entity currently displayed.
+            </summary>
+        </member>
+        <member name="P:BackEnd.EntitySearch.Entity.CurrentEntityContact">
+            <summary>Gets or sets the current entity contact.
+            </summary>
+            <value>
+            The current entity contact.
+            </value>
+        </member>
+        <member name="T:BackEnd.EntitySearch.Entity.Type">
+            <summary>Entity Type
+            </summary>
+        </member>
+        <member name="T:BackEnd.MvcApplication.SiteDBInitialize">
+            <summary>Create a new instance of type <see cref="T:BackEnd.Models.ProducerCrmVisitContext"/>
+            </summary>
+            <remarks>
+            <para>On the first connection to the server, if the specified database does not exist it will be created.</para>
+            
+            <para>Visual Studio does not do anything with the database during the deployment process. However, when 
+            the deployed application tries to access the database for the first time after deployment, Code First 
+            automatically creates the database or updates the database schema to the latest version. If the 
+            application implements a Migrations Seed method, the method runs after the database is created or the schema is updated.</para>
+            
+            <para>The Seed method has been overloaded so that it supplies default data.</para>
+            </remarks>
+            <example>
+            <code>
+            Database.SetInitializer&lt;ProducerCrmVisitContext&gt;(new SeededSiteDBInitialize());
+            using (var myContext = new ProducerCrmVisitContext())
+            {
+                var x = myContext.Database.Exists(); // hack
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:BackEnd.MvcApplication.SeededSiteDBInitialize">
+            <summary>Inherited object that "wraps" SiteDBInitialize so that this one Seed method can service all three initialize classes
+            (by simply commenting out the two inactive classes).
+            </summary>
+        </member>
+        <member name="M:BackEnd.MvcApplication.SeededSiteDBInitialize.Seed(BackEnd.Models.ProducerCrmVisitContext)">
+            <summary>Runs after the database is created or the schema is updated.
+            </summary>
+            <param name="context">The ProducerCrmVisitContext model from BackEnd.</param>
+        </member>
+        <member name="T:BackEnd.CommonCore_BackEnd">
+            <summary>Commonly used methods.
+            </summary>
+            <remarks>This class may be (partially) duplicated in other Projects.</remarks>
+        </member>
+        <member name="M:BackEnd.CommonCore_BackEnd.DebugMessage(System.String)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="message">The message to write to the log.</param>
+        </member>
+        <member name="M:BackEnd.CommonCore_BackEnd.DebugMessage(System.String,System.Boolean)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="message">The message to write to the log.</param>
+            <param name="writeToConsole">If <c>True</c>, also write <paramref name="message"/> to the <c>System.Console</c>.</param>
+        </member>
+        <member name="M:BackEnd.CommonCore_BackEnd.DebugMessage(System.String,System.String,System.Boolean)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="declaringName">The name of the file that threw the error</param>
+            <param name="methodName">The name of the method that threw the error.
+            This is useful for things like the Master page.</param>
+            <param name="writeToConsole">If <c>True</c>, also write the message to the <c>System.Console</c>.</param>
+        </member>
+        <member name="M:BackEnd.CommonCore_BackEnd.DebugMessage(System.String,System.String,System.String,System.Boolean)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="declaringName">The name of the file that threw the error</param>
+            <param name="methodName">The name of the method that threw the error</param>
+            <param name="parentName">The URL of the page that threw the exception. 
+            This is useful for things like the Master page.</param>
+            <param name="writeToConsole">If <c>True</c>, also write the message to the <c>System.Console</c>.</param>
+        </member>
+        <member name="T:BackEnd.Models.ProducerCrmVisitContext">
+            <summary>Class for creating a new <c>ProducerCrmVisitContext</c>, inherits from <see cref="T:System.Data.Entity.DbContext"/>.
+            </summary>
+        </member>
+        <member name="F:BackEnd.Models.ProducerCrmVisitContext.buildConfiguration">
+            <summary>The (BackEnd) database connection information.
+            </summary>
+            <remarks>Web.*.config will automatically assign the database connection for the web service 
+            based on the currently selected Solution Configuration. To change the database, you must 
+            select the target Solution Configuration, rebuild the solution, Publish BackEnd, 
+            and deploy the mobile app.</remarks>
+        </member>
+        <member name="M:BackEnd.Models.ProducerCrmVisitContext.#ctor">
+            <summary>Opens a connection to a database using the definition in Web.Config.
+            </summary>
+            <remarks>The specific web.*.config file is selected when the BackEnd project is published.</remarks>
+        </member>
+        <member name="P:BackEnd.Models.ProducerCrmVisitContext.CallTypes">
+            <summary>The collection of <see cref="P:BackEnd.Models.ProducerCrmVisitContext.CallTypes"/>.
+            </summary>
+        </member>
+        <member name="P:BackEnd.Models.ProducerCrmVisitContext.EmailRecipients">
+            <summary>The collection of <see cref="T:CallForm.Core.Models.EmailRecipient"/>.
+            </summary>
+        </member>
+        <member name="P:BackEnd.Models.ProducerCrmVisitContext.ReasonCodes">
+            <summary>The collection of <see cref="T:CallForm.Core.Models.ReasonCode"/>.
+            </summary>
+        </member>
+        <member name="P:BackEnd.Models.ProducerCrmVisitContext.StoredProducerVisitReports">
+            <summary>The collection of <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.
+            </summary>
+            <remarks>These records do not contain <see cref="P:BackEnd.Models.ProducerCrmVisitContext.ReasonCodes"/></remarks>
+        </member>
+        <member name="P:BackEnd.Models.ProducerCrmVisitContext.UserIdentities">
+            <summary>The collection of <see cref="P:BackEnd.Models.ProducerCrmVisitContext.UserIdentities"/>.
+            </summary>
+        </member>
+        <member name="P:BackEnd.Models.ProducerCrmVisitContext.VisitXReasons">
+            <summary>The collection of <see cref="P:BackEnd.Models.ProducerCrmVisitContext.VisitXReasons"/>.
+            </summary>
+        </member>
+        <member name="T:BackEnd.Models.EnterpriseContext">
+            <summary>Class for creating a new <c>EnterpriseContext</c>, inherits from <see cref="T:System.Data.Entity.DbContext"/>.
+            </summary>
+        </member>
+        <member name="F:BackEnd.Models.EnterpriseContext.buildConfiguration">
+            <summary>The (BackEnd) database connection information.
+            </summary>
+            <remarks>Web.*.config will automatically assign the database connection for the web service 
+            based on the currently selected Solution Configuration. To change the database, you must 
+            select the target Solution Configuration, rebuild the solution, Publish BackEnd, 
+            and deploy the mobile app.</remarks>
+        </member>
+        <member name="M:BackEnd.Models.EnterpriseContext.#ctor">
+            <summary>Opens a connection to a database using the definition in Web.Config.
+            </summary>
+            <remarks>The specific web.*.config file is selected when the BackEnd project is published.</remarks>
+        </member>
+        <member name="P:BackEnd.Models.EnterpriseContext.CallTypes">
+            <summary>The collection of <see cref="P:BackEnd.Models.EnterpriseContext.CallTypes"/>.
+            </summary>
+        </member>
+        <member name="P:BackEnd.Models.EnterpriseContext.EmailRecipients">
+            <summary>The collection of <see cref="T:CallForm.Core.Models.EmailRecipient"/>.
+            </summary>
+        </member>
+        <member name="P:BackEnd.Models.EnterpriseContext.ReasonCodes">
+            <summary>The collection of <see cref="T:CallForm.Core.Models.ReasonCode"/>.
+            </summary>
+        </member>
+        <member name="P:BackEnd.Models.EnterpriseContext.StoredProducerVisitReports">
+            <summary>The collection of <see cref="T:CallForm.Core.Models.StoredProducerVisitReport"/>.
+            </summary>
+            <remarks>These records do not contain <see cref="P:BackEnd.Models.EnterpriseContext.ReasonCodes"/></remarks>
+        </member>
+        <member name="P:BackEnd.Models.EnterpriseContext.UserIdentities">
+            <summary>The collection of <see cref="P:BackEnd.Models.EnterpriseContext.UserIdentities"/>.
+            </summary>
+        </member>
+        <member name="P:BackEnd.Models.EnterpriseContext.VisitXReasons">
+            <summary>The collection of <see cref="P:BackEnd.Models.EnterpriseContext.VisitXReasons"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -5,6 +5,7 @@ namespace CallForm.iOS.Screens
     using MonoTouch.UIKit;
     using MonoTouch.Foundation;
 
+    // Review: not used. Stub left-over from initial MvvmCross example.
     [Register("UniversalView")]
     public class UniversalView : UIView
     {
@@ -24,6 +25,7 @@ namespace CallForm.iOS.Screens
         }
     }
 
+    // Review: not used. Stub left-over from initial MvvmCross example.
     [Register("ConnectionScreen")]
     public class ConnectionScreen : UIViewController
     {

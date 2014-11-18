@@ -1,0 +1,3410 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DairyleaDataAccessLayer</name>
+    </assembly>
+    <members>
+        <member name="T:DairyleaDAL.Factories.LabFactory">
+            <summary>
+            Create Objects for Lab Database
+            </summary>
+        </member>
+        <member name="M:DairyleaDAL.Factories.LabFactory.CreateLabSample(System.Data.IDataReader)">
+            <summary>
+            Factory creation of LabSample Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Lab Sample</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.LabFactory.CreateLabTest(System.Data.IDataReader)">
+            <summary>
+            Factory creation of LabTest Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Lab Test object</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.LabFactory.CreateLabTestCode(System.Data.IDataReader)">
+            <summary>
+            Factory creation of LabTestCode Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Lab Test Code</returns>
+        </member>
+        <member name="T:DairyleaDAL.Entities.State">
+            <summary>
+            State Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.State.StateID">
+            <summary>Gets or sets the StateID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.State.StateCode">
+            <summary>Gets or sets the State Code.
+            This is the State Abbreviation
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.State.StateName">
+            <summary>Gets or sets the State Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.State.FIPSStateCode">
+            <summary>Gets or sets the FIPS State Code
+            This is numerical
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.County">
+            <summary>
+            County Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.County.StateCode">
+            <summary>Gets or sets the State Code
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.County.CountyCode">
+            <summary>Gets or sets the County Code
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.County.CountyName">
+            <summary>Gets or sets the County Name
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.CompanyCarUsage">
+            <summary>
+            Usage class for CompanyCar
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.UsageID">
+            <summary>Gets or sets the unique identifier of the car usage
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.VehicleID">
+            <summary>Gets or sets the Vehicle ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.DateUsed">
+            <summary>Gets or sets the Date of the Usage
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.To">
+            <summary>Gets or sets the To location
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.From">
+            <summary>Gets or sets the From location
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.Purpose">
+            <summary>Gets or sets the Purpose of the Usage
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.Miles">
+            <summary>Gets or sets the Mileage of the Usage
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.ApprovalDate">
+            <summary>Gets or sets the Approval Date of the Usage 
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.DriverID">
+            <summary>Gets or sets the Driver ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.ApprovalManagerID">
+            <summary>Gets or sets the Approving Manager ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarUsage.ApprovalStatusID">
+            <summary>Gets or sets the Approval Status of the Usage
+            This should be of type approval status, however serializing an enum proves disastrous.
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.Producer">
+            <summary>Creates an instance of Producer Entity.
+            </summary>
+            <remarks>The Producer entity has a property for ProducerContact, which is a Contact entity.</remarks>
+        </member>
+        <member name="F:DairyleaDAL.Entities.Producer._ssnfeinnumber">
+            <summary>Private SSN property
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.ProducerContact">
+            <summary>Gets or sets the Contact entity for this Producer.
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.Number">
+            <summary>Gets or sets the six-digit producer number.
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.Division">
+            <summary>Gets or sets the two-digit division number.
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.DivisionShortName">
+            <summary>Gets or sets the Short Name of the Division
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.StatusID">
+            <summary>Gets or sets the Integer to indicate Producer's Shipping Status
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.StatusDescription">
+            <summary>Gets or sets the Description of the Status
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.StatusShortDescription">
+            <summary>Gets or sets the Short Description of the Status
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.StatusLongDescription">
+            <summary>Gets or sets the Long Description of the Status
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.NamePreference">
+            <summary>Gets or sets the Indicator if Producer uses Contact Name or Farm Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.FarmName">
+            <summary>Gets or sets the Name of the Farm
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.Name">
+            <summary>Gets or sets the Name
+            This field uses the NamePreference and assigns the correct name here
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.AccountName">
+            <summary>Gets or sets the Account Name
+            Account Name used in AD, typically 8 digit producer number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.SSN_FEIN_Indicator">
+            <summary>Gets or sets the Indicator for SSN or FEIN
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.SSN_FEIN_Number">
+            <summary>Gets or sets the SSN FEIN Number. Only returns the last four digits -- the rest is masked.
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.OrganicStatusID">
+            <summary>Gets or sets the Integer to indicate type of Milk the Producer ships
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.OrganicStatusDescription">
+            <summary>Gets or sets the Description of the Organic Status ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.IsAmish">
+            <summary>Gets or sets a value indicating whether Producer is Amish
+            DO NOT USE THIS
+            </summary>
+            fixme: There is no current field in the database if the producer is Amish - 11/18/2011 DKH
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.IsSeasonal">
+            <summary>Gets or sets a value indicating whether Producer is Seasonal
+            DO NOT USE THIS
+            </summary>
+            fixme: There is no current field in the database if the producer is Seasonal - 11/18/2011 DKH
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.AreaNumber">
+            <summary>Gets or sets the Area Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MAStateID">
+            <summary>Gets or sets the MA State ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MAStateName">
+            <summary>Gets or sets the MA State Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MACountyID">
+            <summary>Gets or sets the MA County ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MACountyName">
+            <summary>Gets or sets the MA County Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MATownshipID">
+            <summary>Gets or sets the MA Township ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MATownshipName">
+            <summary>Gets or sets the MA Township Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MAOfficeID">
+            <summary>Gets or sets the MA Office ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MAOfficeName">
+            <summary>Gets or sets the MA Office Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.HaveRBSTCertificate">
+            <summary>Gets or sets a value indicating whether the Producer has an RBST Cert
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.HaulerNumber">
+            <summary>Gets or sets the four-digit primary Hauler number.
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.HaulerNumberSecondary">
+            <summary>Gets or sets the four-digit secondary Hauler number.
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.HaulingCode">
+            <summary>Gets or sets the HaulingCode
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.HaulSub">
+            <summary>Gets or sets the HaulSub
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MILCState">
+            <summary>Gets or sets the State for MILC
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MILCCounty">
+            <summary>Gets or sets the County for MILC
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.FSAForwarding">
+            <summary>Gets or sets whether the Producer sends info to the FSA Office
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.BulkTankUnit">
+            <summary>Gets or sets the Producer's Bulk Tank Unit (BTU).
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.PayGroup">
+            <summary>Gets or sets the PayGroup Producer belongs to
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.ZoneRate">
+            <summary>Gets or sets the Zone Rate. 
+            </summary>
+            <remarks>When the ZoneRate is loaded from the HP, it is set to the
+            Zone Code, not the actual rate they are charged.</remarks>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.District">
+            <summary>Gets or sets the District Member belongs to
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.DirectDeposit">
+            <summary>Gets or sets a value indicating whether a Member receives DirectDeposit Checks
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.ContractSignedDate">
+            <summary>Gets or sets the Date Contract was Signed
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.DateOfBirth">
+            <summary>Gets or sets the Member's Birthdate
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MAProducerNumber">
+            <summary>Gets or sets the MA Producer Number.
+            </summary>
+            <remarks>Used by the MA office to uniquely identify a producer.</remarks>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Producer.MemberType">
+            <summary>Gets or sets the Member Type 
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.LabTest">
+            <summary>
+            Lab Test Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTest.TestID">
+            <summary>Gets or sets the Test ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTest.TestTypeID">
+            <summary>Gets or sets the Test Type ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTest.SampleID">
+            <summary>Gets or sets the Sample ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTest.TimeCompleted">
+            <summary>Gets or sets the Time Completed
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTest.TestResult">
+            <summary>Gets or sets the Test Result
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTest.TestStatus">
+            <summary>Gets or sets the Test Status
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTest.TestCode">
+            <summary>Gets or sets the Test Code
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTest.TestAbbreviation">
+            <summary>Gets or sets the Test Abbreviation
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTest.IsBillable">
+            <summary>Gets or sets a value indicating whether
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTest.TestTemp">
+            <summary>Gets or sets the Test Temperature
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.CompanyCarVehicle">
+            <summary>
+            Vehicle Class for Company Car
+            </summary>
+        </member>
+        <member name="M:DairyleaDAL.Entities.CompanyCarVehicle.CompareTo(DairyleaDAL.Entities.CompanyCarVehicle)">
+            <summary>
+             default generic list search value
+             </summary>
+             <param name="other">Another CompanyCarVehicle</param>
+             <returns>Unsure ????</returns>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.VehicleID">
+            <summary>Gets or sets the VehicleID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.Make">
+            <summary>Gets or sets the Make of the Vehicle
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.Model">
+            <summary>Gets or sets the Model of the Vehicle
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.Year">
+            <summary>Gets or sets the Year of the Vehicle
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.Color">
+            <summary>Gets or sets the Color of the Vehicle
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.VIN">
+            <summary>Gets or sets the VIN of the Vehicle
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.Plate">
+            <summary>Gets or sets the Plate of the Vehicle
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.ContractNumber">
+            <summary>Gets or sets the Contract Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.LeaseInitialAmount">
+            <summary>Gets or sets the Lease Initial Amount
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.LeaseRate">
+            <summary>Gets or sets Lease Rate
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.LeaseStartDate">
+            <summary>Gets or sets Lease Start Date
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.LeaseTerminationDate">
+            <summary>Gets or sets Lease Termination Date
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.DisposalDate">
+            <summary>Gets or sets the Disposal Date
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.InitialMileage">
+            <summary>Gets or sets the Initial Mileage of the Vehicle
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.Comments">
+            <summary>Gets or sets the Comments
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.Title">
+            <summary>Gets or sets the Title
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.RegisterationDate">
+            <summary>Gets or sets the Registration Date
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.RegistrationExpireDate">
+            <summary>Gets or sets the Registration Expiration Date
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.DriverID">
+            <summary>Gets or sets the Driver ID of the Vehicle
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.StatusID">
+            <summary>Gets or sets Status ID of the Vehicle
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.OwnedByID">
+            <summary>Gets or sets the Company ID
+            This is the CompanyID of who owns the vehicle
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarVehicle.DisposalAmount">
+            <summary>Gets or sets the Disposal Amount
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.CompanyCarMonthlyMileage">
+            <summary>
+            Monthly Mileage class for CompanyCar
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarMonthlyMileage.VehicleID">
+            <summary>Gets or sets the Vehicle ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarMonthlyMileage.MonthEndDate">
+            <summary>Gets or sets the Month End Date for the Mileage
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarMonthlyMileage.OdometerReading">
+            <summary>Gets or sets the Odometer Reading
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarMonthlyMileage.DriverID">
+            <summary>Gets or sets the Driver ID for the Mileage
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.TicketCommingledDetail">
+            <summary>
+            Ticket Commingled Detail Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketCommingledDetail.DetailID">
+            <summary>Gets or sets the Detail ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketCommingledDetail.TicketNumber">
+            <summary>Gets or sets the Ticket Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketCommingledDetail.CommingleTicketNumber">
+            <summary>Gets or sets the Comingle Ticket Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketCommingledDetail.Dealer">
+            <summary>Gets or sets the Dealer
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketCommingledDetail.Pounds">
+            <summary>Gets or sets the Pounds
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketCommingledDetail.TicketStatus">
+            <summary>Gets or sets the Ticket Status
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Services.AdministrativeDataService">
+            <summary>
+            Calls SQL statements for Administrative Database
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.AdministrativeDataService.databaseAdministrative">
+            <summary>Object Reference to the SQL Database - Administrative
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.AdministrativeDataService.db">
+            <summary>Object Reference to the Database
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.AdministrativeDataService.dlDALErrorlog">
+            <summary> Object reference to the Error Log
+            </summary>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.InsertAuditData(System.Int32,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>Inserts data into audit table
+            </summary>
+            <param name="applicationID">Application ID</param>
+            <param name="user">User's Name</param>
+            <param name="action">Action performed</param>
+            <param name="description">Description of the Action</param>
+            <param name="version">Version Number</param>
+            <param name="severityID">Severity ID</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.AddDriver(System.String,System.String,System.Boolean,System.Nullable{System.Int32},System.Boolean,System.Int32)">
+            <summary>
+            Insert a Driver
+            </summary>
+            <param name="accountName">Active Directory Account Name</param>
+            <param name="licenseID">Driver License Number</param>
+            <param name="hasGasCard">Boolean if the driver has a gas card</param>
+            <param name="deptID">Department ID</param>
+            <param name="submitsUsage">Boolean if the driver submits usage in Company Car</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.AddManager(System.String)">
+            <summary>
+            Insert a manager
+            </summary>
+            <param name="managerSAM">Manager username</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.UpdateDriver(System.String,System.String,System.Boolean,System.Nullable{System.Int32},System.Boolean,System.Int32)">
+            <summary>
+            Update a driver information by AccountName
+            </summary>
+            <param name="accountName">Active Directory Account Name</param>
+            <param name="licenseID">Driver License Number</param>
+            <param name="hasGasCard">Boolean if the driver has a gas card</param>
+            <param name="deptID">Department ID</param>
+            <param name="submitsUsage">Boolean if the driver submits usage in Company Car</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.TerminateDriver(System.Int32,System.Nullable{System.DateTime})">
+            <summary>
+            Terminate a driver from Company Car
+            </summary>
+            <param name="driverID">Unique identifier of a Driver</param>
+            <param name="termDate">Date the driver was terminated</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetAllDrivers">
+            <summary>
+            Gets all Company Car Drivers
+            </summary>
+            <returns>Generic List of type CompanyCarDriver</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetAllCompanyCarManagers">
+            <summary>
+            Gets a Company Car Managers
+            </summary>
+            <returns>Generic List of type CompanyCarManager</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetDriverByAccountName(System.String)">
+            <summary>
+            Get a Company Car Driver by their active directory account name (SAM)
+            </summary>
+            <param name="samName">Active Directory Account Name (SAM) for the Driver</param>
+            <returns>CompanyCarDriver Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetDriverByVehicleID(System.Int32)">
+            <summary>
+            Get a company car driver based upon a specific vehicle ID
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <returns>CompanyCarDriver Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.AssignManagerToDriver(System.Int32,System.Int32)">
+            <summary>
+            Update a Driver to have a given Manager
+            </summary>
+            <param name="managerID">Unique Identifier of a Manager</param>
+            <param name="driverID">Unique Identifier of a Driver</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetCompanyCarManagerByAccountName(System.String)">
+            <summary>
+            Get a manager by username
+            </summary>
+            <param name="samName">Manager active directory (SAM) account name</param>
+            <returns>CompanyCarManger entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetManagerByDriverAccountName(System.String)">
+            <summary>
+            Get the Manager information for a given Driver username
+            </summary>
+            <param name="samName">Username of the Driver</param>
+            <returns>CompanyCarManager Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetDriversByManager(System.Int32)">
+            <summary>
+            Get all Drivers for a given Manager
+            </summary>
+            <param name="managerID">Unique Identifier of a Manager</param>
+            <returns>Generic List of Type CompanyCarDriver</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetAllVehicles">
+            <summary>
+            Gets all of the Vehicles used in Company Car
+            </summary>
+            <returns>Generic list of type CompanyCarVehicle</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetVehicleByID(System.Int32)">
+            <summary>
+            Get a Company Car Vehicle by the VehicleID
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <returns>CompanyCarVehicle Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.DeleteVehicle(System.Int32)">
+            <summary>
+            Delete a vehicle from Company Car. THe vehicle is marked as inactive and is not actually deleted from the system
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetVehiclesAssignedToDriver(System.Int32)">
+            <summary>
+            Get all Company Car Vehicles assigned to a given Driver
+            </summary>
+            <param name="driverID">Unique Identifier of a Driver</param>
+            <returns>Generic List of type CompanyCarVehicle</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.AssignVehicleToDriver(System.Int32,System.Int32)">
+            <summary>
+            Update a Vehicle to have a given Driver
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <param name="driverID">Unique Identifier of a Driver</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetVehicleByVIN(System.String)">
+            <summary>
+            Get a Company Car Vehicle by VIN Number
+            </summary>
+            <param name="vin">Vehicle Identification Number</param>
+            <returns>CompanyCarVehicle entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.AddVehicle(DairyleaDAL.Entities.CompanyCarVehicle)">
+            <summary>
+            Insert a Company Car Vehicle
+            </summary>
+            <param name="vehicle">A Company Car Vehicle Entity</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.UpdateVehicle(DairyleaDAL.Entities.CompanyCarVehicle)">
+            <summary>
+            Update a Company Car Vehicle
+            </summary>
+            <param name="vehicle">A Company Car Vehicle Entity</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.UpdateVehicleLease(System.Int32,System.Decimal,System.Decimal,System.DateTime,System.DateTime,System.String)">
+            <summary>Updates the lease information on a Company Car Vehicle
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <param name="initialLeaseAmount">The initial amount on the lease at time of purchase</param>
+            <param name="leaseRate">Rate of lease payment</param>
+            <param name="leaseStartDate">Date the lease started</param>
+            <param name="leaseTerminationDate">Date the lease finishes</param>
+            <param name="contractNumber">Contract Number</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.UpdateVehicleRegistration(System.Int32,System.DateTime,System.DateTime,System.String)">
+            <summary>
+            Updates the registration information for a given Company Car Vehicle
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <param name="dateRegistered">Date last registered</param>
+            <param name="dateExpired">Date the current registration expires on</param>
+            <param name="plate">Plate number of the vehicle</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.AddCompanyCarUsage(System.Int32,System.Int32,System.DateTime,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Insert Company Car Usage for a given Driver and Vehicle
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <param name="driverID">Unique Identifier of a Driver</param>
+            <param name="dateUsed">Date of Usage</param>
+            <param name="to">Where the usage was going To</param>
+            <param name="from">Where the usage was going From</param>
+            <param name="purpose">The reason for the Usage</param>
+            <param name="miles">The number of miles driven</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetAllowedMonthRange(System.String)">
+            <summary>
+            Get the Allowed number of months that the user can enter data for
+            </summary>
+            <param name="username">Active Directory username of a driver</param>
+            <returns>Integer of how many months</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetVehicleUsage(System.Int32,System.DateTime,System.DateTime)">
+            <summary>
+            Get Vehicle Usage for a given Vehicle and Date Range
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <param name="startDate">start date of usage</param>
+            <param name="endDate">end date of usage</param>
+            <returns>Generic list of type CompanyCarUsage</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetUnapprovedVehicleUsage(System.Int32)">
+            <summary>
+            Get Unapproved Vehicle Usage for a given Vehicle and Date Range
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <returns>Generic list of type CompanyCarUsage</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.ApproveCompanyCarUsage(System.Int64,System.Int32,System.Int32)">
+            <summary>
+            Update the Company Car Usage Approval status
+            </summary>
+            <param name="usagePK">Unique Identifier for the Usage</param>
+            <param name="approved">Approval Status</param>
+            <param name="managerID">Unique Identifier of a Manager</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.DeleteCompanyCarTrip(System.Int64)">
+            <summary>
+            Delete a Company Car Usage
+            </summary>
+            <param name="vehicleUsagePK">Unique Identifier of a Company Car Usage</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.UpdateCompanyCarUsage(System.Int64,System.DateTime,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Update a Company Car Usage
+            </summary>
+            <param name="usagePK">Unique Identifier for the Usage</param>
+            <param name="dateUsed">Date of Usage</param>
+            <param name="to">Where the usage was going To</param>
+            <param name="from">Where the usage was going From</param>
+            <param name="purpose">The reason for the Usage</param>
+            <param name="miles">The number of miles driven</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.AddMonthlyMileage(System.Int32,System.DateTime,System.Int32,System.Int32)">
+            <summary>
+            Inserts Monthly Mileage for a given VehicleID
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <param name="monthEndDate">Date for the monthly mileage</param>
+            <param name="odometer">Number of miles on the odometer</param>
+            <param name="driverID">Unique Identifier of a Driver</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.UpdateMonthlyMileage(System.Int32,System.DateTime,System.Int32,System.Int32)">
+            <summary>
+            Update the Odometer reading for a given vehicle, date and driver
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <param name="monthEndDate">Date for the monthly mileage</param>
+            <param name="odometer">Number of miles on the odometer</param>
+            <param name="driverID">Unique Identifier of a Driver</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetCompanyCarMonthlyMileage(System.Int32)">
+            <summary>
+            Get all Monthly Mileage for a given Vehicle
+            </summary>
+            <param name="vehicleID">Unique Identifier of a Vehicle</param>
+            <returns>Generic List of Type CompanyCarMonthlyMileage</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetFieldmanByArea(System.String)">
+            <summary>
+            Gets the name and fieldman number for the fieldman assigned to a particular area
+            </summary>
+            <param name="areaNumber">Area to check</param>
+            <returns>Fieldman Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetFieldmanByFieldmanNumber(System.Int32)">
+            <summary>
+            Gets Regional Manager (who is also a fieldman) by fieldman ID
+            </summary>
+            <param name="fieldmanNumber">fieldman ID</param>
+            <returns>Fieldman Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetFieldmanByAccountName(System.String)">
+            <summary>
+            Gets a fieldperson by their AD Account name
+            </summary>
+            <param name="AccountName">Their account name that they use for logging into our system(first.last)</param>
+            <returns>Fieldman Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetFieldmanManagersAll(System.Int32)">
+            <summary>
+            This method returns the names of all of the Fieldman Managers
+            </summary>
+            <param name="level">-1 for all, 1 for region, 2 for division</param>
+            <returns>DataSet of Managers</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetRegionalManager(System.Int32)">
+            <summary>
+            Gets a fieldman's regional manager
+            </summary>
+            <param name="fldNumber">Fieldman number</param>
+            <returns>Fieldman Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetFieldmanByNumber(System.Int32)">
+            <summary>
+            Gets a fieldman by a fieldman ID
+            </summary>
+            <param name="fieldmanNumber">Unique Identifier of a FieldPerson</param>
+            <returns>Fieldman Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.SearchFieldPersonByWord(System.String)">
+            <summary>
+            Populates a datatable with possible matches of field people
+            </summary>
+            <param name="searchWord">String to search the FieldPerson for</param>
+            <returns>Datatable with FieldPerson information</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetFieldmansDivisionManagerByNumber(System.Int32)">
+            <summary>
+            Gets a fieldman's division manager
+            </summary>
+            <param name="fieldmanNumber">Unique Identifier of a FieldPerson</param>
+            <returns>Fieldman Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetAllFieldPeopleForManager(System.Int32)">
+            <summary>
+            Find all the Field People for a given FieldPersonID for a manager (regional, divisional or both)
+            </summary>
+            <param name="ManagerID">The FieldPersonID for a manager</param>
+            <returns>a dataset of FieldPeople who are associated with the given manager</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetAllActiveFieldPeopleNameandID">
+            <summary>
+            Gets all Active Field People's Name and ID Number
+            </summary>
+            <returns>DataSet of FieldPeople</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetAllActiveFieldPeopleNameandID_WithoutSouthNewBerlin">
+            <summary>
+            Gets all Active Field People's Name and ID Number who are not affiliated with South New Berlin
+            </summary>
+            <returns>DataSet of FieldPeople</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetAreaFips(System.String)">
+            <summary>
+            Gets the fips code assigned to a particular area
+            </summary>
+            <param name="areaNumber">Area number to check</param>
+            <returns>Assigned Fips Code</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.SearchFIPSByWord(System.String)">
+            <summary>Populates a datatable with possible matches of FIPS for Entity Search
+            </summary>
+            <param name="searchWord">String to search the FIPS for</param>
+            <returns>Datatable with FIPS information</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetAreasAssociatedWithFIPS(System.String)">
+            <summary>
+            Populates a list of Areas for a given FIPS Code
+            </summary>
+            <param name="FIPSCode">The FIPS Code</param>
+            <returns>List of Areas</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.GetAreasForFieldPerson(System.String)">
+            <summary>
+            Populates a list of Areas for a given FieldPerson
+            </summary>
+            <param name="fldNumber">Unique Identifier of a FieldPerson</param>
+            <returns>List of Areas</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.AdministrativeDataService.SearchAreaByWord(System.String)">
+            <summary>
+            Populates a datatable with possible matches of Areas for Entity Search
+            </summary>
+            <param name="searchWord">String to search the Areas for</param>
+            <returns>Datatable with Area information</returns>
+        </member>
+        <member name="P:DairyleaDAL.Services.AdministrativeDataService.LogFilePath">
+            <summary>Gets the path to the ErrorLog File
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Services.AdministrativeDataService.AdministrativeConnectionString">
+            <summary>Gets the connection to the Administrative Database
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.Hauler">
+            <summary>Creates an instance of Hauler Entity.
+            </summary>
+            <remarks>The Hauler entity has a property for HaulerContact, which is a Contact entity.</remarks>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.HaulerContact">
+            <summary>Gets or sets the Contact entity for this Hauler.
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.Number">
+            <summary>Gets or sets the four-digit Hauler number.
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.StatusID">
+            <summary>Gets or sets the Status ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.StatusDescription">
+            <summary>Gets or sets the StatusDescription
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.StatusShortDescription">
+            <summary>Gets or sets the Status Short Description
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.StatusLongDescription">
+            <summary>Gets or sets the Status Long Description
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.Name">
+            <summary>Gets or sets the Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.Company">
+            <summary>Gets or sets the Company
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.VendorNumber">
+            <summary>Gets or sets the Vendor Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.SSN_FEIN_Indicator">
+            <summary>Gets or sets the SSN Indicator
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.SSN_FEIN_Number">
+            <summary>Gets or sets the SSN
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.Website">
+            <summary>Gets or sets the Website
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Hauler.AccountName">
+            <summary>Gets or sets the Account Name
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Factories.EnterpriseFactory">
+            <summary>
+            Create Objects for Enterprise Database
+            </summary>
+        </member>
+        <member name="M:DairyleaDAL.Factories.EnterpriseFactory.CreateContact(System.Data.IDataReader)">
+            <summary>Creates a Contact entity.
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Contact entity.</returns>
+            <remarks>The Contact entity is also used as a property of the Customer and Producer entities.</remarks>
+        </member>
+        <member name="M:DairyleaDAL.Factories.EnterpriseFactory.CreateProducer(System.Data.IDataReader)">
+            <summary>Creates a Producer entity.
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Producer entity.</returns>
+            <remarks>The data-reader includes data that is assigned directly to the entity, and to the Contact property of the entity.</remarks>
+        </member>
+        <member name="M:DairyleaDAL.Factories.EnterpriseFactory.CreateCustomer(System.Data.IDataReader)">
+            <summary>Creates a Customer entity.
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Customer entity.</returns>
+            <remarks>The data-reader includes data that is assigned directly to the entity, and to the Contact property of the entity.</remarks>
+        </member>
+        <member name="M:DairyleaDAL.Factories.EnterpriseFactory.CreateStatus(System.Data.IDataReader)">
+            <summary>Creates a Status entity.
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Status entity.</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.EnterpriseFactory.CreateCounty(System.Data.IDataReader)">
+            <summary>Creates a County entity.
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>County entity.</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.EnterpriseFactory.CreateState(System.Data.IDataReader)">
+            <summary>Creates a State entity.
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>State entity.</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.EnterpriseFactory.CreateMarketAdministrator(System.Data.IDataReader)">
+            <summary>Creates a Market Administrator entity.
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>MarketAdministrator entity.</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.EnterpriseFactory.CreateProducerTank(System.Data.IDataReader)">
+            <summary>Creates a ProducerTank Entity.
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>ProducerTank Entity.</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.EnterpriseFactory.CreateTank(System.Data.IDataReader)">
+            <summary>
+            Tank Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Tank for Tank Calibrations</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.EnterpriseFactory.CreateProducerPayoutSplit(System.Data.IDataReader)">
+            <summary>
+            ProducerPayoutSplit Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Producer Payout Split</returns>
+        </member>
+        <member name="T:DairyleaDAL.Entities.Customer">
+            <summary>Creates an instance of Customer Entity.
+            </summary>
+            <remarks>The Customer entity has a property for CustomerContact, which is a Contact entity.</remarks>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.CustomerContact">
+            <summary>Gets or sets the Contact entity for this Customer.
+            </summary>
+            <value>The customer contact.</value>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.CustomerNumber">
+            <summary>Gets or sets the six-digit customer number.
+            </summary>
+            <value>The 6-digit customer number.</value>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.CustomerName">
+            <summary>Gets or sets the name of the customer.
+            </summary>
+            <value>The Customer name used on checks.</value>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.DisplayName">
+            <summary>Gets or sets the display name.
+            </summary>
+            <value>The "friendly" name of the Customer.</value>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.StatusID">
+            <summary>Gets or sets the Status ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.StatusDescription">
+            <summary>Gets or sets the Status Description
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.StatusShortDescription">
+            <summary>Gets or sets the Status Short Description
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.StatusLongDescription">
+            <summary>Gets or sets the Status Long Description
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.MilkAdminOfficeID">
+            <summary>Gets or sets the MA Office ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.SamAccountName">
+            <summary>Gets or sets the SAM Account Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.IsOrganic">
+            <summary>Gets or sets a value indicating whether the Customer is Organic
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.ParentCustomer">
+            <summary>Gets or sets the Parent Customer
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.PlantNumber">
+            <summary>Gets or sets the Plant Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.DefaultClass">
+            <summary>Gets or sets the Default Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.IsBillTo">
+            <summary>Gets or sets a value indicating whether the Customer is a BillTo
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.IsVendor">
+            <summary>Gets or sets a value indicating whether the Customer is a Vendor
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.IsDeliverTo">
+            <summary>Gets or sets a value indicating whether the Customer is a DeliverTo
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.IsSource">
+            <summary>Gets or sets a value indicating whether the Customer is a Source
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.IMS">
+            <summary>Gets or sets a value indicating whether the Customer is an IMS Plant
+            </summary>
+            //public byte IMS { get; set; }
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.IsPoolPlant">
+            <summary>Gets or sets a value indicating whether the Customer is a PoolPlant
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Customer.COC_Notification">
+            <summary>Gets or sets a value indicating whether the Customer Receives a COC Notification
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.CompanyCarDriver">
+            <summary>
+            Driver class for Company Car
+            </summary>
+        </member>
+        <member name="M:DairyleaDAL.Entities.CompanyCarDriver.CompareTo(DairyleaDAL.Entities.CompanyCarDriver)">
+            <summary>Unclear what this does.
+            default generic list search value
+            </summary>
+            <param name="other">Another CompanyCarDriver</param>
+            <returns>Unsure ????</returns>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.DriverID">
+            <summary>Gets or sets the DriverID. 
+            This is the unique identifier of a Driver
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.DriverSAM">
+            <summary>Gets or sets the Driver Account Name (SAM)
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.HasGasCard">
+            <summary>Gets or sets a value indicating whether the Driver has a GasCard
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.DepartmentID">
+            <summary>Gets or sets the Driver's DepartmentID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.LicenseNumber">
+            <summary>Gets or sets the Driver's License Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.ManagerID">
+            <summary>Gets or sets the Driver's Manager ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.StatusID">
+            <summary>Gets or sets the Driver's Status ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.TermDate">
+            <summary>Gets or sets the Driver's Termination Date
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.SubmitUsage">
+            <summary>Gets or sets a value indicating whether the Driver can Submit Usage
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.DriverFirstName">
+            <summary>Gets or sets the Driver's First Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.DriverLastName">
+            <summary>Gets or sets the Driver's Last Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarDriver.CompanyID">
+            <summary>Gets or sets the Driver's Company ID
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.MarketAdministrator">
+            <summary>
+            Market Administrator Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.MarketAdministrator.OfficeID">
+            <summary>Gets or sets the Office ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.MarketAdministrator.Description">
+            <summary>Gets or sets the Description
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.MarketAdministrator.ListItemText">
+            <summary>Gets or sets the ListItemText
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.MarketAdministrator.Visible">
+            <summary>Gets or sets a value indicating whether the MA is Visible
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Services.LabDataService">
+            <summary>
+            Calls SQL statements for Lab Database
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.LabDataService.databaseLab">
+            <summary>Object Reference to the SQL Database - Lab
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.LabDataService.db">
+            <summary>Object Reference to the Database
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.LabDataService.dlDALErrorlog">
+            <summary> Object reference to the Error Log
+            </summary>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetMemberInfo(System.String)">
+            <summary>
+            this method will Get Member Info
+            </summary>
+            <param name="memberNumber">member number</param>
+            <returns>DataSet of member info</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetMemberInfoPartial(System.String)">
+            <summary>
+            this method will get partial member info
+            </summary>
+            <param name="memberNumber">member number</param>
+            <returns>DataSet of member info</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetMemberDivisionInfo(System.String)">
+            <summary>
+            this method will get member division information
+            </summary>
+            <param name="memberDivision">division of member info</param>
+            <returns>DataSet of member info</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.UpdateMemberInfo(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            this method will update member information
+            </summary>
+            <param name="memberNumber">member number</param>
+            <param name="pass">member password</param>
+            <param name="pass1">password again</param>
+            <param name="email">email address</param>
+            <param name="ssn">social security number</param>
+            <returns>Boolean of success / failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.UpdateMemberPassword(System.String,System.String)">
+            <summary>
+            this method will update a member password
+            </summary>
+            <param name="memberID">ID of member to update</param>
+            <param name="password">new password</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.AddBatchType(System.String,System.String)">
+            <summary>
+            this method will add a batch type to the database
+            </summary>
+            <param name="shortDesc">short description of batch type</param>
+            <param name="longDesc">long description of batch type</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.AddTestStatus(System.String)">
+            <summary>
+            this method will add a test status to the database
+            </summary>
+            <param name="desc">description of test status</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.AddTestCode(System.String,System.String)">
+            <summary>
+            this method will add a test code to the database
+            </summary>
+            <param name="abbr">abbreviation of new test code</param>
+            <param name="description">description of new test code</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.AddTestType(System.String,System.String)">
+            <summary>
+            this method will add a test type to the database
+            </summary>
+            <param name="shortDesc">short description of the test type</param>
+            <param name="longDesc">long description of the test type</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetAllLabTestCodes">
+            <summary>
+            this method will get all test codes in the database
+            </summary>
+            <returns>Generic List of type LabTestCode</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetAllLabSampleTestTypes">
+            <summary>
+            Get all of the test types in the database
+            </summary>
+            <returns>all of the test types stored in the database</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetLabSamplesByDateRange(System.String,System.String,System.Int32,System.DateTime,System.DateTime)">
+            <summary>
+            Gets the list of samples for a specific producer between a given range of dates.
+            </summary>
+            <param name="division">Division ID</param>
+            <param name="producer">Producer Number</param>
+            <param name="tank">Tank Number</param>
+            <param name="startDate">Start of date range to fetch</param>
+            <param name="endDate">End of date range to fetch</param>
+            <returns>Generic List of type LabSample</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetLabSamplesByLabIDDate(System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.String,System.String)">
+            <summary>
+            Searches through all the samples for any sample matching the passed in criteria.
+            </summary>
+            <param name="producerNumber">6 digit producer number</param>
+            <param name="dateTaken">date the sample was taken</param>
+            <param name="tankID">number (not id) of the tank that was sampled</param>
+            <param name="labID">2 digit lab ID</param>
+            <param name="divisionID">2 digit division number</param>
+            <returns>List of all samples (and their tests) matching the search criteria</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetAllLabTestResultsBySampleNumber(System.Int64)">
+            <summary>
+            Get the test results of the specified sample ID
+            </summary>
+            <param name="sampleNumber">the sample ID you want results for</param>
+            <returns>Generic List to type LabTest</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.AddSample(System.String,System.Nullable{System.DateTime},System.Nullable{System.Double},System.Nullable{System.Int32},System.String,System.String)">
+            <summary>Add a Sample to the database
+            </summary>
+            <param name="producerNumber">Producer Number</param>
+            <param name="dateTaken">Date Taken</param>
+            <param name="pickupTemp">Pickup Temperature</param>
+            <param name="tankID">Tank Number</param>
+            <param name="labID">Lab ID Number</param>
+            <param name="divisionID">Division ID</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.AddTest(System.Nullable{System.Int32},System.Nullable{System.Int64},System.Nullable{System.DateTime},System.Nullable{System.Double},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Boolean,System.Nullable{System.Double})">
+            <summary>Add a Test to the database
+            </summary>
+            <param name="testCode">Lab Test Code</param>
+            <param name="sampleID">Lab Sample ID</param>
+            <param name="timeCompleted">Time Completed</param>
+            <param name="testResult">Lab Test Result</param>
+            <param name="testStatus">Lab Test Status</param>
+            <param name="testType">Lab Test Type</param>
+            <param name="testIsBillable">Test is Billable</param>
+            <param name="testTemp">Test Temperature</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetLabTestBySampleByCode(System.Int64,System.Int32)">
+            <summary>
+            this method will get a lab test by a sample number and test code 
+            </summary>
+            <param name="sampleNumber">Sample Number</param>
+            <param name="testCode">Lab Test ID</param>
+            <returns>LabTest Entity object</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.UpdateTestByID(System.Int64,System.Nullable{System.DateTime},System.Nullable{System.Double},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Boolean)">
+            <summary>Update a test result to the system
+            </summary>
+            <param name="testID">ID of existing test</param>
+            <param name="timeCompleted">time test was completed</param>
+            <param name="testResult">result of the test</param>
+            <param name="testStatus">status of the test</param>
+            <param name="testType">reason for test</param>
+            <param name="testIsBillable">test is billable</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetLabSampleByID(System.Int64)">
+            <summary>
+            this method will get a lab sample given its unique sample ID
+            remove: delete this method - deprecated
+            </summary>
+            <param name="sampleID">unique ID of sample</param>
+            <returns>LabSample Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetFiveYearAverageForCurrentMonthPoundsByNumberDivision(System.String,System.String)">
+            <summary>
+            Gets the yearly average pounds for the current month
+            </summary>
+            <param name="prodNum">Producer Number</param>
+            <param name="prodDiv">Producer Division</param>
+            <returns>Average Pounds</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetComponentDataByProducer(System.String,System.String)">
+            <summary>
+            Get DataSet of Producer Test Results, pivoted to list: 
+            Date, Tank, BFAT, PRO, MUN, LACT, CRYO.
+            </summary>
+            <param name="divisionNumber">2 digit Division Number of Member.</param>
+            <param name="producerNumber">6 digit Producer Number of a Member</param>
+            <returns>DataTable of Producer Component Results</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.LabDataService.GetQualityDataByProducer(System.String,System.String)">
+            <summary>
+            Get Quality Data for Producer
+            </summary>
+            <param name="divisionNumber">2 digit Division</param>
+            <param name="producerNumber">6 digit producer</param>
+            <returns>DataSet of Producer Quality Results</returns>
+        </member>
+        <member name="P:DairyleaDAL.Services.LabDataService.LogFilePath">
+            <summary>Gets the path to the ErrorLog File
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Services.LabDataService.LabConnectionString">
+            <summary>Gets the connection to the Lab Database
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.TicketDetail">
+            <summary>
+            Ticket Detail Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.DetailID">
+            <summary>Gets or sets the Detail ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.TicketNumber">
+            <summary>Gets or sets the Ticket Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.PickupTime">
+            <summary>Gets or sets the Pickup Time
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.PickupTemp">
+            <summary>Gets or sets the Temperature
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.ProducerNumber">
+            <summary>Gets or sets the Producer Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.ProducerDivision">
+            <summary>Gets or sets the Division
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.TankNumber">
+            <summary>Gets or sets the Tank Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.PickupWeight">
+            <summary>Gets or sets the Pickup Weight
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.StopCharge">
+            <summary>Gets or sets the Stop Charge
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.Days">
+            <summary>Gets or sets the Days
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.StickReading">
+            <summary>Gets or sets the Stick Reading
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.Compartment">
+            <summary>Gets or sets the Compartment
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.TicketStatus">
+            <summary>Gets or sets the Ticket Status
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.TicketDetail.ProducerLetters">
+            <summary>Gets or sets the Producer Letters
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.Fieldman">
+            <summary>
+            Fieldperson class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.FieldmanID">
+            <summary>Gets or sets the Fieldperson ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.FirstName">
+            <summary>Gets or sets the First Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.LastName">
+            <summary>Gets or sets the Last Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.Address1">
+            <summary>Gets or sets Address Line 1
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.Address2">
+            <summary>Gets or sets Address Line 2
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.Address3">
+            <summary>Gets or sets Address Line 3
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.City">
+            <summary>Gets or sets the City
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.State">
+            <summary>Gets or sets the State
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.ZipCode">
+            <summary>Gets or sets the ZipCode
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.EmailAddress">
+            <summary>Gets or sets the Fieldperson's Email Address
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.PhoneHome">
+            <summary>Gets or sets the Fieldperson's Home Phone
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.PhoneWork">
+            <summary>Gets or sets the Fieldperson's Work Phone
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.PhoneWorkExtension">
+            <summary>Gets or sets the Fieldperson's Work Extension
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.PhoneMobile">
+            <summary>Gets or sets the Fieldperson's Mobile Phone
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.AccountName">
+            <summary>Gets or sets the FieldPerson's Account Name
+            This is the AD username
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.StatusID">
+            <summary>Gets or sets the FieldPerson's Status ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Fieldman.SpecialtyID">
+            <summary>Gets or sets the Fieldperson's Specialty ID
+            </summary>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.#ctor">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SetServer(DairyleaDataAccessLayer.wsActiveDirectoryAuth.eServerType)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SetServerAsync(DairyleaDataAccessLayer.wsActiveDirectoryAuth.eServerType)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SetServerAsync(DairyleaDataAccessLayer.wsActiveDirectoryAuth.eServerType,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetServer">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetServerAsync">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetServerAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SingleServerSearch(System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SingleServerSearchAsync(System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SingleServerSearchAsync(System.Boolean,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateOrganizationalUnit(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateOrganizationalUnitAsync(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateOrganizationalUnitAsync(System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteOrganizationalUnit(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteOrganizationalUnitAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteOrganizationalUnitAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateSecurityGroup(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateSecurityGroupAsync(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateSecurityGroupAsync(System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteSecurityGroup(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteSecurityGroupAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteSecurityGroupAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AddUserToGroup(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AddUserToGroupAsync(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AddUserToGroupAsync(System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.RemoveUserFromGroup(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.RemoveUserFromGroupAsync(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.RemoveUserFromGroupAsync(System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetMembersFromGroup(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetMembersFromGroupAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetMembersFromGroupAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetGroupMembership(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetGroupMembershipAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetGroupMembershipAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateUserAccountFull(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateUserAccountFullAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateUserAccountFullAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateUserAccount(System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateUserAccountAsync(System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateUserAccountAsync(System.String,System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteUserAccount(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteUserAccountAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteUserAccountAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UpdateUserAttribute(System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UpdateUserAttributeAsync(System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UpdateUserAttributeAsync(System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UpdateUserAccount(System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UpdateUserAccountAsync(System.String,System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UpdateUserAccountAsync(System.String,System.String,System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UserExists(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UserExistsAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UserExistsAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AuthenticateUser(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AuthenticateUserAsync(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AuthenticateUserAsync(System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AuthenticateUserWithServer(System.String,System.String,DairyleaDataAccessLayer.wsActiveDirectoryAuth.eServerType@)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AuthenticateUserWithServerAsync(System.String,System.String,DairyleaDataAccessLayer.wsActiveDirectoryAuth.eServerType)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AuthenticateUserWithServerAsync(System.String,System.String,DairyleaDataAccessLayer.wsActiveDirectoryAuth.eServerType,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.EnableUserAccount(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.EnableUserAccountAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.EnableUserAccountAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DisableUserAccount(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DisableUserAccountAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DisableUserAccountAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetUserInfo(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetUserInfoAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetUserInfoAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.FindUser(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.FindUserAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.FindUserAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SearchUsersByProperty(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SearchUsersByPropertyAsync(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SearchUsersByPropertyAsync(System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.FindGroup(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.FindGroupAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.FindGroupAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.ResetPassword(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.ResetPasswordAsync(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.ResetPasswordAsync(System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllUsers(System.String,System.Boolean,System.String,System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllUsersAsync(System.String,System.Boolean,System.String,System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllUsersAsync(System.String,System.Boolean,System.String,System.Int32,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllGroups(System.String,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllGroupsAsync(System.String,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllGroupsAsync(System.String,System.Boolean,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllOU(System.String,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllOUAsync(System.String,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllOUAsync(System.String,System.Boolean,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllObjects(System.String,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllObjectsAsync(System.String,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllObjectsAsync(System.String,System.Boolean,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CancelAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SetServerCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetServerCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SingleServerSearchCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateOrganizationalUnitCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteOrganizationalUnitCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateSecurityGroupCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteSecurityGroupCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AddUserToGroupCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.RemoveUserFromGroupCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetMembersFromGroupCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetGroupMembershipCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateUserAccountFullCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.CreateUserAccountCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DeleteUserAccountCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UpdateUserAttributeCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UpdateUserAccountCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.UserExistsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AuthenticateUserCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.AuthenticateUserWithServerCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.EnableUserAccountCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.DisableUserAccountCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetUserInfoCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.FindUserCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.SearchUsersByPropertyCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.FindGroupCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.ResetPasswordCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllUsersCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllGroupsCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllOUCompleted">
+            <remarks/>
+        </member>
+        <member name="E:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ActiveDirectoryAuth.GetAllObjectsCompleted">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.eServerType">
+            <remarks/>
+        </member>
+        <member name="F:DairyleaDataAccessLayer.wsActiveDirectoryAuth.eServerType.DairyData">
+            <remarks/>
+        </member>
+        <member name="F:DairyleaDataAccessLayer.wsActiveDirectoryAuth.eServerType.WebAuth">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Name">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Path">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.ObjectClass">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.FirstName">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.LastName">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Company">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.GUID">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.BillingCity">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.BillingState">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.BillingStreetAddress">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.BillingZip">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.CarPhone">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.County">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Department">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Description">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Fax">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.GPSLat">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.GPSLong">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.HomePhone">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Initials">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.City">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.State">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Zip">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.StreetAddress">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Email">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Mobile">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Pager">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.WorkPhone">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.Township">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.DoB">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ADObject.AdvancedFeaturePassword">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.SetServerCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.SetServerCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.SetServerCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetServerCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetServerCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetServerCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.SingleServerSearchCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.CreateOrganizationalUnitCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.DeleteOrganizationalUnitCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.CreateSecurityGroupCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.DeleteSecurityGroupCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.AddUserToGroupCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.RemoveUserFromGroupCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetMembersFromGroupCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetMembersFromGroupCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetMembersFromGroupCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetGroupMembershipCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetGroupMembershipCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetGroupMembershipCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.CreateUserAccountFullCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.CreateUserAccountFullCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.CreateUserAccountFullCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.CreateUserAccountCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.CreateUserAccountCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.CreateUserAccountCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.DeleteUserAccountCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.UpdateUserAttributeCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.UpdateUserAccountCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.UserExistsCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.UserExistsCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.UserExistsCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.AuthenticateUserCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.AuthenticateUserCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.AuthenticateUserCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.AuthenticateUserWithServerCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.AuthenticateUserWithServerCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.AuthenticateUserWithServerCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.AuthenticateUserWithServerCompletedEventArgs.server">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.EnableUserAccountCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.DisableUserAccountCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetUserInfoCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetUserInfoCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetUserInfoCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.FindUserCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.FindUserCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.FindUserCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.SearchUsersByPropertyCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.SearchUsersByPropertyCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.SearchUsersByPropertyCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.FindGroupCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.FindGroupCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.FindGroupCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.ResetPasswordCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllUsersCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllUsersCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllUsersCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllGroupsCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllGroupsCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllGroupsCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllOUCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllOUCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllOUCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllObjectsCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllObjectsCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:DairyleaDataAccessLayer.wsActiveDirectoryAuth.GetAllObjectsCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:DairyleaDAL.Entities.Tank">
+            <summary>
+            Tank Class for Tank Calibrations
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.LabSample">
+            <summary>
+            Lab Sample Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabSample.SampleID">
+            <summary>Gets or sets the Sample ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabSample.ProducerNumber">
+            <summary>Gets or sets the Producer Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabSample.Division">
+            <summary>Gets or sets the Division
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabSample.DateTaken">
+            <summary>Gets or sets the Date Taken
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabSample.Temp">
+            <summary>Gets or sets the Temp
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabSample.LabID">
+            <summary>Gets or sets the LabID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabSample.TankID">
+            <summary>Gets or sets the TankID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabSample.Tests">
+            <summary>Gets or sets the list of LabTests
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.ProducerPayoutSplit">
+            <summary>
+            Producer Payout Split Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerPayoutSplit.PayoutDivisionNumber">
+            <summary>Gets or sets the Payout Producer Division
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerPayoutSplit.PayoutProducerNumber">
+            <summary>Gets or sets thePayout Producer Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerPayoutSplit.SplitAmount">
+            <summary>Gets or sets the Split Amount
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerPayoutSplit.SplitType">
+            <summary>Gets or sets the Split Type
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.CompanyCarManager">
+            <summary>
+            Manager class for Company Car
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarManager.ManagerID">
+            <summary>Gets or sets the Manager ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarManager.AccountName">
+            <summary>Gets or sets the Manager's Account Name (SAM)
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.CompanyCarManager.TermDate">
+            <summary>Gets or sets the Manager's Termination Date
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.Contact">
+            <summary>
+            Contact class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.ContactID">
+            <summary>Gets or sets the Contact ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.FirstName">
+            <summary>Gets or sets the first name. 
+            Also used for business name where "Priority=1."
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.LastName">
+            <summary>Gets or sets the last name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.JobTitle">
+            <summary>Gets or sets the Job Title
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.Priority">
+            <summary>Gets or sets the contact priority.
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.AddressTypeID">
+            <summary>Gets or sets the address type ID.
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.Address1">
+            <summary>Gets or sets Address Line 1
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.Address2">
+            <summary>Gets or sets Address Line 2
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.Address3">
+            <summary>Gets or sets Address Line 3
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.City">
+            <summary>Gets or sets the City
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.State">
+            <summary>Gets or sets the State
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.ZipCode">
+            <summary>Gets or sets the Zip Code
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.County">
+            <summary>Gets or sets the County
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.PhoneHome">
+            <summary>Gets or sets the Home Phone
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.PhoneWork">
+            <summary>Gets or sets the Work Phone
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.PhoneWorkExtension">
+            <summary>Gets or sets the Work Extension
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.PhoneMobile">
+            <summary>Gets or sets the Mobile Phone
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.FaxNumber">
+            <summary>Gets or sets the Fax Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.EmailAddress">
+            <summary>Gets or sets the Email Address
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.Latitude">
+            <summary>Gets or sets the Latitude
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.Longitude">
+            <summary>Gets or sets the Longitude
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Contact.DateOfBirth">
+            <summary>Gets or sets the Birthdate
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Factories.HaulerFactory">
+            <summary>
+            Create Objects for Hauler Database
+            </summary>
+        </member>
+        <member name="M:DairyleaDAL.Factories.HaulerFactory.CreateHauler(System.Data.IDataReader)">
+            <summary>Creates a Hauler entity.
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Hauler entity.</returns>
+            <remarks>The data-reader includes data that is assigned directly to the entity, and to the Contact property of the entity.</remarks>
+        </member>
+        <member name="M:DairyleaDAL.Factories.HaulerFactory.CreateTicket(System.Data.IDataReader)">
+            <summary>
+            Ticket Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Ticket object</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.HaulerFactory.CreateTicketDetail(System.Data.IDataReader)">
+            <summary>
+            TicketDetail Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Ticket Detail object</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.HaulerFactory.CreateTicketCommingledDetail(System.Data.IDataReader)">
+            <summary>
+            TicketCommingledDetail Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Ticket Commingled Detail Object</returns>
+        </member>
+        <member name="T:DairyleaDAL.Entities.Status">
+            <summary>
+            This class can be used for an Entity status or the Producer's Organic Status
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Status.StatusID">
+            <summary>Gets or sets the Status ID
+            </summary>
+            <remarks>Holds the ID of the status, including the OrganicID</remarks>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Status.ShortDescription">
+            <summary>Gets or sets the Short Description
+            </summary>
+            <remarks>This description will hold Active, Inactive, Split or
+            the Organic Status names including Conventional, Transitional, Organic.
+            This one is the best to use for an Organic Status</remarks>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Status.LongDescription">
+            <summary>Gets or sets the Long Description
+            </summary>
+            <remarks>This is the more descriptive status
+            This one is best to use for an Entity's status</remarks>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Status.Description">
+            <summary>Gets or sets the Description
+            </summary>
+            <remarks>This description is the Producer Status description from the HP3000.
+            It will be A,S,C, or I</remarks>
+        </member>
+        <member name="T:DairyleaDAL.Services.EnterpriseDataService">
+            <summary>
+            Calls SQL statements for Enterprise Database
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.EnterpriseDataService.databaseEnterprise">
+            <summary>Object Reference to the SQL Database - Enterprise
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.EnterpriseDataService.db">
+            <summary>Object Reference to the Database
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.EnterpriseDataService.dlDALErrorlog">
+            <summary> Object reference to the Error Log
+            </summary>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetCustomerByNumber(System.String)">
+            <summary>Gets a <see cref="T:DairyleaDAL.Entities.Customer">Customer</see>.
+            </summary>
+            <param name="customerNumber">6 digit Unique Identifier of a <see cref="T:DairyleaDAL.Entities.Customer">Customer</see></param>
+            <returns><see cref="T:DairyleaDAL.Entities.Customer">Customer</see> Entity</returns>
+            <remarks>Select a customer from Customer_Master table by CustomerNumber.</remarks>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SaveCustomer(DairyleaDAL.Entities.Customer)">
+            <summary>
+            Insert or Update a Customer
+            **Please do not use this procedure without permission** - DKH 8/13/2012
+            </summary>
+            <param name="customer">Customer Entity</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SearchCustomerByWord(System.String,System.Boolean,System.Boolean)">
+            <summary>Populates a <c>DataTable</c> with matching Customers.
+            </summary>
+            <param name="searchWord">String to search Customers for</param>
+            <param name="includeInactive">if set to <c>true</c> [include inactive].</param>
+            <param name="includeActive">if set to <c>true</c> [include active].</param>
+            <returns>
+            <c>DataTable</c> with Customer information.
+            </returns>
+            <remarks>
+              <para>Keep the parameters [includeInactive] and [includeActive] in this
+            order so that if neither of them (they're optional) is used the query will
+            still default to returning some results.</para>
+              <para>The Customer Status column contains the following values: </para>
+              <list type="table">
+              <item><term>0</term><description>inactive </description></item>
+              <item><term>1</term><description>active  </description></item>
+              </list>
+            </remarks>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.UpdateCustomerCoC(System.Boolean,System.String)">
+            <summary>Update Customer CoC flag.
+            </summary>
+            <param name="customerCoc">Boolean to determine if Customer Receives COC emails</param>
+            <param name="customerNumber">6 digit Unique Identifier of a Customer</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetCocCustomers">
+            <summary>
+            Select customers flagged for CoC notification
+            </summary>
+            <returns>List of Customer Entities</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetCustomerCocContacts(System.String)">
+            <summary>
+            Get Customer CoC Contacts by Customer Number
+            </summary>
+            <param name="customerNumber">6 digit Unique Identifier of a Customer</param>
+            <returns>List of Contact Entities</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetHaulerByHaulerNumber(System.String)">
+            <summary>
+            Get Hauler by Hauler Number
+            </summary>
+            <param name="haulerNumber">4 digit Unique Identifier of a Hauler</param>
+            <returns>Hauler Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SearchHaulerByWord(System.String,System.Boolean,System.Boolean)">
+            <summary>Populates a DataTable with matches of Haulers for Entity Search
+            </summary>
+            <param name="searchWord">String to search the Haulers for</param>
+            <param name="includeInactive">if set to <c>true</c> [include inactive].</param>
+            <param name="includeActive">if set to <c>true</c> [include active].</param>
+            <returns>Datatable with Hauler information</returns>
+            <remarks>
+              <para>Keep the parameters [includeInactive] and [includeActive] in this
+            order so that if neither of them (they're optional) is used the query will
+            still default to returning some results.</para>
+              <para>The Hauler Status column contains the following values: </para>
+              <list type="table">
+              <item><term>0</term><description>inactive </description></item>
+              <item><term>1</term><description>active  </description></item>
+              </list>
+            </remarks>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SaveHauler(DairyleaDAL.Entities.Hauler)">
+            <summary>
+            Save Hauler Master, Address and Contact Information
+            **Please do not use this procedure without permission** - DKH 11/20/2013
+            </summary>
+            <param name="hauler">A Hauler with information filled out</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetProducerInfoByNumberDivision(System.String,System.String)">
+            <summary>Select Producer information given their unique number and division.
+            </summary>
+            <param name="producerID">6 digit Identifier of a Producer</param>
+            <param name="division">2 digit Identifier of a Division</param>
+            <remarks>The contact information if it exists where:
+                        Priority = 1, result set is address info and NOT a person
+                        Address_Type = 2, result set is a PHYSICAL address and NOT the mailing address</remarks>
+            <returns>Producer Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetProducerContactsByNumberDivision(System.String,System.String)">
+            <summary>
+            Get all of the Contact Information for a given Producer
+            </summary>
+            <param name="producerNumber">6 digit Identifier of a Producer</param>
+            <param name="producerDivision">2 digit Identifier of a Division</param>
+            <returns>List of Contacts for the Producer</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetProducerAddresses(System.String,System.String)">
+            <summary>
+            Get Producer Address Information for a given Producer
+            </summary>
+            <param name="producerNumb">6 digit Identifier of a Producer</param>
+            <param name="division">2 digit Identifier of a Division</param>
+            <returns>List of Contacts for a Producer</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.UpdateProducerMILCandFSA(DairyleaDAL.Entities.Producer)">
+            <summary>
+            Update a Producer's MILC State, County and FSA status
+            </summary>
+            <param name="prod">A Producer Entity with Division, ProducerNumber, MILCCounty, MILCState and FSAForwarding filled out</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.UpdateProducerCoordinates(System.String,System.String,System.Int32,System.Decimal,System.Decimal)">
+            <summary>
+            Update the latitude and longitude of a Producer based on their producer number and address type
+            </summary>
+            <param name="Division">2 digit Identifier of a Division</param>
+            <param name="ProducerNumber">6 digit Identifier of a Producer</param>
+            <param name="AddressType">1 - Check Address, 2 - Physical Address, 3 - Mailing address</param>
+            <param name="Latitude">The Latitude portion of the coordinates</param>
+            <param name="Longitude">The Longitude portion of the coordinates</param>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SearchProducerByWord(System.String,System.Boolean,System.Boolean)">
+            <summary>Populates a DataTable with matches of Producers for Entity Search.
+            </summary>
+            <param name="searchWord">String to search Producer for</param>
+            <param name="includeInactive">if set to <c>true</c> [include inactive].</param>
+            <param name="includeActive">if set to <c>true</c> [include active].</param>
+            <returns>
+            Datatable with Producer information
+            </returns>
+            <remarks>
+              <para>Keep the parameters [includeInactive] and [includeActive] in this
+            order so that if neither of them (they're optional) is used the query will
+            still default to returning some results.</para>
+              <para>The Producer Status column contains the following values: </para>
+              <list type="table">
+              <item><term>0</term><description>inactive lab producer</description></item>
+              <item><term>1</term><description>active lab producer</description></item>
+              <item><term>2</term><description>active not shipping</description></item>
+              <item><term>3</term><description>active shipping</description></item>
+              <item><term>4</term><description>split</description></item>
+              <item><term>5</term><description>inactive</description></item>
+              </list>
+            </remarks>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetProducersInfoByArea(System.String)">
+            <summary>
+            Populates a DataTable of Producer Information for a given Area
+            </summary>
+            <param name="area">Unique Identifier of an Area</param>
+            <returns>DataTable with Producer Information for the given Area</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetAllProducersInfoByArea(System.String)">
+            <summary>
+            Populates a DataTable of Producer Information for a given Area. 
+            This returns more information about a producer than GetProducersInfoByArea
+            </summary>
+            <param name="area">Unique Identifier of an Area</param>
+            <returns>DataTable with Producer Information for the given Area</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetProducerInfoByFieldPersonIDAndStatus(System.Int32,System.Boolean)">
+            <summary>
+            Taking a field person ID and the status for the producer that you are looking for, a data set is returned containing producers
+            for the given field person ID and status
+            </summary>
+            <param name="FieldPersonID">Integer that is the primary key for a Field Person</param>
+            <param name="StatusFlag">True - return active producers, false - return inactive producers</param>
+            <returns>Dataset of Producers</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SaveProducer(DairyleaDAL.Entities.Producer,DairyleaDAL.Entities.ProducerPayoutSplit,DairyleaDAL.Entities.ProducerPayoutSplit,DairyleaDAL.Entities.ProducerPayoutSplit)">
+            <summary>
+            Save Producer information into Producer Master, Producer Payout Split, Producer Contact, Contact Master, and Address Master
+            **Please do not use this procedure without permission** - DKH 8/13/2012
+            </summary>
+            <param name="Prod">A Producer filled with Producer and Contact Data</param>
+            <param name="Split1">A Producer Payout Split 1</param>
+            <param name="Split2">A Producer Payout Split 2</param>
+            <param name="Split3">A Producer Payout Split 3</param>
+            <returns>Boolean if the producer was new to the database (true) or already existed in the database (false)</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SaveProducerAddress(DairyleaDAL.Entities.Producer,System.String)">
+            <summary>
+            Save Producer Address Information
+            **Please do not use this procedure without permission** - DKH 8/13/2012
+            </summary>
+            <param name="Prod">A Producer filled with Contact and Address information</param>
+            <param name="Address_Type">String from the HP for the Address Type (CK, MA)</param>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetContactByContactID(System.Int32)">
+            <summary>
+            Get Contact Information for a given Contact ID
+            </summary>
+            <param name="contactID">Unique Identifier of a Contact</param>
+            <returns>Contact Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetDeanFoodsContact">
+            <summary>Get Dean Foods Contact.
+            </summary>
+            <returns>A Contact entity.</returns>
+            <remarks>The stored procedure returns a Contact from Contact_Master where Contact_Priority = 4.</remarks>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.InsertContact(DairyleaDAL.Entities.Contact,System.String,System.String)">
+            <summary>
+             Insert a Contact Into the Database. The EntityType determines if it is a Hauler, Customer or Producer. 
+             The record in the cross reference table _Contact will also be updated
+            </summary>
+            <param name="contact">Contact Entity</param>
+            <param name="entityType">Entity Type string of 'hauler', 'customer', or 'producer'</param>
+            <param name="masterNumber">Unique Identifier of the Entity</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.InsertContactAndAddress(DairyleaDAL.Entities.Contact,System.String,System.String)">
+            <summary>
+             Insert a Contact and their Address Information Into the Database. The EntityType determines if it is a Hauler, Customer or Producer. 
+             The record in the cross reference table _Contact will also be updated
+            </summary>
+            <param name="contact">Contact Entity</param>
+            <param name="entityType">Entity Type string of 'hauler', 'customer', or 'producer'</param>
+            <param name="masterNumber">Unique Identifier of the Entity</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetAlternateContactIDForCustomer(System.String)">
+            <summary>
+            Get the Contact ID for an Alternate Contact for the given Customer Number
+            </summary>
+            <param name="CustomerNumber">Unique Identifier of a customer</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.UpdateContactByContactID(DairyleaDAL.Entities.Contact)">
+            <summary>Update a Contact
+            </summary>
+            <param name="contact">Contact Entity</param>
+            <returns>Boolean of success or failure</returns>
+            <remarks>Updates first name, last name, priority, title, work phone, work (phone) extension, mobile phone, and email.</remarks>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetCountyByStateID(System.String)">
+            <summary>
+            Get a List of Counties for a given State
+            </summary>
+            <param name="stateID">Unique Identifier of a State</param>
+            <returns>List of Counties</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetCountyByStateCode(System.String)">
+            <summary>
+            this method will get county information given its state ID
+            </summary>
+            <param name="stateCode">Code of state of search Ex NY</param>
+            <returns>County Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetState">
+            <summary>
+            Get a List of States
+            </summary>
+            <returns>State Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetOrganicStatuses">
+            <summary>
+            Get All Organic Statuses
+            </summary>
+            <returns>List of Status Entities</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetDepartments">
+            <summary>
+            Get all Departments
+            </summary>
+            <returns>DataSet of Departments</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetAllDFADivisions">
+            <summary>
+            Get All DFA Divisions
+            </summary>
+            <returns>DataSet of DFA Divisions</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetCompanies">
+            <summary>
+            Get All Companies
+            </summary>
+            <returns>DataSet of Companies</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetCompanyByID(System.Int32)">
+            <summary>
+            Get Company Information by Company ID
+            </summary>
+            <param name="companyID">Unique Identifier of a Company</param>
+            <returns>DataSet of Company Information</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SaveProducerTanks(DairyleaDAL.Entities.ProducerTank)">
+            <summary>
+            Inserts or Updates a ProducerTank
+            **Please do not use this procedure without permission** - DKH 11/20/2013
+            </summary>
+            <param name="aProducerTank">A Producer Tank object with all the properties of a Tank</param>
+            <returns>Success / Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetProducerTanks(System.String,System.String)">
+            <summary>
+            Get all the tank info for the given producer
+            </summary>
+            <param name="division">Producer Division</param>
+            <param name="producerNumber">Producer Number</param>
+            <returns>Producer Tank object</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetTankCalibrationTypes">
+            <summary>
+            this will get all Tank Calibration Types
+            </summary>
+            <returns>DataTable of Calibration Types</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetTankCalibrationReasons">
+            <summary>
+            this method will get all tank calibration reasons
+            </summary>
+            <returns>DataTable of Calibration Reason</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetTankInspectors">
+            <summary>
+            this method will get all tank inspectors
+            </summary>
+            <returns>DataTable of Tank Inspectors</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetTankInfoByProducerTankNumber(System.String,System.Int32)">
+            <summary>
+            this method will select tank information given a producer number, division and specific tank number
+            </summary>
+            <param name="producer">string containing both producer number and division</param>
+            <param name="tankNumber">integer representing tank number</param>
+            <returns>Tank Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.DeleteTank(DairyleaDAL.Entities.Tank)">
+            <summary>
+            this method will disable a tank giving the appearance it was deleted
+            </summary>
+            <param name="tank">Tank Entity</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.UpdateTank(DairyleaDAL.Entities.Tank)">
+            <summary>
+            this method will save tank information
+            </summary>
+            <param name="tank">Tank Entity</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetAuthorizedProducers(System.String)">
+            <summary>
+            get all producers that a specific account has access to
+            </summary>
+            <param name="accountName">Account Name to return Authorized Producers for</param>
+            <returns>List of Producers</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetDFACustomers">
+            <summary>
+            Get all the DFA customers from the DFA Dairylea Customer cross reference table
+            </summary>
+            <returns>DataSet of DFA Customers</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SaveDFACustomer(System.String,System.String)">
+            <summary>
+            Insert or Update a record to the DFA/Dairylea Customer cross reference
+            </summary>
+            <param name="DFACustomerNumber">The DFA Customer Number - four digits long</param>
+            <param name="DairyleaCustomerNumber">The Dairylea Customer Number - six digits long</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.DeleteDFACustomer(System.String,System.String)">
+            <summary>
+            Deletes a DFA/Dairylea Customer Cross Reference
+            </summary>
+            <param name="DFACustomerNumber">The DFA Customer Number - four digits long</param>
+            <param name="DairyleaCustomerNumber">The Dairylea Customer Number - six digits long</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SaveDFAHauler(System.String,System.String,System.String)">
+            <summary>
+            Insert or Update a record to the DFA/Dairylea Hauler cross reference
+            </summary>
+            <param name="DFAHaulerNumber">The DFA Hauler Number - four digits long</param>
+            <param name="DairyleaHaulerNumber">The Dairylea Hauler Number - four digits long</param>
+            <param name="Division">The Division for the Hauler</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.DeleteDFAHauler(System.String,System.String,System.String)">
+            <summary>
+            Deletes a DFA/Dairylea Hauler Cross Reference
+            </summary>
+            <param name="DFAHaulerNumber">The DFA Hauler Number - four digits long</param>
+            <param name="DairyleaHaulerNumber">The Dairylea Hauler Number - four digits long</param>
+            <param name="Division">The Division for the Hauler</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetUpstateCustomers">
+            <summary>
+            Get all the Upstate customers with the matching Dairylea customer number from a cross reference table
+            </summary>
+            <returns>Dataset with the Customer numbers</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SaveUpstateCustomer(System.String,System.String)">
+            <summary>
+            Insert or Update a record in the Upstate/Dairylea Customer cross reference
+            </summary>
+            <param name="UpstateCustomerNumber">The Upstate Customer Number</param>
+            <param name="DairyleaCustomerNumber">The Dairylea Customer Number - six digits long</param>
+            <returns>Boolean of success or failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetUpstateHaulers">
+            <summary>
+            Get the Upstate and Dairylea Hauler numbers from a cross reference
+            </summary>
+            <returns>DataSet of Upstate Hauler Information</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.SaveUpstateHauler(System.String,System.String)">
+            <summary>
+            Insert or Update a record to the Upstate/Dairylea Hauler cross reference table
+            </summary>
+            <param name="UpstateHaulerNumber">The Upstate Hauler Number</param>
+            <param name="DairyleaHaulerNumber">The Dairylea Hauler Number - four digits long</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetAllWaterSupplyTypes">
+            <summary>
+            Selects all of the water supply types with their names and returns them as a dataset
+            </summary>
+            <returns>DataSet of Water Supply Types</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetActiveProducerWaterSupplies(System.String,System.String)">
+            <summary>
+            Selects Active water supplies for a given producer
+            </summary>
+            <param name="Division">Two digit division as a string</param>
+            <param name="ProducerNumber">Six digit producer number as a string</param>
+            <returns>a dataset of water supplies for one producer</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.GetProducerWaterSupplyByID(System.Int32)">
+            <summary>
+            Selects a water supply for a given water supply ID
+            </summary>
+            <param name="WaterSupplyID">integer to identify a water supply</param>
+            <returns>a dataset with one water supply</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.UpdateProducerWaterSupplyStatus(System.Int32,System.String)">
+            <summary>
+            This method will update the water supply to inactive
+            </summary>
+            <param name="WaterSupplyID">Water supply ID</param>
+            <param name="InactiveName">the name of the user who inactivated this</param>
+            <returns>boolean to indicate the success of the update</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.InsertProducerWaterSupply(System.String,System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Insert a new Water Supply for a producer
+            </summary>
+            <param name="Division">Two digit division as a string</param>
+            <param name="ProducerNumber">Six digit Producer Number as a string</param>
+            <param name="WaterSupplyType">integer that represents a type of water supply</param>
+            <param name="PremiseCode">String for the premise code</param>
+            <param name="CreatedBy">the name of the user who created this</param>
+            <returns>boolean to indicate the success of the insert</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.EnterpriseDataService.UpdateProducerWaterSupply(System.Int32,System.Int32,System.String)">
+            <summary>
+            Update the Water Supply type and Premise code for a given Water Supply ID
+            </summary>
+            <param name="WaterSupplyID">integer to identify a water supply</param>
+            <param name="WaterSupplyType">integer that represents a type of water supply</param>
+            <param name="PremiseCode">String for the premise code</param>
+            <returns>boolean to indicate the success of the update</returns>
+        </member>
+        <member name="P:DairyleaDAL.Services.EnterpriseDataService.LogFilePath">
+            <summary>Gets the path to the ErrorLog File
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Services.EnterpriseDataService.EnterpriseConnectionString">
+            <summary>Gets the connection to the Enterprise Database
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Services.HaulerDataService">
+            <summary>
+            Calls SQL statements for Hauler Database
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.HaulerDataService.databaseHauler">
+            <summary>Object Reference to the SQL Database - Hauler
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.HaulerDataService.db">
+            <summary>Object Reference to the Database
+            </summary>
+        </member>
+        <member name="F:DairyleaDAL.Services.HaulerDataService.dlDALErrorlog">
+            <summary> Object reference to the Error Log
+            </summary>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetDFAMasterTransmission(System.DateTime,System.DateTime,System.String)">
+            <summary>
+            Get the information for the DFA Master Transmission file
+            </summary>
+            <param name="startDate">Start date for Transmission</param>
+            <param name="endDate">End date for Transmission</param>
+            <param name="division">2 digit Identifier of a Division</param>
+            <returns>DataSet of DFA Master Ticket records</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetDFADetailTransmission(System.DateTime,System.DateTime,System.String)">
+            <summary>
+            Get the information for the DFA Detail Transmission file
+            </summary>
+            <param name="startDate">Start date for Transmission</param>
+            <param name="endDate">End date for Transmission</param>
+            <param name="division">2 digit Identifier of a Division</param>
+            <returns>DataSet of DFA Detail Ticket records</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetNFOFeed(System.DateTime,System.DateTime)">
+            <summary>
+            Get the information for the NFO feed of Ticket information
+            </summary>
+            <param name="startDate">Start Date for NFO Feed</param>
+            <param name="endDate">End Date for NFO Feed</param>
+            <returns>Data Reader object</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetDescriptionExceptions">
+            <summary>
+            Get the Info for all Exceptions
+            </summary>
+            <returns>DataSet of Exception Descriptions</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTicketExceptions">
+            <summary>
+            Get All Ticket Exceptions
+            </summary>
+            <returns>DataSet of Ticket Exceptions</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetUserExceptions">
+            <summary>
+            Get User Exceptions
+            </summary>
+            <returns>DataSet of User Exceptions</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTicket(System.String,System.DateTime)">
+            <summary>
+            Get Ticket Information for a given Ticket Number and Pickup Date
+            </summary>
+            <param name="ticketNumber">Identifier of a Ticket</param>
+            <param name="pickupDate">milk pickup date of ticket</param>
+            <returns>Ticket Entity</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTicketDetail(System.String,System.DateTime)">
+            <summary>
+            this method will get a ticket detail list for the given ticket ID and pickup date
+            </summary>
+            <param name="ticketNumber">unique ID of ticket</param>
+            <param name="pickupDate">milk pickup date</param>
+            <returns>Generic List of type TicketDetail</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTicketCommingleDetail(System.String,System.DateTime)">
+            <summary>
+            this method will get Ticket Commingle Detail
+            </summary>
+            <param name="ticketNumber">unique ID of ticket</param>
+            <param name="pickupDate">unique pickup date of milk ticket</param>
+            <returns>Generic List of type TicketCommingledDetail</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetLocksByDivision(System.String,System.DateTime,System.DateTime)">
+            <summary>
+            This procedure will take in a Division and return all the row locks from the Row_Locks table in Administrative
+            </summary>
+            <param name="division">Division Number</param>
+            <param name="startDate">Start Date for Locks</param>
+            <param name="endDate">End Date for Locks</param>
+            <returns>Dataset of Locks</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.UpdateTicketStatus(System.Int32,System.DateTime,System.DateTime,System.String)">
+            <summary>
+            this method will update the status of a ticket
+            </summary>
+            <param name="status">new status of ticket</param>
+            <param name="startDate">start date of ticket</param>
+            <param name="endDate">end date of ticket</param>
+            <param name="division">division ticket was created in</param>
+            <returns>Boolean of Success/Failure</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetPoundsByStatus(System.Int32,System.String,System.DateTime,System.DateTime)">
+            <summary>
+            this method will get pounds by status
+            </summary>
+            <param name="status">Ticket Status</param>
+            <param name="division">Division Number</param>
+            <param name="startDate">Start Date for Pounds</param>
+            <param name="endDate">End Date for Pounds</param>
+            <returns>Total Pounds</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetPoundsByProducer(System.String,System.String)">
+            <summary>
+            Takes in a Producer Number and returns a DataTable of 
+            [pickup date], [tank], and [pounds].
+            </summary>
+            <param name="division">The Producer's Division.</param>
+            <param name="producerNumber">The Producer's Member ID.</param>
+            <returns>DataTable of tickets</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTicketsByHauler(System.String)">
+            <summary>Gets a table with the ticket information for a given hauler.
+            </summary>
+            <remarks>The table contains columns for date, tank, pounds, ticket number, producer_division, producer_number, customer_deliver_to, and customer_bill_to.</remarks>
+            <param name="hauler_number">The four digit number of the hauler.</param>
+            <returns>A DataTable with ticket information.</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTicketsByCustomer(System.String)">
+            <summary>Gets a table with the ticket information for a given customer.
+            </summary>
+            <param name="customer_number">The four digit number of the customer.</param>
+            <returns>A DataTable with ticket information.</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTotalProducerPoundsForCurrMonthByNumberDivision(System.String,System.String)">
+            <summary>
+            Gets the Yearly Average Pounds for the current month and given producer
+            </summary>
+            <param name="prodNum">6 digit Identifier of a Producer</param>
+            <param name="prodDiv">2 digit Identifier of a Division</param>
+            <returns>Number of Pounds</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTopCustomersForProducerByNumberDivision(System.String,System.String,System.Int32)">
+            <summary>
+            Get the Top Customers a Producer Delivered to
+            </summary>
+            <param name="producerNumber">6 digit Identifier of a Producer</param>
+            <param name="producerDivision">2 digit Identifier of a Division</param>
+            <param name="numberOfCustomers">Number of Customers to return (optional)</param>
+            <returns>DataTable of Customers</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTopHaulersForCustomer(System.String,System.Int32)">
+            <summary>Get the Top Haulers for a specific Customer entity.
+            </summary>
+            <remarks>hauler_name, hauler_number, current_year_pounds</remarks>
+            <param name="customerNumber">6 digit Identifier of a Customer.</param>
+            <param name="numberOfRecords">Number of records to return (optional, defaults to 5).</param>
+            <returns>DataTable of Haulers.</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTopProducersByHauler(System.String,System.Int32)">
+            <summary>Get the top producers for a specific hauler entity.
+            </summary>
+            <remarks>producer_name, producer_division, producer_number, ytd_pounds</remarks>
+            <param name="haulerNumber">4 digit Identifier of a Hauler.</param>
+            <param name="numberOfRecords">Number of records to return (optional, defaults to 5).</param>
+            <returns>DataTable of Producers.</returns>
+        </member>
+        <member name="M:DairyleaDAL.Services.HaulerDataService.GetTopCustomersByHauler(System.String,System.Int32)">
+            <summary>Get the Top Customers for a specific Hauler entity.
+            </summary>
+            <remarks>customer_name, customer_bill_to, ytd_pounds</remarks>
+            <param name="haulerNumber">4 digit Identifier of a Hauler.</param>
+            <param name="numberOfRecords">Number of records to return (optional, defaults to 5).</param>
+            <returns>DataTable of Customers.</returns>
+        </member>
+        <member name="P:DairyleaDAL.Services.HaulerDataService.LogFilePath">
+            <summary>Gets the path to the ErrorLog File
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Services.HaulerDataService.HaulerConnectionString">
+            <summary>Gets the connection to the Hauler Database
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.Ticket">
+            <summary>
+            Ticket Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.TicketDetail">
+            <summary>Gets or sets a List of Ticket Details
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.TicketCommingledDetail">
+            <summary>Gets or sets a List of Ticket Comingled Details
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.TicketNumber">
+            <summary>Gets or sets the Ticket Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.HaulerRoute">
+            <summary>Gets or sets the Hauler Route
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.Load">
+            <summary>Gets or sets the Load
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.HaulerNumber">
+            <summary>Gets or sets the Hauler Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.HaulerName">
+            <summary>Gets or sets the Hauler Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.PickupDate">
+            <summary>Gets or sets the Pickup Date
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.DeliveryDate">
+            <summary>Gets or sets the Delivery Date
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.UnitID">
+            <summary>Gets or sets the Unit ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.HaulerLicenseNumber">
+            <summary>Gets or sets the Hauler License Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.DriverSampleNumber">
+            <summary>Gets or sets the Driver Sample Number
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.DeliverTo">
+            <summary>Gets or sets the Deliver To
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.DeliverToName">
+            <summary>Gets or sets the Deliver To Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.BillTo">
+            <summary>Gets or sets the Bill To
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.BillToName">
+            <summary>Gets or sets the Bill To Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.TotalDDPPounds">
+            <summary>Gets or sets the Total DDP Pounds
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.LoadPounds">
+            <summary>Gets or sets the Load Pounds
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.TotalTickets">
+            <summary>Gets or sets the Total Tickets
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.PageOneTicket">
+            <summary>Gets or sets the Page One Ticket
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.TicketName">
+            <summary>Gets or sets the Ticket Name
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.CoC">
+            <summary>Gets or sets the Chain of Custody (CoC)
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.SampleDropOffCode">
+            <summary>Gets or sets the Sample Drop Off Code
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.ScheduledArrival">
+            <summary>Gets or sets the Scheduled Arrival Time
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.ArrivalTime">
+            <summary>Gets or sets the Arrival Time
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.DepartureTime">
+            <summary>Gets or sets the Departure Time
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.Comments">
+            <summary>Gets or sets the Comments
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.StatusID">
+            <summary>Gets or sets the Status ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.SourceTypeID">
+            <summary>Gets or sets the Source Type ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.CreateDate">
+            <summary>Gets or sets the Create Date
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.TicketStatus">
+            <summary>Gets or sets the Ticket Status
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.Locked">
+            <summary>Gets or sets a value indicating whether the ticket is Locked
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.Ticket.LockedBy">
+            <summary>Gets or sets the Username of who the Ticket is Locked By
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Entities.ProducerTank">
+            <summary>
+            Producer Tank Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerTank.Producer">
+            <summary>Gets or sets the Producer object
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerTank.isTank1">
+            <summary>Gets or sets a value indicating whether the Producer has Tank 1
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerTank.isTank2">
+            <summary>Gets or sets a value indicating whether the Producer has Tank 2
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerTank.isTank3">
+            <summary>Gets or sets a value indicating whether the Producer has Tank 3
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerTank.isTank4">
+            <summary>Gets or sets a value indicating whether the Producer has Tank 4
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerTank.isTank5">
+            <summary>Gets or sets a value indicating whether the Producer has Tank 5
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerTank.isTank6">
+            <summary>Gets or sets a value indicating whether the Producer has Tank 6
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerTank.isTank7">
+            <summary>Gets or sets a value indicating whether the Producer has Tank 7
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerTank.isTank8">
+            <summary>Gets or sets a value indicating whether the Producer has Tank 8
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.ProducerTank.isTank9">
+            <summary>Gets or sets a value indicating whether the Producer has Tank 9
+            </summary>
+        </member>
+        <member name="T:DairyleaDAL.Factories.AdministrativeFactory">
+            <summary>
+            Create Objects for Administrative Database
+            </summary>
+        </member>
+        <member name="M:DairyleaDAL.Factories.AdministrativeFactory.CreateCompanyCarDriver(System.Data.IDataReader)">
+            <summary>
+            Factory creation of CompanyCarDriver Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Company Car Driver</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.AdministrativeFactory.CreateCompanyCarVehicle(System.Data.IDataReader)">
+            <summary>
+            Factory creation of CompanyCarVehicle Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Company Car Vehicle</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.AdministrativeFactory.CreateCompanyCarUsage(System.Data.IDataReader)">
+            <summary>
+            Factory creation of CompanyCarUsage Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Company Car Usage</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.AdministrativeFactory.CreateCompanyCarMonthlyMileage(System.Data.IDataReader)">
+            <summary>
+            Factory creation of CompanyCarMonthlyMileage Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Company Car Monthly Mileage</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.AdministrativeFactory.CreateCompanyCarManager(System.Data.IDataReader)">
+            <summary>
+            Factory creation of CompanyCarManager Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Company Car Manager</returns>
+        </member>
+        <member name="M:DairyleaDAL.Factories.AdministrativeFactory.CreateFieldman(System.Data.IDataReader)">
+            <summary>
+            Factory creation of Fieldman Entity
+            </summary>
+            <param name="rdr">The data-reader.</param>
+            <returns>Fieldman object</returns>
+        </member>
+        <member name="T:DairyleaDAL.Entities.LabTestCode">
+            <summary>
+            Lab Test Code Class
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTestCode.TestCodeID">
+            <summary>Gets or sets the Test Code ID
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTestCode.TestAbbreviation">
+            <summary>Gets or sets the Test Abbreviation
+            </summary>
+        </member>
+        <member name="P:DairyleaDAL.Entities.LabTestCode.TestDescription">
+            <summary>Gets or sets the Test Description
+            </summary>
+        </member>
+    </members>
+</doc>

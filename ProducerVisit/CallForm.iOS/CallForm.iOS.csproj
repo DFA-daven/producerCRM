@@ -77,7 +77,7 @@
 	<StartupObject>CallForm.iOS.Application</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|iPhone' ">
-	<DebugType>pdbonly</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin</OutputPath>
     <DefineConstants>DEBUG;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
@@ -156,8 +156,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-	<MtouchDebug>False</MtouchDebug>
-	<MtouchSdkVersion>7.1</MtouchSdkVersion>
+    <MtouchDebug>False</MtouchDebug>
+    <MtouchSdkVersion>7.1</MtouchSdkVersion>
     <MtouchLink>None</MtouchLink>
     <MtouchProfiling>False</MtouchProfiling>
     <MtouchExtraArgs>
@@ -195,7 +195,7 @@
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <MtouchI18n />
     <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
-	<DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -226,7 +226,7 @@
     <MtouchI18n />
     <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
     <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;</DefineConstants>
-	<DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AutoVersionNumber\GlobalAssemblyVersion.cs">
@@ -267,7 +267,9 @@
       <DependentUpon>Reference.map</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />

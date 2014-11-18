@@ -62,6 +62,17 @@
             }
         }
 
+        /// <summary>Value for this View's Title.
+        /// </summary>
+        public string Title
+        {
+            // if there's already a Title, use it. Otherwise set it to "User Settings".
+            // ToDo: get the title from the ViewReports_View.
+            //NavigationItem.Title = NavigationItem.Title ?? appName;
+
+            get { return "User Settings"; }
+        }
+
         public event EventHandler<ErrorEventArgs> Error;
 
         #region Save
@@ -73,7 +84,6 @@
         {
             get
             {
-                // "??" is the null-coalescing operator. It returns the left-hand operand if the operand is not null; otherwise it returns the right hand operand.
                 _saveCommand = _saveCommand ?? new MvxCommand(DoSaveCommand);
                 return _saveCommand;
             }
@@ -85,7 +95,7 @@
         {
             if (string.IsNullOrEmpty(UserEmail))
             {
-                Error(this, new ErrorEventArgs { Message = "You must enter your email address" });
+                Error(this, new ErrorEventArgs { Message = "You must enter your email address." });
             }
             // ToDo: add check to validate email address
             else

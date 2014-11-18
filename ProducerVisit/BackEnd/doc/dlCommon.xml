@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>dlCommon</name>
+    </assembly>
+    <members>
+        <member name="M:dlCommon.StringReformatException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Required to comply with .NET architechture.
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+            <remarks>A constructor is needed for serialization when an 
+            exception propagates from a remoting server to the client.</remarks>
+        </member>
+        <member name="M:dlCommon.ModulePermissionDeniedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Required to comply with .NET architechture.
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+            <remarks>A constructor is needed for serialization when an 
+            exception propagates from a remoting server to the client.</remarks>
+        </member>
+        <member name="M:dlCommon.SectionPermissionDeniedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Required to comply with .NET architechture.
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+            <remarks>A constructor is needed for serialization when an 
+            exception propagates from a remoting server to the client.</remarks>
+        </member>
+        <member name="T:dlCommon.MaxSearchResultsExceededException">
+            <summary>Presents exceptions when the SQL Server indicates that the 
+            maximum search results have been exceeded.
+            </summary>
+        </member>
+        <member name="M:dlCommon.MaxSearchResultsExceededException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Required to comply with .NET architechture.
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+            <remarks>A constructor is needed for serialization when an 
+            exception propagates from a remoting server to the client.</remarks>
+        </member>
+        <member name="T:dlCommon.DalException">
+            <summary>Presents unexpected results returned by the SQL server. 
+            </summary>
+            <example>
+            <code>
+            public static DataTable GetResults(string division, string producerNumber)
+            {
+            	DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            
+            	try
+            	{
+            		using (DbCommand cmd = db.GetStoredProcCommand("GetResults"))
+            		{
+            			db.AddInParameter(cmd, "@division_number", DbType.String, division);
+            			db.AddInParameter(cmd, "@producer_number", DbType.String, producerNumber);
+            
+            			ds = databaseHauler.ExecuteDataSet(cmd);
+            
+            			if (ds.Tables[0] == null)
+            			{
+            				throw new DalException("dB failed to return a table.");
+            			}
+            			else
+            			{
+            				dt = ds.Tables[0];
+            			}
+            		}
+            		return dt;
+            	}
+            	catch (DalException dex)
+            	{
+            		Console.WriteLine("Hauler DAL Error in GetPoundsByProducer: " + dex);
+            		return dt;
+            	}
+            	catch (SqlException ex)
+            	{
+            		// something went wrong on the sql server side
+            		Console.WriteLine("SQL Server returned an Exception to GetResults()", ex);
+            		return dt;
+            	}
+            	catch (Exception ex)
+            	{
+            		dlDALErrorlog.WriteToTextFile("DAL Error in GetResults()", ex);
+            		return null;
+            		throw;
+            	}
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:dlCommon.DalException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Required to comply with .NET architechture.
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+            <remarks>A constructor is needed for serialization when an 
+            exception propagates from a remoting server to the client.</remarks>
+        </member>
+        <member name="M:dlCommon.BooleanEvaluator.Evaluate(System.String)">
+            <summary>
+            Evaluates the given expression and returns the result.
+            </summary>
+            <param name="expression">Expression to Evaluate</param>
+            <returns>True - expression was successfully evaluated</returns>
+        </member>
+        <member name="M:dlCommon.BooleanEvaluator.GetRules">
+            <summary>
+            Returns a list of rules that can be used to decompose and evaluate an expression.
+            </summary>
+            <returns>Dictionary of the Rules</returns>
+        </member>
+        <member name="T:DataAccessLayer.DataAccessBaseLayer">
+            <summary>
+            Summary description for DataAccessBaseLayer
+            </summary>
+        </member>
+        <member name="F:DataAccessLayer.DataAccessBaseLayer.conStr">
+            <summary>
+            Private connection string
+            </summary>
+        </member>
+        <member name="M:DataAccessLayer.DataAccessBaseLayer.isConnected">
+            <summary>
+            Determines whether this instance is connected.
+            </summary>
+            <returns>
+            <c>true</c> if this instance is connected; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DataAccessLayer.DataAccessBaseLayer.OpenConnection">
+            <summary>
+            Opens the connection.
+            </summary>
+            <returns>True - connection is opened</returns>
+        </member>
+        <member name="M:DataAccessLayer.DataAccessBaseLayer.closeConnection">
+            <summary>
+            Closes the connection.
+            </summary>
+            <returns>True - connection is closed</returns>
+        </member>
+        <member name="M:DataAccessLayer.DataAccessBaseLayer.SystemTime">
+            <summary>
+            Returns the current datetime from the database.
+            </summary>
+            <returns>DateTime from the SQL server</returns>
+        </member>
+        <member name="M:DataAccessLayer.DataAccessBaseLayer.ExecuteScalarCmd(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Executes the scalar CMD.
+            </summary>
+            <param name="sqlCmd">The SQL CMD.</param>
+            <returns>object with results</returns>
+        </member>
+        <member name="M:DataAccessLayer.DataAccessBaseLayer.ExecuteNonQuery(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Executes the non query.
+            </summary>
+            <param name="sqlCmd">The SQL CMD.</param>
+            <returns>Number of rows effected by ExecuteNonQuery</returns>
+        </member>
+        <member name="M:DataAccessLayer.DataAccessBaseLayer.ExecuteReaderCmd(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Executes the reader CMD.
+            </summary>
+            <param name="sqlCmd">The SQL CMD.</param>
+            <returns>SQL Data Reader</returns>
+        </member>
+        <member name="M:DataAccessLayer.DataAccessBaseLayer.AddParamToSqlCmd(System.Data.SqlClient.SqlCommand,System.String,System.Data.SqlDbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            Adds the param to SQL CMD.
+            </summary>
+            <param name="sqlCommand">The SQL command.</param>
+            <param name="paramId">The param id.</param>
+            <param name="sqlType">Type of the SQL.</param>
+            <param name="paramSize">Size of the param.</param>
+            <param name="paramDirection">The param direction.</param>
+            <param name="paramValue">The param value.</param>
+        </member>
+        <member name="M:DataAccessLayer.DataAccessBaseLayer.SetCommandType(System.Data.SqlClient.SqlCommand,System.Data.CommandType,System.String)">
+            <summary>
+            Sets the type of the command.
+            </summary>
+            <param name="sqlCmd">The SQL CMD.</param>
+            <param name="cmdType">Type of the CMD.</param>
+            <param name="cmdText">The CMD text.</param>
+        </member>
+        <member name="P:DataAccessLayer.DataAccessBaseLayer.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="M:dlCommon.Validation.ContainsSymbols(System.String)">
+            <summary>
+            Checks to see if the string passed in contains any non alpha-numeric non whitespace characters
+            </summary>
+            <param name="toValidate">string to check</param>
+            <returns>true if contains illegal character</returns>
+        </member>
+        <member name="M:dlCommon.Validation.ContainsNumbers(System.String)">
+            <summary>
+            Checks to see if there are any numbers in the string.
+            </summary>
+            <param name="toValidate">string to check</param>
+            <returns>True if there is a number</returns>
+        </member>
+        <member name="M:dlCommon.Validation.ContainsWhiteSpace(System.String)">
+            <summary>
+            Checks to see if there is any whitespace in the string
+            </summary>
+            <param name="toValidate">string to check</param>
+            <returns>true if there is whitespace</returns>
+        </member>
+        <member name="M:dlCommon.Validation.IsAlphabetic(System.String)">
+            <summary>
+            Checks to see if string is alphabetic
+            </summary>
+            <param name="toValidate">string to check</param>
+            <returns>true if alphabetic</returns>
+        </member>
+        <member name="M:dlCommon.Validation.IsEmailFormat(System.String)">
+            <summary>
+            Checks to see if a string is in a plausible email format.
+            </summary>
+            <param name="toValidate">string to check</param>
+            <returns>true if it is a possible email.</returns>
+        </member>
+        <member name="M:dlCommon.Validation.ValidAddressCharacters(System.String)">
+            <summary>
+            Checks to see if the incoming string has acceptable address characters
+            </summary>
+            <param name="toValidate">string to check</param>
+            <returns>true if valid address characters</returns>
+        </member>
+        <member name="M:dlCommon.Validation.ValidName(System.String)">
+            <summary>
+            Checks to see if the incoming string has acceptable name characters
+            </summary>
+            <param name="toValidate">string to check</param>
+            <returns>true if valid address characters</returns>
+        </member>
+        <member name="M:dlCommon.Validation.ValidMonth(System.String)">
+            <summary>
+            Validate a month
+            </summary>
+            <param name="toValidate">Text to validate</param>
+            <returns>True if it is a valid month</returns>
+        </member>
+        <member name="M:dlCommon.Validation.FormatPhone(System.String)">
+            <summary>
+            Formats a string as if it was a phone number
+            </summary>
+            <param name="phoneToFormat">String to format</param>
+            <returns>A formatted phone number in the form of (123)456-7890 x1234</returns>
+        </member>
+        <member name="M:dlCommon.Validation.FormatPhone(System.String,dlCommon.Validation.PhoneFormat)">
+            <summary>
+            Formats a string as if it were a phone number
+            </summary>
+            <param name="phoneToFormat">string to format</param>
+            <param name="format">any of several format types</param>
+            <returns>A formatted phone number</returns>
+        </member>
+        <member name="M:dlCommon.Validation.UnformatPhone(System.String)">
+            <summary>
+            Remove any non-digit symbols from formatted phone string 
+            </summary>
+            <param name="phoneToUnformat">Phone Number to remove Formatting from</param>
+            <returns>Unformatted Phone Number</returns>
+        </member>
+        <member name="M:dlCommon.Validation.IsPhoneFormat(System.String)">
+            <summary>
+            Validates a U.S. phone number. It must consist of 3 numeric characters, optionally enclosed in parentheses, followed by a set of 3 numeric characters and then a set of 4 numeric characters. 
+            Examples of valid entries:
+                (425) 555-0123
+                425-555-0123
+                425 555 0123
+                1-425-555-0123
+            </summary>
+            <param name="toValidate">Phone Number to Validate</param>
+            <returns>Validated Phone Number</returns>
+        </member>
+        <member name="M:dlCommon.Validation.CheckDate(System.String)">
+            <summary>
+            Takes an unformatted date, validates it to be a valid date and returns it
+            Even though it uses a DateTime variable, it only returns the short date version MM/DD/YYYY
+            If it is unsuccessful, a null is returned
+            </summary>
+            <param name="strInputDate">Date to format</param>
+            <returns>Short Date or Null if date is invalid</returns>
+        </member>
+        <member name="M:dlCommon.Validation.FormatCustomerNumber(System.String)">
+            <summary>
+            Pad Customer Number entries with leading zeros
+            </summary>
+            <param name="customerNumber">Customer Number to Format</param>
+            <returns>Formatted Customer Number</returns>
+        </member>
+        <member name="T:dlCommon.Validation.PhoneFormat">
+            <summary>
+            Specifies which phone format to utilize
+            </summary>
+        </member>
+        <member name="T:dlCommon.Format">
+            <summary>Provides tools for changing the format of data.
+            </summary>
+        </member>
+        <member name="M:dlCommon.Format.RemoveSeparatorChars(System.String)">
+            <summary>Removes any characters from the phone number (leaves digits only).
+            </summary>
+            <param name="oldString">Phone number before removing the characters</param>
+            <returns>String representation of the phone number without any characters.</returns>
+        </member>
+    </members>
+</doc>

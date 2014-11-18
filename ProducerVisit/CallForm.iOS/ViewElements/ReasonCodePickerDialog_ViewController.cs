@@ -296,6 +296,24 @@ namespace CallForm.iOS.ViewElements
 
             ButtonHeight = source.RowHeight;
             RowHeight = source.RowHeight;
+
+#if (DEBUG)
+            // Note: in order to make to past the New Visit view, select the first reasonCode.
+            if (Common_iOS.UserInterfaceIdiomIsPhone)
+            {
+                ReasonCode fakeSelectedReasonCode = _viewModel.ListOfReasonCodes[0];
+                //if (_viewModel.SelectedReasonCodes.Contains(fakeSelectedReasonCode))
+                //{
+                //    _viewModel.SelectedReasonCodes.Remove(fakeSelectedReasonCode);
+                //}
+                //else
+                //{
+                    _viewModel.SelectedReasonCodes.Add(fakeSelectedReasonCode);
+                //}
+                _viewModel.RaisePropertyChanged(GetPropertyName(() => _viewModel.SelectedReasonCodes));
+                //tableView.ReloadData();
+            }
+#endif
         }
 
         #region overrides
