@@ -147,6 +147,7 @@
 	</MtouchI18n>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
 	
+	<DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
 	<StartupObject>CallForm.iOS.Application</StartupObject>
 	
 	<CodesignProvision>04B0F2B2-CC37-4C83-A0E5-7E1BCA85023F</CodesignProvision>

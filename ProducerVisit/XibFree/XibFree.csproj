@@ -23,7 +23,6 @@
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <DocumentationFile>bin\Debug\XibFree.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|AnyCPU' ">
     <OutputPath>bin\Alpha\</OutputPath>
@@ -38,7 +37,6 @@
         <Command type="AfterBuild" command="cp ${TargetFile} ${SolutionDir}/out" workingdir="" />
       </CustomCommands>
     </CustomCommands>
-    <DocumentationFile>bin\Alpha\XibFree.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Beta|AnyCPU' ">
     <OutputPath>bin\Beta\</OutputPath>
@@ -53,7 +51,6 @@
         <Command type="AfterBuild" command="cp ${TargetFile} ${SolutionDir}/out" workingdir="" />
       </CustomCommands>
     </CustomCommands>
-    <DocumentationFile>bin\Beta\XibFree.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -67,7 +64,6 @@
         <Command type="AfterBuild" command="cp ${TargetFile} ${SolutionDir}/out" workingdir="" />
       </CustomCommands>
     </CustomCommands>
-    <DocumentationFile>bin\Release\XibFree.XML</DocumentationFile>
     <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;RELEASE;</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
