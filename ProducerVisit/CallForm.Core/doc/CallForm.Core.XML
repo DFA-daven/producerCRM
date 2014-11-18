@@ -662,10 +662,6 @@
             <summary>The "Asset Tag" assigned to the iOS device.
             </summary>
         </member>
-        <member name="P:CallForm.Core.ViewModels.UserIdentity_ViewModel.Title">
-            <summary>Value for this View's Title.
-            </summary>
-        </member>
         <member name="P:CallForm.Core.ViewModels.UserIdentity_ViewModel.SaveCommand">
             <summary>The action for the "OK" / Save button.
             </summary>
@@ -816,8 +812,8 @@
             <summary>Holds the "DisplayName" of potential Email Recipients.
             </summary>
         </member>
-        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._isNewReport">
-            <summary>Store for the <c>IsNewReport</c> property.</summary>
+        <member name="F:CallForm.Core.ViewModels.NewVisit_ViewModel._editing">
+            <summary>Store for the <c>Editing</c> property.</summary>
         </member>
         <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.Lat">
             <summary>The latitude value for this visit.
@@ -876,16 +872,14 @@
             <summary>The list of <see cref="T:CallForm.Core.Models.EmailRecipient"/> DisplayNames for the user to select from.
             </summary>
         </member>
-        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.IsNewReport">
-            <summary>Keeps track of IsNewReport status.
+        <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.Editing">
+            <summary>Keeps track of Editing status.
             </summary>
             <remarks>This is an example of a property that SHOULD be in the ViewModel.</remarks>
         </member>
         <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.SaveButtonText">
             <summary>Label for <see cref="P:CallForm.Core.ViewModels.NewVisit_ViewModel.SaveCommand"/>.
             </summary>
-            <remarks>If this <see cref="P:CallForm.Core.ViewModels.NewVisit_ViewModel.IsNewReport"/>, button action is to "save" this <see cref="!:NewVisit_View"/>. If not IsNewReport, 
-            button action is to open a new NewVisit_View (with the current <see cref="P:CallForm.Core.ViewModels.NewVisit_ViewModel.MemberNumber"/>.</remarks>
         </member>
         <member name="P:CallForm.Core.ViewModels.NewVisit_ViewModel.Title">
             <summary>Value for this View's Title.
