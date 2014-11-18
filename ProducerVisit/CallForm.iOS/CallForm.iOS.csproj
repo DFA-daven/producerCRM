@@ -39,11 +39,11 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
 	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-	<OutputPath>bin\Debug</OutputPath>
+	<OutputPath>bin</OutputPath>
 	<StartupObject>CallForm.iOS.Application</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
-    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <OutputPath>bin</OutputPath>
     <CodesignKey>iPhone Developer</CodesignKey>
 	<CodesignProvision>45d52977-a3e7-4192-bedc-bd913402b6a4</CodesignProvision>
 	<IpaMetadata>
@@ -64,7 +64,7 @@
 	<StartupObject>CallForm.iOS.Application</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
-    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <OutputPath>bin</OutputPath>
     <MtouchLink>None</MtouchLink>
 	<MtouchExtraArgs>
 	</MtouchExtraArgs>
@@ -79,7 +79,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|iPhone' ">
 	<DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\iPhone\Alpha</OutputPath>
+    <OutputPath>bin</OutputPath>
     <DefineConstants>DEBUG;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -104,7 +104,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Beta|iPhone' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\iPhone\Beta</OutputPath>
+    <OutputPath>bin</OutputPath>
 	<DefineConstants>TRACE;__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -126,7 +126,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\iPhone\Release</OutputPath>
+    <OutputPath>bin</OutputPath>
 	<DefineConstants>__IOS__;__MOBILE__;__RELEASE__;RELEASE;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -178,7 +178,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|iPhoneSimulator' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\iPhoneSimulator\Alpha</OutputPath>
+    <OutputPath>bin</OutputPath>
     <DefineConstants>DEBUG;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -202,7 +202,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Beta|iPhoneSimulator' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\iPhoneSimulator\Beta</OutputPath>
+    <OutputPath>bin</OutputPath>
     <DefineConstants>TRACE;__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -227,7 +227,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <OutputPath>bin</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
