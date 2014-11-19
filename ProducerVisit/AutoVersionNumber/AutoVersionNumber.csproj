@@ -151,7 +151,7 @@
   </Target>
   -->
   <!-- process *.tt templates on each build  -->
-<!-- commented out to allow build on Xamarin Studio Mac
+  <!-- commented out to allow build on Xamarin Studio Mac
   <PropertyGroup>
     <TransformOnBuild>true</TransformOnBuild>
     <OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
@@ -170,7 +170,7 @@ REM FOR /F "skip=5 tokens=3,4 delims=: " %25%25i IN (handles.txt) DO handle -p %
 copy /Y "$(ProjectDir)Info.plist" "$(ProjectDir)..\CallForm.iOS\Info.plist.previous"</PostBuildEvent>
   </PropertyGroup>
 -->
-<!-- commented out to allow build on Xamarin Studio Mac
+  <!-- commented out to allow build on Xamarin Studio Mac
   <PropertyGroup>
     <PreBuildEvent>rem can't delete GlobalAssemblyVersion.cs here, b/c this project can't build without it</PreBuildEvent>
   </PropertyGroup>
