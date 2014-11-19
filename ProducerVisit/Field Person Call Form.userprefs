@@ -1,5 +1,5 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.Dev-iPad2-tag-A0361" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Alpha|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.Dev-iPad2-tag-A0361" />
   <MonoDevelop.Ide.Workbench ActiveDocument="CallForm.iOS/ViewElements/EmailRecipientSelectDialog_ViewController.cs">
     <Files>
       <File FileName="CallForm.iOS/ViewElements/EmailRecipientSelectDialog_ViewController.cs" Line="11" Column="11" />
