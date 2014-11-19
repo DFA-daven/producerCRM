@@ -1,0 +1,19 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.Dev-iPad2-tag-A0361" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="CallForm.iOS/ViewElements/EmailRecipientSelectDialog_ViewController.cs">
+    <Files>
+      <File FileName="CallForm.iOS/ViewElements/EmailRecipientSelectDialog_ViewController.cs" Line="11" Column="11" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="CallForm.iOS" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
