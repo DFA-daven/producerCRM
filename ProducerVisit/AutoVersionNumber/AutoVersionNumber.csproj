@@ -36,7 +36,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>doc\</OutputPath>
+    <OutputPath>bin</OutputPath>
     <DefineConstants>TRACE;DEBUG;__DEBUG__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -44,7 +44,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Alpha|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>doc\</OutputPath>
+    <OutputPath>bin</OutputPath>
     <DefineConstants>TRACE;DEBUG;ALPHA;__ALPHA__;</DefineConstants>
     <Alpha>Alpha</Alpha>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,7 +56,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta|AnyCPU'">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>doc\</OutputPath>
+    <OutputPath>bin</OutputPath>
     <DefineConstants>BETA;__BETA__;TRACE</DefineConstants>
     <Beta>Beta</Beta>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -70,7 +70,7 @@
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>doc\</OutputPath>
+    <OutputPath>bin</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>doc\AutoVersionNumber.xml</DocumentationFile>
