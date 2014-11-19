@@ -31,7 +31,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Alpha|AnyCPU'">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin</OutputPath>
     <DefineConstants>DEBUG;ALPHA;__ALPHA__;</DefineConstants>
     <PlatformTarget>AnyCPU</PlatformTarget>
