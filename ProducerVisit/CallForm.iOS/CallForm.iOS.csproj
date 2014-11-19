@@ -39,10 +39,7 @@
     <IpaPackageName>
     </IpaPackageName>
     <MtouchDebug>True</MtouchDebug>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
     <MtouchLink>Full</MtouchLink>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <MtouchI18n>
@@ -50,12 +47,14 @@
     <WarningLevel>4</WarningLevel>
     <Optimize>False</Optimize>
     <StartupObject>CallForm.iOS.Application</StartupObject>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;__IOS__;__MOBILE__;__DEBUG__;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|iPhone' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\debug</OutputPath>
-    <DefineConstants>DEBUG;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -66,9 +65,6 @@
     <IpaPackageName>
     </IpaPackageName>
     <MtouchDebug>True</MtouchDebug>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
     <MtouchFastDev>True</MtouchFastDev>
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
@@ -76,12 +72,14 @@
     </MtouchI18n>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <StartupObject>CallForm.iOS.Application</StartupObject>
+    <DebugSymbols>true</DebugSymbols>
+    <MtouchLink>Full</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Beta|iPhone' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\release</OutputPath>
-    <DefineConstants>TRACE;__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -96,7 +94,7 @@
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>bin\iPhone\doc\CallFormiOS.XML</DocumentationFile>
     <StartupObject>CallForm.iOS.Application</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -113,64 +111,58 @@
     <IpaMetadata>
     </IpaMetadata>
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>bin\iPhone\doc\CallFormiOS.XML</DocumentationFile>
     <MtouchI18n>
     </MtouchI18n>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <StartupObject>CallForm.iOS.Application</StartupObject>
+    <MtouchLink>None</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <OutputPath>bin\iPhoneSimulator</OutputPath>
-    <MtouchLink>None</MtouchLink>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
-    <MtouchArch>ARMv7</MtouchArch>
+    <MtouchLink>Full</MtouchLink>
+    <MtouchArch>i386</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <MtouchI18n>
     </MtouchI18n>
     <WarningLevel>4</WarningLevel>
     <Optimize>False</Optimize>
     <StartupObject>CallForm.iOS.Application</StartupObject>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;__IOS__;__MOBILE__;__DEBUG__;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|iPhoneSimulator' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator</OutputPath>
-    <DefineConstants>DEBUG;__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;ALPHA;__ALPHA__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchSdkVersion>7.1</MtouchSdkVersion>
-    <MtouchLink>None</MtouchLink>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
-    <MtouchArch>ARMv7</MtouchArch>
+    <MtouchLink>Full</MtouchLink>
+    <MtouchArch>i386</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <MtouchI18n>
     </MtouchI18n>
     <StartupObject>CallForm.iOS.Application</StartupObject>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Beta|iPhoneSimulator' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhoneSimulator</OutputPath>
-    <DefineConstants>TRACE;__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
+    <DefineConstants>__IOS__;__MOBILE__;__BETA__;BETA;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
-    <MtouchArch>ARMv7</MtouchArch>
+    <MtouchArch>i386</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <MtouchI18n>
     </MtouchI18n>
-    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>bin\doc\CallFormiOS.XML</DocumentationFile>
     <StartupObject>CallForm.iOS.Application</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -186,14 +178,12 @@
     <IpaPackageName>
     </IpaPackageName>
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
-    <MtouchArch>ARMv7</MtouchArch>
+    <MtouchArch>i386</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
     <MtouchI18n>
     </MtouchI18n>
     <DefineConstants>__IOS__;__MOBILE__;__RELEASE__;</DefineConstants>
-    <DocumentationFile>doc\CallFormiOS.XML</DocumentationFile>
+    <DocumentationFile>bin\doc\CallFormiOS.XML</DocumentationFile>
     <StartupObject>CallForm.iOS.Application</StartupObject>
   </PropertyGroup>
   <ItemGroup>

@@ -22,9 +22,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin</OutputPath>
-    <DefineConstants>TRACE;DEBUG;__DEBUG__;</DefineConstants>
+    <OutputPath>bin\debug</OutputPath>
+    <DefineConstants>DEBUG;__DEBUG__;TRACE;__TRACE__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
@@ -32,34 +31,33 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Alpha|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin</OutputPath>
-    <DefineConstants>DEBUG;ALPHA;__ALPHA__;</DefineConstants>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\debug</OutputPath>
+    <DefineConstants>DEBUG;ALPHA;__ALPHA__;__DEBUG__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <WarningLevel>4</WarningLevel>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin</OutputPath>
-    <DefineConstants>TRACE;BETA;__BETA__;</DefineConstants>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\release</OutputPath>
+    <DefineConstants>BETA;__BETA__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>doc\BackEnd.XML</DocumentationFile>
+    <DocumentationFile>bin\doc\BackEnd.XML</DocumentationFile>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin</OutputPath>
+    <OutputPath>bin\release</OutputPath>
+    <DefineConstants>RELEASE;__RELEASE__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>doc\BackEnd.xml</DocumentationFile>
+    <DocumentationFile>bin\doc\BackEnd.XML</DocumentationFile>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>

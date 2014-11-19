@@ -35,9 +35,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin</OutputPath>
-    <DefineConstants>TRACE;DEBUG;__DEBUG__;</DefineConstants>
+    <DefineConstants>DEBUG;__DEBUG__;TRACE;__TRACE__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -45,21 +44,20 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ALPHA;__ALPHA__;</DefineConstants>
+    <DefineConstants>TRACE;__TRACE__;ALPHA;__ALPHA__;</DefineConstants>
     <Alpha>Alpha</Alpha>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
     <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta|AnyCPU'">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin</OutputPath>
-    <DefineConstants>BETA;__BETA__;TRACE</DefineConstants>
+    <DefineConstants>BETA;__BETA__;</DefineConstants>
     <Beta>Beta</Beta>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
@@ -69,7 +67,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

@@ -19,40 +19,39 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin</OutputPath>
-    <DefineConstants>__DEBUG__;DEBUG;</DefineConstants>
+    <OutputPath>bin\debug</OutputPath>
+    <DefineConstants>__DEBUG__;DEBUG;TRACE;__TRACE__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Alpha|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin</OutputPath>
-    <DefineConstants>DEBUG;ALPHA;__ALPHA__;</DefineConstants>
+    <OutputPath>bin\debug</OutputPath>
+    <DefineConstants>ALPHA;__ALPHA__;TRACE;__TRACE__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Beta|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin</OutputPath>
-    <DefineConstants>TRACE;BETA;__BETA__;</DefineConstants>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\release</OutputPath>
+    <DefineConstants>BETA;__BETA__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>doc\CallFormCore.xml</DocumentationFile>
+    <DocumentationFile>bin\doc\CallFormCore.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin</OutputPath>
+    <OutputPath>bin\release</OutputPath>
     <DefineConstants>__RELEASE__;RELEASE;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>doc\CallFormCore.xml</DocumentationFile>
+    <DocumentationFile>bin\doc\CallFormCore.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
