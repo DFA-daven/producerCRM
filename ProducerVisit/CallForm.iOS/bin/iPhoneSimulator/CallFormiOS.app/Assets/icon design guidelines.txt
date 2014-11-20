@@ -1,5 +1,0 @@
-- avoid words or letters
-- if adding to Apple Store, do not apply "standard gloss"
-- Keep your motif simple and to the point. Selecting a single object can work for some apps. If you must have several objects interacting with eachother make sure each and everyone of them is clearly defined and that the interaction is unmistakingly clear.
-- Don’t confuse simple with plain looking. When you’ve found your conceptual masterpiece don’t hesitate to put it over the top.
-- There’s an argument to be made about the experience of pressing your icon and then using your app. You’ll create a much higher level of trust and fidelity if those two events aren’t too dissimilar. The anticipation you create by having a great icon should be reinforced when your application itself is well designed and vice versa.
