@@ -1,0 +1,264 @@
+2014-11-20 12:56:49.622 CallFormiOS[3417:461133] Class: CallForm.iOS.AppDelegate, Method: FinishedLaunching()
+2014-11-20 12:56:49.626 CallFormiOS[3417:461133]   [AppD][fl] > Assembly info:CallFormiOS, Version=1.4.14317.10987, Culture=neutral, PublicKeyToken=null
+2014-11-20 12:56:49.626 CallFormiOS[3417:461133]   [AppD][fl] > starting method...
+2014-11-20 12:56:49.653 CallFormiOS[3417:461133] mvx: Diagnostic:   0.01 Setup: PlatformServices start
+2014-11-20 12:56:49.662 CallFormiOS[3417:461133] CallForm.iOS.MvxProducerVisit_TouchViewPresenter, .ctor
+2014-11-20 12:56:49.662 CallFormiOS[3417:461133]   [Setup][mpv_tvp] > New instance of MvxProducerVisit_TouchViewPresenter created. < SETUP SETUP SETUP SETUP SETUP SETUP
+2014-11-20 12:56:49.662 CallFormiOS[3417:461133] mvx: Diagnostic:   0.03 Setup: MvvmCross settings start
+2014-11-20 12:56:49.663 CallFormiOS[3417:461133] mvx: Diagnostic:   0.03 Setup: Singleton Cache start
+2014-11-20 12:56:49.663 CallFormiOS[3417:461133] mvx: Diagnostic:   0.03 Setup: Bootstrap actions
+2014-11-20 12:56:49.675 CallFormiOS[3417:461133] mvx: Diagnostic:   0.04 Setup: StringToTypeParser start
+2014-11-20 12:56:49.676 CallFormiOS[3417:461133] mvx: Diagnostic:   0.04 Setup: ViewModelFramework start
+2014-11-20 12:56:49.677 CallFormiOS[3417:461133] mvx: Diagnostic:   0.04 Setup: PluginManagerFramework start
+2014-11-20 12:56:49.680 CallFormiOS[3417:461133] mvx: Diagnostic:   0.05 Ensuring Plugin is loaded for Cirrious.MvvmCross.Plugins.File.PluginLoader
+2014-11-20 12:56:49.682 CallFormiOS[3417:461133] mvx: Diagnostic:   0.05 Configuring Plugin Loader for Cirrious.MvvmCross.Plugins.Json.PluginLoader
+2014-11-20 12:56:49.682 CallFormiOS[3417:461133] mvx: Diagnostic:   0.05 Ensuring Plugin is loaded for Cirrious.MvvmCross.Plugins.Json.PluginLoader
+2014-11-20 12:56:49.683 CallFormiOS[3417:461133] mvx: Diagnostic:   0.05 Ensuring Plugin is loaded for Cirrious.MvvmCross.Plugins.Location.PluginLoader
+2014-11-20 12:56:49.684 CallFormiOS[3417:461133] mvx: Diagnostic:   0.05 Ensuring Plugin is loaded for Cirrious.MvvmCross.Plugins.Messenger.PluginLoader
+2014-11-20 12:56:49.685 CallFormiOS[3417:461133] mvx: Diagnostic:   0.05 Ensuring Plugin is loaded for Cirrious.MvvmCross.Plugins.Network.PluginLoader
+2014-11-20 12:56:49.687 CallFormiOS[3417:461133] mvx: Diagnostic:   0.05 Ensuring Plugin is loaded for Cirrious.MvvmCross.Plugins.PictureChooser.PluginLoader
+2014-11-20 12:56:49.688 CallFormiOS[3417:461133] mvx: Diagnostic:   0.05 Ensuring Plugin is loaded for Cirrious.MvvmCross.Plugins.Sqlite.PluginLoader
+2014-11-20 12:56:49.690 CallFormiOS[3417:461133] mvx: Diagnostic:   0.06 Ensuring Plugin is loaded for Cirrious.MvvmCross.Plugins.Visibility.PluginLoader
+2014-11-20 12:56:49.691 CallFormiOS[3417:461133] mvx: Diagnostic:   0.06 Setup: App start
+2014-11-20 12:56:49.691 CallFormiOS[3417:461133] CallForm.iOS.Setup, CreateApp
+2014-11-20 12:56:49.691 CallFormiOS[3417:461133]   [Setup][CA] > return new Core.App(). < SETUP SETUP SETUP SETUP SETUP SETUP
+2014-11-20 12:56:49.692 CallFormiOS[3417:461133] Class: CallForm.Core.App, Method: Initialize()
+2014-11-20 12:56:49.692 CallFormiOS[3417:461133]   [App][App] > RegisterAppStart<ViewModels.ViewReports_ViewModel>()
+2014-11-20 12:56:49.698 CallFormiOS[3417:461133] mvx: Diagnostic:   0.06 Setup: ViewModelTypeFinder start
+2014-11-20 12:56:49.699 CallFormiOS[3417:461133] mvx: Diagnostic:   0.07 Setup: ViewsContainer start
+2014-11-20 12:56:49.700 CallFormiOS[3417:461133] mvx: Diagnostic:   0.07 Setup: ViewDispatcher start
+2014-11-20 12:56:49.701 CallFormiOS[3417:461133] mvx: Diagnostic:   0.07 Setup: Views start
+2014-11-20 12:56:49.708 CallFormiOS[3417:461133] mvx: Diagnostic:   0.07 Setup: CommandCollectionBuilder start
+2014-11-20 12:56:49.708 CallFormiOS[3417:461133] mvx: Diagnostic:   0.08 Setup: NavigationSerializer start
+2014-11-20 12:56:49.709 CallFormiOS[3417:461133] mvx: Diagnostic:   0.08 Setup: InpcInterception start
+2014-11-20 12:56:49.709 CallFormiOS[3417:461133] mvx: Diagnostic:   0.08 Setup: LastChance start
+2014-11-20 12:56:49.738 CallFormiOS[3417:461133] mvx: Diagnostic:   0.10 Setup: Secondary end
+2014-11-20 12:56:49.739 CallFormiOS[3417:461133] mvx: Diagnostic:   0.11 Showing ViewModel ViewReports_ViewModel
+2014-11-20 12:56:49.740 CallFormiOS[3417:461133] TouchNavigation: Diagnostic:   0.11 Navigate requested
+2014-11-20 12:56:49.752 CallFormiOS[3417:461133] CallForm.iOS.MvxProducerVisit_TouchViewPresenter, Show
+2014-11-20 12:56:49.752 CallFormiOS[3417:461133]   [Setup][mpv_tvp][S] > the View requested ViewReports_ViewModel. < SETUP SETUP SETUP SETUP SETUP SETUP
+2014-11-20 12:56:49.779 CallFormiOS[3417:461133] Class: CallForm.iOS.AppDelegate, Method: FinishedLaunching()
+2014-11-20 12:56:49.780 CallFormiOS[3417:461133]   [AppD][fl] > ...finished method.
+2014-11-20 12:56:49.794 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_View, Method: ViewDidLoad()
+2014-11-20 12:56:49.795 CallFormiOS[3417:461133]   [vr_v][vdl] > starting method...
+2014-11-20 12:56:49.796 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_View, Method: NavBarHeight()
+2014-11-20 12:56:49.797 CallFormiOS[3417:461133]   [vr_v][nbh] > screenHeight: 1024, layoutHeight = 1024, calc navbar value: 0 <=======
+2014-11-20 12:56:49.803 CallFormiOS[3417:461133]   [vr_v][nbh] > iOS 7 topMarginHeight: 44, iOS7 layoutHeight = 0 <======= 
+2014-11-20 12:56:49.803 CallFormiOS[3417:461133]   [vr_v][vdl] > topMargin = 64 < <======= 
+2014-11-20 12:56:49.951 CallFormiOS[3417:461133] Class: CallForm.Core.Services.SemiStaticWebDataService, Method: UpdateModels()
+2014-11-20 12:56:49.951 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > starting...
+2014-11-20 12:56:49.956 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > do/while > trying...
+2014-11-20 12:56:49.957 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > ReasonCode > getting Reasons...
+2014-11-20 12:56:49.969 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > Request: http://dl-websvcs-03:480/Visit/Reasons/
+2014-11-20 12:56:49.969 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateReasonCodeModel > starting...
+2014-11-20 12:56:49.970 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateReasonCodeModel > ...trying...
+2014-11-20 12:56:49.999 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateReasonCodeModel > ...done trying...
+2014-11-20 12:56:49.999 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateReasonCodeModel > finished.
+2014-11-20 12:56:50.000 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > CallType > getting CallTypes...
+2014-11-20 12:56:50.000 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > Request: http://dl-websvcs-03:480/Visit/CallTypes/
+2014-11-20 12:56:50.000 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateCallTypeModel > starting...
+2014-11-20 12:56:50.001 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateCallTypeModel > ...trying...
+2014-11-20 12:56:50.002 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateCallTypeModel > ...done trying...
+2014-11-20 12:56:50.002 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateCallTypeModel > finished.
+2014-11-20 12:56:50.002 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > EmailRecipient > getting EmailRecipients...
+2014-11-20 12:56:50.003 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > Request: http://dl-websvcs-03:480/Visit/EmailRecipients/
+2014-11-20 12:56:50.003 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateEmailRecipientModel > starting...
+2014-11-20 12:56:50.003 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateEmailRecipientModel > ...trying...
+2014-11-20 12:56:50.004 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateEmailRecipientModel > ...done trying...
+2014-11-20 12:56:50.004 CallFormiOS[3417:461133] CallForm.Core.Services.SemiStaticWebDataService > UpdateEmailRecipientModel > finished.
+2014-11-20 12:56:50.071 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 500, Getting = T, Updating = F, Files = F F F, Time = 0.118252
+2014-11-20 12:56:50.130 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 1000, Getting = T, Updating = F, Files = F F F, Time = 0.178258
+2014-11-20 12:56:50.191 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 1500, Getting = T, Updating = F, Files = F F F, Time = 0.239631
+2014-11-20 12:56:50.254 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 2000, Getting = T, Updating = F, Files = F F F, Time = 0.302841
+2014-11-20 12:56:50.312 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 2500, Getting = T, Updating = F, Files = F F F, Time = 0.360654
+2014-11-20 12:56:50.377 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 3000, Getting = T, Updating = F, Files = F F F, Time = 0.425672
+2014-11-20 12:56:50.442 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 3500, Getting = T, Updating = F, Files = F F F, Time = 0.49002
+2014-11-20 12:56:50.500 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 4000, Getting = T, Updating = F, Files = F F F, Time = 0.548622
+2014-11-20 12:56:50.562 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 4500, Getting = T, Updating = F, Files = F F F, Time = 0.610308
+2014-11-20 12:56:50.621 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 5000, Getting = T, Updating = F, Files = F F F, Time = 0.669903
+2014-11-20 12:56:50.680 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 5500, Getting = T, Updating = F, Files = F F F, Time = 0.728192
+2014-11-20 12:56:50.740 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 6000, Getting = T, Updating = F, Files = F F F, Time = 0.788599
+2014-11-20 12:56:50.797 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 6500, Getting = T, Updating = F, Files = F F F, Time = 0.845617
+2014-11-20 12:56:50.871 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 7000, Getting = T, Updating = F, Files = F F F, Time = 0.918938
+2014-11-20 12:56:50.950 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 7500, Getting = T, Updating = F, Files = F F F, Time = 0.99869
+2014-11-20 12:56:51.027 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 8000, Getting = T, Updating = F, Files = F F F, Time = 1.075517
+2014-11-20 12:56:51.091 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 8500, Getting = T, Updating = F, Files = F F F, Time = 1.139793
+2014-11-20 12:56:51.150 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 9000, Getting = T, Updating = F, Files = F F F, Time = 1.19836
+2014-11-20 12:56:51.208 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 9500, Getting = T, Updating = F, Files = F F F, Time = 1.256856
+2014-11-20 12:56:51.266 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 10000, Getting = T, Updating = F, Files = F F F, Time = 1.314697
+2014-11-20 12:56:51.329 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 10500, Getting = T, Updating = F, Files = F F F, Time = 1.377314
+2014-11-20 12:56:51.392 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 11000, Getting = T, Updating = F, Files = F F F, Time = 1.440144
+2014-11-20 12:56:51.451 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 11500, Getting = T, Updating = F, Files = F F F, Time = 1.49946
+2014-11-20 12:56:51.518 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 12000, Getting = T, Updating = F, Files = F F F, Time = 1.566096
+2014-11-20 12:56:51.584 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 12500, Getting = T, Updating = F, Files = F F F, Time = 1.632474
+2014-11-20 12:56:51.645 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 13000, Getting = T, Updating = F, Files = F F F, Time = 1.693702
+2014-11-20 12:56:51.705 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 13500, Getting = T, Updating = F, Files = F F F, Time = 1.753028
+2014-11-20 12:56:51.762 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 14000, Getting = T, Updating = F, Files = F F F, Time = 1.810648
+2014-11-20 12:56:51.825 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 14500, Getting = T, Updating = F, Files = F F F, Time = 1.873066
+2014-11-20 12:56:51.890 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 15000, Getting = T, Updating = F, Files = F F F, Time = 1.938361
+2014-11-20 12:56:51.950 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 15500, Getting = T, Updating = F, Files = F F F, Time = 1.998343
+2014-11-20 12:56:52.015 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 16000, Getting = T, Updating = F, Files = F F F, Time = 2.063223
+2014-11-20 12:56:52.075 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 16500, Getting = T, Updating = F, Files = F F F, Time = 2.123438
+2014-11-20 12:56:52.135 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 17000, Getting = T, Updating = F, Files = F F F, Time = 2.183095
+2014-11-20 12:56:52.193 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 17500, Getting = T, Updating = F, Files = F F F, Time = 2.241646
+2014-11-20 12:56:52.253 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 18000, Getting = T, Updating = F, Files = F F F, Time = 2.301778
+2014-11-20 12:56:52.310 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 18500, Getting = T, Updating = F, Files = F F F, Time = 2.358816
+2014-11-20 12:56:52.373 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 19000, Getting = T, Updating = F, Files = F F F, Time = 2.420954
+2014-11-20 12:56:52.432 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 19500, Getting = T, Updating = F, Files = F F F, Time = 2.479958
+2014-11-20 12:56:52.494 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 20000, Getting = T, Updating = F, Files = F F F, Time = 2.542657
+2014-11-20 12:56:52.556 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 20500, Getting = T, Updating = F, Files = F F F, Time = 2.604754
+2014-11-20 12:56:52.616 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 21000, Getting = T, Updating = F, Files = F F F, Time = 2.664657
+2014-11-20 12:56:52.676 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 21500, Getting = T, Updating = F, Files = F F F, Time = 2.723945
+2014-11-20 12:56:52.734 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 22000, Getting = T, Updating = F, Files = F F F, Time = 2.782772
+2014-11-20 12:56:52.800 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 22500, Getting = T, Updating = F, Files = F F F, Time = 2.848284
+2014-11-20 12:56:52.864 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 23000, Getting = T, Updating = F, Files = F F F, Time = 2.912392
+2014-11-20 12:56:52.929 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 23500, Getting = T, Updating = F, Files = F F F, Time = 2.977066
+2014-11-20 12:56:52.992 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 24000, Getting = T, Updating = F, Files = F F F, Time = 3.040166
+2014-11-20 12:56:53.053 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 24500, Getting = T, Updating = F, Files = F F F, Time = 3.101248
+2014-11-20 12:56:53.111 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 25000, Getting = T, Updating = F, Files = F F F, Time = 3.159693
+2014-11-20 12:56:53.169 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 25500, Getting = T, Updating = F, Files = F F F, Time = 3.217259
+2014-11-20 12:56:53.231 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 26000, Getting = T, Updating = F, Files = F F F, Time = 3.279197
+2014-11-20 12:56:53.291 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 26500, Getting = T, Updating = F, Files = F F F, Time = 3.339446
+2014-11-20 12:56:53.356 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 27000, Getting = T, Updating = F, Files = F F F, Time = 3.404293
+2014-11-20 12:56:53.416 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 27500, Getting = T, Updating = F, Files = F F F, Time = 3.464407
+2014-11-20 12:56:53.474 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 28000, Getting = T, Updating = F, Files = F F F, Time = 3.522556
+2014-11-20 12:56:53.533 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 28500, Getting = T, Updating = F, Files = F F F, Time = 3.581275
+2014-11-20 12:56:53.595 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 29000, Getting = T, Updating = F, Files = F F F, Time = 3.643074
+2014-11-20 12:56:53.653 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 29500, Getting = T, Updating = F, Files = F F F, Time = 3.7011
+2014-11-20 12:56:53.709 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 30000, Getting = T, Updating = F, Files = F F F, Time = 3.757899
+2014-11-20 12:56:53.768 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 30500, Getting = T, Updating = F, Files = F F F, Time = 3.815933
+2014-11-20 12:56:53.823 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 31000, Getting = T, Updating = F, Files = F F F, Time = 3.871781
+2014-11-20 12:56:53.909 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 31500, Getting = T, Updating = F, Files = F F F, Time = 3.95716
+2014-11-20 12:56:53.970 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 32000, Getting = T, Updating = F, Files = F F F, Time = 4.018821
+2014-11-20 12:56:54.044 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 32500, Getting = T, Updating = F, Files = F F F, Time = 4.092915
+2014-11-20 12:56:54.106 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 33000, Getting = T, Updating = F, Files = F F F, Time = 4.154545
+2014-11-20 12:56:54.164 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 33500, Getting = T, Updating = F, Files = F F F, Time = 4.212234
+2014-11-20 12:56:54.223 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 34000, Getting = T, Updating = F, Files = F F F, Time = 4.271584
+2014-11-20 12:56:54.284 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 34500, Getting = T, Updating = F, Files = F F F, Time = 4.332095
+2014-11-20 12:56:54.353 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 35000, Getting = T, Updating = F, Files = F F F, Time = 4.400976
+2014-11-20 12:56:54.421 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 35500, Getting = T, Updating = F, Files = F F F, Time = 4.46976
+2014-11-20 12:56:54.482 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 36000, Getting = T, Updating = F, Files = F F F, Time = 4.530038
+2014-11-20 12:56:54.545 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 36500, Getting = T, Updating = F, Files = F F F, Time = 4.593347
+2014-11-20 12:56:54.615 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 37000, Getting = T, Updating = F, Files = F F F, Time = 4.663592
+2014-11-20 12:56:54.677 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 37500, Getting = T, Updating = F, Files = F F F, Time = 4.725908
+2014-11-20 12:56:54.736 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 38000, Getting = T, Updating = F, Files = F F F, Time = 4.784147
+2014-11-20 12:56:54.794 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 38500, Getting = T, Updating = F, Files = F F F, Time = 4.842213
+2014-11-20 12:56:54.854 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 39000, Getting = T, Updating = F, Files = F F F, Time = 4.90252
+2014-11-20 12:56:54.918 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 39500, Getting = T, Updating = F, Files = F F F, Time = 4.965944
+2014-11-20 12:56:54.977 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 40000, Getting = T, Updating = F, Files = F F F, Time = 5.025107
+2014-11-20 12:56:55.034 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 40500, Getting = T, Updating = F, Files = F F F, Time = 5.082831
+2014-11-20 12:56:55.093 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 41000, Getting = T, Updating = F, Files = F F F, Time = 5.141442
+2014-11-20 12:56:55.153 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 41500, Getting = T, Updating = F, Files = F F F, Time = 5.201744
+2014-11-20 12:56:55.213 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 42000, Getting = T, Updating = F, Files = F F F, Time = 5.261577
+2014-11-20 12:56:55.271 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 42500, Getting = T, Updating = F, Files = F F F, Time = 5.319447
+2014-11-20 12:56:55.333 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 43000, Getting = T, Updating = F, Files = F F F, Time = 5.381882
+2014-11-20 12:56:55.396 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 43500, Getting = T, Updating = F, Files = F F F, Time = 5.444311
+2014-11-20 12:56:55.454 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 44000, Getting = T, Updating = F, Files = F F F, Time = 5.501938
+2014-11-20 12:56:55.513 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 44500, Getting = T, Updating = F, Files = F F F, Time = 5.561493
+2014-11-20 12:56:55.573 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 45000, Getting = T, Updating = F, Files = F F F, Time = 5.621395
+2014-11-20 12:56:55.630 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 45500, Getting = T, Updating = F, Files = F F F, Time = 5.678854
+2014-11-20 12:56:55.690 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 46000, Getting = T, Updating = F, Files = F F F, Time = 5.738198
+2014-11-20 12:56:55.749 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 46500, Getting = T, Updating = F, Files = F F F, Time = 5.796963
+2014-11-20 12:56:55.810 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 47000, Getting = T, Updating = F, Files = F F F, Time = 5.858307
+2014-11-20 12:56:55.874 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 47500, Getting = T, Updating = F, Files = F F F, Time = 5.922641
+2014-11-20 12:56:55.942 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 48000, Getting = T, Updating = F, Files = F F F, Time = 5.989879
+2014-11-20 12:56:56.007 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 48500, Getting = T, Updating = F, Files = F F F, Time = 6.055665
+2014-11-20 12:56:56.068 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 49000, Getting = T, Updating = F, Files = F F F, Time = 6.116813
+2014-11-20 12:56:56.142 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 49500, Getting = T, Updating = F, Files = F F F, Time = 6.190198
+2014-11-20 12:56:56.204 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 50000, Getting = T, Updating = F, Files = F F F, Time = 6.252157
+2014-11-20 12:56:56.268 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 50500, Getting = T, Updating = F, Files = F F F, Time = 6.315979
+2014-11-20 12:56:56.334 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 51000, Getting = T, Updating = F, Files = F F F, Time = 6.382204
+2014-11-20 12:56:56.402 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 51500, Getting = T, Updating = F, Files = F F F, Time = 6.450343
+2014-11-20 12:56:56.465 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 52000, Getting = T, Updating = F, Files = F F F, Time = 6.513649
+2014-11-20 12:56:56.526 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 52500, Getting = T, Updating = F, Files = F F F, Time = 6.574374
+2014-11-20 12:56:56.585 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 53000, Getting = T, Updating = F, Files = F F F, Time = 6.633263
+2014-11-20 12:56:56.642 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 53500, Getting = T, Updating = F, Files = F F F, Time = 6.690517
+2014-11-20 12:56:56.701 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 54000, Getting = T, Updating = F, Files = F F F, Time = 6.74962
+2014-11-20 12:56:56.758 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 54500, Getting = T, Updating = F, Files = F F F, Time = 6.806459
+2014-11-20 12:56:56.813 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 55000, Getting = T, Updating = F, Files = F F F, Time = 6.861075
+2014-11-20 12:56:56.872 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 55500, Getting = T, Updating = F, Files = F F F, Time = 6.920073
+2014-11-20 12:56:56.936 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 56000, Getting = T, Updating = F, Files = F F F, Time = 6.984816
+2014-11-20 12:56:56.999 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 56500, Getting = T, Updating = F, Files = F F F, Time = 7.047567
+2014-11-20 12:56:57.060 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 57000, Getting = T, Updating = F, Files = F F F, Time = 7.108847
+2014-11-20 12:56:57.126 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 57500, Getting = T, Updating = F, Files = F F F, Time = 7.174129
+2014-11-20 12:56:57.187 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 58000, Getting = T, Updating = F, Files = F F F, Time = 7.234995
+2014-11-20 12:56:57.246 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 58500, Getting = T, Updating = F, Files = F F F, Time = 7.294387
+2014-11-20 12:56:57.304 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 59000, Getting = T, Updating = F, Files = F F F, Time = 7.352594
+2014-11-20 12:56:57.366 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 59500, Getting = T, Updating = F, Files = F F F, Time = 7.414843
+2014-11-20 12:56:57.429 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 60000, Getting = T, Updating = F, Files = F F F, Time = 7.476919
+2014-11-20 12:56:57.487 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 60500, Getting = T, Updating = F, Files = F F F, Time = 7.535465
+2014-11-20 12:56:57.550 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 61000, Getting = T, Updating = F, Files = F F F, Time = 7.598384
+2014-11-20 12:56:57.612 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 61500, Getting = T, Updating = F, Files = F F F, Time = 7.66043
+2014-11-20 12:56:57.671 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 62000, Getting = T, Updating = F, Files = F F F, Time = 7.719139
+2014-11-20 12:56:57.733 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 62500, Getting = T, Updating = F, Files = F F F, Time = 7.780979
+2014-11-20 12:56:57.794 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 63000, Getting = T, Updating = F, Files = F F F, Time = 7.842411
+2014-11-20 12:56:57.855 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 63500, Getting = T, Updating = F, Files = F F F, Time = 7.903921
+2014-11-20 12:56:57.924 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 64000, Getting = T, Updating = F, Files = F F F, Time = 7.972028
+2014-11-20 12:56:57.992 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 64500, Getting = T, Updating = F, Files = F F F, Time = 8.04068
+2014-11-20 12:56:58.053 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 65000, Getting = T, Updating = F, Files = F F F, Time = 8.100831
+2014-11-20 12:56:58.116 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 65500, Getting = T, Updating = F, Files = F F F, Time = 8.164069
+2014-11-20 12:56:58.176 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 66000, Getting = T, Updating = F, Files = F F F, Time = 8.224072
+2014-11-20 12:56:58.233 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 66500, Getting = T, Updating = F, Files = F F F, Time = 8.281224
+2014-11-20 12:56:58.289 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 67000, Getting = T, Updating = F, Files = F F F, Time = 8.337661
+2014-11-20 12:56:58.351 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 67500, Getting = T, Updating = F, Files = F F F, Time = 8.399656
+2014-11-20 12:56:58.417 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 68000, Getting = T, Updating = F, Files = F F F, Time = 8.465797
+2014-11-20 12:56:58.476 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 68500, Getting = T, Updating = F, Files = F F F, Time = 8.524329
+2014-11-20 12:56:58.533 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 69000, Getting = T, Updating = F, Files = F F F, Time = 8.581911
+2014-11-20 12:56:58.596 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 69500, Getting = T, Updating = F, Files = F F F, Time = 8.644513
+2014-11-20 12:56:58.659 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 70000, Getting = T, Updating = F, Files = F F F, Time = 8.707864
+2014-11-20 12:56:58.726 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 70500, Getting = T, Updating = F, Files = F F F, Time = 8.774351
+2014-11-20 12:56:58.819 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 71000, Getting = T, Updating = F, Files = F F F, Time = 8.867201
+2014-11-20 12:56:58.901 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 71500, Getting = T, Updating = F, Files = F F F, Time = 8.948942
+2014-11-20 12:56:58.966 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 72000, Getting = T, Updating = F, Files = F F F, Time = 9.014875
+2014-11-20 12:56:59.041 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 72500, Getting = T, Updating = F, Files = F F F, Time = 9.088986
+2014-11-20 12:56:59.107 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 73000, Getting = T, Updating = F, Files = F F F, Time = 9.155085
+2014-11-20 12:56:59.172 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 73500, Getting = T, Updating = F, Files = F F F, Time = 9.220557
+2014-11-20 12:56:59.236 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 74000, Getting = T, Updating = F, Files = F F F, Time = 9.284198
+2014-11-20 12:56:59.312 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 74500, Getting = T, Updating = F, Files = F F F, Time = 9.359891
+2014-11-20 12:56:59.381 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 75000, Getting = T, Updating = F, Files = F F F, Time = 9.4291
+2014-11-20 12:56:59.446 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 75500, Getting = T, Updating = F, Files = F F F, Time = 9.494393
+2014-11-20 12:56:59.512 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 76000, Getting = T, Updating = F, Files = F F F, Time = 9.559935
+2014-11-20 12:56:59.581 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 76500, Getting = T, Updating = F, Files = F F F, Time = 9.628938
+2014-11-20 12:56:59.650 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 77000, Getting = T, Updating = F, Files = F F F, Time = 9.697906
+2014-11-20 12:56:59.719 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 77500, Getting = T, Updating = F, Files = F F F, Time = 9.767361
+2014-11-20 12:56:59.786 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 78000, Getting = T, Updating = F, Files = F F F, Time = 9.834815
+2014-11-20 12:56:59.861 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 78500, Getting = T, Updating = F, Files = F F F, Time = 9.908944
+2014-11-20 12:56:59.945 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > i = 79000, Getting = T, Updating = F, Files = F F F, Time = 9.993259
+2014-11-20 12:56:59.952 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > do/while > done trying.
+2014-11-20 12:56:59.952 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > do/while > finally.
+2014-11-20 12:56:59.952 CallFormiOS[3417:461133]   core[sswds][um] > UpdateModels > do/while > completed.
+2014-11-20 12:56:59.955 CallFormiOS[3417:461133] Class: CallForm.Core.ViewModels.ViewReports_ViewModel > Start, Method:  > starting up.()
+2014-11-20 12:56:59.956 CallFormiOS[3417:461133] Class: CallForm.Core.ViewModels.ViewReports_ViewModel > Start, Method:   [vr_vm][start] > decided NOT to ShowViewModel<UserIdentity_ViewModel>() ()
+2014-11-20 12:56:59.998 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_View, Method: ViewDidLoad()
+2014-11-20 12:56:59.999 CallFormiOS[3417:461133]   [vr_v][vdl] > ...finished method.
+2014-11-20 12:57:00.000 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_View, Method: ViewWillAppear()
+2014-11-20 12:57:00.001 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_View, Method: SetFramesForOrientation()
+2014-11-20 12:57:00.001 CallFormiOS[3417:461133] ? [vr_v][sffo] > SetFramesForOrientation: make a note of when this runs
+2014-11-20 12:57:00.007 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_TableViewSource, Method: GetHeightForFooter()
+2014-11-20 12:57:00.007 CallFormiOS[3417:461133]   [vr_tvs][ghff] > Footer Height = 50 < = = = = = =
+2014-11-20 12:57:00.008 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_TableViewSource, Method: GetHeightForFooter()
+2014-11-20 12:57:00.008 CallFormiOS[3417:461133]   [vr_tvs][ghff] > Footer Height = 50 < = = = = = =
+2014-11-20 12:57:00.029 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_View, Method: ViewDidLayoutSubviews()
+2014-11-20 12:57:00.029 CallFormiOS[3417:461133]   [vr_v][vdls] > System version: 8.0
+2014-11-20 12:57:00.030 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_View, Method: ViewDidLayoutSubviews()
+2014-11-20 12:57:00.030 CallFormiOS[3417:461133]   [vr_v][vdls] > ...finished
+2014-11-20 12:57:00.030 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_TableViewSource, Method: GetHeightForFooter()
+2014-11-20 12:57:00.031 CallFormiOS[3417:461133]   [vr_tvs][ghff] > Footer Height = 50 < = = = = = =
+2014-11-20 12:57:00.031 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_TableViewSource, Method: GetHeightForFooter()
+2014-11-20 12:57:00.031 CallFormiOS[3417:461133]   [vr_tvs][ghff] > Footer Height = 50 < = = = = = =
+2014-11-20 12:57:00.036 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_View, Method: ViewDidLayoutSubviews()
+2014-11-20 12:57:00.037 CallFormiOS[3417:461133]   [vr_v][vdls] > System version: 8.0
+2014-11-20 12:57:00.038 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_View, Method: ViewDidLayoutSubviews()
+2014-11-20 12:57:00.038 CallFormiOS[3417:461133]   [vr_v][vdls] > ...finished
+2014-11-20 12:57:00.063 CallFormiOS[3417:461133] Class: CallForm.iOS.AppDelegate, Method: OnActivated()
+2014-11-20 12:57:00.063 CallFormiOS[3417:461133]   [AppD][oa] > App is active.
+2014-11-20 12:57:00.339 CallFormiOS[3417:461133] Class: CallForm.iOS.ViewReports_View, Method: ViewDidAppear()
+2014-11-20 12:57:01.062 CallFormiOS[3417:461511] CallForm.Core.Services.SemiStaticWebDataService > EmailRecipientsRestException
+2014-11-20 12:57:01.062 CallFormiOS[3417:461421] CallForm.Core.Services.SemiStaticWebDataService > ReasonCodeRestException
+2014-11-20 12:57:01.063 CallFormiOS[3417:461421] Class: CallForm.Core.Services.SemiStaticWebDataService, Method: RestExceptionMessage()
+2014-11-20 12:57:01.063 CallFormiOS[3417:461421] CallForm.Core.Services.SemiStaticWebDataService > Exception message: Error: NameResolutionFailure
+2014-11-20 12:57:01.063 CallFormiOS[3417:461484] CallForm.Core.Services.SemiStaticWebDataService > CallTypeRestException
+2014-11-20 12:57:01.064 CallFormiOS[3417:461484] Class: CallForm.Core.Services.SemiStaticWebDataService, Method: RestExceptionMessage()
+2014-11-20 12:57:01.064 CallFormiOS[3417:461484] CallForm.Core.Services.SemiStaticWebDataService > Exception message: Error: NameResolutionFailure
+2014-11-20 12:57:01.064 CallFormiOS[3417:461511] Class: CallForm.Core.Services.SemiStaticWebDataService, Method: RestExceptionMessage()
+2014-11-20 12:57:01.064 CallFormiOS[3417:461511] CallForm.Core.Services.SemiStaticWebDataService > Exception message: Error: NameResolutionFailure

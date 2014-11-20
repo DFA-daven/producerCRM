@@ -1,0 +1,17 @@
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/obj/Debug/.NETPortable,Version=v4.0,Profile=Profile158.AssemblyAttribute.cs
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/CallForm.Core.dll.mdb
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/CallForm.Core.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/obj/Debug/CallForm.Core.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/obj/Debug/CallForm.Core.dll.mdb
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.CrossCore.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.MvvmCross.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.MvvmCross.Localization.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.MvvmCross.Plugins.File.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.MvvmCross.Plugins.Json.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.MvvmCross.Plugins.Location.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.MvvmCross.Plugins.Messenger.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.MvvmCross.Plugins.Network.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.MvvmCross.Plugins.PictureChooser.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.MvvmCross.Plugins.Sqlite.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Cirrious.MvvmCross.Plugins.Visibility.dll
+/Users/ian/Developer/producerCRM/ProducerVisit/CallForm.Core/bin/debug/Newtonsoft.Json.dll

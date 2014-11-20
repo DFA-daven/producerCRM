@@ -256,7 +256,7 @@
             #region logo
             #region logoButton
             var logoButton = _logoButton = new UIButton(UIButtonType.Custom);
-            logoButton.Frame = new RectangleF(0, 0, MaxBannerWidth(), MaxBannerHeight());
+//            logoButton.Frame = new RectangleF(0, 0, MaxBannerWidth(), MaxBannerHeight());
             logoButton.SetTitle("DFA & DMS", UIControlState.Normal);
             logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
             logoButton.BackgroundColor = UIColor.Yellow;
@@ -351,7 +351,7 @@
             #region footer
             #region footerButton
             var footerButton = _footerButton = new UIButton(UIButtonType.Custom);
-            footerButton.Frame = new RectangleF(0, 0, MaxBannerWidth(), MaxBannerHeight());
+//            footerButton.Frame = new RectangleF(0, 0, MaxBannerWidth(), MaxBannerHeight());
             footerButton.SetTitle("DFA & DMS", UIControlState.Normal);
             footerButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
             footerButton.BackgroundColor = UIColor.Yellow;
@@ -753,21 +753,21 @@
             return (desiredBannerWidth >= maxAllowedBannerWidth);
         }
 
-        private float MaxBannerWidth()
-        {
-            float actualBannerWidth = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Width;
-            float maxAllowedBannerWidth = View.Frame.Width;
-
-            float desiredBannerWidth = actualBannerWidth * BannerHeightRatio();
-
-            if (BannerRatioLimit()) 
-            {
-                desiredBannerWidth = maxAllowedBannerWidth;
-            }
-
-            desiredBannerWidth = (float)Math.Round(desiredBannerWidth, 0);
-            return desiredBannerWidth;
-        }
+//        private float MaxBannerWidth()
+//        {
+//            float actualBannerWidth = UIImage.FromBundle("DFA-DMS-Banner.png").Size.Width;
+//            float maxAllowedBannerWidth = View.Frame.Width;
+//
+//            float desiredBannerWidth = actualBannerWidth * BannerHeightRatio();
+//
+//            if (BannerRatioLimit()) 
+//            {
+//                desiredBannerWidth = maxAllowedBannerWidth;
+//            }
+//
+//            desiredBannerWidth = (float)Math.Round(desiredBannerWidth, 0);
+//            return desiredBannerWidth;
+//        }
 
         //private float bannerHorizontalOrigin()
         //{
