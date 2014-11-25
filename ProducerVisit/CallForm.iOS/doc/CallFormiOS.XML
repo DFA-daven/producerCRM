@@ -1,0 +1,1318 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CallFormiOS</name>
+    </assembly>
+    <members>
+        <member name="T:CallForm.iOS.Common_iOS">
+            <summary>Commonly used methods.
+            </summary>
+            <remarks>This class may be (partially) duplicated in other Projects.</remarks>
+        </member>
+        <member name="F:CallForm.iOS.Common_iOS._cAbb">
+            <summary>Class name abbreviation
+            </summary>
+        </member>
+        <member name="P:CallForm.iOS.Common_iOS.UserInterfaceIdiomIsPhone">
+            <summary>True if the App is running on an iPhone.
+            </summary>
+            <remarks>Note: for multiple UserInterfaceIdioms, Targeted Devices should be set to Universal.</remarks>
+        </member>
+        <member name="P:CallForm.iOS.Common_iOS.UserInterfaceIdiomIsPad">
+            <summary>True if the App is running on an iPad.
+            </summary>
+            <remarks>Note: for multiple UserInterfaceIdioms, Targeted Devices should be set to Universal.</remarks>
+        </member>
+        <member name="F:CallForm.iOS.Common_iOS.controlBackgroundColor">
+            <summary>Use for the background of controls: 230, 230, 255
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Common_iOS.viewBackgroundColor">
+            <summary>Use for the background of views: 200, 200, 255
+            </summary>
+        </member>
+        <member name="M:CallForm.iOS.Common_iOS.IsMinimumiOS(System.Int32)">
+            <summary>Is this device running at least iOS 8.bannerImage?
+            </summary>
+            <returns>True if this is OS majorVersion is greater than 8.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Common_iOS.DebugMessage(System.String)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="message">The message to write to the log.</param>
+        </member>
+        <member name="M:CallForm.iOS.Common_iOS.DebugMessage(System.String,System.Boolean)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="message">The message to write to the log.</param>
+            <param name="writeToConsole">If <c>True</c>, also write <paramref name="message" /> to the <c>System.Console</c>.</param>
+        </member>
+        <member name="M:CallForm.iOS.Common_iOS.DebugMessage(System.String,System.String,System.Boolean)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="declaringName">The name of the file that threw the error</param>
+            <param name="methodName">The name of the method that threw the error.
+            This is useful for things like the Master page.</param>
+            <param name="writeToConsole">If <c>True</c>, also write <paramref name="message" /> to the <c>System.Console</c>.</param>
+        </member>
+        <member name="M:CallForm.iOS.Common_iOS.DebugMessage(System.String,System.String,System.String,System.Boolean)">
+            <summary>Take the given information and write it to the iOS app's err.log.
+            </summary>
+            <param name="declaringName">The name of the file that threw the error</param>
+            <param name="methodName">The name of the method that threw the error</param>
+            <param name="parentName">The URL of the page that threw the exception.
+            This is useful for things like the Master page.</param>
+            <param name="writeToConsole">If <c>True</c>, also write <paramref name="message" /> to the <c>System.Console</c>.</param>
+        </member>
+        <member name="T:CallForm.iOS.LinkerPleaseInclude">
+            <summary>This class is never actually executed, but when Xamarin linking is enabled it ensures that types and properties
+            are preserved in the deployed app.
+            </summary>
+        </member>
+        <member name="T:CallForm.iOS.Application">
+            <summary>Defines the application's entry point.
+            </summary>
+        </member>
+        <member name="T:CallForm.iOS.AppDelegate">
+            <summary>Creates an AppDelegate for CallForm.iOS.</summary>
+            <remarks>
+                <para>This is the heart of the project.</para>
+                <para>This Class is called from <c>CallForm.iOS.Main.cs</c>, and in turn calls <c>CallForm.iOS.Setup.cs</c>.</para>
+                <para>The <see cref="T:CallForm.iOS.AppDelegate" /> type inherits from <see cref="T:MonoTouch.UIKit.UIApplicationDelegate" />
+            (via <see cref="T:Cirrious.MvvmCross.Touch.Platform.MvxApplicationDelegate" />), which provides application life-cycle events
+            such as FinishedLaunching and WillTerminate.</para>
+            </remarks>
+        </member>
+        <member name="M:CallForm.iOS.AppDelegate.FinishedLaunching(MonoTouch.UIKit.UIApplication,MonoTouch.Foundation.NSDictionary)">
+            <summary>Defines actions to occur after FinishedLaunching.
+            </summary>
+            <param name="app">
+            </param>
+            <param name="options">
+            </param>
+            <returns>True</returns>
+            <remarks>
+                <para>The critical piece is the call to <see cref="T:CallForm.iOS.Setup" />.</para>
+                <para>This method is invoked when the application has loaded and is ready to run. In this
+            method you should instantiate the window, load the UI into it and then make the window
+            visible.</para>
+                <para>You have 17 seconds to return from this method, or iOS will terminate your application.</para>
+            </remarks>
+        </member>
+        <!--FIXME: Invalid documentation markup was found for member T:CallForm.iOS.Setup-->
+        <member name="M:CallForm.iOS.Setup.CreateApp">
+            <summary>Creates a new instance of the App.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:CallForm.iOS.MvxProducerVisit_TouchViewPresenter.Show(Cirrious.MvvmCross.Touch.Views.IMvxTouchView)">
+            <summary>Show the view (but if it's <see cref="T:CallForm.iOS.Views.NewVisit_View" /> turn animation off).
+            </summary>
+            <param name="view">The view to be displayed.</param>
+        </member>
+        <member name="T:CallForm.iOS.ViewElements.EmailRecipientSelectDialog_ViewController">
+            <summary>The class that defines View Element (control) for displaying and
+            selecting Email Recipients.
+            </summary>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.EmailRecipientSelectDialog_ViewController.#ctor(CallForm.Core.ViewModels.NewVisit_ViewModel,CallForm.iOS.Views.NewVisit_TableViewSource)">
+            <summary>Creates an instance of the <see cref="T:CallForm.iOS.ViewElements.EmailRecipientSelectDialog_ViewController" /> class.
+            This holds the "content" inside the _popoverController.
+            </summary>
+            <param name="viewModel">The parent <see cref="T:Cirrious.MvvmCross.ViewModels.MvxViewModel" />.</param>
+            <param name="source">The parent <see cref="T:MonoTouch.UIKit.UITableViewSource" />.</param>
+            <remarks>This ViewController is created when NewVisit_View is loaded.</remarks>
+        </member>
+        <member name="P:CallForm.iOS.ViewElements.EmailRecipientSelectDialog_ViewController.EdgesForExtendedLayout">
+            <summary>Specify that this View should *not* be displayed beneath the
+            Status Bar (or the Navigation Bar, if present).
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.ViewElements.EmailRecipientsTableSource._buttonHeight">
+            <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.ViewElements.EmailRecipientsTableSource._rowHeight">
+            <summary>Store for the <c>RowHeight</c> property.</summary>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.EmailRecipientsTableSource.RowsInSection(MonoTouch.UIKit.UITableView,System.Int32)">
+            <summary>The number of rows (cells) in this section of <see cref="T:CallForm.iOS.ViewElements.EmailRecipientsTableSource" />.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView" />/control that contains the section.</param>
+            <param name="section">The index number of the section that contains the rows (cells).</param>
+            <remarks>
+                <paramref name="section" /> is included as part of the override -- it is not used in this method.</remarks>
+            <returns>A row count.</returns>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.EmailRecipientsTableSource.RowSelected(MonoTouch.UIKit.UITableView,MonoTouch.Foundation.NSIndexPath)">
+            <summary>Toggles the selected row (cell) in <see cref="T:CallForm.iOS.ViewElements.EmailRecipientsTableSource" />.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView" />/control that contains the selected row.</param>
+            <param name="indexPath">The <see cref="T:MonoTouch.Foundation.NSIndexPath" /> of the selected row in the control.</param>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.EmailRecipientsTableSource.GetCell(MonoTouch.UIKit.UITableView,MonoTouch.Foundation.NSIndexPath)">
+            <summary>Gets a cell based on the selected <see cref="T:MonoTouch.Foundation.NSIndexPath">Row</see>.
+            </summary>
+            <param name="tableView">The active <see cref="T:MonoTouch.UIKit.UITableView" />.</param>
+            <param name="indexPath">The <see cref="T:MonoTouch.Foundation.NSIndexPath" /> with the selected row (cell).</param>
+            <returns>The requested <see cref="T:MonoTouch.UIKit.UITableViewCell" /> from the <see cref="T:CallForm.iOS.ViewElements.EmailRecipientsTableSource" />.</returns>
+            <remarks>This method is strictly viewable information -- it doesn't change any content.</remarks>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.LoadingOverlay.Hide">
+            <summary>Fades out the control and then removes it from the super view
+            </summary>
+        </member>
+        <member name="T:CallForm.iOS.ViewElements.ReasonCodePickerDialog_ViewController">
+            <summary>The class that defines View Element (control) for displaying and
+            selecting Reason Codes.
+            </summary>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.ReasonCodePickerDialog_ViewController.#ctor(CallForm.Core.ViewModels.NewVisit_ViewModel,CallForm.iOS.Views.NewVisit_TableViewSource)">
+            <summary>Creates an instance of the <see cref="T:CallForm.iOS.ViewElements.ReasonCodePickerDialog_ViewController" /> class. This holds the "content" inside the _popoverController.
+            </summary>
+            <param name="viewModel">The parent <see cref="!:MvxViewModel" />.</param>
+            <param name="source">The parent <see cref="T:MonoTouch.UIKit.UITableViewSource" />.</param>
+            <remarks>This ViewController is created when NewVisit_View is loaded.</remarks>
+        </member>
+        <member name="P:CallForm.iOS.ViewElements.ReasonCodePickerDialog_ViewController.EdgesForExtendedLayout">
+            <summary>Specify that this View should *not* be displayed beneath the
+            Status Bar (or the Navigation Bar, if present).
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.ViewElements.ReasonCodeTableSource._buttonHeight">
+            <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.ViewElements.ReasonCodeTableSource._rowHeight">
+            <summary>Store for the <c>RowHeight</c> property.</summary>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.ReasonCodeTableSource.RowsInSection(MonoTouch.UIKit.UITableView,System.Int32)">
+            <summary>The number of rows (cells) in this section of <see cref="T:CallForm.iOS.ViewElements.ReasonCodeTableSource" />.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView" />/control that contains the section.</param>
+            <param name="section">The index number of the section that contains the rows (cells).</param>
+            <remarks>
+                <paramref name="section" /> is included as part of the override -- it is not used in this method.</remarks>
+            <returns>A row count.</returns>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.ReasonCodeTableSource.RowSelected(MonoTouch.UIKit.UITableView,MonoTouch.Foundation.NSIndexPath)">
+            <summary>Toggles the selected row (cell) in <see cref="T:CallForm.iOS.ViewElements.ReasonCodeTableSource" />.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView" />/control that contains the selected row.</param>
+            <param name="indexPath">The <see cref="T:MonoTouch.Foundation.NSIndexPath" /> of the selected row in the control.</param>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.ReasonCodeTableSource.GetCell(MonoTouch.UIKit.UITableView,MonoTouch.Foundation.NSIndexPath)">
+            <summary>Gets a cell based on the selected <see cref="T:MonoTouch.Foundation.NSIndexPath">Row</see>.
+            </summary>
+            <param name="tableView">The active <see cref="T:MonoTouch.UIKit.UITableView" />.</param>
+            <param name="indexPath">The <see cref="T:MonoTouch.Foundation.NSIndexPath" /> with the selected row (cell).</param>
+            <returns>The requested <see cref="T:MonoTouch.UIKit.UITableViewCell" /> from the <see cref="T:CallForm.iOS.ViewElements.ReasonCodeTableSource" />.</returns>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.StringPickerDialog_ViewController.#ctor(System.Action{System.String},System.String,CallForm.iOS.Views.NewVisit_TableViewSource,System.String[])">
+            <summary>Creates an instance of the <see cref="T:CallForm.iOS.ViewElements.StringPickerDialog_ViewController" /> class.
+            This holds the "content" inside the _popoverController.
+            </summary>
+            <param name="viewModel">The parent <see cref="!:MvxViewModel" />.</param>
+            <param name="source">The parent <see cref="T:MonoTouch.UIKit.UITableViewSource" />.</param>
+            <remarks>This ViewController is created when NewVisit_View is loaded.</remarks>
+        </member>
+        <member name="P:CallForm.iOS.ViewElements.StringPickerDialog_ViewController.EdgesForExtendedLayout">
+            <summary>Specify that this View should *not* be displayed beneath the
+            Status Bar (or the Navigation Bar, if present).
+            </summary>
+        </member>
+        <member name="M:CallForm.iOS.ViewElements.DateTimePickerDialog_ViewController.#ctor(System.Action{System.DateTime},System.DateTime,MonoTouch.UIKit.UIDatePickerMode,CallForm.iOS.Views.NewVisit_TableViewSource)">
+            <summary>Creates an instance of the <see cref="T:CallForm.iOS.ViewElements.DateTimePickerDialog_ViewController" /> class.
+            This holds the "content" inside the _popoverController.
+            </summary>
+            <param name="viewModel">The parent <see cref="!:MvxViewModel" />.</param>
+            <param name="source">The parent <see cref="T:MonoTouch.UIKit.UITableViewSource" />.</param>
+            <remarks>This ViewController is created when NewVisit_View is loaded.</remarks>
+        </member>
+        <member name="P:CallForm.iOS.ViewElements.DateTimePickerDialog_ViewController.EdgesForExtendedLayout">
+            <summary>Specify that this View should *not* be displayed beneath the
+            Status Bar (or the Navigation Bar, if present).
+            </summary>
+        </member>
+        <member name="P:CallForm.iOS.ViewElements.DateTimePickerDialog_ViewController.ContentSizeForViewInPopover">
+            <summary>Deprecated in iOS7 in favor of PreferredContentSize.
+            </summary>
+        </member>
+        <member name="T:CallForm.iOS.Views.UserIdentity_View">
+            <summary>Creates a class representing the UI View for "UserIdentity".
+            </summary>
+            <remarks>
+                <para>This view inherits from <see cref="T:Cirrious.MvvmCross.Touch.Views.MvxViewController" />. The main over-ridable methods
+            here handle the view's life-cycle.</para>
+                <para>Design goal is to only deal with formatting and layout of data here -- no state information.</para>
+            </remarks>
+        </member>
+        <member name="F:CallForm.iOS.Views.UserIdentity_View._iPhoneIdiom">
+            <summary>Store for the <c>iPhoneIdiom</c> property.</summary>
+        </member>
+        <member name="P:CallForm.iOS.Views.UserIdentity_View.iPhoneIdiom">
+            <summary>Keeps track of if this is an iPhone (vs iPad).
+            </summary>
+            <remarks>This is a property that SHOULD be in the ViewController.</remarks>
+        </member>
+        <member name="F:CallForm.iOS.Views.UserIdentity_View._portrait">
+            <summary>Store for the <c>Portrait</c> property.</summary>
+        </member>
+        <member name="P:CallForm.iOS.Views.UserIdentity_View.Portrait">
+            <summary>Keeps track of portrait (or landscape) orientation.
+            </summary>
+            <remarks>This is a property that SHOULD be in the ViewController.</remarks>
+        </member>
+        <member name="P:CallForm.iOS.Views.UserIdentity_View.EdgesForExtendedLayout">
+            <summary>Specify that this View should *not* be displayed beneath the
+            Status Bar (or the Navigation Bar, if present).
+            </summary>
+        </member>
+        <member name="M:CallForm.iOS.Views.UserIdentity_View.OnError(System.Object,CallForm.Core.ViewModels.ErrorEventArgs)">
+            <summary>Displays the error issued by the <c>ViewModel</c> .
+            </summary>
+            <param name="sender">
+            </param>
+            <param name="errorEventArgs">
+            </param>
+        </member>
+        <member name="T:CallForm.iOS.Views.NewVisit_TableViewSource">
+            <summary>Abstract class (replaces UITableViewDelegate and UITableViewDataSource).
+            </summary>
+            <remarks>GetCell() and other methods use NSIndexPath.</remarks>
+        </member>
+        <member name="F:CallForm.iOS.Views.NewVisit_TableViewSource._popoverController">
+            <summary>The popover controller.
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.NewVisit_TableViewSource._distanceToBottom">
+            <summary>The maximum value to display the controller. Anything larger will not be honored.
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.NewVisit_TableViewSource._buttonHeight">
+            <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.NewVisit_TableViewSource._rowHeight">
+            <summary>Store for the <c>RowHeight</c> property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.NewVisit_TableViewSource.DatePickerPopover">
+            <summary>A container for the popover controller.
+            </summary>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_TableViewSource.GetHeightForRow(MonoTouch.UIKit.UITableView,MonoTouch.Foundation.NSIndexPath)">
+            <summary>Gets the value (in points) for a given row (cell).
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView">(view) table</see> that contains the cell.</param>
+            <param name="indexPath">The <see cref="T:MonoTouch.Foundation.NSIndexPath" /> to the selected row (cell).</param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_TableViewSource.RowsInSection(MonoTouch.UIKit.UITableView,System.Int32)">
+            <summary>The number of rows (cells) in this section of <see cref="T:CallForm.iOS.Views.NewVisit_TableViewSource" />.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView" />/control that contains the section.</param>
+            <param name="section">The index number of the section that contains the rows (cells).</param>
+            <remarks>
+                <paramref name="section" /> is included as part of the override -- it is not used in this method.</remarks>
+            <returns>A row count.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_TableViewSource.RowSelected(MonoTouch.UIKit.UITableView,MonoTouch.Foundation.NSIndexPath)">
+            <summary>Handles the selected row (cell) in <see cref="T:CallForm.iOS.Views.NewVisit_TableViewSource" />.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView">(view) table</see> that contains the cell.</param>
+            <param name="indexPath">The <see cref="T:MonoTouch.Foundation.NSIndexPath" /> to the selected row (cell).</param>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_TableViewSource.GetCell(MonoTouch.UIKit.UITableView,MonoTouch.Foundation.NSIndexPath)">
+            <summary>Gets a cell based on the selected <see cref="T:MonoTouch.Foundation.NSIndexPath">Row</see>.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView">(view) table</see> that contains the cell.</param>
+            <param name="indexPath">The <see cref="T:MonoTouch.Foundation.NSIndexPath" /> to the selected row (cell).</param>
+            <returns>The requested cell (of type <see cref="T:CallForm.iOS.ViewElements.Image_TableViewCell" />, <see cref="T:CallForm.iOS.ViewElements.TextField_TableViewCell" />,
+            <see cref="T:CallForm.iOS.ViewElements.TextView_TableViewCell" />, or <see cref="T:MonoTouch.UIKit.UITableViewCell" />)
+            from the <see cref="T:CallForm.iOS.Views.NewVisit_TableViewSource" />.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_TableViewSource.SafeDismissPopover">
+            <summary>Close the <c>_popoverController</c>.
+            </summary>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_TableViewSource.GetRectangleForCell(MonoTouch.UIKit.UITableView,MonoTouch.UIKit.UITableViewCell)">
+            <summary>Get the rectangle bounding a specific cell.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView">(view) table</see> that contains the cell.</param>
+            <param name="targetCell">A <see cref="T:MonoTouch.UIKit.UITableViewCell">cell</see> (ie: row) in the <paramref name="tableView" /></param>
+            <returns>A rectangle bounding the given cell.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_TableViewSource.GetPresentationRectangleForCell(MonoTouch.UIKit.UITableView,MonoTouch.UIKit.UITableViewCell)">
+            <summary>Creates a new rectangle which matches the on-screen location of the given cell.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView">(view) table</see> that contains the cell.</param>
+            <param name="targetCell">A <see cref="T:MonoTouch.UIKit.UITableViewCell">cell</see> (ie: row) in the <paramref name="tableView" /></param>
+            <returns>A rectangle offset vertically.</returns>
+            <remarks>Because of the indexing used to identify the cells, the boundary of any given cell appears to match the
+            previous cell in the <see cref="T:MonoTouch.UIKit.UITableView">table view</see>. There is no direct method for 'adding one' to the
+            cell. Instead, this method shifts the cell boundary down by the value of the boundary. The resulting location overlays
+            the on-screen location of the cell contents.</remarks>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_TableViewSource.GetPropertyName``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>Get the name of a static or instance property from a property access lambda.
+            </summary>
+            <typeparam name="T">Type of the property.</typeparam>
+            <param name="propertyLambda">lambda expression of the form: '() =&gt; Class.Property' or '() =&gt; object.Property'.</param>
+            <returns>The name of the property.</returns>
+        </member>
+        <member name="T:CallForm.iOS.Views.NewVisit_View">
+            <summary>Creates a class representing the UI View for "NewVisit".
+            </summary>
+            <remarks>
+                <para>This view inherits from <see cref="T:Cirrious.MvvmCross.Touch.Views.MvxViewController" />. The main over-ridable methods
+            here handle the view's life-cycle.</para>
+                <para>Design goal is to only deal with formatting and layout of data here -- no state information.</para>
+            </remarks>
+        </member>
+        <member name="F:CallForm.iOS.Views.NewVisit_View._cAbb">
+            <summary>Class name abbreviation
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.NewVisit_View._table">
+            <summary>The View that contains the data-entry controls (which are defined in <see cref="T:CallForm.iOS.Views.NewVisit_TableViewSource" />).
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.NewVisit_View._buttonHeight">
+            <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.NewVisit_View._rowHeight">
+            <summary>Store for the <c>RowHeight</c> property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.NewVisit_View._portrait">
+            <summary>Store for the <c>Portrait</c> property.</summary>
+        </member>
+        <member name="P:CallForm.iOS.Views.NewVisit_View.Portrait">
+            <summary>Keeps track of portrait (or landscape) orientation.
+            </summary>
+            <remarks>This is a property that SHOULD be in the ViewController.</remarks>
+        </member>
+        <member name="P:CallForm.iOS.Views.NewVisit_View.EdgesForExtendedLayout">
+            <summary>Specify that this View should *not* be displayed beneath the
+            Status Bar (or the Navigation Bar, if present).
+            </summary>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_View.OnError(System.Object,CallForm.Core.ViewModels.ErrorEventArgs)">
+            <summary>Displays the error issued by the <c>ViewModel</c> .
+            </summary>
+            <param name="sender">
+            </param>
+            <param name="errorEventArgs">
+            </param>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_View.FrameHeight">
+            <summary>The value of the current <see cref="P:MonoTouch.UIKit.UIView.Frame" />.
+            </summary>
+            <returns>The Frame value.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_View.TableFrameWidth">
+            <summary>The value of the current <see cref="P:MonoTouch.UIKit.UIView.Frame" />.
+            </summary>
+            <returns>The width of the _table's frame.</returns>
+            <remarks>If _table.Frame.Width is not ready, this method returns View.Frame.Width.
+            If View.Frame.Width is not ready, this method returns UIScreen.MainScreen.Bounds.Width.</remarks>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_View.PercentOfTableFrameWidth(System.Double)">
+            <summary>Calculates a value representing a percent of the <see cref="P:MonoTouch.UIKit.UIView.Frame" /> value.
+            </summary>
+            <param name="percent">A percent value. Ex: 25.0</param>
+            <returns>The product of (<see cref="M:CallForm.iOS.Views.NewVisit_View.TableFrameWidth" /> * <paramref name="percent" />)</returns>
+        </member>
+        <!--FIXME: Invalid documentation markup was found for member M:CallForm.iOS.Views.NewVisit_View.PercentOfRectangleWidth(System.Drawing.RectangleF,System.Double)-->
+        <member name="M:CallForm.iOS.Views.NewVisit_View.ViewFrameHeight">
+            <summary>The value of the device's screen.
+            </summary>
+            <returns>The screen value measured in points.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.NewVisit_View.FindStatusBarHeight">
+            <summary>Determines the current height of the status bar.
+            </summary>
+            <returns>The status bar height in pixels.</returns>
+            <remarks>For iPad (1st and 2nd generation) and iPad Mini; 20px.
+            For Retina iPad (iPad 3, 4, Air, Mini retina), iPone 4/4s, and iPhone 5 (iPhone 5, 5S, 5C); 40px. </remarks>
+        </member>
+        <member name="T:CallForm.iOS.Views.ViewReports_View">
+            <summary>Creates a class representing the UI View for "ViewReports".
+            This is The project's initial view controller, and the primary page for the App.
+            </summary>
+            <remarks>
+                <para>This view inherits from <see cref="T:Cirrious.MvvmCross.Touch.Views.MvxViewController" />. The main over-ridable methods
+            here handle the view's life-cycle.</para>
+                <para>Design goal is to only deal with formatting and layout of data here -- no state information.</para>
+            </remarks>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._cAbb">
+            <summary>Class name abbreviation
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._buttonHeight">
+            <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._rowHeight">
+            <summary>Store for the <c>RowHeight</c> property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._portrait">
+            <summary>Store for the <c>Portrait</c> property.</summary>
+        </member>
+        <member name="P:CallForm.iOS.Views.ViewReports_View.Portrait">
+            <summary>Keeps track of portrait (or landscape) orientation.
+            </summary>
+            <remarks>This is a property that SHOULD be in the ViewController.</remarks>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._logoButton">
+            <summary>Store for the logo button property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._logoLinearLayout">
+            <summary>Store for the logo orientation property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._logoView">
+            <summary>Store for the logo property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._footerButton">
+            <summary>Store for the footer button property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._footerLinearLayout">
+            <summary>Store for the footer orientation property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._footerView">
+            <summary>Store for the footer property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._filterField">
+            <summary>Store for the search filter property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._findButton">
+            <summary>Store for the button property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._buttonLinearLayout">
+            <summary>Store for the logo orientation property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._buttonView">
+            <summary>Store for the logo property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._reportTableView">
+            <summary>Store for the report table property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View._loadingOverlay">
+            <summary>Store for the loading overlay property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View.bannerHeightPercent">
+            <summary>The space reserved for the status-bar in iOS 7 and later.
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View.controlHeightPercent">
+            <summary>The value of controls as a percentage of screen value.
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View.controlWidthPercent">
+            <summary>The value of controls as a percentage of screen value.
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View.leftControlOriginPercent">
+            <summary>The percentage of the horizontal value to indent this control's origin.
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View.middleControlOriginPercent">
+            <summary>The percentage of the horizontal value to indent this control's origin.
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_View.rightControlOriginPercent">
+            <summary>The percentage of the horizontal value to indent this control's origin.
+            </summary>
+        </member>
+        <member name="P:CallForm.iOS.Views.ViewReports_View.EdgesForExtendedLayout">
+            <summary>Specify that this View should *not* be displayed beneath the
+            Status Bar (or the Navigation Bar, if present).
+            </summary>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.ViewFrameHeight">
+            <summary>The value of the device's screen.
+            </summary>
+            <returns>The screen value measured in points.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.ViewFrameWidth">
+            <summary>The value of the device's screen.
+            </summary>
+            <returns>The screen value measured in points.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.AvailableHeight">
+            <summary>The value of the portion of the screen available for Views.
+            </summary>
+            <returns>The available value measured in points.</returns>
+            <remarks>For pre-iOS 7 devices, this value will be the same as <see cref="M:CallForm.iOS.Views.ViewReports_View.ViewFrameHeight" />. For
+            iOS 7 and later, the <see cref="!:topMarginPixels" /> are reserved.</remarks>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.ControlHeight">
+            <summary>Calculates the pixel-value of controls based on the current screen value.
+            </summary>
+            <returns>The pixel-value of controls.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.ControlWidth">
+            <summary>Calculates the pixel-value of controls based on the current screen value.
+            </summary>
+            <returns>The pixel-value of controls.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.TableTop">
+            <summary>The top offset for the table.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.PercentHeight(System.Decimal)">
+            <summary>Calculates the product of the current screen value and a percent.
+            </summary>
+            <param name="percent">A percent in the range 0 - 100.</param>
+            <returns>A value representing a percent of the current screen value.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.PercentWidth(System.Decimal)">
+            <summary>Calculates the product of the current screen value and a percent.
+            </summary>
+            <param name="percent">A percent in the range 0 - 100.</param>
+            <returns>A value representing a percent of the current screen value.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.CalculatePercent(System.Single,System.Decimal)">
+            <summary>Calculates the product of a dimension and a percent.
+            </summary>
+            <param name="dimension">A dimension, such as screen value or value.</param>
+            <param name="percent">A percent in the range 0 - 100.</param>
+            <returns>The product of a given dimension and percent.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.OnError(System.Object,CallForm.Core.ViewModels.ErrorEventArgs)">
+            <summary>Displays the error issued by the <c>ViewModel</c> .
+            </summary>
+            <param name="sender">
+            </param>
+            <param name="errorEventArgs">
+            </param>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_View.SetFrameX(MonoTouch.UIKit.UIView,System.Single)">
+            <summary>Updates the horizontal origin of a view.
+            </summary>
+            <param name="view">The <see cref="T:MonoTouch.UIKit.UIView" /> to be updated.</param>
+            <param name="x">The new "X" coordinate for the View.</param>
+        </member>
+        <member name="T:CallForm.iOS.Views.ViewReports_TableViewSource">
+            <summary>Abstract class (replaces UITableViewDelegate and UITableViewDataSource).
+            </summary>
+            <remarks>GetCell() and other methods use NSIndexPath.</remarks>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_TableViewSource._cAbb">
+            <summary>Class name abbreviation
+            </summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_TableViewSource._buttonHeight">
+            <summary>Store for the <c>ButtonHeight</c> property.</summary>
+        </member>
+        <member name="F:CallForm.iOS.Views.ViewReports_TableViewSource._rowHeight">
+            <summary>Store for the <c>RowHeight</c> property.</summary>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_TableViewSource.RowsInSection(MonoTouch.UIKit.UITableView,System.Int32)">
+            <summary>The number of rows (cells) in this section of <see cref="T:CallForm.iOS.Views.ViewReports_TableViewSource" />.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView" />/control that contains the section.</param>
+            <param name="section">The index number of the section that contains the rows (cells).</param>
+            <remarks>
+                <paramref name="section" /> is included as part of the override -- it is not used in this method.</remarks>
+            <returns>A row count.</returns>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_TableViewSource.RowSelected(MonoTouch.UIKit.UITableView,MonoTouch.Foundation.NSIndexPath)">
+            <summary>Handles the selected row (cell) in <see cref="T:CallForm.iOS.Views.ViewReports_TableViewSource" />.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView" />/control that contains the selected row.</param>
+            <param name="indexPath">The <see cref="T:MonoTouch.Foundation.NSIndexPath" /> of the selected row in the control.</param>
+        </member>
+        <member name="M:CallForm.iOS.Views.ViewReports_TableViewSource.GetCell(MonoTouch.UIKit.UITableView,MonoTouch.Foundation.NSIndexPath)">
+            <summary>Gets a cell based on the selected <see cref="T:MonoTouch.Foundation.NSIndexPath">Row</see>.
+            </summary>
+            <param name="tableView">The <see cref="T:MonoTouch.UIKit.UITableView">(view) table</see> that contains the cell.</param>
+            <param name="indexPath">The <see cref="T:MonoTouch.Foundation.NSIndexPath" /> to the selected row (cell).</param>
+            <returns>The requested <see cref="T:CallForm.iOS.Views.TableViewCell" /> from the <see cref="T:CallForm.iOS.Views.ViewReports_TableViewSource" />.</returns>
+        </member>
+        <member name="T:CallForm.iOS.Views.TableViewCell">
+            <summary>These are the rows in the View Reports view.
+            </summary>
+        </member>
+        <member name="M:CallForm.iOS.Views.TableViewCell.#ctor">
+            <summary>The class constructor.
+            </summary>
+        </member>
+        <member name="T:CallForm.iOS.Views.TextNativeView">
+            <summary>Used to create the content of <see cref="T:CallForm.iOS.Views.TableViewCell" />.
+            </summary>
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.#ctor">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SetServerCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetServerCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SingleServerSearchCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateOrganizationalUnitCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteOrganizationalUnitCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateSecurityGroupCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteSecurityGroupCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AddUserToGroupCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.RemoveUserFromGroupCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetMembersFromGroupCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetGroupMembershipCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateUserAccountFullCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateUserAccountCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteUserAccountCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UpdateUserAttributeCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UpdateUserAccountCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UserExistsCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AuthenticateUserCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AuthenticateUserWithServerCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.EnableUserAccountCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DisableUserAccountCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetUserInfoCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.FindUserCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SearchUsersByPropertyCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.FindGroupCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.ResetPasswordCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllUsersCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllGroupsCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllOUCompleted">
+            <remarks />
+        </member>
+        <member name="E:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllObjectsCompleted">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SetServer(CallForm.iOS.com.dairydataprocessing.adauth.eServerType)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SetServerAsync(CallForm.iOS.com.dairydataprocessing.adauth.eServerType)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SetServerAsync(CallForm.iOS.com.dairydataprocessing.adauth.eServerType,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetServer">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetServerAsync">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetServerAsync(System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SingleServerSearch(System.Boolean)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SingleServerSearchAsync(System.Boolean)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SingleServerSearchAsync(System.Boolean,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateOrganizationalUnit(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateOrganizationalUnitAsync(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateOrganizationalUnitAsync(System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteOrganizationalUnit(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteOrganizationalUnitAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteOrganizationalUnitAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateSecurityGroup(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateSecurityGroupAsync(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateSecurityGroupAsync(System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteSecurityGroup(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteSecurityGroupAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteSecurityGroupAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AddUserToGroup(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AddUserToGroupAsync(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AddUserToGroupAsync(System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.RemoveUserFromGroup(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.RemoveUserFromGroupAsync(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.RemoveUserFromGroupAsync(System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetMembersFromGroup(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetMembersFromGroupAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetMembersFromGroupAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetGroupMembership(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetGroupMembershipAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetGroupMembershipAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateUserAccountFull(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateUserAccountFullAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateUserAccountFullAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateUserAccount(System.String,System.String,System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateUserAccountAsync(System.String,System.String,System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CreateUserAccountAsync(System.String,System.String,System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteUserAccount(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteUserAccountAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DeleteUserAccountAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UpdateUserAttribute(System.String,System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UpdateUserAttributeAsync(System.String,System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UpdateUserAttributeAsync(System.String,System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UpdateUserAccount(System.String,System.String,System.String,System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UpdateUserAccountAsync(System.String,System.String,System.String,System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UpdateUserAccountAsync(System.String,System.String,System.String,System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UserExists(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UserExistsAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.UserExistsAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AuthenticateUser(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AuthenticateUserAsync(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AuthenticateUserAsync(System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AuthenticateUserWithServer(System.String,System.String,CallForm.iOS.com.dairydataprocessing.adauth.eServerType@)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AuthenticateUserWithServerAsync(System.String,System.String,CallForm.iOS.com.dairydataprocessing.adauth.eServerType)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.AuthenticateUserWithServerAsync(System.String,System.String,CallForm.iOS.com.dairydataprocessing.adauth.eServerType,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.EnableUserAccount(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.EnableUserAccountAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.EnableUserAccountAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DisableUserAccount(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DisableUserAccountAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.DisableUserAccountAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetUserInfo(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetUserInfoAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetUserInfoAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.FindUser(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.FindUserAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.FindUserAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SearchUsersByProperty(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SearchUsersByPropertyAsync(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.SearchUsersByPropertyAsync(System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.FindGroup(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.FindGroupAsync(System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.FindGroupAsync(System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.ResetPassword(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.ResetPasswordAsync(System.String,System.String)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.ResetPasswordAsync(System.String,System.String,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllUsers(System.String,System.Boolean,System.String,System.Int32)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllUsersAsync(System.String,System.Boolean,System.String,System.Int32)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllUsersAsync(System.String,System.Boolean,System.String,System.Int32,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllGroups(System.String,System.Boolean)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllGroupsAsync(System.String,System.Boolean)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllGroupsAsync(System.String,System.Boolean,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllOU(System.String,System.Boolean)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllOUAsync(System.String,System.Boolean)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllOUAsync(System.String,System.Boolean,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllObjects(System.String,System.Boolean)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllObjectsAsync(System.String,System.Boolean)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.GetAllObjectsAsync(System.String,System.Boolean,System.Object)">
+            <remarks />
+        </member>
+        <member name="M:CallForm.iOS.com.dairydataprocessing.adauth.ActiveDirectoryAuth.CancelAsync(System.Object)">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.eServerType">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.eServerType.DairyData">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.eServerType.WebAuth">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.ADObject">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Name">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.DisplayName">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Path">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.ObjectClass">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.FirstName">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.LastName">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Company">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.GUID">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.BillingCity">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.BillingState">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.BillingStreetAddress">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.BillingZip">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.CarPhone">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.County">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Department">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Description">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Fax">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.GPSLat">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.GPSLong">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.HomePhone">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Initials">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.City">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.State">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Zip">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.StreetAddress">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Email">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Mobile">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Pager">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.WorkPhone">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.Township">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.DoB">
+            <remarks />
+        </member>
+        <member name="F:CallForm.iOS.com.dairydataprocessing.adauth.ADObject.AdvancedFeaturePassword">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.SetServerCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.SetServerCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.SetServerCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetServerCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetServerCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.GetServerCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.SingleServerSearchCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.CreateOrganizationalUnitCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.DeleteOrganizationalUnitCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.CreateSecurityGroupCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.DeleteSecurityGroupCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.AddUserToGroupCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.RemoveUserFromGroupCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetMembersFromGroupCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetMembersFromGroupCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.GetMembersFromGroupCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetGroupMembershipCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetGroupMembershipCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.GetGroupMembershipCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.CreateUserAccountFullCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.CreateUserAccountFullCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.CreateUserAccountFullCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.CreateUserAccountCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.CreateUserAccountCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.CreateUserAccountCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.DeleteUserAccountCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.UpdateUserAttributeCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.UpdateUserAccountCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.UserExistsCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.UserExistsCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.UserExistsCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.AuthenticateUserCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.AuthenticateUserCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.AuthenticateUserCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.AuthenticateUserWithServerCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.AuthenticateUserWithServerCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.AuthenticateUserWithServerCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.AuthenticateUserWithServerCompletedEventArgs.server">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.EnableUserAccountCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.DisableUserAccountCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetUserInfoCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetUserInfoCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.GetUserInfoCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.FindUserCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.FindUserCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.FindUserCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.SearchUsersByPropertyCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.SearchUsersByPropertyCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.SearchUsersByPropertyCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.FindGroupCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.FindGroupCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.FindGroupCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.ResetPasswordCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetAllUsersCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetAllUsersCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.GetAllUsersCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetAllGroupsCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetAllGroupsCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.GetAllGroupsCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetAllOUCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetAllOUCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.GetAllOUCompletedEventArgs.Result">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetAllObjectsCompletedEventHandler">
+            <remarks />
+        </member>
+        <member name="T:CallForm.iOS.com.dairydataprocessing.adauth.GetAllObjectsCompletedEventArgs">
+            <remarks />
+        </member>
+        <member name="P:CallForm.iOS.com.dairydataprocessing.adauth.GetAllObjectsCompletedEventArgs.Result">
+            <remarks />
+        </member>
+    </members>
+</doc>
