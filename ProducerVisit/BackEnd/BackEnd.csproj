@@ -47,7 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\doc\BackEnd.XML</DocumentationFile>
+    <DocumentationFile>doc\BackEnd.XML</DocumentationFile>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -57,7 +57,7 @@
     <DefineConstants>RELEASE;__RELEASE__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\doc\BackEnd.XML</DocumentationFile>
+    <DocumentationFile>doc\BackEnd.XML</DocumentationFile>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
