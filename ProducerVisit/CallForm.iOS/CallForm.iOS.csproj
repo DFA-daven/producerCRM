@@ -51,7 +51,6 @@
     </MtouchI18n>
     <DebugSymbols>true</DebugSymbols>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchLink>None</MtouchLink>
     <DocumentationFile>bin\doc\CallFormiOS.XML</DocumentationFile>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -76,7 +75,6 @@
     </MtouchI18n>
     <DebugSymbols>true</DebugSymbols>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchLink>None</MtouchLink>
     <DocumentationFile>bin\doc\CallFormiOS.XML</DocumentationFile>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -101,8 +99,6 @@
     <MtouchI18n>
     </MtouchI18n>
     <DebugSymbols>true</DebugSymbols>
-    <MtouchDebug>true</MtouchDebug>
-    <MtouchLink>None</MtouchLink>
     <DocumentationFile>bin\doc\CallFormiOS.XML</DocumentationFile>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -126,8 +122,6 @@
     <MtouchI18n>
     </MtouchI18n>
     <DebugSymbols>true</DebugSymbols>
-    <MtouchDebug>true</MtouchDebug>
-    <MtouchLink>None</MtouchLink>
     <DocumentationFile>bin\iPhone\doc\CallFormiOS.XML</DocumentationFile>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -150,7 +144,6 @@
     </MtouchI18n>
     <DebugSymbols>true</DebugSymbols>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchLink>None</MtouchLink>
     <DocumentationFile>bin\doc\CallFormiOS.XML</DocumentationFile>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -173,7 +166,6 @@
     </MtouchI18n>
     <DebugSymbols>true</DebugSymbols>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchLink>None</MtouchLink>
     <DocumentationFile>bin\doc\CallFormiOS.XML</DocumentationFile>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -195,8 +187,6 @@
     <MtouchI18n>
     </MtouchI18n>
     <DebugSymbols>true</DebugSymbols>
-    <MtouchDebug>true</MtouchDebug>
-    <MtouchLink>None</MtouchLink>
     <DocumentationFile>bin\doc\CallFormiOS.XML</DocumentationFile>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -218,8 +208,6 @@
     <MtouchI18n>
     </MtouchI18n>
     <DebugSymbols>true</DebugSymbols>
-    <MtouchDebug>true</MtouchDebug>
-    <MtouchLink>None</MtouchLink>
     <DocumentationFile>bin\doc\CallFormiOS.XML</DocumentationFile>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
