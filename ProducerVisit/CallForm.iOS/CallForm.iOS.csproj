@@ -41,9 +41,6 @@
     <StartupObject>CallForm.iOS.Application</StartupObject>
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignProvision>45d52977-a3e7-4192-bedc-bd913402b6a4</CodesignProvision>
-    <BuildIpa>True</BuildIpa>
-    <IpaMetadata>
-    </IpaMetadata>
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
@@ -65,9 +62,6 @@
     <StartupObject>CallForm.iOS.Application</StartupObject>
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignProvision>45d52977-a3e7-4192-bedc-bd913402b6a4</CodesignProvision>
-    <BuildIpa>True</BuildIpa>
-    <IpaMetadata>
-    </IpaMetadata>
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
@@ -91,8 +85,6 @@
     <CodesignProvision>Automatic:InHouse</CodesignProvision>
     <BuildIpa>True</BuildIpa>
     <BuildIpa>True</BuildIpa>
-    <IpaMetadata>
-    </IpaMetadata>
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
@@ -114,8 +106,6 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignProvision>Automatic:InHouse</CodesignProvision>
     <BuildIpa>True</BuildIpa>
-    <IpaMetadata>
-    </IpaMetadata>
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
