@@ -120,10 +120,12 @@ namespace CallForm.Core.ViewModels
             CommonCore.DebugMessage("  core[nv_vm][init] > Starting Init(NewVisitInit data)... ");
             if (string.IsNullOrEmpty(data.ReportData))
             {
-                MemberNumber = data.MemberNumber;
+				MemberNumber = data.MemberNumber ?? string.Empty;
                 IsNewReport = true;
+				CommonCore.DebugMessage("  core[nv_vm][init] > This is a NEW report, ...finished Init(NewVisitInit data). ");
                 return;
             }
+
             var report = _jsonConverter.DeserializeObject<ProducerVisitReport>(data.ReportData);
             IsNewReport = false;
 
