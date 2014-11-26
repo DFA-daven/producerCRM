@@ -448,16 +448,12 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <!-- commenting out this pre-build event - it only works on windows 
   <PropertyGroup>
-    <PreBuildEvent>del "$(ProjectDir)..\AutoVersionNumber\GlobalAssemblyVersion.cs" 
-"C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\GlobalAssemblyVersion.tt"
-
-rem del "$(ProjectDir)info.plist"
-rem del "$(ProjectDir)..\AutoVersionNumber\info.plist" 
-"C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\info.tt"
-copy /Y "$(ProjectDir)..\AutoVersionNumber\Info.plist" "$(ProjectDir)Info.plist"</PreBuildEvent>
+    <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">del "$(ProjectDir)..\AutoVersionNumber\GlobalAssemblyVersion.cs"</PreBuildEvent>
+    <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">"C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\GlobalAssemblyVersion.tt"</PreBuildEvent>
+    <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">rem del "$(ProjectDir)info.plist"</PreBuildEvent>
+    <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">rem del "$(ProjectDir)..\AutoVersionNumber\info.plist"</PreBuildEvent>
+    <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">"C:\Program Files (x86)\Common Files\microsoft shared\TextTemplating\12.0\TextTransform.exe" "$(ProjectDir)..\AutoVersionNumber\info.tt"</PreBuildEvent>
+    <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">copy /Y "$(ProjectDir)..\AutoVersionNumber\Info.plist" "$(ProjectDir)Info.plist"</PreBuildEvent>
   </PropertyGroup>
-  -->
-
 </Project>
