@@ -103,8 +103,8 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <StartupObject>CallForm.iOS.Application</StartupObject>
-    <CodesignKey>iPhone Distribution</CodesignKey>
-    <CodesignProvision>Automatic:InHouse</CodesignProvision>
+    <CodesignKey>iPhone Distribution: Dairylea Cooperative Inc.</CodesignKey>
+    <CodesignProvision>697723b1-aa37-431a-ac5d-64c02cdaba66</CodesignProvision>
     <BuildIpa>True</BuildIpa>
     <IpaPackageName>com.dairylea.producerCRM</IpaPackageName>
     <MtouchArch>ARMv7</MtouchArch>
