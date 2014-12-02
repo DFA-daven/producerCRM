@@ -19,7 +19,9 @@ namespace CallForm.iOS.ViewElements
     /// </summary>
     public class EmailRecipientSelectDialog_ViewController : UIViewController
     {
-        string _nameSpace = "CallForm.iOS.";
+		string _namespace = "CallForm.iOS.ViewElements.";
+		string _class = "EmailRecipientSelectDialog_ViewController.";
+		string _method = "TBD";
 
         private readonly UITableView _table;
         private readonly NewVisit_ViewModel _viewModel;
@@ -32,6 +34,8 @@ namespace CallForm.iOS.ViewElements
         /// <remarks>This ViewController is created when NewVisit_View is loaded.</remarks> 
         public EmailRecipientSelectDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
+			_method = "EmailRecipientSelectDialog_ViewController";
+
             _viewModel = viewModel;
 
             _table = new UITableView();
@@ -43,7 +47,7 @@ namespace CallForm.iOS.ViewElements
             float maxTableHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);  // the Y value
             float maxTableWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.5, 0);    // the X value
 
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [ersd_vc][ersd_vc] > maxTableHeight = " + maxTableHeight.ToString() + ", maxTableWidth = " + maxTableWidth.ToString());
 
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
@@ -81,12 +85,14 @@ namespace CallForm.iOS.ViewElements
         {
             get
             {
+				_method = "SizeF";
+
                 SizeF size = _table.Frame.Size;
                 //// leave space for "Done" button
                 //size.Height += 50;
                 //size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);
 
-                Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+				Common_iOS.DebugMessage(_namespace + _class, _method);
                 Common_iOS.DebugMessage("  [ersd_vc][pcs] > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString());
 
                 return size;
@@ -122,6 +128,8 @@ namespace CallForm.iOS.ViewElements
     public class EmailRecipientsTableSource : UITableViewSource
     {
         string _nameSpace = "CallForm.iOS.";
+		string _class = "EmailRecipientsTableSource.";
+		string _method = "TBD";
 
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;

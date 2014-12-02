@@ -30,7 +30,9 @@ namespace CallForm.iOS
         // as a navigation bar with a back button.
         UINavigationController _navController;
         UINavigationBar _navigationBar;
-        string _nameSpace = "CallForm.iOS.";
+		string _namespace = "CallForm.iOS.";
+		string _class = "AppDelegate.";
+		string _method = "TBD";
 
         public static AppDelegate Current { get; private set; }
 
@@ -67,8 +69,9 @@ namespace CallForm.iOS
         /// </remarks>
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common_iOS.DebugMessage("  [AppD][fl] > Assembly info:" + System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
+			_method = "FinishedLaunching";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
+//            Common_iOS.DebugMessage("  [AppD][fl] > Assembly info:" + System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
             Common_iOS.DebugMessage("  [AppD][fl] > starting method...");
 
             _window = new UIWindow(UIScreen.MainScreen.Bounds);     // required
@@ -130,7 +133,6 @@ namespace CallForm.iOS
             // experimental:
             UIApplication.SharedApplication.ApplicationSupportsShakeToEdit = true;
 
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [AppD][fl] > ...finished method.");
 
             bool started = true;
@@ -139,38 +141,44 @@ namespace CallForm.iOS
 
         public override void OnActivated(UIApplication application)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "OnActivated";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [AppD][oa] > App is active.");
         }
 
         public override void WillEnterForeground(UIApplication application)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "WillEnterForeground";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [AppD][wef] > App will enter foreground.");
         }
 
         public override void OnResignActivation(UIApplication application)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "OnResignActivation";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [AppD][ora] > App moving to inactive state.");
         }
 
         public override void DidEnterBackground(UIApplication application)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "DidEnterBackground";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [AppD][deb] > App entering background state.");
         }
 
         public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ReceivedLocalNotification";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [AppD][rln] > " + notification.Description);
         }
 
         // not guaranteed that this will run
         public override void WillTerminate(UIApplication application)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "WillTerminate";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [AppD][wt] > App is terminating.");
         }
         #pragma warning restore 1591

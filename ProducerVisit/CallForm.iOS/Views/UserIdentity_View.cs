@@ -23,8 +23,9 @@
     public class UserIdentity_View : MvxViewController, IMvxModalTouchView
     {
         #region Properties
-        string _namespace = "CallForm.iOS.";
-        //string _namespace = "CallForm.iOS.Views.UserIdentity_View";
+        string _namespace = "CallForm.iOS.Views.";
+		string _class = "UserIdentity_View.";
+		string _method = "TBD";
 
         /// <summary>Store for the <c>iPhoneIdiom</c> property.</summary>
         private bool _iPhoneIdiom;
@@ -70,8 +71,8 @@
         #pragma warning disable 1591
         public override void ViewDidLoad()
         {
-            Common_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            Common_iOS.DebugMessage("  [ui_v][vdl] > starting method...");
+			_method = "ViewDidLoad";
+			Common_iOS.DebugMessage(_namespace + _class, _method); 
 
             // Note: this took a while to find...
             NavigationItem.SetHidesBackButton(true, false);
@@ -445,13 +446,14 @@
             View.AddGestureRecognizer(goAway);
             #endregion UI action
 
-            Common_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [ui_v][vdl] > ...finished method.");
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            Common_iOS.DebugMessage(_namespace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ViewDidLayoutSubviews";
+			Common_iOS.DebugMessage(_namespace + _class, _method);            
 
             base.ViewDidLayoutSubviews();
 

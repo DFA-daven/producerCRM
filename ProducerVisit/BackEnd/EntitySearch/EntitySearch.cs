@@ -63,6 +63,10 @@ namespace BackEnd.EntitySearch
         #endregion
 
         #region Properties
+		string _namespace = "BackEnd.EntitySearch.";
+		string _class = "EntitySearch.";
+		string _method = "TBD";
+
         public string SearchFilter
         {
             get { return _searchFilter; }

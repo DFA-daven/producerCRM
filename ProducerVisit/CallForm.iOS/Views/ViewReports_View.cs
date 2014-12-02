@@ -26,7 +26,9 @@ namespace CallForm.iOS.Views
         
         // class-level declarations
 
-        string _nameSpace1 = "CallForm.iOS.";
+        string _namespace = "CallForm.iOS.Views.";
+		string _class = "ViewReports_View.";
+		string _method = "TBD";
 
         /// <summary>Class name abbreviation
         /// </summary>
@@ -231,7 +233,8 @@ namespace CallForm.iOS.Views
         #pragma warning disable 1591
         public override void ViewDidLoad()
         {
-            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ViewDidLoad";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [vr_v][vdl] > starting method...");
 
             //if (!IsOS7OrLater)
@@ -527,13 +530,14 @@ namespace CallForm.iOS.Views
             //this.availableViewHeight
             #endregion
 
-            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [vr_v][vdl] > ...finished method.");
         }
 
         public override void ViewDidLayoutSubviews()
         {
-            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ViewDidLayoutSubviews";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [vr_v][vdls] > System version: " + UIDevice.CurrentDevice.SystemVersion);
 
             base.ViewDidLayoutSubviews();
@@ -553,7 +557,7 @@ namespace CallForm.iOS.Views
             //    //displacement_y = this.TopLayoutGuide.Length;
             //}
 
-            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+				Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [vr_v][vdls] > ...finished");
         }
 
@@ -580,7 +584,8 @@ namespace CallForm.iOS.Views
 
         public override void ViewWillAppear(bool animated)
         {
-            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ViewWillAppear";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             base.ViewWillAppear(animated);
             SetFramesForOrientation(InterfaceOrientation);
@@ -588,7 +593,8 @@ namespace CallForm.iOS.Views
 
         public override void ViewDidAppear(bool animated)
         {
-            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ViewDidAppear";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             // Note: each time ViewReports is displayed/appears UploadReports() is triggered.
             base.ViewDidAppear(animated);
@@ -598,7 +604,8 @@ namespace CallForm.iOS.Views
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
         {
-            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "WillAnimateRotation";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             base.WillAnimateRotation(toInterfaceOrientation, duration);
 
@@ -878,7 +885,8 @@ namespace CallForm.iOS.Views
 
         private void SetFramesForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
-            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "SetFramesForOrientation";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("? [vr_v][sffo] > SetFramesForOrientation: make a note of when this runs");
 
             float difference = 0;
@@ -938,7 +946,8 @@ namespace CallForm.iOS.Views
             layoutHeight = this.ViewFrameHeight(); 
             navbarHeight = screenHeight - layoutHeight;
 
-            Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "NavBarHeight";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [vr_v][nbh] > screenHeight: " + screenHeight.ToString() + ", layoutHeight = " + layoutHeight.ToString() + ", calc navbar value: " + navbarHeight.ToString() + " <=======");
 
             //if (Common_iOS.IsMinimumOS7)
@@ -966,7 +975,9 @@ namespace CallForm.iOS.Views
     {
         #region declarations
         // class-level declarations
-        string _nameSpace = "CallForm.iOS.";
+		string _namespace = "CallForm.iOS.";
+		string _class = "ViewReports_TableViewSource.";
+		string _method = "TBD";
 
         /// <summary>Class name abbreviation
         /// </summary>
@@ -1084,7 +1095,8 @@ namespace CallForm.iOS.Views
         {
             float heightToReport = RowHeight;
 
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "GetHeightForFooter";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [vr_tvs][ghff] > Footer Height = " + RowHeight.ToString() + " < = = = = = =");
 
             return heightToReport;

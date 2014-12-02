@@ -15,7 +15,9 @@
     /// <remarks>GetCell() and other methods use NSIndexPath.</remarks>
     public class NewVisit_TableViewSource : UITableViewSource
     {
-        string _nameSpace = "CallForm.iOS.";
+        string _namespace = "CallForm.iOS.Views.";
+		string _class = "NewVisit_TableViewSource.";
+		string _method = "TBD";
 
         #region Properties
         private readonly NewVisit_ViewModel _viewModel;
@@ -273,7 +275,8 @@
         /// <returns></returns>
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "GetHeightForRow";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             // FixMe: hard-coded values
             // the _noteCell
@@ -300,7 +303,8 @@
         /// <returns>A row count.</returns>
         public override int RowsInSection(UITableView tableview, int section)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "RowsInSection";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             // Review: find a way to get this automatically
             // return _viewModel.Reports == null ? 0 : _viewModel.Reports.Count;
@@ -313,7 +317,8 @@
         /// <param name="indexPath">The <see cref="NSIndexPath"/> to the selected row (cell).</param>
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "RowSelected";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             SizeF availableSize = new SizeF();
 
@@ -452,7 +457,8 @@
         /// from the <see cref="NewVisit_TableViewSource"/>.</returns>
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "GetCell";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             switch (indexPath.Row)
             {
@@ -482,7 +488,8 @@
         {
             float heightToReport = RowHeight;
 
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "GetHeightForFooter";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [nv_tvs][ghff] > Footer Height = " + RowHeight.ToString() + " < = = = = = =");
 
             return heightToReport;
@@ -494,7 +501,8 @@
         /// </summary>
         public void SafeDismissPopover()
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "SafeDismissPopover";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             if (_popoverController != null)
             {
@@ -513,7 +521,8 @@
         /// <returns>A rectangle bounding the given cell.</returns>
         internal RectangleF GetRectangleForCell(UITableView tableView, UITableViewCell targetCell)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "GetRectangleForCell";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             return tableView.RectForRowAtIndexPath(tableView.IndexPathForCell(targetCell));
         }
@@ -529,7 +538,8 @@
         /// the on-screen location of the cell contents.</remarks>
         internal RectangleF GetPresentationRectangleForCell(UITableView tableView, UITableViewCell targetCell)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "GetPresentationRectangleForCell";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             RectangleF cellBoundary = tableView.RectForRowAtIndexPath(tableView.IndexPathForCell(targetCell));
 

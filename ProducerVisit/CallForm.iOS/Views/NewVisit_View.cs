@@ -24,7 +24,9 @@ namespace CallForm.iOS.Views
     public class NewVisit_View : MvxViewController
     {
         #region Properties
-        string _nameSpace = "CallForm.iOS.";
+        string _namespace = "CallForm.iOS.Views.";
+		string _class = "NewVisit_View.";
+		string _method = "TBD";
 
         /// <summary>Class name abbreviation
         /// </summary>
@@ -186,7 +188,8 @@ namespace CallForm.iOS.Views
         {
             get
             {
-                Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+				_method = "EdgesForExtendedLayout";
+				Common_iOS.DebugMessage(_namespace + _class, _method);
 
                 return UIRectEdge.None;
             }
@@ -194,7 +197,8 @@ namespace CallForm.iOS.Views
 
         public override void ViewDidLoad()
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ViewDidLoad";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [nv_v][vdl] > starting method...");
 
             #region view 
@@ -345,7 +349,8 @@ namespace CallForm.iOS.Views
 
         public override void ViewDidLayoutSubviews()
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ViewDidLayoutSubviews";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             View.BackgroundColor = Common_iOS.viewBackgroundColor;
 
             #region colorize subviews
@@ -519,7 +524,8 @@ namespace CallForm.iOS.Views
 
         public override void WillAnimateRotation(UIInterfaceOrientation toInterfaceOrientation, double duration)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "WillAnimateRotation";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             base.WillAnimateRotation(toInterfaceOrientation, duration);
 
@@ -528,7 +534,8 @@ namespace CallForm.iOS.Views
 
         public override void ViewWillAppear(bool animated)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ViewWillAppear";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             base.ViewWillAppear(animated);
 
@@ -539,7 +546,8 @@ namespace CallForm.iOS.Views
         [Obsolete("Deprecated in iOS6. Replace it with both GetSupportedInterfaceOrientations and PreferredInterfaceOrientationForPresentation", false)]
         public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)  // iOS4/iOS5 only
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ShouldAutorotateToInterfaceOrientation";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             bool rotate = false;
 
@@ -548,7 +556,7 @@ namespace CallForm.iOS.Views
                 rotate = true;
             }
 
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Common_iOS.DebugMessage("  [nv_v][satio] > ShouldAutorotateToInterfaceOrientation = " + rotate.ToString() + " < [ersd_vc][satio]");
 
             return rotate;
@@ -560,7 +568,8 @@ namespace CallForm.iOS.Views
 
         private void ReSendEmail(object sender, EventArgs eventArgs)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ReSendEmail";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             NewVisit_ViewModel viewModel = ViewModel as NewVisit_ViewModel;
             if (MFMailComposeViewController.CanSendMail)
@@ -592,14 +601,16 @@ namespace CallForm.iOS.Views
 
         private void ReSendFinished(object sender, MFComposeResultEventArgs mfComposeResultEventArgs)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ReSendFinished";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             InvokeOnMainThread(() => { DismissViewController(true, null); } );
         }
         
         private void OnSendEmail(object sender, EventArgs eventArgs)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "OnSendEmail";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             NewVisit_ViewModel viewModel = ViewModel as NewVisit_ViewModel;
             if (MFMailComposeViewController.CanSendMail)
@@ -636,7 +647,8 @@ namespace CallForm.iOS.Views
 
         private void MailViewOnFinished(object sender, MFComposeResultEventArgs e)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "MailViewOnFinished";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             InvokeOnMainThread(() =>
             {
@@ -672,14 +684,16 @@ namespace CallForm.iOS.Views
         /// <param name="errorEventArgs"></param>
         private void OnError(object sender, ErrorEventArgs errorEventArgs)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "OnError";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             InvokeOnMainThread(() => { new UIAlertView("Error", errorEventArgs.Message, null, "OK").Show(); } );
         }
 
         private void SetTableFrameForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "SetTableFrameForOrientation";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             float usableHeight = 0f;
             float usableWidth = 0f;
@@ -713,7 +727,8 @@ namespace CallForm.iOS.Views
         /// <returns>The Frame value.</returns>
         public float FrameHeight()  // 1024 - (20 + 44) = 960
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "FrameHeight";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             float value = _table.Frame.Height;
             string sourceType = _table.GetType().ToString();
@@ -757,7 +772,8 @@ namespace CallForm.iOS.Views
         /// If View.Frame.Width is not ready, this method returns UIScreen.MainScreen.Bounds.Width.</remarks>
         public float TableFrameWidth()
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "TableFrameWidth";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             string mAbb = "[fw]"; // method name abbreviation
 
@@ -797,7 +813,8 @@ namespace CallForm.iOS.Views
         /// <returns>The product of (<see cref="TableFrameWidth"/> * <paramref name="percent"/>)</returns>
         internal float PercentOfTableFrameWidth(double percent)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "PercentOfTableFrameWidth";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             string mAbb = "[%fw]"; // method name abbreviation
 
@@ -827,7 +844,8 @@ namespace CallForm.iOS.Views
         /// <returns>The product of (<paramref name="rectangle">rectangle.Width</see> * <paramref name="percent"/>)</returns>
         internal float PercentOfRectangleWidth(RectangleF rectangle, double percent)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "PercentOfRectangleWidth";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             string mAbb = "[%rw]"; // method name abbreviation
 
@@ -861,7 +879,8 @@ namespace CallForm.iOS.Views
         /// <returns>The screen value measured in points.</returns>
         internal float ViewFrameHeight()  // 960 
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ViewFrameHeight";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             float viewFrameHeight = 0;
             //viewFrameHeight = UIScreen.MainScreen.Bounds.Height;
@@ -897,7 +916,8 @@ namespace CallForm.iOS.Views
 
         private float TopMargin()
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "TopMargin";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             float topMargin = 0f;
 
@@ -925,7 +945,8 @@ namespace CallForm.iOS.Views
 
         private float LayoutHeight()
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "LayoutHeight";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
 
             float layoutHeight = 0f;
             UIView[] subviews = View.Subviews;
@@ -955,7 +976,7 @@ namespace CallForm.iOS.Views
 
             if (layoutHeight == 0)
             {
-                Common_iOS.DebugMessage("  [nv_v][lh] > layoutHeight was 0, substituting View.Frame.Height: " + View.Frame.Height.ToString());
+				Common_iOS.DebugMessage(_namespace + _class, _method);
                 layoutHeight = View.Frame.Height;
             }
 
@@ -966,7 +987,8 @@ namespace CallForm.iOS.Views
 
         internal float FindNavBarHeight()  // 44
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "FindNavBarHeight";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             float navbarHeight = 44f;
 
             try
@@ -1049,7 +1071,8 @@ namespace CallForm.iOS.Views
         internal float FindStatusBarHeight()
         {
             // Review: this always returns "20", never "40". May be a limitation of the simulator?
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "FindStatusBarHeight";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             float statusBarHeight = 0f;
 
             if (!UIApplication.SharedApplication.StatusBarHidden)

@@ -27,7 +27,9 @@
 
         //private readonly string _targetURL;
         private string _request;
-        string _className = "CallForm.Core.ViewModels.ViewReports_ViewModel";
+		string _namespace = "CallForm.Core.ViewModels.";
+		string _class = "ViewReports_ViewModel.";
+		string _method = "TBD";
 
         //private static string _targetURL = "http://dl-backend-02.azurewebsites.net";
         //private static string _targetURL = "http://dl-websvcs-test.dairydata.local:480";
@@ -83,9 +85,9 @@
         /// <remarks>This model is the <see cref="App.Initialize">RegisterAppStart</see> of <see cref="App"/>.</remarks>
         public override void Start()
         {
-            string methodName = _className + " > Start";
+            _method = "Start";
 
-            CommonCore.DebugMessage(methodName, " > starting up.");
+            CommonCore.DebugMessage(_method, " > starting up.");
 
             Loading = true;
 
@@ -101,13 +103,13 @@
             if (string.IsNullOrWhiteSpace(_userIdentityService.GetIdentity().UserEmail) == true)
             {
                 // open the UserIdentity_View (to capture the missing information)
-                CommonCore.DebugMessage(methodName, "  [vr_vm][start] > requesting to show <UserIdentity_ViewModel> ");
+                CommonCore.DebugMessage(_method, "  [vr_vm][start] > requesting to show <UserIdentity_ViewModel> ");
 
                 ShowViewModel<UserIdentity_ViewModel>();
             }
             else
             {
-                CommonCore.DebugMessage(methodName, "  [vr_vm][start] > decided NOT to ShowViewModel<UserIdentity_ViewModel>() ");
+				CommonCore.DebugMessage(_method, "  [vr_vm][start] > decided NOT to ShowViewModel<UserIdentity_ViewModel>() ");
             }
 
             //Loading = false;
@@ -173,7 +175,7 @@
             }
             catch (Exception exc)
             {
-                CommonCore.DebugMessage(_className, exc.Message);
+				CommonCore.DebugMessage(_class, exc.Message);
 
                 // FixMe: add proper error handling
                 Error(this, new ErrorEventArgs { Message = exc.Message });
@@ -378,7 +380,7 @@
 
         private void RestException(Exception exception)
         {
-            CommonCore.DebugMessage(_className, "RestExceptionMessage");
+			CommonCore.DebugMessage(_class, "RestExceptionMessage");
             CommonCore.DebugMessage("  core[vr_vm][re] > Original request: " + Request);
             CommonCore.DebugMessage("  core[vr_vm][re] > Exception message: " + exception.Message);
         }

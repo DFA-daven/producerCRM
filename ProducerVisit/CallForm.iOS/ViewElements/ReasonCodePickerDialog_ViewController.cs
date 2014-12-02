@@ -18,7 +18,9 @@ namespace CallForm.iOS.ViewElements
     /// </summary>
     public class ReasonCodePickerDialog_ViewController : UIViewController
     {
-        string _nameSpace = "CallForm.iOS.";
+		string _namespace = "CallForm.iOS.ViewElements.";
+		string _class = "ReasonCodePickerDialog_ViewController.";
+		string _method = "TBD";
 
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;
@@ -31,7 +33,8 @@ namespace CallForm.iOS.ViewElements
         /// <remarks>This ViewController is created when NewVisit_View is loaded.</remarks>
         public ReasonCodePickerDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+			_method = "ReasonCodePickerDialog_ViewController";
+			Common_iOS.DebugMessage(_namespace + _class, _method);            
 
             _viewModel = viewModel;
             _source = source;
@@ -101,13 +104,15 @@ namespace CallForm.iOS.ViewElements
 
         //public override void ViewDidLoad()
         //{
-        //    Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+		//    _method = "ViewDidLoad";
+		//    Common_iOS.DebugMessage(_nameSpace + _class, _method);
         //    Common_iOS.DebugMessage("? [rcpd_vc][vdl] > make a note of when this is being run");
         //}
 
         //public override void ViewDidLayoutSubviews()
         //{
-        //    Common_iOS.DebugMessage(_nameSpace1 + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+		//    _method = "ViewDidLayoutSubviews";
+		//    Common_iOS.DebugMessage(_nameSpace + _class, _method);
         //    Common_iOS.DebugMessage("? [rcpd_vc][vdls] > make a note of when this is being run");
         //}
 
@@ -262,6 +267,8 @@ namespace CallForm.iOS.ViewElements
     public class ReasonCodeTableSource : UITableViewSource
     {
         string _nameSpace = "CallForm.iOS.";
+		string _class = "ReasonCodeTableSource.";
+		string _method = "TBD";
 
         private readonly NewVisit_ViewModel _viewModel;
         private readonly NewVisit_TableViewSource _source;

@@ -21,7 +21,9 @@ namespace BackEnd
 
     public class MvcApplication : System.Web.HttpApplication
     {
-        string _nameSpace = "BackEnd";
+        string _namespace = "BackEnd";
+		string _class = "MvcApplication.";
+		string _method = "TBD";
 
         public string EntityType { get; set;}
 
@@ -204,7 +206,8 @@ namespace BackEnd
             string[] octet;
             char[] charSeparators = new char[] { '.' };
 
-            CommonCore_BackEnd.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, true);
+			_method = "IsPrivateIpAddress";
+			CommonCore_BackEnd.DebugMessage(_namespace + _class, _method);
             CommonCore_BackEnd.DebugMessage("  [Global][ipia] > The IP host address of the remote client is " + userHostAddress, true);
 
             octet = userHostAddress.Split(charSeparators, StringSplitOptions.None);

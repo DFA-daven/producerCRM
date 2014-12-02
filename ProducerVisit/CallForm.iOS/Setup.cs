@@ -16,7 +16,9 @@ namespace CallForm.iOS
     /// <remarks><para>This Class is called from AppDelegate.cs (via FinishedLoading), and in turn calls CallForm.Core.App.</para>
 	public class Setup : MvxTouchSetup
 	{
-        string _nameSpace = "CallForm.iOS.";
+		string _namespace = "CallForm.iOS.";
+		string _class = "Setup.";
+		string _method = "TBD";
 
 		public Setup(MvxApplicationDelegate applicationDelegate, UIWindow window)
             : base(applicationDelegate, window)
@@ -33,7 +35,8 @@ namespace CallForm.iOS
         /// <returns></returns>
 	    protected override IMvxApplication CreateApp ()
 		{
-            Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
+			_method = "CreateApp";
+			Common_iOS.DebugMessage(_namespace + _class, _method);
             Console.WriteLine("  [Setup][CA] > return new Core.App(). < SETUP SETUP SETUP SETUP SETUP SETUP");
 			return new Core.App();
 		}
@@ -48,10 +51,13 @@ namespace CallForm.iOS
     public class MvxProducerVisit_TouchViewPresenter : MvxTouchViewPresenter
     {
         string _nameSpace = "CallForm.iOS.";
+		string _class = "MvxProducerVisit_TouchViewPresenter.";
+		string _method = "TBD";
 
         public MvxProducerVisit_TouchViewPresenter(UIApplicationDelegate applicationDelegate, UIWindow window) : base(applicationDelegate, window)
         {
-            Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
+			_method = "BASE";
+			Common_iOS.DebugMessage(_nameSpace + _class, _method);
             Console.WriteLine("  [Setup][mpv_tvp] > New instance of MvxProducerVisit_TouchViewPresenter created. < SETUP SETUP SETUP SETUP SETUP SETUP");
         }
 
@@ -60,7 +66,8 @@ namespace CallForm.iOS
         /// <param name="view">The view to be displayed.</param>
         public override void Show(IMvxTouchView view)
         {
-            Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
+			_method = "Show";
+			Common_iOS.DebugMessage(_nameSpace + _class, _method);
 
             if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {
@@ -85,7 +92,6 @@ namespace CallForm.iOS
             }
             else
             {
-                Console.WriteLine(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name + ", " + MethodBase.GetCurrentMethod().Name);
                 Console.WriteLine("  [Setup][mpv_tvp][S] > the View requested an 'unknown' (new?) ViewModel type. < SETUP SETUP SETUP SETUP SETUP SETUP");
             }
 
