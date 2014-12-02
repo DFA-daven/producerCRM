@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Producercrm by DFA-daven</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Producercrm</h1>
+        <p>Manages Field Staff calls to members.</p>
+
+        <p class="view"><a href="https://github.com/DFA-daven/producerCRM">View the Project on GitHub <small>DFA-daven/producerCRM</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/DFA-daven/producerCRM/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/DFA-daven/producerCRM/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/DFA-daven/producerCRM">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="producercrm" class="anchor" href="#producercrm" aria-hidden="true"><span class="octicon octicon-link"></span></a>producerCRM</h1>
+
+<p>producerCRM is a mobile app for logging staff contact with customers.</p>
+
+<h2>
+<a id="platforms" class="anchor" href="#platforms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Platforms</h2>
+
+<p>Currently, producerCRM is only targeting iOS, and specifically only iPad 2+ devices. </p>
+
+<h2>
+<a id="technology" class="anchor" href="#technology" aria-hidden="true"><span class="octicon octicon-link"></span></a>Technology</h2>
+
+<p>The producerCRM app is written in C#. Native iOS code is provided by the Xamarin Studio IDE. </p>
+
+<p><em>See also: <strong>MonoTouch</strong>; <strong>Xcode</strong>.</em></p>
+
+<h2>
+<a id="enhancements" class="anchor" href="#enhancements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enhancements</h2>
+
+<h3>
+<a id="functionality" class="anchor" href="#functionality" aria-hidden="true"><span class="octicon octicon-link"></span></a>Functionality</h3>
+
+<ul>
+<li>differentiate manager and regular users</li>
+<li>office
+
+<ul>
+<li>reports</li>
+<li>ability to edit entries</li>
+</ul>
+</li>
+</ul>
+
+<h3>
+<a id="platforms-1" class="anchor" href="#platforms-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Platforms</h3>
+
+<h4>
+<a id="browser" class="anchor" href="#browser" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser</h4>
+
+<p>The app accesses with the backend database via a web service. The functionality provided by the app (create an entry; search existing entries) needs to also be available to staff working from a desk. This will require an additional View (M <strong>V</strong> VM).</p>
+
+<h4>
+<a id="iphone" class="anchor" href="#iphone" aria-hidden="true"><span class="octicon octicon-link"></span></a>iPhone</h4>
+
+<p>The app Views are currently designed/intended to be used only with iPads. It will run on iPhones (4S or higher), however the layout of the Views frequently cuts off controls rendering the UI useless. <em>Addressing this issue may invlove substantial changes to the View architecture.</em> One possible solution is to refactor the Views to use <strong>Xamarin.Forms</strong>.</p>
+
+<h4>
+<a id="android--windows-devices" class="anchor" href="#android--windows-devices" aria-hidden="true"><span class="octicon octicon-link"></span></a>Android / Windows devices</h4>
+
+<p>Assuming the changes necessary to run the app on an iPhone are completed, it should be straight-forward to port the app to Android. Likewise, porting to Windows phones and tablets should also be possible via the Xamarin architecture.</p>
+
+<h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>In 2013 Dave (<a href="https://github.com/dfa-daven" class="user-mention">@dfa-daven</a> aka <a href="https://github.com/phearce" class="user-mention">@phearce</a>) began work on producerCRM. In late 2014 Ian (<a href="https://github.com/IanLeatherbury" class="user-mention">@IanLeatherbury</a>) of Xamarin helped troubleshot some issues.</p>
+
+<h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Currently there's no formal documentation. Contact <a href="https://github.com/DFA-Daven" class="user-mention">@DFA-Daven</a> and I’ll try to help you sort it out.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/DFA-daven">DFA-daven</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-19650279-21");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
