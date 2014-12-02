@@ -9,7 +9,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using System.Reflection;
+    //using System.Reflection;
     using System.Windows.Input;
 
     /// <summary>Class definition of the "View Reports" domain object.

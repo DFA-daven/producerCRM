@@ -7,7 +7,7 @@
     using System;
     using System.Threading.Tasks;
     using System.Diagnostics;
-    using System.Reflection;
+    //using System.Reflection;
 
     /// <summary>Implements the <see cref="IUserIdentityService"/> interface.
     /// </summary>

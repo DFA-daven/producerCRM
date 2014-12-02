@@ -11,7 +11,7 @@ namespace CallForm.iOS.Views
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using System.Reflection;
+    //using System.Reflection;
 
     // notes: see _Touch UI.txt for design details.
 

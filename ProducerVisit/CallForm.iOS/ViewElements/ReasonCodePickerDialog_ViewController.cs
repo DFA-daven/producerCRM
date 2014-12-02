@@ -10,7 +10,7 @@ namespace CallForm.iOS.ViewElements
     using System;
     using System.Drawing;
     using System.Linq.Expressions;
-    using System.Reflection;
+    //using System.Reflection;
     using XibFree;
 
     /// <summary>The class that defines View Element (control) for displaying and 
