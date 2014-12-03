@@ -23,6 +23,7 @@ namespace CallForm.iOS
     public partial class AppDelegate : MvxApplicationDelegate
     {
         #region class-level declarations
+		// class-level declarations
         UIWindow _window;
 
         // Note: The Navigation Controller is a UI-less View Controller responsible for
@@ -30,9 +31,10 @@ namespace CallForm.iOS
         // as a navigation bar with a back button.
 //        UINavigationController _navController;
 //        UINavigationBar _navigationBar;
-		string _namespace = "CallForm.iOS.";
-		string _class = "AppDelegate.";
-		string _method = "TBD";
+//		  UITableViewController _homeViewController;
+//		string _namespace = "CallForm.iOS.";
+//		string _class = "AppDelegate.";
+//		string _method = "TBD";
 
         public static AppDelegate Current { get; private set; }
 
@@ -69,7 +71,7 @@ namespace CallForm.iOS
         /// </remarks>
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-			_method = "FinishedLaunching";
+			// _method = "FinishedLaunching";
 			// Common_iOS.DebugMessage(_namespace + _class, _method);
 			// Common_iOS.DebugMessage("  [AppD][fl] > Assembly info:" + System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
 			// Common_iOS.DebugMessage("  [AppD][fl] > starting method...");
@@ -141,35 +143,35 @@ namespace CallForm.iOS
 
         public override void OnActivated(UIApplication application)
         {
-			_method = "OnActivated";
+			// _method = "OnActivated";
 	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][oa] > App is active.");
         }
 
         public override void WillEnterForeground(UIApplication application)
         {
-			_method = "WillEnterForeground";
+			// _method = "WillEnterForeground";
 	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][wef] > App will enter foreground.");
         }
 
         public override void OnResignActivation(UIApplication application)
         {
-			_method = "OnResignActivation";
+			// _method = "OnResignActivation";
 	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][ora] > App moving to inactive state.");
         }
 
         public override void DidEnterBackground(UIApplication application)
         {
-			_method = "DidEnterBackground";
+			// _method = "DidEnterBackground";
 	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][deb] > App entering background state.");
         }
 
         public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
         {
-			_method = "ReceivedLocalNotification";
+			// _method = "ReceivedLocalNotification";
 	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][rln] > " + notification.Description);
         }
@@ -177,7 +179,7 @@ namespace CallForm.iOS
         // not guaranteed that this will run
         public override void WillTerminate(UIApplication application)
         {
-			_method = "WillTerminate";
+			// _method = "WillTerminate";
 	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][wt] > App is terminating.");
         }
@@ -187,17 +189,17 @@ namespace CallForm.iOS
         //public event EventHandler<ErrorEventArgs> Error;
     }
 
-    class NavBarDelegate : UINavigationBarDelegate
-    {
-        #region overrides
-        #pragma warning disable 1591
-
-        public override UIBarPosition GetPositionForBar(IUIBarPositioning barPositioning)
-        {
-            return UIBarPosition.TopAttached;
-        }
-        #pragma warning restore 1591
-        #endregion overrides
-    }
+//    class NavBarDelegate : UINavigationBarDelegate
+//    {
+//        #region overrides
+//        #pragma warning disable 1591
+//
+//        public override UIBarPosition GetPositionForBar(IUIBarPositioning barPositioning)
+//        {
+//            return UIBarPosition.TopAttached;
+//        }
+//        #pragma warning restore 1591
+//        #endregion overrides
+//    }
 }
 

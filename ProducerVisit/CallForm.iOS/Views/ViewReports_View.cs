@@ -503,11 +503,13 @@ namespace CallForm.iOS.Views
 
             // FixMe: find way to get the app's title
             // get current values from the assembly
-            var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName();
-            string appName = assemblyName.Name;                     // the name of this project -- CallForm.iOS
+//            var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName();
+//			string appName = assemblyName.Name;                     // the name of this project -- CallForm.iOS
+			string appName = string.Empty;                     // the name of this project -- CallForm.iOS
             appName = "ProducerCRM";
-            string appVersion = assemblyName.Version.ToString();    // the version number
-            ////var up = System.Reflection.Ass
+//			string appVersion = assemblyName.Version.ToString();    // the version number
+			string appVersion = string.Empty;    // the version number
+			appVersion = "2";
 
             // FixMe: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
             // need something like if this.config != release then appName = appName + this.config
@@ -520,7 +522,6 @@ namespace CallForm.iOS.Views
 	appName = appName;
 #elif (DEBUG)
             appName += " (DEBUG)";
-
 #endif
 
             // FixMe: this only catches if the debugger is attached - so 'alpha' and 'beta' are never true.
