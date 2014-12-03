@@ -72,7 +72,7 @@
         public override void ViewDidLoad()
         {
 			_method = "ViewDidLoad";
-			Common_iOS.DebugMessage(_namespace + _class, _method); 
+	  // Common_iOS.DebugMessage(_namespace + _class, _method); 
 
             // Note: this took a while to find...
             NavigationItem.SetHidesBackButton(true, false);
@@ -446,14 +446,14 @@
             View.AddGestureRecognizer(goAway);
             #endregion UI action
 
-			Common_iOS.DebugMessage(_namespace + _class, _method);
-            Common_iOS.DebugMessage("  [ui_v][vdl] > ...finished method.");
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+            // Common_iOS.DebugMessage("  [ui_v][vdl] > ...finished method.");
         }
 
         public override void ViewDidLayoutSubviews()
         {
 			_method = "ViewDidLayoutSubviews";
-			Common_iOS.DebugMessage(_namespace + _class, _method);            
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);            
 
             base.ViewDidLayoutSubviews();
 

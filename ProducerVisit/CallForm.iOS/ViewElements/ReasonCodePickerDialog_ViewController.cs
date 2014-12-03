@@ -34,7 +34,7 @@ namespace CallForm.iOS.ViewElements
         public ReasonCodePickerDialog_ViewController(NewVisit_ViewModel viewModel, NewVisit_TableViewSource source)
         {
 			_method = "ReasonCodePickerDialog_ViewController";
-			Common_iOS.DebugMessage(_namespace + _class, _method);            
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);            
 
             _viewModel = viewModel;
             _source = source;
@@ -61,11 +61,11 @@ namespace CallForm.iOS.ViewElements
             rowCount = rowCount + 2; // add two to take into account the footer and header
             
             float estimatedContentHeight = (float)Math.Round(rowHeight * rowCount, 0);
-            Common_iOS.DebugMessage("  [rcpd_vc][rcpd_vc] > estimatedContentHeight = " + estimatedContentHeight.ToString() + ", safeContentHeight = " + safeContentHeight.ToString() + " < [rcpd_vc][rcpd_vc] @ @ @ @");
+            // Common_iOS.DebugMessage("  [rcpd_vc][rcpd_vc] > estimatedContentHeight = " + estimatedContentHeight.ToString() + ", safeContentHeight = " + safeContentHeight.ToString() + " < [rcpd_vc][rcpd_vc] @ @ @ @");
 
             // Note: safeContentHeight defines the value of the "content". If it's larger than NewVisit_TableViewSource.availableDisplayHeight rows will be un-clickable.
             safeContentHeight = Math.Min(safeContentHeight, estimatedContentHeight);
-            Common_iOS.DebugMessage("* [rcpd_vc][rcpd_vc] > safeContentHeight = " + safeContentHeight.ToString() + " < [rcpd_vc][rcpd_vc] @ @ @ @ @ @ @");
+            // Common_iOS.DebugMessage("* [rcpd_vc][rcpd_vc] > safeContentHeight = " + safeContentHeight.ToString() + " < [rcpd_vc][rcpd_vc] @ @ @ @ @ @ @");
             
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
             _table.Frame = new RectangleF(0, 0, safeContentWidth, safeContentHeight);
@@ -106,14 +106,14 @@ namespace CallForm.iOS.ViewElements
         //{
 		//    _method = "ViewDidLoad";
 		//    Common_iOS.DebugMessage(_nameSpace + _class, _method);
-        //    Common_iOS.DebugMessage("? [rcpd_vc][vdl] > make a note of when this is being run");
+		//    Common_iOS.DebugMessage("? [rcpd_vc][vdl] > make a note of when this is being run");
         //}
 
         //public override void ViewDidLayoutSubviews()
         //{
 		//    _method = "ViewDidLayoutSubviews";
 		//    Common_iOS.DebugMessage(_nameSpace + _class, _method);
-        //    Common_iOS.DebugMessage("? [rcpd_vc][vdls] > make a note of when this is being run");
+		//    Common_iOS.DebugMessage("? [rcpd_vc][vdls] > make a note of when this is being run");
         //}
 
         //internal float ReasonCodeHeight
@@ -160,24 +160,24 @@ namespace CallForm.iOS.ViewElements
                 float layoutHeight = 0f;
                 UIView[] subviews = View.Subviews;
 
-                Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > rowHeight = " + rowHeight.ToString() + ", rowCount = " + rowCount.ToString() + ". Calculating layoutHeight....");
+                // Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > rowHeight = " + rowHeight.ToString() + ", rowCount = " + rowCount.ToString() + ". Calculating layoutHeight....");
                 if (subviews == null)
                 {
-                    Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[] is NULL.");
+                    // Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[] is NULL.");
                 }
                 else
                 {
                     int subviewsArrayLength = subviews.Length;
-                    Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString());
+                    // Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[] is NOT null. subviewsArrayLength = " + subviewsArrayLength.ToString());
                     for (int i = 0; i < subviewsArrayLength; i++)
                     {
                         if (subviews[i].GetType() == typeof(UIView))
                         {
-                            Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString());
+                            // Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[" + i.ToString() + "] == typeof(UIView), Height = " + subviews[i].Frame.Height.ToString());
                         }
                         else
                         {
-                            Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString());
+                            // Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > View.Subviews[" + i.ToString() + "] is wrapping something: Height = " + subviews[i].Frame.Height.ToString());
                             layoutHeight = subviews[i].Frame.Height;
                         }
                     }
@@ -189,13 +189,13 @@ namespace CallForm.iOS.ViewElements
                 size.Height = Math.Max(preferredHeight, layoutHeight);
 
                 // Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > _table.Frame.Size.Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd_vc][pcs][g] <= = = = = = = ");
-                Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd_vc][pcs][g] <= = = = = = = ");
+                // Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd_vc][pcs][g] <= = = = = = = ");
 
                 return size;
             }
             set 
             {
-                Common_iOS.DebugMessage("  [rcpd_vc][pcs][s] > value.Height = " + value.Height.ToString() + ", Width = " + value.Width.ToString() + " [rcpd_vc][pcs][s] <= = = = = = = ");
+                // Common_iOS.DebugMessage("  [rcpd_vc][pcs][s] > value.Height = " + value.Height.ToString() + ", Width = " + value.Width.ToString() + " [rcpd_vc][pcs][s] <= = = = = = = ");
                 base.PreferredContentSize = value; 
             }
         }

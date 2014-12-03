@@ -47,8 +47,8 @@ namespace CallForm.iOS.ViewElements
             float maxTableHeight = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);  // the Y value
             float maxTableWidth = (float)Math.Round(UIScreen.MainScreen.Bounds.Width * 0.5, 0);    // the X value
 
-			Common_iOS.DebugMessage(_namespace + _class, _method);
-            Common_iOS.DebugMessage("  [ersd_vc][ersd_vc] > maxTableHeight = " + maxTableHeight.ToString() + ", maxTableWidth = " + maxTableWidth.ToString());
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+            // Common_iOS.DebugMessage("  [ersd_vc][ersd_vc] > maxTableHeight = " + maxTableHeight.ToString() + ", maxTableWidth = " + maxTableWidth.ToString());
 
             // Note: offset here is displayed as whitespace between the NW corner of the popover and the NW corner of the content.
             _table.Frame = new RectangleF(0, 0, maxTableWidth, maxTableHeight);
@@ -92,8 +92,8 @@ namespace CallForm.iOS.ViewElements
                 //size.Height += 50;
                 //size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.5, 0);
 
-				Common_iOS.DebugMessage(_namespace + _class, _method);
-                Common_iOS.DebugMessage("  [ersd_vc][pcs] > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString());
+		  // Common_iOS.DebugMessage(_namespace + _class, _method);
+                // Common_iOS.DebugMessage("  [ersd_vc][pcs] > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString());
 
                 return size;
             }

@@ -36,7 +36,7 @@ namespace CallForm.iOS
 	    protected override IMvxApplication CreateApp ()
 		{
 			_method = "CreateApp";
-			Common_iOS.DebugMessage(_namespace + _class, _method);
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);
             Console.WriteLine("  [Setup][CA] > return new Core.App(). < SETUP SETUP SETUP SETUP SETUP SETUP");
 			return new Core.App();
 		}
@@ -57,7 +57,7 @@ namespace CallForm.iOS
         public MvxProducerVisit_TouchViewPresenter(UIApplicationDelegate applicationDelegate, UIWindow window) : base(applicationDelegate, window)
         {
 			_method = "BASE";
-			Common_iOS.DebugMessage(_nameSpace + _class, _method);
+	  // Common_iOS.DebugMessage(_nameSpace + _class, _method);
             Console.WriteLine("  [Setup][mpv_tvp] > New instance of MvxProducerVisit_TouchViewPresenter created. < SETUP SETUP SETUP SETUP SETUP SETUP");
         }
 
@@ -67,7 +67,7 @@ namespace CallForm.iOS
         public override void Show(IMvxTouchView view)
         {
 			_method = "Show";
-			Common_iOS.DebugMessage(_nameSpace + _class, _method);
+	  // Common_iOS.DebugMessage(_nameSpace + _class, _method);
 
             if (view.Request.ViewModelType == typeof(NewVisit_ViewModel))
             {

@@ -70,9 +70,9 @@ namespace CallForm.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
 			_method = "FinishedLaunching";
-			Common_iOS.DebugMessage(_namespace + _class, _method);
-//            Common_iOS.DebugMessage("  [AppD][fl] > Assembly info:" + System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
-            Common_iOS.DebugMessage("  [AppD][fl] > starting method...");
+			// Common_iOS.DebugMessage(_namespace + _class, _method);
+			// Common_iOS.DebugMessage("  [AppD][fl] > Assembly info:" + System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
+			// Common_iOS.DebugMessage("  [AppD][fl] > starting method...");
 
             _window = new UIWindow(UIScreen.MainScreen.Bounds);     // required
 
@@ -133,7 +133,7 @@ namespace CallForm.iOS
             // experimental:
             UIApplication.SharedApplication.ApplicationSupportsShakeToEdit = true;
 
-            Common_iOS.DebugMessage("  [AppD][fl] > ...finished method.");
+            // Common_iOS.DebugMessage("  [AppD][fl] > ...finished method.");
 
             bool started = true;
             return started;                                         // required
@@ -142,44 +142,44 @@ namespace CallForm.iOS
         public override void OnActivated(UIApplication application)
         {
 			_method = "OnActivated";
-			Common_iOS.DebugMessage(_namespace + _class, _method);
-            Common_iOS.DebugMessage("  [AppD][oa] > App is active.");
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+            // Common_iOS.DebugMessage("  [AppD][oa] > App is active.");
         }
 
         public override void WillEnterForeground(UIApplication application)
         {
 			_method = "WillEnterForeground";
-			Common_iOS.DebugMessage(_namespace + _class, _method);
-            Common_iOS.DebugMessage("  [AppD][wef] > App will enter foreground.");
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+            // Common_iOS.DebugMessage("  [AppD][wef] > App will enter foreground.");
         }
 
         public override void OnResignActivation(UIApplication application)
         {
 			_method = "OnResignActivation";
-			Common_iOS.DebugMessage(_namespace + _class, _method);
-            Common_iOS.DebugMessage("  [AppD][ora] > App moving to inactive state.");
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+            // Common_iOS.DebugMessage("  [AppD][ora] > App moving to inactive state.");
         }
 
         public override void DidEnterBackground(UIApplication application)
         {
 			_method = "DidEnterBackground";
-			Common_iOS.DebugMessage(_namespace + _class, _method);
-            Common_iOS.DebugMessage("  [AppD][deb] > App entering background state.");
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+            // Common_iOS.DebugMessage("  [AppD][deb] > App entering background state.");
         }
 
         public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
         {
 			_method = "ReceivedLocalNotification";
-			Common_iOS.DebugMessage(_namespace + _class, _method);
-            Common_iOS.DebugMessage("  [AppD][rln] > " + notification.Description);
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+            // Common_iOS.DebugMessage("  [AppD][rln] > " + notification.Description);
         }
 
         // not guaranteed that this will run
         public override void WillTerminate(UIApplication application)
         {
 			_method = "WillTerminate";
-			Common_iOS.DebugMessage(_namespace + _class, _method);
-            Common_iOS.DebugMessage("  [AppD][wt] > App is terminating.");
+	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+            // Common_iOS.DebugMessage("  [AppD][wt] > App is terminating.");
         }
         #pragma warning restore 1591
         #endregion overrides
