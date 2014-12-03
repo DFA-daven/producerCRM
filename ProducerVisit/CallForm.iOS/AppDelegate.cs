@@ -28,8 +28,8 @@ namespace CallForm.iOS
         // Note: The Navigation Controller is a UI-less View Controller responsible for
         // managing a stack of View Controllers and provides tools for navigation, such 
         // as a navigation bar with a back button.
-        UINavigationController _navController;
-        UINavigationBar _navigationBar;
+//        UINavigationController _navController;
+//        UINavigationBar _navigationBar;
 		string _namespace = "CallForm.iOS.";
 		string _class = "AppDelegate.";
 		string _method = "TBD";
@@ -100,8 +100,8 @@ namespace CallForm.iOS
             // Note: The default presenter uses a UINavigationController for the RootController 
             // on the window; so we can manipulate the navigation bar globally in 
             // AppDelegate by grabbing it off the window and casting:
-            _navController = (UINavigationController)_window.RootViewController;
-            _navigationBar = _navController.NavigationBar;
+//            _navController = (UINavigationController)_window.RootViewController;
+//            _navigationBar = _navController.NavigationBar;
             //_navigationBar.BackgroundColor = UIColor.Green;
             //navigationBar.BarTintColor = UIColor.Black;
             //navigationBar.TintColor = UIColor.White;
@@ -142,35 +142,35 @@ namespace CallForm.iOS
         public override void OnActivated(UIApplication application)
         {
 			_method = "OnActivated";
-	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][oa] > App is active.");
         }
 
         public override void WillEnterForeground(UIApplication application)
         {
 			_method = "WillEnterForeground";
-	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][wef] > App will enter foreground.");
         }
 
         public override void OnResignActivation(UIApplication application)
         {
 			_method = "OnResignActivation";
-	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][ora] > App moving to inactive state.");
         }
 
         public override void DidEnterBackground(UIApplication application)
         {
 			_method = "DidEnterBackground";
-	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][deb] > App entering background state.");
         }
 
         public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
         {
 			_method = "ReceivedLocalNotification";
-	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][rln] > " + notification.Description);
         }
 
@@ -178,7 +178,7 @@ namespace CallForm.iOS
         public override void WillTerminate(UIApplication application)
         {
 			_method = "WillTerminate";
-	  // Common_iOS.DebugMessage(_namespace + _class, _method);
+	        // Common_iOS.DebugMessage(_namespace + _class, _method);
             // Common_iOS.DebugMessage("  [AppD][wt] > App is terminating.");
         }
         #pragma warning restore 1591

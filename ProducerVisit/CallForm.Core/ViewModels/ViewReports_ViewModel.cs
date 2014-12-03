@@ -273,9 +273,17 @@
         /// </summary>
         protected void DoNewVisitCommand()
         {
+			try 
+			{
 				// CommonCore.DebugMessage("  core[vr_vm][dnvc] > About to ShowViewModel<NewVisit_ViewModel>()... ");
 	            ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { MemberNumber = string.Empty });
 			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e.Message);
+			}
+
+        }
 
         /// <summary>Value for this View's Title.
         /// </summary>

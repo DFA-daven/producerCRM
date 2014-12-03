@@ -17,11 +17,11 @@ namespace CallForm.Core.ViewModels
     /// <remarks>Design goal is to limit this class to only deal with the raw data.</remarks>
     public class NewVisit_ViewModel : MvxViewModel
     {
-        private readonly ILocationService _locationService;
+//        private readonly ILocationService _locationService;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDataService _localDatabaseService;
         private readonly IMvxJsonConverter _jsonConverter;
-        private MvxSubscriptionToken _subscriptionTag;
+//        private MvxSubscriptionToken _subscriptionTag;
 
         #region backing fields
         /// <summary>Store for the latitude property.</summary>
@@ -96,20 +96,20 @@ namespace CallForm.Core.ViewModels
             ActualTime = DateTime.Now;
 
             // review: is the location being obtained twice? And is the second time even if the user answered "don't allow"?
-            _locationService = locationService;
+//            _locationService = locationService;
             ////messenger.Subscribe<LocationMessage>(OnLocationMessage);
             //messenger.SubscribeOnMainThread<LocationMessage>(OnLocationMessage);
 
-            _subscriptionTag = messenger.Subscribe<LocationMessage>(OnLocationMessage);
-            _subscriptionTag = messenger.SubscribeOnMainThread<LocationMessage>(OnLocationMessage);
-            GetInitialLocation();
+//            _subscriptionTag = messenger.Subscribe<LocationMessage>(OnLocationMessage);
+//            _subscriptionTag = messenger.SubscribeOnMainThread<LocationMessage>(OnLocationMessage);
+//            GetInitialLocation();
 
             _pictureChooserTask = pictureChooserTask;
             _localDatabaseService = localDatabaseService;
             _jsonConverter = jsonConverter;
 
             // Review: 11 is this *always* a new report?
-            //IsNewReport = true;
+            IsNewReport = true;
 
             // CommonCore.DebugMessage("  core[nv_vm][nv_vm] > ...finished creating NewVisit_ViewModel().");
 
@@ -162,12 +162,14 @@ namespace CallForm.Core.ViewModels
             // CommonCore.DebugMessage(_className, "GetInitialLocation");
             // CommonCore.DebugMessage("  core[nv_vm][gil] > Attempting TryGetLatestLocation()");
 
-            double lat, lng;
-            if (_locationService.TryGetLatestLocation(out lat, out lng))
-            {
-                Lat = lat;
-                Lng = lng;
-            }
+//            double lat, lng;
+//            if (_locationService.TryGetLatestLocation(out lat, out lng))
+//            {
+//                Lat = lat;
+//                Lng = lng;
+//            }
+			Lat = 43.102555;
+			Lng = -76.056555;
         }
 
         private void OnLocationMessage(LocationMessage locationMessage)
