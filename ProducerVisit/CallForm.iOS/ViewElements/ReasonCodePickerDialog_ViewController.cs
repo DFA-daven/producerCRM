@@ -306,7 +306,8 @@ namespace CallForm.iOS.ViewElements
 
 #if (DEBUG)
             // Note: in order to make to past the New Visit view, select the first reasonCode.
-            if (Common_iOS.UserInterfaceIdiomIsPhone)
+//            if (Common_iOS.UserInterfaceIdiomIsPhone)
+			if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
             {
                 ReasonCode fakeSelectedReasonCode = _viewModel.ListOfReasonCodes[0];
                 //if (_viewModel.SelectedReasonCodes.Contains(fakeSelectedReasonCode))

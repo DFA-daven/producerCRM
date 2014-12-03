@@ -64,7 +64,9 @@
         {
             //NavBarHeight = FindNavBarHeight();
 
-            bool iPhoneIdiom = Common_iOS.UserInterfaceIdiomIsPhone;
+//            bool iPhoneIdiom = Common_iOS.UserInterfaceIdiomIsPhone;
+
+			bool iPhoneIdiom = (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone);
         }
 
         #region overrides
