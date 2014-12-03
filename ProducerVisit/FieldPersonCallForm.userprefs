@@ -1,0 +1,26 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.Dev-iPad2-tag-A0361" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="CallForm.Core/ViewModels/ViewReports_ViewModel.cs">
+    <Files>
+      <File FileName="CallForm.iOS/Views/NewVisit_TableViewSource.cs" Line="13" Column="13" />
+      <File FileName="CallForm.iOS/Views/NewVisit_View.cs" Line="31" Column="31" />
+      <File FileName="CallForm.iOS/Views/ViewReports_View.cs" Line="31" Column="31" />
+      <File FileName="CallForm.Core/ViewModels/ViewReports_ViewModel.cs" Line="19" Column="19" />
+      <File FileName="CallForm.Core/ViewModels/NewVisit_ViewModel.cs" Line="29" Column="29" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/macmini/repos/git/DFA/Mobile/ProducerVisit/CallForm.Core/Services/LocationMessage.cs" line="10" column="1" />
+      <Breakpoint file="/Users/macmini/repos/git/DFA/Mobile/ProducerVisit/CallForm.Core/Services/LocationMessage.cs" line="15" column="1" />
+      <Breakpoint file="/Users/macmini/repos/git/DFA/Mobile/ProducerVisit/CallForm.Core/Services/LocationMessage.cs" line="16" column="1" />
+      <Breakpoint file="/Users/macmini/repos/git/DFA/Mobile/ProducerVisit/CallForm.Core/Services/LocationService.cs" line="16" column="1" />
+      <Breakpoint file="/Users/macmini/repos/git/DFA/Mobile/ProducerVisit/CallForm.Core/Services/LocationService.cs" line="27" column="1" />
+      <Breakpoint file="/Users/macmini/repos/git/DFA/Mobile/ProducerVisit/CallForm.Core/Services/LocationService.cs" line="42" column="1" />
+      <Breakpoint file="/Users/macmini/repos/git/DFA/Mobile/ProducerVisit/CallForm.Core/Services/LocationService.cs" line="47" column="1" />
+      <Breakpoint file="/Users/macmini/repos/git/DFA/Mobile/ProducerVisit/CallForm.iOS/AppDelegate.cs" line="74" column="1" />
+      <Breakpoint file="/Users/macmini/repos/git/DFA/Mobile/ProducerVisit/CallForm.Core/ViewModels/ViewReports_ViewModel.cs" line="277" column="83" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
