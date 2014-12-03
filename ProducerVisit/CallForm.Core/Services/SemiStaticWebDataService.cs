@@ -312,7 +312,7 @@
 
                     try
                     {
-                        //CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > trying...");
+                        // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > trying...");
 
                         if (!GettingReasonCodes & ReasonCodeFileMissing)
                         {
@@ -326,7 +326,7 @@
 
                             UpdateReasonCodeModel(request);
                         }
-                        //CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > done trying.");
+                        // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > done trying.");
 
                     }
                     catch (Exception e)
@@ -336,7 +336,7 @@
                     
                     try
                     {
-                        //CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > trying...");
+                        // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > trying...");
 
                         if (!GettingCallTypes & CallTypeFileMissing)
                         {
@@ -350,7 +350,7 @@
 
                             UpdateCallTypeModel(request);
                         }
-                        //CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > done trying.");
+                        // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > done trying.");
 
                     }
                     catch (Exception e)
@@ -360,7 +360,7 @@
 
                     try
                     {
-                        //CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > EmailRecipient > trying...");
+                        // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > EmailRecipient > trying...");
 
                         if (!GettingEmailRecipients & EmailRecipientFileMissing)
                         {
@@ -374,7 +374,7 @@
 
                             UpdateEmailRecipientModel(request);
                         }
-                        //CommonCore.DebugMessage(  core[sswds][um] > "UpdateModels > EmailRecipient > done trying.");
+                        // CommonCore.DebugMessage(  core[sswds][um] > "UpdateModels > EmailRecipient > done trying.");
 
                     }
                     catch (Exception e)
@@ -695,11 +695,11 @@
         private bool XmlFileMissing(string filePath)
         {
             string filename = _fileStore.PathCombine(_dataFolderPathName, filePath);
-            //CommonCore.DebugMessage("  core[sswds][xfm] > Checking for " + filename);
+            // CommonCore.DebugMessage("  core[sswds][xfm] > Checking for " + filename);
 
             bool fileExists = _fileStore.Exists(filename);
             bool fileMissing = !fileExists;
-            //CommonCore.DebugMessage("  core[sswds][xfm] > fileMissing = " + fileMissing.ToString());
+            // CommonCore.DebugMessage("  core[sswds][xfm] > fileMissing = " + fileMissing.ToString());
 
             return fileMissing;
         }

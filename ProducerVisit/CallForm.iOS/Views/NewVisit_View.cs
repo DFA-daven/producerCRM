@@ -1017,7 +1017,7 @@ namespace CallForm.iOS.Views
             //UIView[] subviews = View.Subviews;
 
             //// ToDo: this works in portrait, but after the first rotation it returns 300, 556, 
-            //Common_iOS.DebugMessage("  [nv_v][nbh] > Calculating navbarHeight....");
+            // Common_iOS.DebugMessage("  [nv_v][nbh] > Calculating navbarHeight....");
             
             //// skip if we're not ready
             //if (View.Frame.Height < 1)

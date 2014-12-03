@@ -188,7 +188,7 @@ namespace CallForm.iOS.ViewElements
                 //size.Height = (float)Math.Round(UIScreen.MainScreen.Bounds.Height * 0.75, 0);
                 size.Height = Math.Max(preferredHeight, layoutHeight);
 
-                //Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > _table.Frame.Size.Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd_vc][pcs][g] <= = = = = = = ");
+                // Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > _table.Frame.Size.Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd_vc][pcs][g] <= = = = = = = ");
                 Common_iOS.DebugMessage("  [rcpd_vc][pcs][g] > PreferredContentSize Height = " + size.Height.ToString() + ", Width = " + size.Width.ToString() + " [rcpd_vc][pcs][g] <= = = = = = = ");
 
                 return size;
