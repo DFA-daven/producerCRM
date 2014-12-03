@@ -421,7 +421,9 @@
             View.Add(loading);
             View.Add(loadingOverlay);
 
-            base.ViewDidLoad();
+             base.ViewDidLoad();  	// Cirrious.CrossCore.Exceptionms.MvxException has been thrown
+									// Failed to find constructor for type 
+									// Cirrious.MvvmCross.ViewModels.MvxViewModelLoader
             #region experimental FlyoutNavigationController
             /*
             // base.ViewDidLoad();
