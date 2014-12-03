@@ -77,7 +77,7 @@ namespace CallForm.Core.ViewModels
             IMvxJsonConverter jsonConverter,
             ISemiStaticWebDataService semiStaticWebDataService)
         {
-            CommonCore.DebugMessage("  core[nv_vm][nv_vm] > Creating new instance of NewVisit_ViewModel()... ");
+            // CommonCore.DebugMessage("  core[nv_vm][nv_vm] > Creating new instance of NewVisit_ViewModel()... ");
 
             ListOfReasonCodes = localDatabaseService.GetSQLiteReasonCodes();
             SelectedReasonCodes = new List<ReasonCode>();
@@ -111,18 +111,18 @@ namespace CallForm.Core.ViewModels
             // Review: 11 is this *always* a new report?
             //IsNewReport = true;
 
-            CommonCore.DebugMessage("  core[nv_vm][nv_vm] > ...finished creating NewVisit_ViewModel().");
+            // CommonCore.DebugMessage("  core[nv_vm][nv_vm] > ...finished creating NewVisit_ViewModel().");
 
         }
 
         public void Init(NewVisitInit data)
         {
-            CommonCore.DebugMessage("  core[nv_vm][init] > Starting Init(NewVisitInit data)... ");
+            // CommonCore.DebugMessage("  core[nv_vm][init] > Starting Init(NewVisitInit data)... ");
             if (string.IsNullOrEmpty(data.ReportData))
             {
 				MemberNumber = data.MemberNumber ?? string.Empty;
                 IsNewReport = true;
-				CommonCore.DebugMessage("  core[nv_vm][init] > This is a NEW report, ...finished Init(NewVisitInit data). ");
+		  // CommonCore.DebugMessage("  core[nv_vm][init] > This is a NEW report, ...finished Init(NewVisitInit data). ");
                 return;
             }
 
@@ -151,7 +151,7 @@ namespace CallForm.Core.ViewModels
             }
             PictureBytes = (byte[]) (report.PictureBytes ?? new byte[0]).Clone();
 
-            CommonCore.DebugMessage("  core[nv_vm][init] > ...finished Init(NewVisitInit data).");
+            // CommonCore.DebugMessage("  core[nv_vm][init] > ...finished Init(NewVisitInit data).");
         }
 
         //internal List<string> 
@@ -159,8 +159,8 @@ namespace CallForm.Core.ViewModels
         private void GetInitialLocation()
         {
             //System.Console.WriteLine("Attempting to GetInitialLocation");
-            CommonCore.DebugMessage(_className, "GetInitialLocation");
-            CommonCore.DebugMessage("  core[nv_vm][gil] > Attempting TryGetLatestLocation()");
+            // CommonCore.DebugMessage(_className, "GetInitialLocation");
+            // CommonCore.DebugMessage("  core[nv_vm][gil] > Attempting TryGetLatestLocation()");
 
             double lat, lng;
             if (_locationService.TryGetLatestLocation(out lat, out lng))

@@ -274,8 +274,8 @@
 //        [DebuggerStepThrough]
         public void UpdateModels()
         {
-            CommonCore.DebugMessage(_className, "UpdateModels");
-            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > starting...");
+            // CommonCore.DebugMessage(_className, "UpdateModels");
+            // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > starting...");
 
             // FixMe: switch this to three separate methods, each with an async/await
             string filename = string.Empty;
@@ -296,7 +296,7 @@
 
             try
             {
-                CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > trying...");
+                // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > trying...");
 
                 CheckFolder(_dataFolderPathName);
 
@@ -316,13 +316,13 @@
 
                         if (!GettingReasonCodes & ReasonCodeFileMissing)
                         {
-                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > getting Reasons...");
+                            // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > getting Reasons...");
 
                             GettingReasonCodes = true;
                             string requestURL = _targetURL + "/Visit/Reasons/";
                             var request = new MvxRestRequest(requestURL);
 
-                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > Request: " + requestURL);
+                            // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > Request: " + requestURL);
 
                             UpdateReasonCodeModel(request);
                         }
@@ -331,7 +331,7 @@
                     }
                     catch (Exception e)
                     {
-                        CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > " + e.Message);
+                        // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > ReasonCode > " + e.Message);
                     }
                     
                     try
@@ -340,13 +340,13 @@
 
                         if (!GettingCallTypes & CallTypeFileMissing)
                         {
-                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > getting CallTypes...");
+                            // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > getting CallTypes...");
 
                             GettingCallTypes = true;
                             string requestURL = _targetURL + "/Visit/CallTypes/";
                             var request = new MvxRestRequest(requestURL);
 
-                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > Request: " + requestURL);
+                            // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > Request: " + requestURL);
 
                             UpdateCallTypeModel(request);
                         }
@@ -355,7 +355,7 @@
                     }
                     catch (Exception e)
                     {
-                        CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > " + e.Message);
+                        // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > CallType > " + e.Message);
                     }
 
                     try
@@ -364,13 +364,13 @@
 
                         if (!GettingEmailRecipients & EmailRecipientFileMissing)
                         {
-                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > EmailRecipient > getting EmailRecipients...");
+                            // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > EmailRecipient > getting EmailRecipients...");
 
                             GettingEmailRecipients = true;
                             string requestURL = _targetURL + "/Visit/EmailRecipients/";
                             var request = new MvxRestRequest(requestURL);
 
-                            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > Request: " + requestURL);
+                            // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > Request: " + requestURL);
 
                             UpdateEmailRecipientModel(request);
                         }
@@ -379,7 +379,7 @@
                     }
                     catch (Exception e)
                     {
-                        CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > EmailRecipient > " + e.Message);
+                        // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > EmailRecipient > " + e.Message);
                     }
 
                     difference = DateTime.Now - start;
@@ -391,26 +391,26 @@
                         message = "  core[sswds][um] > UpdateModels > i = " + i + ", Getting = " + BusyGetting.ToString().Substring(0, 1) + ", Updating = " + BusyUpdating.ToString().Substring(0, 1) + ", Files = ";
                         message += (!CallTypeFileMissing).ToString().Substring(0, 1) + " " + (!EmailRecipientFileMissing).ToString().Substring(0, 1) + " " + (!ReasonCodeFileMissing).ToString().Substring(0, 1);
                         message += ", Time = " + differenceInSeconds.ToString();
-                        CommonCore.DebugMessage(message);
+                        // CommonCore.DebugMessage(message);
                     }
 
                     // !FilesExist() && (differenceInSeconds < 0.1) && (i < 10)
                 } while (!FilesExist() & differenceInSeconds < 10);
 
-                CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > done trying.");
+                // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > done trying.");
 
             }
             catch (Exception e)
             {
-                CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > " + e.Message);
+                // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > " + e.Message);
             }
             finally
             {
-                CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > finally.");
+                // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > finally.");
 
             }
 
-            CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > completed.");
+            // CommonCore.DebugMessage("  core[sswds][um] > UpdateModels > do/while > completed.");
 
         }
 
@@ -421,25 +421,25 @@
         public void UpdateReasonCodeModel(MvxRestRequest request)
         {
             string methodName = _className + " > UpdateReasonCodeModel";
-            CommonCore.DebugMessage(methodName + " > starting...");
+            // CommonCore.DebugMessage(methodName + " > starting...");
 
             try
             {
-                CommonCore.DebugMessage(methodName + " > ...trying...");
+                // CommonCore.DebugMessage(methodName + " > ...trying...");
 
                 _jsonRestClient.MakeRequestFor<List<ReasonCode>>(request,
                     (Action<MvxDecodedRestResponse<List<ReasonCode>>>)ReasonCodeRestResponse,
                     (Action<Exception>)ReasonCodeRestException);
-                CommonCore.DebugMessage(methodName + " > ...done trying...");                
+                // CommonCore.DebugMessage(methodName + " > ...done trying...");                
             }
             catch (Exception e)
             {
                 // can this code ever (reasonably) be reached?
-                CommonCore.DebugMessage(methodName + " > " + e.Message);
+                // CommonCore.DebugMessage(methodName + " > " + e.Message);
                 GettingReasonCodes = false;
             }
 
-            CommonCore.DebugMessage(methodName + " > finished.");
+            // CommonCore.DebugMessage(methodName + " > finished.");
         }
 
         /// <summary>Handle the REST Response containing <c>ReasonCode</c>.
@@ -450,7 +450,7 @@
         private void ReasonCodeRestResponse(MvxDecodedRestResponse<List<ReasonCode>> response)
         {
             string methodName = _className + " > ReasonCodeRestResponse";
-            CommonCore.DebugMessage(methodName + " > starting...");
+            // CommonCore.DebugMessage(methodName + " > starting...");
 
             string filename = string.Empty;
             filename = _fileStore.PathCombine(_dataFolderPathName, _reasonCodeFileName);
@@ -465,30 +465,30 @@
 
                     try
                     {
-                        CommonCore.DebugMessage(methodName + " > ...trying UpdateSQLite[table_name]()...");
+                        // CommonCore.DebugMessage(methodName + " > ...trying UpdateSQLite[table_name]()...");
                         rowsUpdated = _localDatabaseService.UpdateSQLiteReasonCodes(response.Result);
 
-                        CommonCore.DebugMessage(methodName + " > ...done UpdateSQLite[table_name]()....");
+                        // CommonCore.DebugMessage(methodName + " > ...done UpdateSQLite[table_name]()....");
 
                         try
                         {
-                            CommonCore.DebugMessage(methodName + " > ...trying WriteFile(" + filename + ")...");
+                            // CommonCore.DebugMessage(methodName + " > ...trying WriteFile(" + filename + ")...");
                             _fileStore.WriteFile(filename, Serialize(response.Result));
 
-                            CommonCore.DebugMessage(methodName + " > ...done WriteFile(" + filename + ")....");
+                            // CommonCore.DebugMessage(methodName + " > ...done WriteFile(" + filename + ")....");
                             UpdatingReasonCodes = GettingReasonCodes = false;    // success! 
                         }
                         catch (Exception e)
                         {
-                            CommonCore.DebugMessage(methodName + " > generated an Exception trying to WriteFile(" + filename + ")");
-                            CommonCore.DebugMessage(methodName + " > " + e.Message);
+                            // CommonCore.DebugMessage(methodName + " > generated an Exception trying to WriteFile(" + filename + ")");
+                            // CommonCore.DebugMessage(methodName + " > " + e.Message);
                             UpdatingReasonCodes = GettingReasonCodes = false;    // Failed to write file. We'll try both again by resetting the flag.
                         }
                     }
                     catch (Exception e)
                     {
-                        CommonCore.DebugMessage(methodName + " > received a REST 'response' (not an 'exception'), but the content indicates an error occurred.");
-                        CommonCore.DebugMessage(methodName + " > " + e.Message);
+                        // CommonCore.DebugMessage(methodName + " > received a REST 'response' (not an 'exception'), but the content indicates an error occurred.");
+                        // CommonCore.DebugMessage(methodName + " > " + e.Message);
 
                         // ToDo: handle each bad response separately. Ex: if (e.Message.ToLower().Contains("locked"))
                         UpdatingReasonCodes = GettingReasonCodes = false;    // Failed to update local SQLite dB. We'll try both again by resetting the flag.
@@ -496,36 +496,36 @@
                 }
             }
             
-            CommonCore.DebugMessage(methodName + " > ...finished.");
+            // CommonCore.DebugMessage(methodName + " > ...finished.");
         }
 
         public void UpdateCallTypeModel(MvxRestRequest request)
         {
             string methodName = _className + " > UpdateCallTypeModel";
-            CommonCore.DebugMessage(methodName + " > starting...");
+            // CommonCore.DebugMessage(methodName + " > starting...");
 
             try
             {
-                CommonCore.DebugMessage(methodName + " > ...trying...");
+                // CommonCore.DebugMessage(methodName + " > ...trying...");
 
                 _jsonRestClient.MakeRequestFor<List<CallType>>(request,
                     (Action<MvxDecodedRestResponse<List<CallType>>>)CallTypeRestResponse,
                     (Action<Exception>)CallTypeRestException);
-                CommonCore.DebugMessage(methodName + " > ...done trying...");
+                // CommonCore.DebugMessage(methodName + " > ...done trying...");
             }
             catch (Exception e)
             {
-                CommonCore.DebugMessage(methodName + " > " + e.Message);
+                // CommonCore.DebugMessage(methodName + " > " + e.Message);
                 GettingCallTypes = false;
             }
 
-            CommonCore.DebugMessage(methodName + " > finished.");
+            // CommonCore.DebugMessage(methodName + " > finished.");
         }
 
         private void CallTypeRestResponse(MvxDecodedRestResponse<List<CallType>> response)
         {
             string methodName = _className + " > CallTypeRestResponse";
-            CommonCore.DebugMessage(methodName + " > starting...");
+            // CommonCore.DebugMessage(methodName + " > starting...");
 
             // Broken: if the response can't be converted (ie it is the word "locked" or something ) don't try the conversion
             // ToDo: might even need to change this so it is accepting an object, so the object can be evaluated to see if it is the correct type before proceeding
@@ -542,30 +542,30 @@
 
                     try
                     {
-                        CommonCore.DebugMessage(methodName + " > ...trying UpdateSQLite[table_name]()...");
+                        // CommonCore.DebugMessage(methodName + " > ...trying UpdateSQLite[table_name]()...");
                         rowsUpdated = _localDatabaseService.UpdateSQLiteCallTypes(response.Result);
 
-                        CommonCore.DebugMessage(methodName + " > ...done UpdateSQLite[table_name]()....");
+                        // CommonCore.DebugMessage(methodName + " > ...done UpdateSQLite[table_name]()....");
 
                         try
                         {
-                            CommonCore.DebugMessage(methodName + " > ...trying WriteFile(" + filename + ")...");
+                            // CommonCore.DebugMessage(methodName + " > ...trying WriteFile(" + filename + ")...");
                             _fileStore.WriteFile(filename, Serialize(response.Result));
 
-                            CommonCore.DebugMessage(methodName + " > ...done WriteFile(" + filename + ")....");
+                            // CommonCore.DebugMessage(methodName + " > ...done WriteFile(" + filename + ")....");
                             UpdatingCallTypes = GettingCallTypes = false;    // success! 
                         }
                         catch (Exception e)
                         {
-                            CommonCore.DebugMessage(methodName + " > generated an Exception trying to WriteFile(" + filename + ")");
-                            CommonCore.DebugMessage(methodName + " > " + e.Message);
+                            // CommonCore.DebugMessage(methodName + " > generated an Exception trying to WriteFile(" + filename + ")");
+                            // CommonCore.DebugMessage(methodName + " > " + e.Message);
                             UpdatingCallTypes = GettingCallTypes = false;    // Failed to write file. We'll try both again by resetting the flag.
                         }
                     }
                     catch (Exception e)
                     {
-                        CommonCore.DebugMessage(methodName + " > received a REST 'response' (not an 'exception'), but the content indicates an error occurred.");
-                        CommonCore.DebugMessage(methodName + " > " + e.Message);
+                        // CommonCore.DebugMessage(methodName + " > received a REST 'response' (not an 'exception'), but the content indicates an error occurred.");
+                        // CommonCore.DebugMessage(methodName + " > " + e.Message);
 
                         // ToDo: handle each bad response separately. Ex: if (e.Message.ToLower().Contains("locked"))
                         UpdatingCallTypes = GettingCallTypes = false;    // Failed to update local SQLite dB. We'll try both again by resetting the flag.
@@ -573,37 +573,37 @@
                 }
             }
             
-            CommonCore.DebugMessage(methodName + " > ...finished.");
+            // CommonCore.DebugMessage(methodName + " > ...finished.");
         }
 
         public void UpdateEmailRecipientModel(MvxRestRequest request)
         {
             string methodName = _className + " > UpdateEmailRecipientModel";
-            CommonCore.DebugMessage(methodName + " > starting...");
+            // CommonCore.DebugMessage(methodName + " > starting...");
 
             try
             {
-                CommonCore.DebugMessage(methodName + " > ...trying...");
+                // CommonCore.DebugMessage(methodName + " > ...trying...");
 
                 _jsonRestClient.MakeRequestFor<List<EmailRecipient>>(request,
                     (Action<MvxDecodedRestResponse<List<EmailRecipient>>>)EmailRecipientRestResponse,
                     (Action<Exception>)EmailRecipientsRestException);
-                CommonCore.DebugMessage(methodName + " > ...done trying...");
+                // CommonCore.DebugMessage(methodName + " > ...done trying...");
             }
             catch (Exception e)
             {
-                CommonCore.DebugMessage(methodName + " > " + e.Message);
+                // CommonCore.DebugMessage(methodName + " > " + e.Message);
                 GettingEmailRecipients = false;
             }
 
-            CommonCore.DebugMessage(methodName + " > finished.");
+            // CommonCore.DebugMessage(methodName + " > finished.");
         }
 
         private void EmailRecipientRestResponse(MvxDecodedRestResponse<List<EmailRecipient>> response)
         {
             string methodName = _className + " > EmailRecipientRestResponse";
 
-            CommonCore.DebugMessage(methodName + " > starting...");
+            // CommonCore.DebugMessage(methodName + " > starting...");
 
             // Broken: if the response can't be converted (ie it is the word "locked" or something ) don't try the conversion
             // ToDo: might even need to change this so it is accepting an object, so the object can be evaluated to see if it is the correct type before proceeding
@@ -620,30 +620,30 @@
 
                     try
                     {
-                        CommonCore.DebugMessage(methodName + " > ...trying UpdateSQLite[table_name]()...");
+                        // CommonCore.DebugMessage(methodName + " > ...trying UpdateSQLite[table_name]()...");
                         rowsUpdated = _localDatabaseService.UpdateSQLiteEmailRecipients(response.Result);
 
-                        CommonCore.DebugMessage(methodName + " > ...done UpdateSQLite[table_name]()....");
+                        // CommonCore.DebugMessage(methodName + " > ...done UpdateSQLite[table_name]()....");
 
                         try
                         {
-                            CommonCore.DebugMessage(methodName + " > ...trying WriteFile(" + filename + ")...");
+                            // CommonCore.DebugMessage(methodName + " > ...trying WriteFile(" + filename + ")...");
                             _fileStore.WriteFile(filename, Serialize(response.Result));
 
-                            CommonCore.DebugMessage(methodName + " > ...done WriteFile(" + filename + ")....");
+                            // CommonCore.DebugMessage(methodName + " > ...done WriteFile(" + filename + ")....");
                             UpdatingEmailRecipients = GettingEmailRecipients = false;    // success! 
                         }
                         catch (Exception e)
                         {
-                            CommonCore.DebugMessage(methodName + " > generated an Exception trying to WriteFile(" + filename + ")");
-                            CommonCore.DebugMessage(methodName + " > " + e.Message);
+                            // CommonCore.DebugMessage(methodName + " > generated an Exception trying to WriteFile(" + filename + ")");
+                            // CommonCore.DebugMessage(methodName + " > " + e.Message);
                             UpdatingEmailRecipients = GettingEmailRecipients = false;    // Failed to write file. We'll try both again by resetting the flag.
                         }
                     }
                     catch (Exception e)
                     {
-                        CommonCore.DebugMessage(methodName + " > received a REST 'response' (not an 'exception'), but the content indicates an error occurred.");
-                        CommonCore.DebugMessage(methodName + " > " + e.Message);
+                        // CommonCore.DebugMessage(methodName + " > received a REST 'response' (not an 'exception'), but the content indicates an error occurred.");
+                        // CommonCore.DebugMessage(methodName + " > " + e.Message);
 
                         // ToDo: handle each bad response separately. Ex: if (e.Message.ToLower().Contains("locked"))
                         UpdatingEmailRecipients = GettingEmailRecipients = false;    // Failed to update local SQLite dB. We'll try both again by resetting the flag.
@@ -651,7 +651,7 @@
                 }
             }
 
-            CommonCore.DebugMessage(methodName + " > ...finished.");
+            // CommonCore.DebugMessage(methodName + " > ...finished.");
         }
 
         //// Note: requires 'using System.Uri'
@@ -728,28 +728,28 @@
         private void CallTypeRestException(Exception exception)
         {
             UpdatingCallTypes = GettingCallTypes = false;    // start over...
-            CommonCore.DebugMessage(_className + " > CallTypeRestException");
+            // CommonCore.DebugMessage(_className + " > CallTypeRestException");
             RestExceptionMessage(exception);
         }
 
         private void EmailRecipientsRestException(Exception exception)
         {
             UpdatingEmailRecipients = GettingEmailRecipients = false;    // start over...
-            CommonCore.DebugMessage(_className + " > EmailRecipientsRestException");
+            // CommonCore.DebugMessage(_className + " > EmailRecipientsRestException");
             RestExceptionMessage(exception);
         }
 
         private void ReasonCodeRestException(Exception exception)
         {
             UpdatingReasonCodes = GettingReasonCodes = false;    // start over...
-            CommonCore.DebugMessage(_className + " > ReasonCodeRestException");
+            // CommonCore.DebugMessage(_className + " > ReasonCodeRestException");
             RestExceptionMessage(exception);
         }
 
         private void RestExceptionMessage(Exception exception)
         {
-            CommonCore.DebugMessage(_className, "RestExceptionMessage");
-            CommonCore.DebugMessage(_className + " > Exception message: " + exception.Message);
+            // CommonCore.DebugMessage(_className, "RestExceptionMessage");
+            // CommonCore.DebugMessage(_className + " > Exception message: " + exception.Message);
         }
         #endregion
 

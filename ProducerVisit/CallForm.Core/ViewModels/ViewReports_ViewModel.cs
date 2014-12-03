@@ -54,7 +54,7 @@
                 RaisePropertyChanged(() => Loading);
 
                 // Review: this is probably the best location for this -- too difficult to track changes when it's located in the web service 
-                CommonCore.SetNetworkActivityIndicatorVisible(value);
+                // CommonCore.SetNetworkActivityIndicatorVisible(value);
             }
         }
 
@@ -87,7 +87,7 @@
         {
             _method = "Start";
 
-            CommonCore.DebugMessage(_method, " > starting up.");
+            // CommonCore.DebugMessage(_method, " > starting up.");
 
             Loading = true;
 
@@ -103,13 +103,13 @@
             if (string.IsNullOrWhiteSpace(_userIdentityService.GetIdentity().UserEmail) == true)
             {
                 // open the UserIdentity_View (to capture the missing information)
-                CommonCore.DebugMessage(_method, "  [vr_vm][start] > requesting to show <UserIdentity_ViewModel> ");
+                // CommonCore.DebugMessage(_method, "  [vr_vm][start] > requesting to show <UserIdentity_ViewModel> ");
 
                 ShowViewModel<UserIdentity_ViewModel>();
             }
             else
             {
-				CommonCore.DebugMessage(_method, "  [vr_vm][start] > decided NOT to ShowViewModel<UserIdentity_ViewModel>() ");
+		  // CommonCore.DebugMessage(_method, "  [vr_vm][start] > decided NOT to ShowViewModel<UserIdentity_ViewModel>() ");
             }
 
             //Loading = false;
@@ -175,7 +175,7 @@
             }
             catch (Exception exc)
             {
-				CommonCore.DebugMessage(_class, exc.Message);
+		  // CommonCore.DebugMessage(_class, exc.Message);
 
                 // FixMe: add proper error handling
                 Error(this, new ErrorEventArgs { Message = exc.Message });
@@ -258,12 +258,12 @@
         {
             get
             {
-                //CommonCore.DebugMessage("  core[vr_vm][nvc] > Assigning _newVisitCommand... ");
+                // CommonCore.DebugMessage("  core[vr_vm][nvc] > Assigning _newVisitCommand... ");
 
                 // Review: does this property need to be handled safely?
                 _newVisitCommand = _newVisitCommand ?? new MvxCommand(DoNewVisitCommand);
 
-                //CommonCore.DebugMessage("  core[vr_vm][nvc] > ..._newVisitCommand assigned: >" + _newVisitCommand.ToString() + "< ");
+                // CommonCore.DebugMessage("  core[vr_vm][nvc] > ..._newVisitCommand assigned: >" + _newVisitCommand.ToString() + "< ");
 
                 return _newVisitCommand;
             }
@@ -273,9 +273,9 @@
         /// </summary>
         protected void DoNewVisitCommand()
         {
-            //CommonCore.DebugMessage("  core[vr_vm][dnvc] > About to ShowViewModel<NewVisit_ViewModel>()... ");
-            ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { MemberNumber = string.Empty });
-        }
+				// CommonCore.DebugMessage("  core[vr_vm][dnvc] > About to ShowViewModel<NewVisit_ViewModel>()... ");
+	            ShowViewModel<NewVisit_ViewModel>(new NewVisitInit { MemberNumber = string.Empty });
+			}
 
         /// <summary>Value for this View's Title.
         /// </summary>
@@ -380,9 +380,9 @@
 
         private void RestException(Exception exception)
         {
-			CommonCore.DebugMessage(_class, "RestExceptionMessage");
-            CommonCore.DebugMessage("  core[vr_vm][re] > Original request: " + Request);
-            CommonCore.DebugMessage("  core[vr_vm][re] > Exception message: " + exception.Message);
+	        // CommonCore.DebugMessage(_class, "RestExceptionMessage");
+            // CommonCore.DebugMessage("  core[vr_vm][re] > Original request: " + Request);
+            // CommonCore.DebugMessage("  core[vr_vm][re] > Exception message: " + exception.Message);
         }
 
         public event EventHandler<ErrorEventArgs> Error;

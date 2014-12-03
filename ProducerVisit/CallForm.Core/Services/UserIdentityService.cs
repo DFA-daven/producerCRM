@@ -159,9 +159,9 @@
         private void RestException(Exception exception)
         {
             // ToDo: this instance of RestExceptionMessage is for a single call -- it can be customized.
-            CommonCore.DebugMessage(_className, "RestExceptionMessage()");
-            CommonCore.DebugMessage("  core[uis][re] > Original request: " + Request);
-            CommonCore.DebugMessage("  core[uis][re] > Exception message: " + exception.Message);
+            // CommonCore.DebugMessage(_className, "RestExceptionMessage()");
+            // CommonCore.DebugMessage("  core[uis][re] > Original request: " + Request);
+            // CommonCore.DebugMessage("  core[uis][re] > Exception message: " + exception.Message);
         }
 
         /// <summary>Creates an "empty" <see cref="UserIdentity"/>, and 

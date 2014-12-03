@@ -207,12 +207,12 @@
                 }
                 catch (ArgumentNullException e)
                 {
-                    CommonCore.DebugMessage(methodName + " > Table<T>() is NULL.");
+                    // CommonCore.DebugMessage(methodName + " > Table<T>() is NULL.");
                 }
             }
             else
             {
-                CommonCore.DebugMessage(methodName + " > Table<T>().Count() = 0");
+                // CommonCore.DebugMessage(methodName + " > Table<T>().Count() = 0");
             }
 
             return objectList;
@@ -256,7 +256,7 @@
                             dropResult = _localSQLiteConnection.DropTable<ReasonCode>();
                             // Review: does SQLite need Commit statements?
                             //_localSQLiteConnection.Commit(); 
-                            CommonCore.DebugMessage(methodName + " > dropped table");
+                            // CommonCore.DebugMessage(methodName + " > dropped table");
                             ReasonCodesTableIsBusy = false;
                         }
                         else                                // table has been dropped
@@ -265,7 +265,7 @@
                             {
                                 ReasonCodesTableIsBusy = true;
                                 createResult = _localSQLiteConnection.CreateTable<ReasonCode>();
-                                CommonCore.DebugMessage(methodName + " > created table");
+                                // CommonCore.DebugMessage(methodName + " > created table");
                                 ReasonCodesTableIsBusy = false;
                             }
                             else                            // table was created
@@ -274,7 +274,7 @@
                                 {
                                     ReasonCodesTableIsBusy = true;
                                     insertResult = _localSQLiteConnection.InsertAll(newObjects);
-                                    CommonCore.DebugMessage(methodName + " > inserted table");
+                                    // CommonCore.DebugMessage(methodName + " > inserted table");
                                     ReasonCodesTableIsBusy = false;
                                 }
                             }
@@ -282,13 +282,13 @@
                     }
                     catch (Exception exc)
                     {
-                        CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
+                        // CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
                     }
                 }
             }
 
             string message = methodName + " >  drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
-            CommonCore.DebugMessage(message);
+            // CommonCore.DebugMessage(message);
 
             //int result = insertResult.HasValue ? (int)insertResult : -1;
             return insertResult;
@@ -309,12 +309,12 @@
                 }
                 catch (ArgumentNullException e)
                 {
-                    CommonCore.DebugMessage(methodName+ " > Table<T>() is NULL.");
+                    // CommonCore.DebugMessage(methodName+ " > Table<T>() is NULL.");
                 }
             }
             else
             {
-                CommonCore.DebugMessage(methodName +" > Table<T>().Count() = 0");
+                // CommonCore.DebugMessage(methodName +" > Table<T>().Count() = 0");
             }
 
             return objectList;
@@ -340,7 +340,7 @@
                         {
                             CallTypesTableIsBusy = true;
                             dropResult = _localSQLiteConnection.DropTable<CallType>();
-                            CommonCore.DebugMessage(methodName + " > dropped table");
+                            // CommonCore.DebugMessage(methodName + " > dropped table");
                             CallTypesTableIsBusy = false;
                         }
                         else                                // table has been dropped
@@ -349,7 +349,7 @@
                             {
                                 CallTypesTableIsBusy = true;
                                 createResult = _localSQLiteConnection.CreateTable<CallType>();
-                                CommonCore.DebugMessage(methodName + " > created table");
+                                // CommonCore.DebugMessage(methodName + " > created table");
                                 CallTypesTableIsBusy = false;
                             }
                             else                            // table was created
@@ -358,7 +358,7 @@
                                 {
                                     CallTypesTableIsBusy = true;
                                     insertResult = _localSQLiteConnection.InsertAll(newObjects);
-                                    CommonCore.DebugMessage(methodName + " > inserted table");
+                                    // CommonCore.DebugMessage(methodName + " > inserted table");
                                     CallTypesTableIsBusy = false;
                                 }
                             }
@@ -366,13 +366,13 @@
                     }
                     catch (Exception exc)
                     {
-                        CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
+                        // CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
                     }
                 }
             }
 
             string message = methodName + " >  drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
-            CommonCore.DebugMessage(message);
+            // CommonCore.DebugMessage(message);
 
             return insertResult;
         }
@@ -393,12 +393,12 @@
                 }
                 catch (ArgumentNullException e)
                 {
-                    CommonCore.DebugMessage(methodName + " > Table<T>() is NULL.");
+                    // CommonCore.DebugMessage(methodName + " > Table<T>() is NULL.");
                 }
             }
             else
             {
-                CommonCore.DebugMessage(methodName + " > Table<T>().Count() = 0");
+                // CommonCore.DebugMessage(methodName + " > Table<T>().Count() = 0");
             }
 
             return objectList;
@@ -424,7 +424,7 @@
                         {
                             EmailRecipientsTableIsBusy = true;
                             dropResult = _localSQLiteConnection.DropTable<EmailRecipient>();
-                            CommonCore.DebugMessage(methodName + " > dropped table");
+                            // CommonCore.DebugMessage(methodName + " > dropped table");
                             EmailRecipientsTableIsBusy = false;
                         }
                         else                                // table has been dropped
@@ -433,7 +433,7 @@
                             {
                                 EmailRecipientsTableIsBusy = true;
                                 createResult = _localSQLiteConnection.CreateTable<EmailRecipient>();
-                                CommonCore.DebugMessage(methodName + " > created table");
+                                // CommonCore.DebugMessage(methodName + " > created table");
                                 EmailRecipientsTableIsBusy = false;
                             }
                             else                            // table was created
@@ -442,7 +442,7 @@
                                 {
                                     EmailRecipientsTableIsBusy = true;
                                     insertResult = _localSQLiteConnection.InsertAll(newObjects);
-                                    CommonCore.DebugMessage(methodName + " > inserted table");
+                                    // CommonCore.DebugMessage(methodName + " > inserted table");
                                     EmailRecipientsTableIsBusy = false;
                                 }
                             }
@@ -450,13 +450,13 @@
                     }
                     catch (Exception exc)
                     {
-                        CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
+                        // CommonCore.DebugMessage(methodName + " > Unhandled exception: " + exc.Message);
                     }
                 }
             }
 
             string message = methodName + " >  drop: " + dropResult + ", create: " + createResult + ", insert: " + insertResult + " ***";
-            CommonCore.DebugMessage(message);
+            // CommonCore.DebugMessage(message);
 
             return insertResult;
         }
