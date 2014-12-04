@@ -21,15 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docs\Deploy instructions.txt = docs\Deploy instructions.txt
 		SqlMetal.md = SqlMetal.md
 		Summary.txt = Summary.txt
+		docs\Apple devices.xlsx = docs\Apple devices.xlsx
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SprocOnlyApp", "SprocOnlyApp\SprocOnlyApp.csproj", "{787A8B52-EFAC-4C24-B3C7-B283478FEFD8}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Alpha|Any CPU = Alpha|Any CPU
 		Alpha|iPhone = Alpha|iPhone
@@ -43,6 +40,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|iPhone = Release|iPhone
 		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Alpha|Mixed Platforms = Alpha|Mixed Platforms
+		Beta|Mixed Platforms = Beta|Mixed Platforms
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{26369B4A-5717-44A3-B7FB-EF8F23639C44}.Alpha|Any CPU.ActiveCfg = Alpha|Any CPU
