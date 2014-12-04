@@ -39,10 +39,11 @@ namespace CallForm.iOS
 		}
 		
         // broken: using this seems to cause the app to crash
-        //protected override IMvxTrace CreateDebugTrace()
-        //{
-        //    return new DebugTrace();
-        //}
+        protected override IMvxTrace CreateDebugTrace()
+        {
+			return new MyDebugTrace();
+        }
+
 	}
 
     public class MvxProducerVisit_TouchViewPresenter : MvxTouchViewPresenter
@@ -92,4 +93,29 @@ namespace CallForm.iOS
             base.Show(view);
         }
     }
+
+	public class MyDebugTrace : IMvxTrace
+	{
+		public void Trace(MvxTraceLevel level, string tag, Func<string> message)
+		{
+			Debug.WriteLine(tag + ":" + level + ":" + message());
+		}
+
+		public void Trace(MvxTraceLevel level, string tag, string message)
+		{
+			Debug.WriteLine(tag + ":" + level + ":" + message);
+		}
+
+		public void Trace(MvxTraceLevel level, string tag, string message, params object[] args)
+		{
+			try
+			{
+				Debug.WriteLine(string.Format(tag + ":" + level + ":" + message, args));
+			}
+			catch (FormatException)
+			{
+				Trace(MvxTraceLevel.Error, tag, "Exception during trace of {0} {1} {2}", level, message);
+			}
+		}
+	}
 }
