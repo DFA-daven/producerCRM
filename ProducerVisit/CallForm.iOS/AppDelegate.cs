@@ -71,7 +71,7 @@ namespace CallForm.iOS
             Common_iOS.DebugMessage("  [AppD][fl] > Assembly info:" + System.Reflection.Assembly.GetExecutingAssembly().GetName().ToString());
             Common_iOS.DebugMessage("  [AppD][fl] > starting method...");
 
-            _window = new UIWindow(UIScreen.MainScreen.Bounds);     // required
+            _window = new UIWindow(UIScreen.MainScreen.Bounds);     // required 1 of 7
 
             // FixMe: use this after fixing UserIdentityView.cs
             // initialize the app for single screen display
@@ -82,16 +82,15 @@ namespace CallForm.iOS
 
 
             // Note: this is a call to the custom Setup.cs
-            var setup = new Setup(this, _window);                   // required
-            setup.Initialize();                                     // required
-
+            var setup = new Setup(this, _window);                   // required 2 of 7
+            setup.Initialize();                                     // required 3 of 7
 
             // start the app
             //var start = this.GetService<ImvxStartNavigation>();
 
             // launch the App via the IMvxAppStart interface -- CallForm.Core.ViewModels.ViewReports_ViewModel.Start
-            var startup = Mvx.Resolve<IMvxAppStart>();              // required
-            startup.Start();                                        // required
+            var startup = Mvx.Resolve<IMvxAppStart>();              // required 4 of 7
+            startup.Start();                                        // required 5 of 7
 
             #region experimental
             // Note: The default presenter uses a UINavigationController for the RootController 
@@ -113,7 +112,7 @@ namespace CallForm.iOS
             //app.SetStatusBarHidden(true, false);        // this makes the 'Back" button on NewVisit disappear
             #endregion
 
-            _window.MakeKeyAndVisible();                            // required
+            _window.MakeKeyAndVisible();                            // required 6 of 7
 
             //if (!Reachability.IsHostReachable("dl-backend-02.azurewebsites.net"))
             //{
@@ -128,13 +127,12 @@ namespace CallForm.iOS
             //}
 
             // experimental:
-            UIApplication.SharedApplication.ApplicationSupportsShakeToEdit = true;
+//            UIApplication.SharedApplication.ApplicationSupportsShakeToEdit = true;
 
             Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             Common_iOS.DebugMessage("  [AppD][fl] > ...finished method.");
 
-            bool started = true;
-            return started;                                         // required
+			return true;                                         // required 7 of 7
         }
 
         public override void OnActivated(UIApplication application)

@@ -56,6 +56,7 @@ namespace CallForm.iOS.Views
             set 
             { 
                 _statusBarHeight = value; 
+				//RaisePropertyChanged(() => StatusBarHeight);
             }
         }
 
@@ -66,6 +67,7 @@ namespace CallForm.iOS.Views
             set 
             { 
                 _navBarHeight = value; 
+				//RaisePropertyChanged(() => NavBarHeight);
             }
         }
 
@@ -679,8 +681,6 @@ namespace CallForm.iOS.Views
 
         private void SetTableFrameForOrientation(UIInterfaceOrientation toInterfaceOrientation)
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
             float usableHeight = 0f;
             float usableWidth = 0f;
 
@@ -713,8 +713,6 @@ namespace CallForm.iOS.Views
         /// <returns>The Frame value.</returns>
         public float FrameHeight()  // 1024 - (20 + 44) = 960
         {
-            Common_iOS.DebugMessage(_nameSpace + MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
             float value = _table.Frame.Height;
             string sourceType = _table.GetType().ToString();
             string mAbb = "[fh]"; // method name abbreviation
@@ -888,9 +886,6 @@ namespace CallForm.iOS.Views
                 default:
                     throw new ArgumentOutOfRangeException("ViewFrameHeight");
             }
-
-            Common_iOS.DebugMessage("  [nv_v][vdls] > Using IOSVersionOK...");
-            Common_iOS.DebugMessage("  [nv_v][vfh] > iOS 7 = " + IsOS7OrLater.ToString() + " > ViewFrameHeight(): " + viewFrameHeight.ToString());
 
             return viewFrameHeight;
         }

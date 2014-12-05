@@ -153,6 +153,7 @@
             //IsOS7OrLater = Common_iOS.IsMinimumiOS7();
 
             // FixMe: hard-coded values -- calculate these from the screen dimensions?
+			// Review: are these properties (and the others that aren't declared here) being called outside of this class?
             ButtonHeight = 50f;
             RowHeight = 50f;
 
@@ -260,6 +261,8 @@
             logoButton.SetTitle("DFA & DMS", UIControlState.Normal);
             logoButton.SetImage(UIImage.FromBundle("DFA-DMS-Banner.png"), UIControlState.Normal);
             logoButton.BackgroundColor = UIColor.Yellow;
+
+			Common_iOS.DebugMessage("  [vr_v][vdl] > logoButton initialized <======= ");
             #endregion logoButton
 
             #region logoLayout
@@ -278,6 +281,8 @@
                     }
                 }
             };
+
+			Common_iOS.DebugMessage("  [vr_v][vdl] > logoLayout initialized <======= ");
             #endregion logoLayout
 
             #region logoView
@@ -288,6 +293,8 @@
             };
 
             logoView.SizeToFit();
+
+			Common_iOS.DebugMessage("  [vr_v][vdl] > logoLayout initialized <======= ");
             #endregion logoView
             #endregion logo
 
@@ -394,6 +401,7 @@
             var loadingOverlay = _loadingOverlay = new LoadingOverlay(UIScreen.MainScreen.Bounds);
             #endregion loading
 
+			Common_iOS.DebugMessage("  [vr_v][vdl] > layout initialized <======= ");
             #endregion layout
 
             // Note: most of these view elements don't have a layout/gravity, 
@@ -421,9 +429,12 @@
             View.Add(loading);
             View.Add(loadingOverlay);
 
-             base.ViewDidLoad();  	// Cirrious.CrossCore.Exceptionms.MvxException has been thrown
+            base.ViewDidLoad();  	// Cirrious.CrossCore.Exceptions.MvxException has been thrown
 									// Failed to find constructor for type 
 									// Cirrious.MvvmCross.ViewModels.MvxViewModelLoader
+			Common_iOS.DebugMessage("  [vr_v][vdl] > base.ViewDidLoad() <======= ");
+
+
             #region experimental FlyoutNavigationController
             /*
             // base.ViewDidLoad();
@@ -479,6 +490,7 @@
             
             set.Bind(tableView).For("Visibility").To(vm => vm.Loading).WithConversion("InvertedVisibility");
             set.Apply();
+				Common_iOS.DebugMessage("  [vr_v][vdl] > set.Apply() done... <======= ");
 
             #region UI action
             findButton.TouchUpInside += (sender, args) => { filterField.ResignFirstResponder(); };
@@ -492,6 +504,7 @@
             // keyboard should disappear if user taps outside of a text-box
             //var goAway = new UITapGestureRecognizer(() => View.EndEditing(true));
             //View.AddGestureRecognizer(goAway);
+				Common_iOS.DebugMessage("  [vr_v][vdl] > UI action assigned... <======= ");
             #endregion UI action
 
             (ViewModel as ViewReports_ViewModel).Error += OnError;

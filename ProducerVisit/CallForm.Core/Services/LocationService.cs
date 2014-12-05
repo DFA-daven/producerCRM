@@ -39,7 +39,7 @@ namespace CallForm.Core.Services
 
         private void OnError(MvxLocationError error)
         {
-            Mvx.Warning("Error seen during location {0}", error.Code);
+             Mvx.Warning("Error seen during location {0}", error.Code);
         }
 
         public bool TryGetLatestLocation(out double lat, out double lng)
